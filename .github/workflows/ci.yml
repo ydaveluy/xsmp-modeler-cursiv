@@ -97,8 +97,6 @@ jobs:
         os: [windows-2025, macos-26]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
-    # Not blocking until a run on a real runner has passed.
-    continue-on-error: true
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -116,9 +114,7 @@ jobs:
   # of Xcode 26.4 or later.
   macos:
     runs-on: macos-26
-    timeout-minutes: 240
-    # Not blocking until a run on a real runner has passed.
-    continue-on-error: true
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -146,9 +142,7 @@ jobs:
   # parsers use computed goto and guaranteed tail calls, which MSVC lacks.
   windows:
     runs-on: windows-2025
-    timeout-minutes: 240
-    # Not blocking until a run on a real runner has passed.
-    continue-on-error: true
+    timeout-minutes: 60
     defaults:
       run:
         shell: msys2 {0}
