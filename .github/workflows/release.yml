@@ -1,0 +1,79 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 60
+    container: gcc:16
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends cmake ninja-build python3 git jq
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      # The project and both extensions carry the version of the tag.
+      - name: Check the versions
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          grep -q "^project(xsmp VERSION $VERSION " CMakeLists.txt
+          test "$(jq -r .version vscode/package.json)" = "$VERSION"
+          test "$(jq -r .version extensions/tas-mdk/package.json)" = "$VERSION"
+      - name: Install pinned WASI SDK
+        run: cmake -P tools/fetch-wasi-sdk.cmake
+      - name: Configure
+        run: cmake --preset wasi-release
+      - name: Build the server and the TAS-MDK handler
+        run: cmake --build --preset wasi-release --target xsmp_lsp xsmp-tas-mdk-handler --parallel 4
+      - name: Package
+        run: |
+          npm --prefix vscode ci
+          npm --prefix vscode run package
+          npm --prefix extensions/tas-mdk run package
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            vscode/xsmp-modeler-cursiv-*.vsix
+            extensions/tas-mdk/xsmp-tas-mdk-cursiv-*.vsix
+
+  release:
+    needs: package
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: vsix
+          path: vsix
+      - name: Create the release or update its packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          shopt -s globstar
+          PACKAGES=(vsix/**/*.vsix)
+          test "${#PACKAGES[@]}" -eq 2
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "${PACKAGES[@]}" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "${PACKAGES[@]}" --generate-notes --verify-tag
+          fi
