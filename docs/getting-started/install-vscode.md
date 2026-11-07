@@ -6,17 +6,18 @@ XSMP Modeler is distributed as a Visual Studio Code extension.
 
 You need **Visual Studio Code 1.101 or later**.
 
-1. Open **Visual Studio Code**.
-2. Open the **Extensions** view.
-3. Search for **XSMP Modeler (Cursiv)** and select **Install**.
+1. Download `xsmp-modeler-cursiv-<version>.vsix` from the
+   [GitHub Releases page](https://github.com/ydaveluy/xsmp-modeler-cursiv/releases).
+2. In VS Code, run **Extensions: Install from VSIX...** and select the file.
 
 You can also install it from a terminal:
 
 ```bash
-code --install-extension ydaveluy.xsmp-modeler-cursiv
+code --install-extension xsmp-modeler-cursiv-<version>.vsix
 ```
 
-To install a `.vsix` package instead, run **Extensions: Install from VSIX...** and select the package.
+For the TAS-MDK profile, install `xsmp-tas-mdk-cursiv-<version>.vsix` of the same
+release in the same way, after XSMP Modeler.
 
 The extension runs on the desktop and on a Node-based remote host (SSH, WSL or containers). Install it on the remote host in that case. VS Code for the Web and virtual workspaces are not supported.
 

@@ -54,6 +54,6 @@ if (watch) {
   }
   writeFileSync('out/THIRD-PARTY-LICENSES.txt', [...packages].sort(([a], [b]) => a.localeCompare(b)).map(([name, license]) => `${name}\n${'='.repeat(name.length)}\n${license.trim()}\n`).join('\n'));
   // The documentation that the keyword hover opens.
-  cpSync('docs', 'out/docs', { recursive: true });
+  cpSync('../docs', 'out/docs', { recursive: true });
   await context.dispose();
 }

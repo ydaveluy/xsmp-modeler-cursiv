@@ -52,6 +52,39 @@ tool 'smp'
 
 After a successful generation, `smdl-gen/` contains SMP XML files that correspond to the XSMP documents found in the project sources.
 
+## String template values and the published XSD
+
+XSMP keeps string template values as they are, such as a schedule root path:
+
+```xsmp
+schedule <Root = "/Root"> Demo
+```
+
+gives this parameter in the schedule XML:
+
+```xml
+<Parameter xsi:type="Assembly:StringArgument" Name="Root" Value="/Root"/>
+```
+
+The published SMP Level 2 XSD, `xml/Smdl/Assembly.xsd` in
+`ECSS_SMP_L2_(31March2025).zip`, gives `StringArgument/@Value` the type
+`Assembly:Name`, with this pattern:
+
+```text
+(([a-zA-Z0-9_])|\{[a-zA-Z0-9_]*\})*
+```
+
+It takes ASCII letters, digits, `_` and `{...}` template tokens, but not `/` or
+`.`, so a validator of that XSD rejects `/Root`. Yet
+[ECSS-E-ST-40-08C](https://ecss.nl/standard/ecss-e-st-40-08c-simulation-modelling-platform-level-2-5-august-2025/),
+clauses 4.2.4.4 and 5.4.3.2b, describes a String8 template argument that gives
+the schedule root path, and such a path separates component names with `/`.
+
+The same XML type holds the string defaults of assemblies and schedules, and the
+explicit arguments of assembly instances and task executions. XSMP keeps the
+value and reports nothing for this restriction, since removing a separator would
+change the path. A tool that enforces the published XSD can reject these files.
+
 ## Characters that XML cannot hold
 
 Any character is a valid value in XSMP, but XML 1.0 cannot hold most control characters, U+FFFE and U+FFFF, not even as `&#0;`. The SMP tool writes each of their bytes as `\xHH`, and reading the file back gives the same value:

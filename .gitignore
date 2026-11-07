@@ -8,6 +8,8 @@ vscode/out
 *.vsix
 vscode/server/
 vscode/bin/
+# The documentation site that mkdocs builds.
+/site/
 
 # XSMP.
 /CMakeUserPresets.json

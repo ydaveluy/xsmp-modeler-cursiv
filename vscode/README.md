@@ -40,6 +40,6 @@ The server provides the six XSMP languages with specialized completion, typed va
 
 SDK, ESA-CDK, SMP XML, Python and AsciiDoc contributions are built in. TAS-MDK is a separate extension in `extensions/tas-mdk`: build its handler, then package and install it next to this one. Its C++ handler runs through WASI.
 
-External extensions declare `contributes.xsmp` entries. The extension looks for them at startup and after a server restart. A handler is a library the server loads as it starts and calls directly, as described in [Create Tools and Profiles](https://github.com/ydaveluy/xsmp-modeler-cursiv/blob/main/vscode/docs/extending/tools-and-profiles.md).
+External extensions declare `contributes.xsmp` entries. The extension looks for them at startup and after a server restart. A handler is a library the server loads as it starts and calls directly, as described in [Create Tools and Profiles](https://github.com/ydaveluy/xsmp-modeler-cursiv/blob/main/docs/extending/tools-and-profiles.md).
 
 Run `npm test` here for the tests of the extension.
