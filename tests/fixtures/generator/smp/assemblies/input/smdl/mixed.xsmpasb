@@ -1,0 +1,3 @@
+assembly mixed
+configure . { call go() count = 1i32 subscribe ep -> "Start" }
+Root: "demo.Child" {}

@@ -1,0 +1,314 @@
+{
+  "cases": [
+    {
+      "argv": [],
+      "code": 2,
+      "stdout": "",
+      "stderr": "Usage: xsmp [options] [command]\n\nCreate, validate, and generate XSMP projects.\n\nOptions:\n  -V, --version                output the version number\n  -h, --help                   display help for command\n\nCommands:\n  validate [options] <path>    validate the target XSMP project and its visible\n                               dependency closure\n  generate [options] <path>    validate the target XSMP project, then run its\n                               active tool/profile generators\n  import-smp [options] <path>  import SMP XML back into canonical XSMP source\n  new                          create a new XSMP resource\n  help [command]               display help for command\n"
+    },
+    {
+      "argv": [
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp [options] [command]\n\nCreate, validate, and generate XSMP projects.\n\nOptions:\n  -V, --version                output the version number\n  -h, --help                   display help for command\n\nCommands:\n  validate [options] <path>    validate the target XSMP project and its visible\n                               dependency closure\n  generate [options] <path>    validate the target XSMP project, then run its\n                               active tool/profile generators\n  import-smp [options] <path>  import SMP XML back into canonical XSMP source\n  new                          create a new XSMP resource\n  help [command]               display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "-h"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp [options] [command]\n\nCreate, validate, and generate XSMP projects.\n\nOptions:\n  -V, --version                output the version number\n  -h, --help                   display help for command\n\nCommands:\n  validate [options] <path>    validate the target XSMP project and its visible\n                               dependency closure\n  generate [options] <path>    validate the target XSMP project, then run its\n                               active tool/profile generators\n  import-smp [options] <path>  import SMP XML back into canonical XSMP source\n  new                          create a new XSMP resource\n  help [command]               display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp [options] [command]\n\nCreate, validate, and generate XSMP projects.\n\nOptions:\n  -V, --version                output the version number\n  -h, --help                   display help for command\n\nCommands:\n  validate [options] <path>    validate the target XSMP project and its visible\n                               dependency closure\n  generate [options] <path>    validate the target XSMP project, then run its\n                               active tool/profile generators\n  import-smp [options] <path>  import SMP XML back into canonical XSMP source\n  new                          create a new XSMP resource\n  help [command]               display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "help",
+        "validate"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "validate",
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "generate",
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp generate [options] <path>\n\nvalidate the target XSMP project, then run its active tool/profile generators\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  -o, --output <dir>          output directory (defaults to the project\n                              directory)\n  --profile <id>              profile contribution to use in place of the\n                              project's\n  --tool <id>                 tool contribution to add (repeatable)\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "import-smp",
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp import-smp [options] <path>\n\nimport SMP XML back into canonical XSMP source\n\nArguments:\n  path                 SMP XML file (.smpcat, .smpcfg, .smplnk, .smpasb, or\n                       .smpsed)\n\nOptions:\n  -o, --output <path>  output XSMP source path\n  -f, --force          overwrite the output file if it already exists\n  -h, --help           display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "new",
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp new [options] [command]\n\ncreate a new XSMP resource\n\nOptions:\n  -h, --help                            display help for command\n\nCommands:\n  project [options] [name] [directory]  create a new XSMP project\n  help [command]                        display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "new",
+        "project",
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp new project [options] [name] [directory]\n\ncreate a new XSMP project\n\nArguments:\n  name               project name\n  directory          parent directory (defaults to the current directory)\n\nOptions:\n  --profile <id>     profile contribution to enable\n  --tool <id>        tool contribution to enable (repeatable)\n  --set <key=value>  set profile.<id>.<prompt>=value or tool.<id>.<prompt>=value\n                     (repeatable)\n  --extension <dir>  load the contributions of an extension package\n                     (repeatable)\n  --no-interactive   do not prompt for missing values\n  -y, --yes          create without prompting or confirmation\n  -h, --help         display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "help",
+        "new"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp new [options] [command]\n\ncreate a new XSMP resource\n\nOptions:\n  -h, --help                            display help for command\n\nCommands:\n  project [options] [name] [directory]  create a new XSMP project\n  help [command]                        display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "help",
+        "new",
+        "project"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp new [options] [command]\n\ncreate a new XSMP resource\n\nOptions:\n  -h, --help                            display help for command\n\nCommands:\n  project [options] [name] [directory]  create a new XSMP project\n  help [command]                        display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "new"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "Usage: xsmp new [options] [command]\n\ncreate a new XSMP resource\n\nOptions:\n  -h, --help                            display help for command\n\nCommands:\n  project [options] [name] [directory]  create a new XSMP project\n  help [command]                        display help for command\n"
+    },
+    {
+      "argv": [
+        "validate"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: missing required argument 'path'\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "generate"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: missing required argument 'path'\n\nUsage: xsmp generate [options] <path>\n\nvalidate the target XSMP project, then run its active tool/profile generators\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  -o, --output <dir>          output directory (defaults to the project\n                              directory)\n  --profile <id>              profile contribution to use in place of the\n                              project's\n  --tool <id>                 tool contribution to add (repeatable)\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "import-smp"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: missing required argument 'path'\n\nUsage: xsmp import-smp [options] <path>\n\nimport SMP XML back into canonical XSMP source\n\nArguments:\n  path                 SMP XML file (.smpcat, .smpcfg, .smplnk, .smpasb, or\n                       .smpsed)\n\nOptions:\n  -o, --output <path>  output XSMP source path\n  -f, --force          overwrite the output file if it already exists\n  -h, --help           display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "--bogus"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: unknown option '--bogus'\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "x",
+        "--bogus"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: unknown option '--bogus'\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "--bogus",
+        "--help"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp [options] [command]\n\nCreate, validate, and generate XSMP projects.\n\nOptions:\n  -V, --version                output the version number\n  -h, --help                   display help for command\n\nCommands:\n  validate [options] <path>    validate the target XSMP project and its visible\n                               dependency closure\n  generate [options] <path>    validate the target XSMP project, then run its\n                               active tool/profile generators\n  import-smp [options] <path>  import SMP XML back into canonical XSMP source\n  new                          create a new XSMP resource\n  help [command]               display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "new",
+        "--bogus"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: unknown option '--bogus'\n\nUsage: xsmp new [options] [command]\n\ncreate a new XSMP resource\n\nOptions:\n  -h, --help                            display help for command\n\nCommands:\n  project [options] [name] [directory]  create a new XSMP project\n  help [command]                        display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "--help",
+        "--bogus"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "import-smp",
+        "x",
+        "--force=true"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: unknown option '--force=true'\n\nUsage: xsmp import-smp [options] <path>\n\nimport SMP XML back into canonical XSMP source\n\nArguments:\n  path                 SMP XML file (.smpcat, .smpcfg, .smplnk, .smpasb, or\n                       .smpsed)\n\nOptions:\n  -o, --output <path>  output XSMP source path\n  -f, --force          overwrite the output file if it already exists\n  -h, --help           display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "x",
+        "--",
+        "-foo"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: too many arguments for 'validate'. Expected 1 argument but got 2: x, -foo.\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "--workspace-root",
+        "--help"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: missing required argument 'path'\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "x",
+        "--workspace-root"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: option '--workspace-root' needs a value\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "x",
+        "extra"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: too many arguments for 'validate'. Expected 1 argument but got 2: x, extra.\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "generate",
+        "x",
+        "extra"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: too many arguments for 'generate'. Expected 1 argument but got 2: x, extra.\n\nUsage: xsmp generate [options] <path>\n\nvalidate the target XSMP project, then run its active tool/profile generators\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  -o, --output <dir>          output directory (defaults to the project\n                              directory)\n  --profile <id>              profile contribution to use in place of the\n                              project's\n  --tool <id>                 tool contribution to add (repeatable)\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "new",
+        "project",
+        "Name",
+        "dir",
+        "extra",
+        "-y"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: too many arguments for 'project'. Expected 2 arguments but got 3: Name, dir, extra.\n\nUsage: xsmp new project [options] [name] [directory]\n\ncreate a new XSMP project\n\nArguments:\n  name               project name\n  directory          parent directory (defaults to the current directory)\n\nOptions:\n  --profile <id>     profile contribution to enable\n  --tool <id>        tool contribution to enable (repeatable)\n  --set <key=value>  set profile.<id>.<prompt>=value or tool.<id>.<prompt>=value\n                     (repeatable)\n  --extension <dir>  load the contributions of an extension package\n                     (repeatable)\n  --no-interactive   do not prompt for missing values\n  -y, --yes          create without prompting or confirmation\n  -h, --help         display help for command\n"
+    },
+    {
+      "argv": [
+        "new",
+        "project",
+        "Name",
+        "--profile=a",
+        "--profile=b"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: option '--profile' may only be given once\n\nUsage: xsmp new project [options] [name] [directory]\n\ncreate a new XSMP project\n\nArguments:\n  name               project name\n  directory          parent directory (defaults to the current directory)\n\nOptions:\n  --profile <id>     profile contribution to enable\n  --tool <id>        tool contribution to enable (repeatable)\n  --set <key=value>  set profile.<id>.<prompt>=value or tool.<id>.<prompt>=value\n                     (repeatable)\n  --extension <dir>  load the contributions of an extension package\n                     (repeatable)\n  --no-interactive   do not prompt for missing values\n  -y, --yes          create without prompting or confirmation\n  -h, --help         display help for command\n"
+    },
+    {
+      "argv": [
+        "new",
+        "project",
+        "Name",
+        "--no-interactive=false"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: unknown option '--no-interactive=false'\n\nUsage: xsmp new project [options] [name] [directory]\n\ncreate a new XSMP project\n\nArguments:\n  name               project name\n  directory          parent directory (defaults to the current directory)\n\nOptions:\n  --profile <id>     profile contribution to enable\n  --tool <id>        tool contribution to enable (repeatable)\n  --set <key=value>  set profile.<id>.<prompt>=value or tool.<id>.<prompt>=value\n                     (repeatable)\n  --extension <dir>  load the contributions of an extension package\n                     (repeatable)\n  --no-interactive   do not prompt for missing values\n  -y, --yes          create without prompting or confirmation\n  -h, --help         display help for command\n"
+    },
+    {
+      "argv": [
+        "validate",
+        "x",
+        "-o",
+        "out"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "error: unknown option '-o'\n\nUsage: xsmp validate [options] <path>\n\nvalidate the target XSMP project and its visible dependency closure\n\nArguments:\n  path                        project directory or xsmp.project file\n\nOptions:\n  -w, --workspace-root <dir>  workspace root to scan for xsmp.project\n                              dependencies\n  --extension <dir>           load the contributions of an extension package\n                              (repeatable)\n  -h, --help                  display help for command\n"
+    },
+    {
+      "argv": [
+        "help",
+        "unknown"
+      ],
+      "code": 2,
+      "stdout": "",
+      "stderr": "Usage: xsmp [options] [command]\n\nCreate, validate, and generate XSMP projects.\n\nOptions:\n  -V, --version                output the version number\n  -h, --help                   display help for command\n\nCommands:\n  validate [options] <path>    validate the target XSMP project and its visible\n                               dependency closure\n  generate [options] <path>    validate the target XSMP project, then run its\n                               active tool/profile generators\n  import-smp [options] <path>  import SMP XML back into canonical XSMP source\n  new                          create a new XSMP resource\n  help [command]               display help for command\n"
+    },
+    {
+      "argv": [
+        "new",
+        "help",
+        "project"
+      ],
+      "code": 0,
+      "stdout": "Usage: xsmp new project [options] [name] [directory]\n\ncreate a new XSMP project\n\nArguments:\n  name               project name\n  directory          parent directory (defaults to the current directory)\n\nOptions:\n  --profile <id>     profile contribution to enable\n  --tool <id>        tool contribution to enable (repeatable)\n  --set <key=value>  set profile.<id>.<prompt>=value or tool.<id>.<prompt>=value\n                     (repeatable)\n  --extension <dir>  load the contributions of an extension package\n                     (repeatable)\n  --no-interactive   do not prompt for missing values\n  -y, --yes          create without prompting or confirmation\n  -h, --help         display help for command\n",
+      "stderr": ""
+    }
+  ]
+}

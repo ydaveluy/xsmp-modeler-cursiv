@@ -1,0 +1,47 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000061 */
+    event Tick
+
+    /** @uuid 11111111-0000-4000-8000-000000000062 */
+    interface IFoo
+    {
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000063 */
+    model Child
+    {
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000064 */
+    model Sensor implements IFoo
+    {
+        field Smp.Float64 raw
+        property Smp.Float64 Value -> raw
+        def void doIt()
+        container Child slot
+        reference IFoo ref
+        entrypoint step
+        eventsink Tick sink
+        eventsource Tick source
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000065 */
+    service Clock
+    {
+    }
+
+    // The abstract ones stay out of the package.
+    /** @uuid 11111111-0000-4000-8000-000000000066 */
+    public abstract model A { @Attributes.Abstract def void f() }
+
+    /** @uuid 11111111-0000-4000-8000-000000000067 */
+    public abstract service S { }
+
+    /** @uuid 11111111-0000-4000-8000-000000000068 */
+    public model B extends A { def void f() }
+
+    /** @uuid 11111111-0000-4000-8000-000000000069 */
+    public service T { }
+}

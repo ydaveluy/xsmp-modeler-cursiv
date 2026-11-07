@@ -1,0 +1,14 @@
+// A field of `other` and an operation of `types` chain their packages. An
+// interface has no implementation, so that `interfaces` is not chained.
+catalogue demo
+namespace n2
+{
+    /** @uuid 11111111-0000-4000-8000-000000000004 */
+    public struct S { field n.P x }
+
+    /** @uuid 11111111-0000-4000-8000-000000000005 */
+    public model M implements i.I
+    {
+        def t.T f(in t.T x)
+    }
+}

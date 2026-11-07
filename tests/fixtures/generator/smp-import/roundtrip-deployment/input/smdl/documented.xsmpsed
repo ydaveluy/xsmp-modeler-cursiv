@@ -1,0 +1,7 @@
+schedule <Root = "R"> documented epoch "2025-01-01T00:00:00Z" mission "2025-01-01T01:00:00Z"
+task T {
+  /** Activity doc. */
+  trig unsafe step
+}
+/** Event doc. */
+event T simulation "PT1S"

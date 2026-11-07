@@ -1,0 +1,25 @@
+catalogue Cells
+namespace cells
+{
+    /** @uuid 11111111-0000-4000-8000-000000000324 */
+    public event Tick
+    /** @uuid 11111111-0000-4000-8000-000000000325 */
+    public struct S
+    {
+        constant Smp.String8 c = "a|b"
+        field Smp.String8 f = "e|f"
+    }
+    /** @uuid 11111111-0000-4000-8000-000000000326 */
+    public interface I { def void op(in Smp.String8 s = "g|h") }
+    /** @uuid 11111111-0000-4000-8000-000000000327 */
+    public model M
+    {
+        /** @category c|d */
+        property Smp.Int32 p
+        eventsource Tick src
+        eventsink Tick snk
+        @Attributes.Forcible field Smp.Bool forced
+        @Attributes.Failure field Smp.Bool failed
+        @Attributes.Forcible(false) field Smp.Bool free
+    }
+}

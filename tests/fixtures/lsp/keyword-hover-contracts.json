@@ -1,0 +1,74 @@
+{
+  "cases": [
+    {
+      "language": "xsmpcat",
+      "text": "catalogue c\nnamespace n { struct S {} }",
+      "position": {
+        "line": 0,
+        "character": 3
+      },
+      "expected": {
+        "contents": {
+          "kind": "markdown",
+          "value": "`catalogue <name>`\n\nDeclares a catalogue document.\nA catalogue is the root container for XSMP type definitions and usually starts with one or more namespaces.\n\n**Example**\n```xsmp\ncatalogue foundation_catalogue\n```"
+        }
+      }
+    },
+    {
+      "language": "xsmpcat",
+      "text": "catalogue c\nnamespace n { struct S {} }",
+      "position": {
+        "line": 1,
+        "character": 17
+      },
+      "expected": {
+        "contents": {
+          "kind": "markdown",
+          "value": "`[visibility] struct <name> { ... }`\n\nDefines a structured value type composed of fields.\nUse a structure when several values belong together and need to be passed, stored or configured as one typed object.\n\n**Example**\n```xsmp\npublic struct ThermalLoop\n{\n    field Smp.Float64 temperature\n    field Smp.Float64 pressure\n}\n```"
+        }
+      }
+    },
+    {
+      "language": "xsmpasb",
+      "text": "assembly Demo\nRoot: \"Impl\" {}",
+      "position": {
+        "line": 0,
+        "character": 4
+      },
+      "expected": {
+        "contents": {
+          "kind": "markdown",
+          "value": "`assembly [<parameter, ...>] <name>`\n\nDeclares an XSMP assembly document.\nAn assembly defines one root model instance, optional template parameters and optional component configurations that override state or behavior inside the assembly tree.\n\n**Example**\n```xsmp\nassembly <Lane = \"Ops\"> OrbitalSegment\nRoot: demo.orbit.Platform\n{\n}\n```"
+        }
+      }
+    },
+    {
+      "language": "xsmpsed",
+      "text": "schedule Demo\ntask Main {}",
+      "position": {
+        "line": 0,
+        "character": 4
+      },
+      "expected": {
+        "contents": {
+          "kind": "markdown",
+          "value": "`schedule [<parameter, ...>] <name> [epoch \"...\"] [mission \"...\"]`\n\nDeclares an XSMP schedule document.\nA schedule contains tasks, events and optional template parameters used to specialize task roots and templated paths.\n\n**Example**\n```xsmp\nschedule <Root = \"platform\"> MissionPlan epoch \"2025-01-01T00:00:00Z\"\ntask Main on demo.Platform\n{\n}\n```"
+        }
+      }
+    },
+    {
+      "language": "xsmpproject",
+      "text": "project \"Demo\" source \"src\"",
+      "position": {
+        "line": 0,
+        "character": 3
+      },
+      "expected": {
+        "contents": {
+          "kind": "markdown",
+          "value": "`project '<project-name>' [using '<standard>']`\n\nDeclares an XSMP project root.\nUse a project to select the SMP standard revision, list modeling sources, activate installed profiles and tools, and declare dependencies on other XSMP projects.\n\n**Example**\n```xsmp\nproject 'MissionDemo' using 'ECSS_SMP_2025'\nsource 'smdl'\ndependency 'foundation'\nprofile 'xsmp-sdk'\ntool 'smp'\n```"
+        }
+      }
+    }
+  ]
+}

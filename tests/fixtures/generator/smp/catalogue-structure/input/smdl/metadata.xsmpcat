@@ -1,0 +1,9 @@
+catalogue metadata
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000206 */
+    interface I
+    {
+        @View(ViewKind.VK_All) def Bool ping(in Int32 value)
+    }
+}

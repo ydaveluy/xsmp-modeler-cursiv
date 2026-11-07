@@ -1,0 +1,380 @@
+{
+  "name": "xsmp-modeler-cursiv",
+  "publisher": "ydaveluy",
+  "displayName": "XSMP Modeler (Cursiv)",
+  "version": "0.1.0",
+  "description": "Cursiv language services for XSMP catalogues, projects, assemblies, configurations, linkbases and schedules.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ydaveluy/xsmp-modeler-cursiv.git",
+    "directory": "vscode"
+  },
+  "icon": "icons/logo.png",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "licenses",
+    "out",
+    "{bin,server}/**",
+    "icons",
+    "*-language-configuration.json",
+    "syntaxes"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "xsmpproject",
+        "aliases": [
+          "xsmpproject"
+        ],
+        "extensions": [
+          ".xsmpprofile",
+          ".xsmptool"
+        ],
+        "filenames": [
+          "xsmp.project"
+        ],
+        "configuration": "./xsmpproject-language-configuration.json",
+        "icon": {
+          "light": "./icons/xsmpproject.png",
+          "dark": "./icons/xsmpproject.png"
+        }
+      },
+      {
+        "id": "xsmpcat",
+        "aliases": [
+          "xsmpcat"
+        ],
+        "extensions": [
+          ".xsmpcat"
+        ],
+        "configuration": "./xsmpcat-language-configuration.json",
+        "icon": {
+          "light": "./icons/xsmp.png",
+          "dark": "./icons/xsmp.png"
+        }
+      },
+      {
+        "id": "xsmpasb",
+        "aliases": [
+          "xsmpasb"
+        ],
+        "extensions": [
+          ".xsmpasb"
+        ],
+        "configuration": "./xsmpasb-language-configuration.json",
+        "icon": {
+          "light": "./icons/xsmp.png",
+          "dark": "./icons/xsmp.png"
+        }
+      },
+      {
+        "id": "xsmpcfg",
+        "aliases": [
+          "xsmpcfg"
+        ],
+        "extensions": [
+          ".xsmpcfg"
+        ],
+        "configuration": "./xsmpcfg-language-configuration.json",
+        "icon": {
+          "light": "./icons/xsmp.png",
+          "dark": "./icons/xsmp.png"
+        }
+      },
+      {
+        "id": "xsmplnk",
+        "aliases": [
+          "xsmplnk"
+        ],
+        "extensions": [
+          ".xsmplnk"
+        ],
+        "configuration": "./xsmplnk-language-configuration.json",
+        "icon": {
+          "light": "./icons/xsmp.png",
+          "dark": "./icons/xsmp.png"
+        }
+      },
+      {
+        "id": "xsmpsed",
+        "aliases": [
+          "xsmpsed"
+        ],
+        "extensions": [
+          ".xsmpsed"
+        ],
+        "configuration": "./xsmpsed-language-configuration.json",
+        "icon": {
+          "light": "./icons/xsmp.png",
+          "dark": "./icons/xsmp.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "xsmpproject",
+        "scopeName": "source.xsmpproject",
+        "path": "syntaxes/xsmpproject.tmLanguage.json"
+      },
+      {
+        "language": "xsmpcat",
+        "scopeName": "source.xsmpcat",
+        "path": "syntaxes/xsmpcat.tmLanguage.json"
+      },
+      {
+        "language": "xsmpasb",
+        "scopeName": "source.xsmpasb",
+        "path": "syntaxes/xsmpasb.tmLanguage.json"
+      },
+      {
+        "language": "xsmpcfg",
+        "scopeName": "source.xsmpcfg",
+        "path": "syntaxes/xsmpcfg.tmLanguage.json"
+      },
+      {
+        "language": "xsmplnk",
+        "scopeName": "source.xsmplnk",
+        "path": "syntaxes/xsmplnk.tmLanguage.json"
+      },
+      {
+        "language": "xsmpsed",
+        "scopeName": "source.xsmpsed",
+        "path": "syntaxes/xsmpsed.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "XSMP",
+      "properties": {
+        "xsmp.server.path": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the xsmp_lsp executable or WebAssembly module. Empty means the active CMake preset in F5, then the packaged server, then ../build/src/."
+        },
+        "xsmp.generateAllOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "scope": "window",
+          "markdownDescription": "Automatically run `Xsmp: Generate All Projects` once the XSMP workspace has finished loading at startup."
+        },
+        "xsmp.generateOnSave": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "markdownDescription": "Automatically run `Xsmp: Generate Project` for the active XSMP document when it is saved."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "xsmp.wizard",
+        "category": "Xsmp",
+        "title": "Create a new project"
+      },
+      {
+        "command": "xsmp.newFile",
+        "category": "Xsmp",
+        "title": "Create XSMP File"
+      },
+      {
+        "command": "xsmp.newCatalogue",
+        "category": "Xsmp",
+        "title": "Create Catalogue File"
+      },
+      {
+        "command": "xsmp.newConfiguration",
+        "category": "Xsmp",
+        "title": "Create Configuration File"
+      },
+      {
+        "command": "xsmp.newAssembly",
+        "category": "Xsmp",
+        "title": "Create Assembly File"
+      },
+      {
+        "command": "xsmp.newLinkBase",
+        "category": "Xsmp",
+        "title": "Create Link Base File"
+      },
+      {
+        "command": "xsmp.newSchedule",
+        "category": "Xsmp",
+        "title": "Create Schedule File"
+      },
+      {
+        "command": "xsmp.generate",
+        "category": "Xsmp",
+        "title": "Generate Project"
+      },
+      {
+        "command": "xsmp.generateAll",
+        "category": "Xsmp",
+        "title": "Generate All Projects"
+      },
+      {
+        "command": "xsmp.importSmp",
+        "category": "Xsmp",
+        "title": "Import SMP File"
+      },
+      {
+        "command": "xsmp.openSmpMirror",
+        "category": "Xsmp",
+        "title": "Open XSMP Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "xsmp.openSmpXmlSource",
+        "category": "Xsmp",
+        "title": "Open XML Source",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "xsmp.openDocumentation",
+        "category": "Xsmp",
+        "title": "Open Embedded Documentation",
+        "enablement": "false"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "xsmp.newFile",
+          "group": "navigation@100",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "xsmp.newFile",
+          "group": "navigation@100",
+          "when": "resourceScheme == file && !explorerResourceIsFolder"
+        },
+        {
+          "command": "xsmp.importSmp",
+          "group": "navigation@101",
+          "when": "resourceScheme == file && (resourceExtname == .smpcat || resourceExtname == .smpcfg || resourceExtname == .smplnk || resourceExtname == .smpasb || resourceExtname == .smpsed)"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "xsmp.openSmpMirror",
+          "group": "navigation@100",
+          "when": "resourceScheme == file && (resourceExtname == .smpcat || resourceExtname == .smpcfg || resourceExtname == .smplnk || resourceExtname == .smpasb || resourceExtname == .smpsed)"
+        },
+        {
+          "command": "xsmp.openSmpXmlSource",
+          "group": "navigation@101",
+          "when": "resourceScheme == xsmp-smp"
+        }
+      ]
+    },
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": "comment.block.documentation.xsmp",
+            "settings": {
+              "foreground": "#3F5FBF"
+            }
+          },
+          {
+            "scope": "comment.block.documentation.tag.xsmp",
+            "settings": {
+              "foreground": "#7F9FBF",
+              "fontStyle": "bold"
+            }
+          }
+        ]
+      }
+    },
+    "customEditors": [
+      {
+        "viewType": "xsmp.smpMirrorPreview",
+        "displayName": "XSMP Preview",
+        "selector": [
+          {
+            "filenamePattern": "file:/**/*.smpcat"
+          },
+          {
+            "filenamePattern": "file:/**/*.smpcfg"
+          },
+          {
+            "filenamePattern": "file:/**/*.smplnk"
+          },
+          {
+            "filenamePattern": "file:/**/*.smpasb"
+          },
+          {
+            "filenamePattern": "file:/**/*.smpsed"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "cursiv.xsmp.mcp",
+        "label": "cursiv XSMP"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "bundle": "node esbuild.mjs --production",
+    "typecheck": "tsc -p tsconfig.json",
+    "vscode:prepublish": "npm run bundle",
+    "package": "vsce package --no-dependencies",
+    "test": "npm run typecheck && npm run compile && node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/vscode": "~1.101.0",
+    "@vscode/vsce": "^3.9.2",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vscode-uri": "3.1.0"
+  },
+  "activationEvents": [
+    "workspaceContains:**/xsmp.project",
+    "onFileSystem:xsmp",
+    "onFileSystem:xsmp-smp",
+    "onLanguage:xsmpproject",
+    "onLanguage:xsmpcat",
+    "onLanguage:xsmpasb",
+    "onLanguage:xsmpcfg",
+    "onLanguage:xsmplnk",
+    "onLanguage:xsmpsed"
+  ],
+  "overrides": {
+    "@vscode/vsce": {
+      "@azure/identity": "4.13.0"
+    },
+    "@azure/msal-node": {
+      "uuid": "^11.1.1"
+    }
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "XSMP starts language-server and contribution processes and can generate files. Trust the workspace to enable these features."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "XSMP requires a local filesystem on the workspace extension host."
+    }
+  }
+}

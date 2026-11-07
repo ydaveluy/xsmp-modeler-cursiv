@@ -1,0 +1,5 @@
+/**
+ * @id cfg.main
+ */
+configuration MainConfig
+include BaseConfig at .

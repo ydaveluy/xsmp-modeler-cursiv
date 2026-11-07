@@ -1,0 +1,9 @@
+schedule <Root = "R"> Unknown
+/**
+ * @id Unknown.Worker
+ */
+task Worker
+{
+    /* unsupported activity */
+}
+/* unsupported event for Worker */

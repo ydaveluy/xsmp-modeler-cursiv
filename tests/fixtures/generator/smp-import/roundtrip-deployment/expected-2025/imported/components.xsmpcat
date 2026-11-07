@@ -1,0 +1,77 @@
+/**
+ * @id _components
+ */
+catalogue components
+
+/**
+ * @id n
+ */
+namespace n
+{
+    /**
+     * @id n.Mode
+     * @uuid 11111111-0000-4000-8000-000000000711
+     */
+    public enum Mode
+    {
+        /**
+         * @id n.Mode.Off
+         */
+        Off = 0,
+        /**
+         * @id n.Mode.On
+         */
+        On = 1
+    }
+    /**
+     * @id n.M
+     * @uuid 11111111-0000-4000-8000-000000000712
+     */
+    public model M
+    {
+        /**
+         * @id n.M.mode
+         */
+        field Mode mode
+        /**
+         * @id n.M.kids
+         */
+        container M kids
+    }
+}
+/**
+ * @id demo
+ */
+namespace demo
+{
+    /**
+     * @id demo.Child
+     * @uuid 11111111-0000-4000-8000-000000000713
+     */
+    public model Child
+    {
+        /**
+         * @id demo.Child.input
+         */
+        input field Smp.Int32 input
+    }
+    /**
+     * @id demo.Root
+     * @uuid 11111111-0000-4000-8000-000000000714
+     */
+    public model Root
+    {
+        /**
+         * @id demo.Root.step
+         */
+        entrypoint step
+        /**
+         * @id demo.Root.output
+         */
+        output field Smp.Int32 output
+        /**
+         * @id demo.Root.child
+         */
+        container Child child
+    }
+}

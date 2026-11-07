@@ -1,0 +1,8 @@
+catalogue position
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-00000000021b */
+    public struct P { field Smp.Int32 a field Smp.Float64 b field Smp.Int32 c }
+    /** @uuid 11111111-0000-4000-8000-00000000021c */
+    public model M { field P p = {1, 2.5, 3} field P q field P r }
+}

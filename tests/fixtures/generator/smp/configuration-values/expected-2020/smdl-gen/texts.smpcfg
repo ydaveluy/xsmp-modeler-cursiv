@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration:Configuration xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="texts" Name="texts">
+  <Component Path="/Root">
+    <FieldValue Field="a" xsi:type="Types:Char8Value" Value="\x00" />
+    <FieldValue Field="b" xsi:type="Types:String8Value" Value="a\x00b" />
+    <FieldValue Field="c" xsi:type="Types:String8Value" Value="\x01\x1F" />
+    <FieldValue Field="d" xsi:type="Types:String8Value" Value="\xEF\xBF\xBE\xEF\xBF\xBF" />
+    <FieldValue Field="e" xsi:type="Types:String8Value" Value="C:\dir\x" />
+    <FieldValue Field="f" xsi:type="Types:String8Value" Value="a\nb" />
+    <FieldValue Field="g" xsi:type="Types:String8Value" Value="\x5Cx01" />
+    <FieldValue Field="h" xsi:type="Types:String8Value" Value="\x5Cx5c" />
+    <FieldValue Field="i" xsi:type="Types:String8Value" Value="\x41 \x0A" />
+    <FieldValue Field="j" xsi:type="Types:String8Value" Value="tab&#09; line&#10;" />
+  </Component>
+</Configuration:Configuration>

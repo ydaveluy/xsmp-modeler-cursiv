@@ -1,0 +1,87 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000071 */
+    interface I {}
+
+    // A reference return is a pointer, and a const getter keeps its const.
+    /** @uuid 11111111-0000-4000-8000-000000000072 */
+    model Device
+    {
+        def I target()
+        @Attributes.ConstGetter readOnly property Smp.Bool ready
+    }
+
+    // Descriptions come from the @param and @return of the operation.
+    /** @uuid 11111111-0000-4000-8000-000000000073 */
+    model Documented
+    {
+        /**
+         * Compute.
+         * @param value The input value.
+         * @return Whether the value is accepted.
+         */
+        def Smp.Bool check(in Smp.Int32 value)
+    }
+
+    // String8 ownership in the request handlers.
+    /** @uuid 11111111-0000-4000-8000-000000000074 */
+    model Strings
+    {
+        def void inputString(in Smp.String8 value)
+        def void outputString(out Smp.String8 value)
+        def void inoutString(inout Smp.String8 value)
+        def Smp.String8 returnString()
+        def Smp.Bool returnBool()
+        property Smp.Bool enabled
+    }
+
+    // A constructor gets no handler.
+    /** @uuid 11111111-0000-4000-8000-000000000075 */
+    public model WithConstructor
+    {
+        @Attributes.Constructor def void WithConstructor(in Smp.Int32 a)
+        def void ping()
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000076 */
+    public struct Skipped { }
+
+    // Only the first overload that can be invoked is published.
+    /** @uuid 11111111-0000-4000-8000-000000000077 */
+    public model Overloads
+    {
+        def void f(in Skipped skipped)
+        def void f(in Smp.Int32 first)
+        def void f(in Smp.Float64 second)
+    }
+
+    // A default is written only where C++ accepts it.
+    /** @uuid 11111111-0000-4000-8000-000000000078 */
+    public model Defaults
+    {
+        def void lost(in Smp.Int32 a = 1, out Smp.Int32 b = nullptr)
+        def void kept(out Smp.Int32 a, in Smp.Int32 b = 3)
+        def void pointer(@Attributes.ByPointer in Smp.Int32 a = nullptr)
+    }
+
+    // The local variable of a request handler holds the value pointed to, which
+    // `nullptr` says nothing of.
+    /** @uuid 11111111-0000-4000-8000-000000000079 */
+    public model NullDefaults
+    {
+        def void f(out Smp.Duration a = nullptr, inout Smp.Int32 b = nullptr)
+        def void g(@Attributes.ByPointer in Smp.Int32 c = nullptr)
+        def void h(out Smp.Int32 d = nullptr, inout Smp.Int32 e = nullptr)
+    }
+
+    /** @uuid 11111111-0000-4000-8000-00000000007a */
+    public model Pointers
+    {
+        @Attributes.ByPointer property Smp.Int32 pointer
+        @Attributes.ByReference property Smp.Int32 reference
+        property Smp.Int32 plain
+        def @Attributes.ByPointer Smp.Int32 address()
+        def @Attributes.ByReference Smp.Int32 alias()
+    }
+}

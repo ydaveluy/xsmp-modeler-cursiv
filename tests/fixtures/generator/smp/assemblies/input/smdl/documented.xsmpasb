@@ -1,0 +1,8 @@
+assembly documented
+/** Root doc. */
+Root: "n::M" {
+  /** Model doc. */
+  kids += Kid: "n::M"
+  /** Assembly doc. */
+  parts += Part: strings using config settings
+}

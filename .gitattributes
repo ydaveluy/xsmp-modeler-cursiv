@@ -1,0 +1,5 @@
+# Keep LF on every platform: tests compare generated files byte by byte.
+* text=auto eol=lf
+# The goldens and their inputs are compared byte for byte, and some inputs hold
+# carriage returns or bytes that are not UTF-8.
+tests/fixtures/generator/** -text

@@ -1,0 +1,8 @@
+<Assembly xmlns="urn:custom/Assembly" Name="Outer">
+  <Model Name="Root" Implementation="n.Model">
+    <Assembly Name="Unit" Container="child" Assembly="missing.smpasb">
+      <Description>Nested occurrence documentation.</Description>
+      <Assembly>child.smpasb</Assembly>
+    </Assembly>
+  </Model>
+</Assembly>

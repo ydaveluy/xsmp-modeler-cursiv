@@ -1,0 +1,6 @@
+<Assembly xmlns="http://www.ecss.nl/smp/2025/Smdl/Assembly" Name="Unknown" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ComponentConfiguration InstancePath=".">
+    <Invocation xsi:type="Assembly:CustomInvocation"/>
+  </ComponentConfiguration>
+  <Model Name="Root"/>
+</Assembly>

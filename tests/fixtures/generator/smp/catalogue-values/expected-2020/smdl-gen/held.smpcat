@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_held" Name="held">
+  <Namespace Id="held" Name="held">
+    <Type Id="held.S" Name="S" xsi:type="Types:Structure" Uuid="11111111-0000-4000-8000-000000000218" Visibility="public">
+      <Field Id="held.S.a" Name="a">
+        <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+        <Default xsi:type="Types:String8Value" Value="say &quot;hi&quot;&#10;C:\tmp" />
+      </Field>
+      <Field Id="held.S.b" Name="b">
+        <Type xlink:title="Char8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Char8" />
+        <Default xsi:type="Types:Char8Value" Value="'" />
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

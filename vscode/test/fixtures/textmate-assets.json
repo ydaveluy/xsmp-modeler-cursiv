@@ -1,0 +1,98 @@
+{
+  "grammars": [
+    {
+      "language": "xsmpproject",
+      "scopeName": "source.xsmpproject",
+      "path": "syntaxes/xsmpproject.tmLanguage.json"
+    },
+    {
+      "language": "xsmpcat",
+      "scopeName": "source.xsmpcat",
+      "path": "syntaxes/xsmpcat.tmLanguage.json"
+    },
+    {
+      "language": "xsmpasb",
+      "scopeName": "source.xsmpasb",
+      "path": "syntaxes/xsmpasb.tmLanguage.json"
+    },
+    {
+      "language": "xsmpcfg",
+      "scopeName": "source.xsmpcfg",
+      "path": "syntaxes/xsmpcfg.tmLanguage.json"
+    },
+    {
+      "language": "xsmplnk",
+      "scopeName": "source.xsmplnk",
+      "path": "syntaxes/xsmplnk.tmLanguage.json"
+    },
+    {
+      "language": "xsmpsed",
+      "scopeName": "source.xsmpsed",
+      "path": "syntaxes/xsmpsed.tmLanguage.json"
+    }
+  ],
+  "assets": [
+    {
+      "path": "syntaxes/xsmpproject.tmLanguage.json",
+      "sha256": "4b6bed58cb12b3c1059593d72cdd2970caa7afcfd02914e875f267d5899a506e",
+      "bytes": 1283
+    },
+    {
+      "path": "xsmpproject-language-configuration.json",
+      "sha256": "3a3ac1e2e8f212f5f282f271dd44f71484d64b3f2e6e5c4a897ea945aba67edf",
+      "bytes": 2120
+    },
+    {
+      "path": "syntaxes/xsmpcat.tmLanguage.json",
+      "sha256": "eb222d1d33ef8402d9e8004cdbfbb358dd964c7c4f63cc552b18332ab61e01fc",
+      "bytes": 22300
+    },
+    {
+      "path": "xsmpcat-language-configuration.json",
+      "sha256": "2321170d299fe0efb0d6375a3badc9ef8f906d2a51aaf2d998150ec85ed910bf",
+      "bytes": 2381
+    },
+    {
+      "path": "syntaxes/xsmpasb.tmLanguage.json",
+      "sha256": "f632eae1a71572cb3979dfbafb896c20c3bb6d586bb093470d377c7f0a2faa2f",
+      "bytes": 14583
+    },
+    {
+      "path": "xsmpasb-language-configuration.json",
+      "sha256": "989027ec169b260dcb5b3fe1442a2ad28187871253f7f8f808b24b3f434be1ef",
+      "bytes": 2427
+    },
+    {
+      "path": "syntaxes/xsmpcfg.tmLanguage.json",
+      "sha256": "445c689f161ade633e632e09a13beabc30c83f6bb2930b717760a2df44427bf2",
+      "bytes": 10304
+    },
+    {
+      "path": "xsmpcfg-language-configuration.json",
+      "sha256": "562d8ebddd988b976742e39f2e07dc0ae58e75a169f9c2edc0f350e656bbb967",
+      "bytes": 2302
+    },
+    {
+      "path": "syntaxes/xsmplnk.tmLanguage.json",
+      "sha256": "28341f58c7fd043048f3d398a5861a1457539bdd8aecab9cf276b853ad41fb84",
+      "bytes": 10385
+    },
+    {
+      "path": "xsmplnk-language-configuration.json",
+      "sha256": "f70ca84affb30e79f5b9487964c622cbe689ccc841a5bf618ceec21e4ba76220",
+      "bytes": 2142
+    },
+    {
+      "path": "syntaxes/xsmpsed.tmLanguage.json",
+      "sha256": "81355c41a7b29de6e44a0de68b82786167f80c9da460c8548393a50e22f03138",
+      "bytes": 13564
+    },
+    {
+      "path": "xsmpsed-language-configuration.json",
+      "sha256": "989027ec169b260dcb5b3fe1442a2ad28187871253f7f8f808b24b3f434be1ef",
+      "bytes": 2427
+    }
+  ],
+  "staticSnippets": [],
+  "note": "Six TextMate grammars and six language configurations, pinned byte for byte. The extension contributes no static snippets or token-color theme: typed snippets come from the language server."
+}

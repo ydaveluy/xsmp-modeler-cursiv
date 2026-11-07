@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_defaults" Name="defaults">
+  <Namespace Id="demo" Name="demo">
+    <Type Id="demo.Mode" Name="Mode" xsi:type="Types:Enumeration" Uuid="11111111-0000-4000-8000-000000000211" Visibility="public">
+      <Literal Id="demo.Mode.Off" Name="Off" Value="0" />
+      <Literal Id="demo.Mode.On" Name="On" Value="1" />
+    </Type>
+    <Type Id="demo.Pointer" Name="Pointer" xsi:type="Types:ValueReference" Uuid="11111111-0000-4000-8000-000000000212" Visibility="public">
+      <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+    </Type>
+    <Type Id="demo.I" Name="I" xsi:type="Catalogue:Interface" Uuid="11111111-0000-4000-8000-000000000213" Visibility="public">
+      <Operation Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration" Name="op">
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.a" Name="a" Direction="in">
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+          <Default xsi:type="Types:Int32Value" Value="7" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.b" Name="b" Direction="in">
+          <Type xlink:title="Float64" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Float64" />
+          <Default xsi:type="Types:Float64Value" Value="1.5" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.c" Name="c" Direction="in">
+          <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+          <Default xsi:type="Types:BoolValue" Value="true" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.d" Name="d" Direction="in">
+          <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+          <Default xsi:type="Types:String8Value" Value="say &quot;hi&quot;" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.e" Name="e" Direction="in">
+          <Type xlink:title="Char8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Char8" />
+          <Default xsi:type="Types:Char8Value" Value="&#10;" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.f" Name="f" Direction="in">
+          <Type xlink:title="Mode" xlink:href="#demo.Mode" />
+          <Default xsi:type="Types:EnumerationValue" Value="1" Literal="On" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.g" Name="g" Direction="in">
+          <Type xlink:title="Pointer" xlink:href="#demo.Pointer" />
+        </Parameter>
+        <Parameter Id="demo.I.op-Int32-Float64-Bool-String8-Char8-Mode-Pointer-Duration.h" Name="h" Direction="in">
+          <Type xlink:title="Duration" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Duration" />
+          <Default xsi:type="Types:DurationValue" Value="PT1S" />
+        </Parameter>
+      </Operation>
+    </Type>
+    <Type Id="demo.S" Name="S" xsi:type="Types:Structure" Uuid="11111111-0000-4000-8000-000000000214" Visibility="public">
+      <Field Id="demo.S.p" Name="p">
+        <Type xlink:title="Pointer" xlink:href="#demo.Pointer" />
+      </Field>
+      <Field Id="demo.S.v" Name="v">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        <Default xsi:type="Types:Int32Value" Value="1" />
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

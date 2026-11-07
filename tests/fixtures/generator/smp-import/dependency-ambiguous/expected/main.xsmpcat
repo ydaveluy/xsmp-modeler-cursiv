@@ -1,0 +1,19 @@
+/**
+ * @id main
+ */
+catalogue main
+
+namespace main
+{
+    /**
+     * @id main.LocalStruct
+     * @uuid 11111111-0000-4000-8000-000000000624
+     */
+    struct LocalStruct
+    {
+        /**
+         * @id main.LocalStruct.external
+         */
+        field dep.struct.selected external
+    }
+}

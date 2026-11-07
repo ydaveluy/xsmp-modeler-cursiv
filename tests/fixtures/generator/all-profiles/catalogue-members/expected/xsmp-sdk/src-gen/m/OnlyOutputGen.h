@@ -1,0 +1,105 @@
+// Block notice
+// line two
+// -----------------------------------------------------------------------------
+// File Name    : OnlyOutputGen.h
+// -----------------------------------------------------------------------------
+/// @file m/OnlyOutputGen.h
+// This file is auto-generated, Do not edit otherwise your changes will be lost
+
+#ifndef M_ONLYOUTPUTGEN_H_
+#define M_ONLYOUTPUTGEN_H_
+
+// ----------------------------------------------------------------------------
+// --------------------------- Forward Declarations ---------------------------
+// ----------------------------------------------------------------------------
+
+namespace m
+{
+class OnlyOutput;
+} // namespace m
+
+// ----------------------------------------------------------------------------
+// --------------------------- Include Header Files ---------------------------
+// ----------------------------------------------------------------------------
+
+#include <Smp/IComposite.h>
+#include <Smp/ISimulator.h>
+#include <Smp/PrimitiveTypes.h>
+#include <Smp/Publication/ITypeRegistry.h>
+#include <Xsmp/FallibleModel.h>
+#include <Xsmp/Field.h>
+#include <Xsmp/Model.h>
+
+// ----------------------------------------------------------------------------
+// --------------------------- Types and Interfaces ---------------------------
+// ----------------------------------------------------------------------------
+
+namespace m
+{
+/// Universally unique identifier of type OnlyOutput.
+inline constexpr ::Smp::Uuid Uuid_OnlyOutput { 0x20000000U, 0x0000U, 0x4000U, 0x8000U, 0x000000000025U };
+
+class OnlyOutputGen: public ::Xsmp::Model, public virtual ::Xsmp::FallibleModel
+{
+    friend class ::m::OnlyOutput;
+    public:
+    /// Constructor setting name, description, parent and simulator.
+    /// @param name Name of new Model instance.
+    /// @param description Description of new Model instance.
+    /// @param parent Parent of new Model instance.
+    /// @param simulator The simulator instance.
+    OnlyOutputGen(::Smp::String8 name,
+            ::Smp::String8 description,
+            ::Smp::IComposite* parent,
+            ::Smp::ISimulator* simulator);
+    /// deleted copy constructor
+    OnlyOutputGen(const OnlyOutputGen&) = delete;
+    /// deleted move constructor
+    OnlyOutputGen(OnlyOutputGen&&) = delete;
+    /// deleted copy assignment
+    OnlyOutputGen& operator=(const OnlyOutputGen&) = delete;
+    /// deleted move assignment
+    OnlyOutputGen& operator=(OnlyOutputGen&&) = delete;
+
+    /// Virtual destructor to release memory.
+    ~OnlyOutputGen() override = default;
+
+    /// Request the Model to publish its fields, properties and
+    /// operations against the provided publication receiver.
+    /// @param   receiver Publication receiver.
+    /// @throws  Smp::InvalidComponentState
+    void Publish(::Smp::IPublication* receiver) override;
+
+    /// Request the Model to perform any custom configuration. The
+    /// component can create and configure other components using the field
+    /// values of its published fields.
+    /// @param   logger Logger service for logging of error messages during
+    ///          configuration.
+    /// @param   linkRegistry Reference to the link registry services, so
+    ///          that the Model can register links that it creates
+    ///          during configuration.
+    /// @throws  Smp::InvalidComponentState
+    void Configure(::Smp::Services::ILogger* logger, ::Smp::Services::ILinkRegistry* linkRegistry) override;
+
+    /// Allow the Model to connect to the simulator and its simulation
+    /// services.
+    /// @param   simulator Simulation Environment that hosts the Model.
+    /// @throws  Smp::InvalidComponentState
+    void Connect(::Smp::ISimulator* simulator) override;
+
+    /// Ask the Model to disconnect from the simulator and all its
+    /// simulation services.
+    /// @throws  Smp::InvalidComponentState
+    void Disconnect() override;
+
+    /// Get Universally Unique Identifier of the Model.
+    /// @return  Universally Unique Identifier of the Model.
+    const ::Smp::Uuid& GetUuid() const override;
+
+    private:
+    ::Xsmp::Field<::Smp::Int32>::output o;
+    ::Xsmp::Field<::Smp::Bool>::failure f;
+};
+} // namespace m
+
+#endif // M_ONLYOUTPUTGEN_H_

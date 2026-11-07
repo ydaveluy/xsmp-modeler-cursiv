@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package:Package xmlns:Package="http://www.ecss.nl/smp/2019/Smdl/Package" xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_bounds" Name="bounds">
+  <Implementation xlink:title="Ratio" xlink:href="bounds.smpcat#n.Ratio" />
+</Package:Package>

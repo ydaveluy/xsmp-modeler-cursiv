@@ -1,0 +1,51 @@
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000141 */
+    string Label[8]
+
+    /** @uuid 11111111-0000-4000-8000-000000000142 */
+    model M
+    {
+        input field Smp.Int32 inp_value = 3
+        def void ope_reset()
+        entrypoint ept_step
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000143 */
+    public struct State { field Smp.Int32 value }
+
+    /** @uuid 11111111-0000-4000-8000-000000000144 */
+    public model Device
+    {
+        def void apply(in Smp.Int32 count = 42)
+        property Smp.Bool ready
+    }
+
+    // Only what can be invoked gets a handler.
+    /** @uuid 11111111-0000-4000-8000-000000000145 */
+    public model Invokable
+    {
+        def void ping(in Smp.Int32 count)
+        @Attributes.Constructor def void Invokable(in Smp.Int32 a)
+        @Attributes.ByPointer property Smp.Int32 pointer
+        property Smp.Int32 plain
+    }
+
+    // `nullptr` is no value in a request handler.
+    /** @uuid 11111111-0000-4000-8000-000000000146 */
+    public model NullDefaults
+    {
+        def void ping(inout Smp.Int32 a = nullptr, in Smp.Int32 b = 2,
+                      @Attributes.ByPointer in Smp.Int32 c = nullptr,
+                      in Smp.Char8 d = '\0')
+    }
+
+    // Publishing a parameter or a return needs its interface.
+    /** @uuid 11111111-0000-4000-8000-000000000147 */
+    public model WithParameters { def void ping(in Smp.Int32 count) }
+    /** @uuid 11111111-0000-4000-8000-000000000148 */
+    public model WithReturn { def Smp.Bool ready() }
+    /** @uuid 11111111-0000-4000-8000-000000000149 */
+    public model Bare { def void reset() }
+}

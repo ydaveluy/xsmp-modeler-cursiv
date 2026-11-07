@@ -1,0 +1,4 @@
+assembly mission
+Root: demo.Root {
+  roots += Segment: orbital using config orbital_settings using link orbital_wiring
+}

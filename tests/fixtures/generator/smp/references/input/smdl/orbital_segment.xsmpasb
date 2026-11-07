@@ -1,0 +1,2 @@
+assembly orbital
+Root: demo.Root { clients += Client: demo.Client { providers += Provider: demo.Provider } }

@@ -1,0 +1,8 @@
+configuration Strings
+/m
+{
+    a = "a\"b"
+    b = "C:\\"
+    c = "x\\ny"
+    d = '\''
+}

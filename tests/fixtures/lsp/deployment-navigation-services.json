@@ -1,0 +1,4545 @@
+{
+  "cases": [
+    {
+      "name": "supports definition and hover on typed assembly paths #0",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-0/src/demo.xsmpasb",
+      "text": "assembly Demo\n\nconfigure Child\n{\n    co<|>unt = 1i32\n}\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-0/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-0/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child count */\n        field Smp.Int32 count\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-0/src/demo.xsmpcat",
+          "name": "count"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-0/src/demo.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 4,
+                "line": 4
+              },
+              "end": {
+                "character": 9,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": {
+          "contents": {
+            "kind": "markdown",
+            "value": "child count"
+          }
+        },
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 4,
+            "line": 4
+          },
+          "end": {
+            "character": 9,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-0/src/demo.xsmpcat",
+            "range": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-0/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 4,
+                "line": 4
+              },
+              "end": {
+                "character": 9,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 10
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 10
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "configure Child",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "count",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 16,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 16,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": 19,
+                "name": "Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 10
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 10
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "child += Child",
+                    "range": {
+                      "start": {
+                        "character": 13,
+                        "line": 9
+                      },
+                      "end": {
+                        "character": 30,
+                        "line": 9
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 13,
+                        "line": 9
+                      },
+                      "end": {
+                        "character": 30,
+                        "line": 9
+                      }
+                    },
+                    "children": [],
+                    "detail": "demo.Child"
+                  }
+                ],
+                "detail": "demo.Root"
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-0/src/demo.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 24,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 29,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-0/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 4,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 9,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports definition on typed link base paths and avoids false links without anchors #1",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-1/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n\n/\n{\n    field link outValue -> Child.in<|>Value\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-1/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-1/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child input */\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n    }\n\n    public model Root\n    {\n        output field Smp.Int32 outValue\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-1/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-1/src/demo.xsmpcat",
+          "name": "inValue"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-1/src/demo.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 7
+              },
+              "end": {
+                "character": 37,
+                "line": 7
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 30,
+                "line": 7
+              },
+              "end": {
+                "character": 37,
+                "line": 7
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 33,
+                "line": 4
+              },
+              "end": {
+                "character": 40,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": {
+          "contents": {
+            "kind": "markdown",
+            "value": "child input"
+          }
+        },
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 33,
+            "line": 4
+          },
+          "end": {
+            "character": 40,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-1/src/demo.xsmpcat",
+            "range": {
+              "start": {
+                "character": 30,
+                "line": 7
+              },
+              "end": {
+                "character": 37,
+                "line": 7
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-1/src/demo.xsmplnk",
+            "range": {
+              "start": {
+                "character": 33,
+                "line": 4
+              },
+              "end": {
+                "character": 40,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "field link outValue -> Child.inValue",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 40,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 40,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-1/src/demo.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 30,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 37,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-1/src/demo.xsmplnk": [
+              {
+                "range": {
+                  "start": {
+                    "character": 33,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 40,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports definition on typed link base paths and avoids false links without anchors #2",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-2/src/demo.xsmplnk",
+      "text": "link Demo\n\nLoose\n{\n    field link out<|>Value -> inValue\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-2/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-2/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child input */\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n    }\n\n    public model Root\n    {\n        output field Smp.Int32 outValue\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "Loose",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "field link outValue -> inValue",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 34,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 34,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "supports template parameter navigation inside templated link-base paths #3",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-3/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n\n/\n{\n    field link outValue -> Child{La<|>ne}.inValue\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-3/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-3/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child input */\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n    }\n\n    public model Root\n    {\n        output field Smp.Int32 outValue\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-3/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\n\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-3/src/demo.xsmpasb",
+          "name": "Lane"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-3/src/demo.xsmpasb",
+            "targetRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 22,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 14,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 4,
+                "character": 32
+              },
+              "end": {
+                "line": 4,
+                "character": 38
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 27,
+            "line": 4
+          },
+          "end": {
+            "character": 38,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-3/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 13,
+                "line": 4
+              },
+              "end": {
+                "character": 24,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "field link outValue -> Child{Lane}.inValue",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 46,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 46,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-3/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 13,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 24,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports definition and hover on typed schedule paths #4",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-4/src/demo.xsmpsed",
+      "text": "schedule Demo\n\ntask Main on DemoAsm\n{\n    call Child.re<|>set()\n    execute Worker at Child\n}\n\ntask Worker on demo.Child\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-4/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-4/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-4/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-4/src/demo.xsmpcat",
+          "name": "reset"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-4/src/demo.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 7
+              },
+              "end": {
+                "character": 31,
+                "line": 7
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 15,
+                "line": 4
+              },
+              "end": {
+                "character": 20,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": {
+          "contents": {
+            "kind": "markdown",
+            "value": "child reset"
+          }
+        },
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 15,
+            "line": 4
+          },
+          "end": {
+            "character": 20,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-4/src/demo.xsmpcat",
+            "range": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-4/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 15,
+                "line": 4
+              },
+              "end": {
+                "character": 20,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 10
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 10
+              }
+            },
+            "children": [
+              {
+                "kind": 6,
+                "name": "Main",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 6,
+                    "name": "call Child.reset()",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 22,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 22,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  },
+                  {
+                    "kind": 6,
+                    "name": "execute Worker at Child",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 5
+                      },
+                      "end": {
+                        "character": 27,
+                        "line": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 5
+                      },
+                      "end": {
+                        "character": 27,
+                        "line": 5
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": 6,
+                "name": "Worker",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 8
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 10
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 8
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 10
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-4/src/demo.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 24,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 29,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-4/src/demo.xsmpsed": [
+              {
+                "range": {
+                  "start": {
+                    "character": 15,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 20,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports template parameter navigation and concretized definition on templated schedule paths #5",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-5/src/demo.xsmpsed",
+      "text": "schedule <Target = \"Child\", Tail = \"set\"> Demo\n\ntask Main on DemoAsm\n{\n    call {T<|>arget}.re{Tail}()\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-5/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-5/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-5/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-5/src/demo.xsmpsed",
+          "name": "Target"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-5/src/demo.xsmpsed",
+            "targetRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 26,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 16,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 4,
+                "character": 9
+              },
+              "end": {
+                "line": 4,
+                "character": 17
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 9,
+            "line": 4
+          },
+          "end": {
+            "character": 17,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-5/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 16,
+                "line": 0
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-5/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 10,
+                "line": 4
+              },
+              "end": {
+                "character": 16,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 6,
+                "name": "Main",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 6,
+                    "name": "call {Target}.re{Tail}()",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 28,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 28,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "supports template parameter navigation and concretized definition on templated schedule paths #6",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-6/src/demo.xsmpsed",
+      "text": "schedule <Target = \"Child\", Tail = \"set\"> Demo\n\ntask Main on DemoAsm\n{\n    call {Target}.r<|>e{Tail}()\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-6/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-6/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-6/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-6/src/demo.xsmpcat",
+          "name": "reset"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-6/src/demo.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 7
+              },
+              "end": {
+                "character": 31,
+                "line": 7
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 18,
+                "line": 4
+              },
+              "end": {
+                "character": 26,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": {
+          "contents": {
+            "kind": "markdown",
+            "value": "child reset"
+          }
+        },
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 18,
+            "line": 4
+          },
+          "end": {
+            "character": 26,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-6/src/demo.xsmpcat",
+            "range": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 6,
+                "name": "Main",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 6,
+                    "name": "call {Target}.re{Tail}()",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 28,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 28,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-6/src/demo.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 24,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 29,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports template parameter navigation inside templated schedule task names #7",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-7/src/demo.xsmpsed",
+      "text": "schedule <Lane = \"Ops\"> Demo\n\ntask Task{<|>Lane} on demo.Root\n{\n    call reset()\n}\n\nevent Task{Lane} mission \"PT1S\"\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-7/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-7/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-7/src/demo.xsmpsed",
+          "name": "Lane"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-7/src/demo.xsmpsed",
+            "targetRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 22,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 14,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 2,
+                "character": 9
+              },
+              "end": {
+                "line": 2,
+                "character": 15
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 5,
+            "line": 2
+          },
+          "end": {
+            "character": 15,
+            "line": 2
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-7/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 5,
+                "line": 2
+              },
+              "end": {
+                "character": 15,
+                "line": 2
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-7/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 6,
+                "line": 7
+              },
+              "end": {
+                "character": 16,
+                "line": 7
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 31,
+                "line": 7
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 31,
+                "line": 7
+              }
+            },
+            "children": [
+              {
+                "kind": 6,
+                "name": "Task{Lane}",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 6,
+                    "name": "call reset()",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 16,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 16,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": 24,
+                "name": "event Task{Lane} mission \"PT1S\"",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 31,
+                    "line": 7
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 31,
+                    "line": 7
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-7/src/demo.xsmpsed": [
+              {
+                "range": {
+                  "start": {
+                    "character": 5,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 15,
+                    "line": 2
+                  }
+                },
+                "newText": "Renamed"
+              },
+              {
+                "range": {
+                  "start": {
+                    "character": 6,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 16,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports template parameter navigation inside templated schedule task names #8",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-8/src/demo.xsmpsed",
+      "text": "schedule <Lane = \"Ops\"> Demo\n\ntask Task{Lane} on demo.Root\n{\n    call reset()\n}\n\nevent Task{<|>Lane} mission \"PT1S\"\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-8/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-8/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-8/src/demo.xsmpsed",
+          "name": "Lane"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-8/src/demo.xsmpsed",
+            "targetRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 22,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 14,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 7,
+                "character": 10
+              },
+              "end": {
+                "line": 7,
+                "character": 16
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 6,
+            "line": 7
+          },
+          "end": {
+            "character": 16,
+            "line": 7
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-8/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 5,
+                "line": 2
+              },
+              "end": {
+                "character": 15,
+                "line": 2
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-8/src/demo.xsmpsed",
+            "range": {
+              "start": {
+                "character": 6,
+                "line": 7
+              },
+              "end": {
+                "character": 16,
+                "line": 7
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 31,
+                "line": 7
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 31,
+                "line": 7
+              }
+            },
+            "children": [
+              {
+                "kind": 6,
+                "name": "Task{Lane}",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 6,
+                    "name": "call reset()",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 16,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 16,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "kind": 24,
+                "name": "event Task{Lane} mission \"PT1S\"",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 31,
+                    "line": 7
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 31,
+                    "line": 7
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-8/src/demo.xsmpsed": [
+              {
+                "range": {
+                  "start": {
+                    "character": 5,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 15,
+                    "line": 2
+                  }
+                },
+                "newText": "Renamed"
+              },
+              {
+                "range": {
+                  "start": {
+                    "character": 6,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 16,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports definition on templated instance names inherited from an assembly context #9",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-9/src/demo.xsmpsed",
+      "text": "schedule Demo\n\ntask Main on DemoAsm\n{\n    call Chi<|>ld{Lane}.reset()\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-9/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-9/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-9/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\n\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-9/src/demo.xsmpasb",
+          "name": "Child{Lane}"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-9/src/demo.xsmpasb",
+            "targetRange": {
+              "start": {
+                "character": 13,
+                "line": 4
+              },
+              "end": {
+                "character": 36,
+                "line": 4
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 13,
+                "line": 4
+              },
+              "end": {
+                "character": 24,
+                "line": 4
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 9,
+                "line": 4
+              },
+              "end": {
+                "character": 20,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 9,
+            "line": 4
+          },
+          "end": {
+            "character": 20,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-9/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 13,
+                "line": 4
+              },
+              "end": {
+                "character": 24,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 6,
+                "name": "Main",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 6,
+                    "name": "call Child{Lane}.reset()",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 28,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 28,
+                        "line": 4
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-9/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 13,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 24,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports template parameter navigation inside templated instance names #10",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-10/src/demo.xsmpasb",
+      "text": "assembly <Index = 1, Suffix = \"Tail\"> Demo\n\nRoot: demo.Root\n{\n    child += Unit{I<|>ndex}_{Suffix}: demo.Child\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-10/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-10/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child count */\n        field Smp.Int32 count\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-10/src/demo.xsmpasb",
+          "name": "Index"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-10/src/demo.xsmpasb",
+            "targetRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 19,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 15,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 4,
+                "character": 17
+              },
+              "end": {
+                "line": 4,
+                "character": 24
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 13,
+            "line": 4
+          },
+          "end": {
+            "character": 33,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-10/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 13,
+                "line": 4
+              },
+              "end": {
+                "character": 33,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "child += Unit{Index}_{Suffix}",
+                    "range": {
+                      "start": {
+                        "character": 13,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 45,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 13,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 45,
+                        "line": 4
+                      }
+                    },
+                    "children": [],
+                    "detail": "demo.Child"
+                  }
+                ],
+                "detail": "demo.Root"
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-10/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 13,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 33,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports template parameter navigation inside templated instance names #11",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-11/src/demo.xsmpasb",
+      "text": "assembly <Index = 1, Suffix = \"Tail\"> Demo\n\nRoot: demo.Root\n{\n    child += Unit{Index}_{S<|>uffix}: demo.Child\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-11/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-11/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child count */\n        field Smp.Int32 count\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-11/src/demo.xsmpasb",
+          "name": "Suffix"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-11/src/demo.xsmpasb",
+            "targetRange": {
+              "start": {
+                "character": 21,
+                "line": 0
+              },
+              "end": {
+                "character": 36,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 21,
+                "line": 0
+              },
+              "end": {
+                "character": 27,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 4,
+                "character": 25
+              },
+              "end": {
+                "line": 4,
+                "character": 33
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 13,
+            "line": 4
+          },
+          "end": {
+            "character": 33,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-11/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 13,
+                "line": 4
+              },
+              "end": {
+                "character": 33,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 5
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 2
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 5
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "child += Unit{Index}_{Suffix}",
+                    "range": {
+                      "start": {
+                        "character": 13,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 45,
+                        "line": 4
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 13,
+                        "line": 4
+                      },
+                      "end": {
+                        "character": 45,
+                        "line": 4
+                      }
+                    },
+                    "children": [],
+                    "detail": "demo.Child"
+                  }
+                ],
+                "detail": "demo.Root"
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-11/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 13,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 33,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports hover and definition on typed field path segments #12",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-12/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state.co<|>unt = 1i32\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-12/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-12/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        /** count field */\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-12/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-12/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-12/src/demo.xsmpcat",
+          "name": "count"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-12/src/demo.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 9
+              },
+              "end": {
+                "character": 29,
+                "line": 9
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 24,
+                "line": 9
+              },
+              "end": {
+                "character": 29,
+                "line": 9
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 3
+              },
+              "end": {
+                "character": 15,
+                "line": 3
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": {
+          "contents": {
+            "kind": "markdown",
+            "value": "count field"
+          }
+        },
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 10,
+            "line": 3
+          },
+          "end": {
+            "character": 15,
+            "line": 3
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-12/src/demo.xsmpcat",
+            "range": {
+              "start": {
+                "character": 24,
+                "line": 9
+              },
+              "end": {
+                "character": 29,
+                "line": 9
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-12/src/demo.xsmpcfg",
+            "range": {
+              "start": {
+                "character": 10,
+                "line": 3
+              },
+              "end": {
+                "character": 15,
+                "line": 3
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 4
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 4
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 4
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 4
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "state.count",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 22,
+                        "line": 3
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 22,
+                        "line": 3
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-12/src/demo.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 24,
+                    "line": 9
+                  },
+                  "end": {
+                    "character": 29,
+                    "line": 9
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-12/src/demo.xsmpcfg": [
+              {
+                "range": {
+                  "start": {
+                    "character": 10,
+                    "line": 3
+                  },
+                  "end": {
+                    "character": 15,
+                    "line": 3
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports hover and definition on typed cfg structure field references #13",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-13/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state = {\n        co<|>unt = 1i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-13/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-13/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public struct Counters\n    {\n        /** count field */\n        field Smp.Int32 count\n        field Smp.Bool enabled\n    }\n\n    public model Root\n    {\n        field Counters state\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-13/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-13/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-13/src/demo.xsmpcat",
+          "name": "count"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-13/src/demo.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 8,
+                "line": 4
+              },
+              "end": {
+                "character": 13,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": {
+          "contents": {
+            "kind": "markdown",
+            "value": "count field"
+          }
+        },
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 8,
+            "line": 4
+          },
+          "end": {
+            "character": 13,
+            "line": 4
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-13/src/demo.xsmpcat",
+            "range": {
+              "start": {
+                "character": 24,
+                "line": 7
+              },
+              "end": {
+                "character": 29,
+                "line": 7
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-13/src/demo.xsmpcfg",
+            "range": {
+              "start": {
+                "character": 8,
+                "line": 4
+              },
+              "end": {
+                "character": 13,
+                "line": 4
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 6
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 6
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "state",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 5
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-13/src/demo.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 24,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 29,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-13/src/demo.xsmpcfg": [
+              {
+                "range": {
+                  "start": {
+                    "character": 8,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 13,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "keeps cfg structure field references in text mode when unsafe or untyped #14",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-14/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state = {\n        unsafe co<|>unt = 1i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-14/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-14/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-14/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-14/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 6
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 6
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "state",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 5
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "keeps cfg structure field references in text mode when unsafe or untyped #15",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-15/src/demo.xsmpcfg",
+      "text": "configuration Legacy\n/Root\n{\n    state = {\n        co<|>unt = 1i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-15/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-15/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-15/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-15/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Legacy",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 6
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 6
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 6
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "state",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 5
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "does not resolve component-backed component configuration names to containers #16",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-16/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    chi<|>ld\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-16/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-16/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        /** child container */\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-16/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-16/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "child",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": 8,
+                        "name": "value",
+                        "range": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "selectionRange": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "does not resolve component-backed include paths to containers #17",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-17/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    include Other at chi<|>ld\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-17/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-17/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        /** child container */\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-17/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-17/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 4
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 4
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 4
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 4
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 2,
+                    "name": "include Other at child",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 26,
+                        "line": 3
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 26,
+                        "line": 3
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "keeps absolute root names in text mode #18",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-18/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/<|>Root: demo.Root\n{\n    flag = true\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-18/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-18/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Root\n    {\n        field Smp.Bool flag\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-18/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-18/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 4
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 4
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 4
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 4
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 8,
+                    "name": "flag",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 15,
+                        "line": 3
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 15,
+                        "line": 3
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "does not resolve typed nested component configuration names to containers in component-backed contexts #19",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-19/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    ch<|>ild: demo.Child\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-19/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-19/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-19/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-19/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [],
+      "expected": {
+        "textDocument/definition": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": null,
+        "textDocument/references": [],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: demo.Root",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "child: demo.Child",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": 8,
+                        "name": "value",
+                        "range": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "selectionRange": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": null
+      }
+    },
+    {
+      "name": "supports definition on assembly-backed component configuration names using inherited template parameters #20",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-20/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: DemoAsm\n{\n    Chi<|>ld{Lane}\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-20/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-20/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-20/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-20/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-20/src/demo.xsmpasb",
+          "name": "Child{Lane}"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-20/src/demo.xsmpasb",
+            "targetRange": {
+              "start": {
+                "character": 13,
+                "line": 3
+              },
+              "end": {
+                "character": 36,
+                "line": 3
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 13,
+                "line": 3
+              },
+              "end": {
+                "character": 24,
+                "line": 3
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 4,
+                "line": 3
+              },
+              "end": {
+                "character": 15,
+                "line": 3
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 4,
+            "line": 3
+          },
+          "end": {
+            "character": 15,
+            "line": 3
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-20/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 13,
+                "line": 3
+              },
+              "end": {
+                "character": 24,
+                "line": 3
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: DemoAsm",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "Child{Lane}",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": 8,
+                        "name": "value",
+                        "range": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "selectionRange": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-20/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 13,
+                    "line": 3
+                  },
+                  "end": {
+                    "character": 24,
+                    "line": 3
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "supports template parameter navigation inside assembly-backed configuration paths #21",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-21/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: DemoAsm\n{\n    Child{La<|>ne}\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-21/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-21/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-21/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-21/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-21/src/demo.xsmpasb",
+          "name": "Lane"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-21/src/demo.xsmpasb",
+            "targetRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 22,
+                "line": 0
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 10,
+                "line": 0
+              },
+              "end": {
+                "character": 14,
+                "line": 0
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "line": 3,
+                "character": 9
+              },
+              "end": {
+                "line": 3,
+                "character": 15
+              }
+            }
+          }
+        ],
+        "textDocument/typeDefinition": null,
+        "textDocument/hover": null,
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 4,
+            "line": 3
+          },
+          "end": {
+            "character": 15,
+            "line": 3
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-21/src/demo.xsmpasb",
+            "range": {
+              "start": {
+                "character": 13,
+                "line": 3
+              },
+              "end": {
+                "character": 24,
+                "line": 3
+              }
+            }
+          }
+        ],
+        "textDocument/documentSymbol": [
+          {
+            "kind": 4,
+            "name": "Demo",
+            "range": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "character": 0,
+                "line": 0
+              },
+              "end": {
+                "character": 1,
+                "line": 7
+              }
+            },
+            "children": [
+              {
+                "kind": 19,
+                "name": "/Root: DemoAsm",
+                "range": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "character": 0,
+                    "line": 1
+                  },
+                  "end": {
+                    "character": 1,
+                    "line": 7
+                  }
+                },
+                "children": [
+                  {
+                    "kind": 19,
+                    "name": "Child{Lane}",
+                    "range": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "character": 4,
+                        "line": 3
+                      },
+                      "end": {
+                        "character": 5,
+                        "line": 6
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": 8,
+                        "name": "value",
+                        "range": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "selectionRange": {
+                          "start": {
+                            "character": 8,
+                            "line": 5
+                          },
+                          "end": {
+                            "character": 20,
+                            "line": 5
+                          }
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-21/src/demo.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 13,
+                    "line": 3
+                  },
+                  "end": {
+                    "character": 24,
+                    "line": 3
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Deployment0: navigation and rename retain known unsafe field paths",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-22/src/target.xsmpasb",
+      "text": "assembly Demo\n\nconfigure Child\n{\n    count = true\n    missing = 1i32\n    unsafe missing = 1i32\n}\n\nconfigure enabled\n{\n}\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n    field link outValue -> Child.outValue\n    field link unsafe ou<|>tValue -> unsafe Child.outValue\n    event link outbound -> Child.inbound\n    event link outbound -> Child.missing\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-22/xsmp.project",
+          "text": "project 'Demo' using 'ECSS_SMP_2025'\nsource 'src'\n"
+        },
+        {
+          "uri": "file:///navigation/case-22/src/types.xsmpcat",
+          "text": "catalogue DemoTypes\n\nnamespace demo\n{\n    public event FlagEvent extends Smp.Bool\n    @SimpleArray\n    public array SimpleIntQuad = Smp.Int32[4]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field SimpleIntQuad values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 count\n        field Smp.Float64 ratio\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        reference Smp.IComponent backLogger\n        reference Smp.IService backService\n\n        entrypoint step\n        {\n            in inValue\n            out outValue\n        }\n\n        eventsink demo.FlagEvent inbound\n        eventsource demo.FlagEvent outbound\n    }\n\n    public model Root\n    {\n        field Smp.Bool enabledState\n        field Smp.Int32 countState\n        field Counters state\n        field Smp.Char8 grade\n        field Smp.String8 label\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        container Child child = demo.Child\n        reference Smp.IComponent logger\n        reference Smp.IService serviceRef\n\n        public property Smp.Bool enabled -> enabledState\n        readOnly property Smp.Bool status -> enabledState\n        public property Smp.Int32 count -> countState\n        public def void apply(in Smp.Int32 nextCount, in Smp.Float64 nextRatio)\n\n        entrypoint step\n        {\n            in inValue\n            out outValue\n        }\n\n        eventsink demo.FlagEvent inbound\n        eventsource demo.FlagEvent outbound\n    }\n\n    public model RootWithoutDefault\n    {\n        container Child child\n    }\n\n    public model RootWithTwoDefaults\n    {\n        container Child first = demo.Child\n        container Child second = demo.Child\n    }\n\n    public model System\n    {\n        container Root bus = demo.Root\n    }\n}\n"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-22/src/types.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 41
+              },
+              "end": {
+                "character": 39,
+                "line": 41
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 31,
+                "line": 41
+              },
+              "end": {
+                "character": 39,
+                "line": 41
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 22,
+                "line": 17
+              },
+              "end": {
+                "character": 30,
+                "line": 17
+              }
+            }
+          }
+        ],
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 22,
+            "line": 17
+          },
+          "end": {
+            "character": 30,
+            "line": 17
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-22/src/types.xsmpcat",
+            "range": {
+              "start": {
+                "character": 31,
+                "line": 41
+              },
+              "end": {
+                "character": 39,
+                "line": 41
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-22/src/types.xsmpcat",
+            "range": {
+              "start": {
+                "character": 16,
+                "line": 55
+              },
+              "end": {
+                "character": 24,
+                "line": 55
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-22/src/target.xsmpasb",
+            "range": {
+              "start": {
+                "character": 15,
+                "line": 16
+              },
+              "end": {
+                "character": 23,
+                "line": 16
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-22/src/target.xsmpasb",
+            "range": {
+              "start": {
+                "character": 22,
+                "line": 17
+              },
+              "end": {
+                "character": 30,
+                "line": 17
+              }
+            }
+          }
+        ],
+        "textDocument/hover": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-22/src/types.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 31,
+                    "line": 41
+                  },
+                  "end": {
+                    "character": 39,
+                    "line": 41
+                  }
+                },
+                "newText": "Renamed"
+              },
+              {
+                "range": {
+                  "start": {
+                    "character": 16,
+                    "line": 55
+                  },
+                  "end": {
+                    "character": 24,
+                    "line": 55
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-22/src/target.xsmpasb": [
+              {
+                "range": {
+                  "start": {
+                    "character": 15,
+                    "line": 16
+                  },
+                  "end": {
+                    "character": 23,
+                    "line": 16
+                  }
+                },
+                "newText": "Renamed"
+              },
+              {
+                "range": {
+                  "start": {
+                    "character": 22,
+                    "line": 17
+                  },
+                  "end": {
+                    "character": 30,
+                    "line": 17
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Deployment27: navigation and rename retain known unsafe field paths",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-23/src/target.xsmpcfg",
+      "text": "configuration Demo\n/Root\n{\n    flag = 1\n}\n/Typed: demo.Root\n{\n    unsafe ra<|>tio = 1.5\n    state = {\n        unsafe count = 1\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-23/xsmp.project",
+          "text": "project 'Demo' using 'ECSS_SMP_2025'\nsource 'src'\n"
+        },
+        {
+          "uri": "file:///navigation/case-23/src/types.xsmpcat",
+          "text": "catalogue DemoTypes\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n    @SimpleArray\n    public array SimpleIntQuad = Smp.Int32[4]\n    public integer TinyCounter extends Smp.UInt8 in 1 ... 3\n    public float SmallRatio extends Smp.Float32 in 0.0 ..< 2.0\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Smp.UInt8 byteValue\n        field TinyCounter tiny\n        field SmallRatio smallRatio\n        field SimpleIntQuad simpleValues\n        field Counters state\n        field Smp.Bool flag\n        field Smp.Float64 ratio\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-23/src/assembly.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-23/src/other.xsmpcfg",
+          "text": "configuration Other /Other {}"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-23/src/types.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 30
+              },
+              "end": {
+                "character": 31,
+                "line": 30
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 26,
+                "line": 30
+              },
+              "end": {
+                "character": 31,
+                "line": 30
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 11,
+                "line": 7
+              },
+              "end": {
+                "character": 16,
+                "line": 7
+              }
+            }
+          }
+        ],
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 11,
+            "line": 7
+          },
+          "end": {
+            "character": 16,
+            "line": 7
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-23/src/types.xsmpcat",
+            "range": {
+              "start": {
+                "character": 26,
+                "line": 30
+              },
+              "end": {
+                "character": 31,
+                "line": 30
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-23/src/target.xsmpcfg",
+            "range": {
+              "start": {
+                "character": 11,
+                "line": 7
+              },
+              "end": {
+                "character": 16,
+                "line": 7
+              }
+            }
+          }
+        ],
+        "textDocument/hover": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-23/src/types.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 26,
+                    "line": 30
+                  },
+                  "end": {
+                    "character": 31,
+                    "line": 30
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-23/src/target.xsmpcfg": [
+              {
+                "range": {
+                  "start": {
+                    "character": 11,
+                    "line": 7
+                  },
+                  "end": {
+                    "character": 16,
+                    "line": 7
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Deployment46: navigation and rename retain known unsafe field paths",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-24/src/target.xsmplnk",
+      "text": "link Demo for DemoAsm\n\n/\n{\n    field link outValue -> Leaf.outValue\n    field link unsafe ou<|>tValue -> unsafe Leaf.outValue\n    event link outbound -> Leaf.inbound\n\n    enabled\n    {\n        event link outbound -> inbound\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-24/xsmp.project",
+          "text": "project 'Demo' using 'ECSS_SMP_2025'\nsource 'src'\n"
+        },
+        {
+          "uri": "file:///navigation/case-24/src/types.xsmpcat",
+          "text": "catalogue DemoTypes\n\nnamespace demo\n{\n    public event FlagEvent extends Smp.Bool\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n\n        eventsink demo.FlagEvent inbound\n        eventsource demo.FlagEvent outbound\n        reference Smp.IComponent backLogger\n    }\n\n    public model Root\n    {\n        field Smp.Bool enabledState\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        container Child child = demo.Child\n        reference Smp.IComponent logger\n\n        public property Smp.Bool enabled -> enabledState\n\n        eventsink demo.FlagEvent inbound\n        eventsource demo.FlagEvent outbound\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-24/src/assembly.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Leaf: demo.Child\n}\n"
+        }
+      ],
+      "expected": {
+        "textDocument/definition": [
+          {
+            "targetUri": "file:///navigation/case-24/src/types.xsmpcat",
+            "targetRange": {
+              "start": {
+                "character": 8,
+                "line": 19
+              },
+              "end": {
+                "character": 39,
+                "line": 19
+              }
+            },
+            "targetSelectionRange": {
+              "start": {
+                "character": 31,
+                "line": 19
+              },
+              "end": {
+                "character": 39,
+                "line": 19
+              }
+            },
+            "originSelectionRange": {
+              "start": {
+                "character": 22,
+                "line": 5
+              },
+              "end": {
+                "character": 30,
+                "line": 5
+              }
+            }
+          }
+        ],
+        "textDocument/prepareRename": {
+          "start": {
+            "character": 22,
+            "line": 5
+          },
+          "end": {
+            "character": 30,
+            "line": 5
+          }
+        },
+        "textDocument/references": [
+          {
+            "uri": "file:///navigation/case-24/src/types.xsmpcat",
+            "range": {
+              "start": {
+                "character": 31,
+                "line": 19
+              },
+              "end": {
+                "character": 39,
+                "line": 19
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-24/src/target.xsmplnk",
+            "range": {
+              "start": {
+                "character": 15,
+                "line": 4
+              },
+              "end": {
+                "character": 23,
+                "line": 4
+              }
+            }
+          },
+          {
+            "uri": "file:///navigation/case-24/src/target.xsmplnk",
+            "range": {
+              "start": {
+                "character": 22,
+                "line": 5
+              },
+              "end": {
+                "character": 30,
+                "line": 5
+              }
+            }
+          }
+        ],
+        "textDocument/hover": null,
+        "textDocument/typeDefinition": null,
+        "textDocument/rename": {
+          "changes": {
+            "file:///navigation/case-24/src/types.xsmpcat": [
+              {
+                "range": {
+                  "start": {
+                    "character": 31,
+                    "line": 19
+                  },
+                  "end": {
+                    "character": 39,
+                    "line": 19
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ],
+            "file:///navigation/case-24/src/target.xsmplnk": [
+              {
+                "range": {
+                  "start": {
+                    "character": 15,
+                    "line": 4
+                  },
+                  "end": {
+                    "character": 23,
+                    "line": 4
+                  }
+                },
+                "newText": "Renamed"
+              },
+              {
+                "range": {
+                  "start": {
+                    "character": 22,
+                    "line": 5
+                  },
+                  "end": {
+                    "character": 30,
+                    "line": 5
+                  }
+                },
+                "newText": "Renamed"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

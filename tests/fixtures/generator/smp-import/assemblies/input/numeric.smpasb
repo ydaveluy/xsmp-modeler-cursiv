@@ -1,0 +1,3 @@
+<Assembly xmlns="urn:custom/Assembly" Name="Numeric">
+  <Model Name="Root" Implementation="9vendor::Device"/>
+</Assembly>

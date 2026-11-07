@@ -1,0 +1,8 @@
+/**
+ * @id cfg
+ */
+configuration StartIndex
+.
+{
+    simpleValues = [2: 5i32, 6i32]
+}

@@ -1,0 +1,21 @@
+catalogue Demo
+namespace n
+{
+    // A stub stays small, and compiles for every return.
+    /** @uuid 11111111-0000-4000-8000-0000000000f1 */
+    public array Huge = Smp.Int32[10000000]
+    /** @uuid 11111111-0000-4000-8000-0000000000f2 */
+    public enum E { A = 1 }
+    /** @uuid 11111111-0000-4000-8000-0000000000f3 */
+    public struct S { field Huge items }
+    /** @uuid 11111111-0000-4000-8000-0000000000f4 */
+    public model M
+    {
+        def Huge huge()
+        def S structure()
+        def E literal()
+        def Smp.Int32 number()
+        def @Attributes.ByReference Smp.Int32 reference()
+        @Attributes.ByReference property Smp.Int32 value
+    }
+}

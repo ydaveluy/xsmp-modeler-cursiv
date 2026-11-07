@@ -1,0 +1,47 @@
+catalogue Schema
+namespace demo {
+    /** @uuid 11111111-1111-1111-1111-111111111111 */
+    public enum Mode { Off = 0, On = 1 }
+    /** @uuid 22222222-2222-2222-2222-222222222222 */
+    public struct State { field Smp.Int32 count = 1 }
+    /** @uuid 33333333-3333-3333-3333-333333333333 */
+    public model Child {
+        input field Smp.Int32 inputValue
+        output field Smp.Int32 outputValue
+        public property Smp.Int32 count
+        public def void reset(in Smp.Int32 value)
+        entrypoint step
+    }
+    /** @uuid 44444444-4444-4444-4444-444444444444 */
+    public model Root {
+        field State state
+        field State position = {2}
+        container Child child = demo.Child
+        entrypoint step
+    }
+    /** @uuid 55555555-5555-5555-5555-555555555555 */
+    public using Pointer = Smp.Int32*
+    /** @uuid 66666666-6666-6666-6666-666666666666 */
+    public attribute Smp.Bool Flag = true
+    /** @uuid 77777777-7777-7777-7777-777777777777 */
+    public interface Calls {
+        @Flag def void over(in Smp.Int32 value = 7)
+        @Flag def void over(in Smp.Bool value = true, in Smp.String8 text = "say \"hi\"")
+        def void pointer(in Pointer value = nullptr)
+    }
+    /**
+     * @uuid 88888888-8888-8888-8888-888888888888
+     * @platform cpp
+     * @type int
+     * @platform java
+     * @type Integer
+     */
+    public native Mapped
+    /** @uuid 99999999-9999-9999-9999-999999999999 */
+    public struct Texts {
+        constant Smp.String8 a = "\0\x01\x7F\t\n\r\uFFFE\uFFFF<>&'\"\\x00"
+        constant Smp.Char8 b = '\0'
+        constant Smp.Char8 c = '<'
+        constant Smp.Char8 d = '\''
+    }
+}

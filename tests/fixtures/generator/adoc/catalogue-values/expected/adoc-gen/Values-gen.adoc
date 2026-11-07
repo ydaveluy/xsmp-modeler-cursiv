@@ -1,0 +1,85 @@
+= Catalogue Values
+
+
+== Namespace n
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace n {
+
+                class S { <<Structure>> }
+
+}
+....
+
+[#n-S]
+=== Structure S
+
+
+.S's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |n::S
+.^h|UUID |11111111-0000-4000-8000-000000000321
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class S {
+        +constexpr String8 a = "#123;#40;#41;#125;#60;#126;#35;#36;#62;"
+        +constexpr String8 b = "\0\a\001\t\uFFFE|"
+        +constexpr Char8 c = '\''
+        +constexpr Char8 d = '"'
+        +Char8 e
+
+    }
+
+
+....
+
+==== Constants
+The S structure provides the following constants:
+
+.S's public constants
+[%autowidth.stretch]
+|===
+|Name |Type |Value
+
+|a
+|<<Smp-String8,Smp::String8>>
+|pass:c["{()}<~#$>"]
+|b
+|<<Smp-String8,Smp::String8>>
+|pass:c["\0\a\001\t\uFFFE\|"]
+|c
+|<<Smp-Char8,Smp::Char8>>
+|pass:c['\'']
+|d
+|<<Smp-Char8,Smp::Char8>>
+|pass:c['"']
+|===
+==== Fields
+The S structure provides the following fields:
+
+.S's public fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type |Initial Value
+
+|state
+|e
+|<<Smp-Char8,Smp::Char8>>
+|'\001'
+|===

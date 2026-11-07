@@ -1,0 +1,16 @@
+catalogue Walk
+
+namespace walk
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-00000000062d
+     */
+    model M
+    {
+        field dep.A a
+        field dep.B b
+        field dep.A c
+        field dep.a d
+        field x e
+    }
+}

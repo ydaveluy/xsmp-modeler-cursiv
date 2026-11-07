@@ -1,0 +1,36 @@
+catalogue Context
+
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000401 */
+    public event FlagEvent extends Smp.Bool
+    /** @uuid 11111111-0000-4000-8000-000000000402 */
+    @SimpleArray
+    public array SimpleIntQuad = Smp.Int32[4]
+
+    /** @uuid 11111111-0000-4000-8000-000000000403 */
+    public model Child
+    {
+        field Smp.Int32 count
+        field Smp.Float64 ratio
+        input field Smp.Int32 inValue
+        output field Smp.Int32 outValue
+
+        eventsink demo.FlagEvent inbound
+        eventsource demo.FlagEvent outbound
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000404 */
+    public model Root
+    {
+        field Smp.Int32 countState
+        field SimpleIntQuad simpleValues
+        output field Smp.Int32 outValue
+        container Child child = demo.Child
+        public property Smp.Int32 count -> countState
+        public def void apply(in Smp.Int32 nextCount, in Smp.Float64 nextRatio)
+
+        eventsink demo.FlagEvent inbound
+        eventsource demo.FlagEvent outbound
+    }
+}

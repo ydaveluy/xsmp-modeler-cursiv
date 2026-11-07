@@ -1,0 +1,19 @@
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-0000000000e1 */
+    public interface I { def void attach(in M m) }
+
+    /** @uuid 11111111-0000-4000-8000-0000000000e2 */
+    public model M implements I { def void attach(in M m) }
+
+    /** @uuid 11111111-0000-4000-8000-0000000000e3 */
+    public model N
+    {
+        def void by(in I i)
+        @Attributes.ByReference property S value
+    }
+
+    /** @uuid 11111111-0000-4000-8000-0000000000e4 */
+    public struct S { field Smp.Int32 x }
+}

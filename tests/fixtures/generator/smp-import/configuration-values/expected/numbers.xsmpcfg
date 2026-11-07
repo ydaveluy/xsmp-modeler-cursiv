@@ -1,0 +1,6 @@
+configuration NonFinite
+/Root
+{
+    a = 0.f64
+    b = 0.f32
+}

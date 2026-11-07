@@ -1,0 +1,1 @@
+configuration held /Root { a = "x\nC:\\tmp" b = 1e999f64 }

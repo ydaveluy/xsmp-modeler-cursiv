@@ -1,0 +1,6 @@
+schedule __schedule__
+task __task__
+{
+    trig __entryPoint__
+    async emit ""
+}

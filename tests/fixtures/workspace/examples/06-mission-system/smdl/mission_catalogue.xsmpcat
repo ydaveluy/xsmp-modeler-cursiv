@@ -1,0 +1,60 @@
+/** Mission-level catalogue integrating orbital and payload segments. */
+catalogue mission_catalogue
+
+/** Mission system root and ground-side support models. */
+namespace demo::mission
+{
+    /**
+     * Bounded buffer used to store the last message displayed by the ground console.
+     * @uuid f34c9d57-d945-4171-9d0a-1f848450a416
+     */
+    public string ConsoleMessage[64]
+
+    /**
+     * Ground console acting as logger and uplink source.
+     * @uuid 36bc5aa6-2356-4e04-addf-07c7fc35857d
+     */
+    public model GroundConsole implements demo.foundation.ILogger
+    {
+        /** Last message displayed by the console. */
+        field demo.mission.ConsoleMessage consoleMessage = "idle"
+        /** Mode commanded from the ground. */
+        output field demo.foundation.Mode uplinkMode = demo.foundation.Mode.Standby
+
+        /** Logs one message on the ground console. */
+        public def void log(in Smp.String8 message)
+
+        /** Dispatches the current uplink mode. */
+        entrypoint dispatch
+        {
+            /** Declares the uplink mode output produced by dispatch. */
+            out uplinkMode
+        }
+
+        /** Publishes an event when an uplink is sent. */
+        eventsource demo.foundation.ModeEvent uplinkEvent
+    }
+
+    /**
+     * Root model assembling the orbital, payload and ground segments.
+     * @uuid 780306ed-c4d5-4947-97cb-a67381ef0801
+     */
+    public model MissionSystemRoot
+    {
+        /** Global integration flag used by the examples. */
+        output field Smp.Bool integrated = false
+        /** Embedded orbital segment root. */
+        container demo.orbit.OrbitalPlatform orbital = demo.orbit.OrbitalPlatform
+        /** Embedded payload segment root. */
+        container demo.payloadsegment.PayloadPlatform payload = demo.payloadsegment.PayloadPlatform
+        /** Embedded ground console. */
+        container demo.mission.GroundConsole ground = demo.mission.GroundConsole
+
+        /** Supervises the whole integrated system. */
+        entrypoint supervise
+        {
+            /** Declares the integration flag published by supervision. */
+            out integrated
+        }
+    }
+}

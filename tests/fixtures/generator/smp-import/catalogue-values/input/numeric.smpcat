@@ -1,0 +1,19 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Numeric">
+  <Namespace Name="numeric">
+    <Type xsi:type="Catalogue:Model" Id="numeric.Root" Name="Root" Abstract="1" Uuid="11111111-0000-4000-8000-00000000060f">
+      <Field Name="enabled" Input="1" Output="0" State="0">
+        <Type xlink:href="#Smp.Bool"/>
+        <Default xsi:type="Types:BoolValue" Value="1"/>
+      </Field>
+    </Type>
+    <Type xsi:type="Types:ValueReference" Id="numeric.Pointer" Name="Pointer" Visibility="public" Uuid="11111111-0000-4000-8000-000000000610">
+      <Type xlink:href="#Smp.Int32"/>
+    </Type>
+    <Type xsi:type="Types:Structure" Name="Holder" Uuid="11111111-0000-4000-8000-000000000611">
+      <Field Name="target">
+        <Type xlink:href="#numeric.Pointer"/>
+        <Default xsi:type="Types:Value"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue>

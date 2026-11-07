@@ -1,0 +1,9 @@
+<Schedule xmlns="http://www.ecss.nl/smp/2025/Smdl/Schedule" Name="Unknown" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="R"/>
+  <Task Id="Unknown.Worker" Name="Worker">
+    <Activity xsi:type="Schedule:CustomActivity"/>
+  </Task>
+  <Event xsi:type="Schedule:CustomEvent">
+    <Task xlink:href="#Unknown.Worker"/>
+  </Event>
+</Schedule>

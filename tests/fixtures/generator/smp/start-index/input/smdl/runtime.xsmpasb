@@ -1,0 +1,3 @@
+assembly runtime
+configure . { countState = 1 ratioState = 1.5 samples = [3, 4] }
+Root: demo.Root { property count = 2 call apply(value = 5) }

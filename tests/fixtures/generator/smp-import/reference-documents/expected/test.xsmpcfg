@@ -1,0 +1,14 @@
+/**
+ * @id Demo
+ */
+configuration Demo
+/Root
+{
+    include Other at child
+    child
+    {
+        value = 2i32
+    }
+    ratio = 1.5f64
+    state = {count = 1i32, values = [1i32, 2i32]}
+}

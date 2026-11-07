@@ -1,0 +1,24 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Components">
+  <Namespace Name="n">
+    <Type xsi:type="Catalogue:Model" Id="n.Model" Name="Model" Visibility="public" Uuid="11111111-0000-4000-8000-000000000617">
+      <Container Id="n.Model.child" Name="child">
+        <Type xlink:href="#n.Model"/>
+      </Container>
+    </Type>
+    <Type xsi:type="Catalogue:Model" Id="n.M" Name="M" Visibility="public" Uuid="11111111-0000-4000-8000-000000000618">
+      <Container Id="n.M.kids" Name="kids">
+        <Type xlink:href="#n.M"/>
+      </Container>
+      <Container Id="n.M.parts" Name="parts">
+        <Type xlink:href="#n.M"/>
+      </Container>
+    </Type>
+  </Namespace>
+  <Namespace Name="demo">
+    <Type xsi:type="Catalogue:Model" Id="demo.Root" Name="Root" Visibility="public" Uuid="11111111-0000-4000-8000-000000000619">
+      <Container Id="demo.Root.child" Name="child">
+        <Type xlink:href="#demo.Root"/>
+      </Container>
+    </Type>
+  </Namespace>
+</Catalogue>

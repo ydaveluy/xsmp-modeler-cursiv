@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_nulls" Name="nulls">
+  <Namespace Id="nulls" Name="nulls">
+    <Type Id="nulls.Ref" Name="Ref" xsi:type="Types:ValueReference" Uuid="11111111-0000-4000-8000-000000000218" Visibility="public">
+      <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+    </Type>
+    <Type Id="nulls.S" Name="S" xsi:type="Types:Structure" Uuid="11111111-0000-4000-8000-000000000215" Visibility="public">
+      <Field Id="nulls.S.a" Name="a">
+        <Type xlink:title="Ref" xlink:href="#nulls.Ref" />
+      </Field>
+    </Type>
+    <Type Id="nulls.T" Name="T" xsi:type="Types:Structure" Uuid="11111111-0000-4000-8000-000000000216" Visibility="public">
+      <Field Id="nulls.T.s" Name="s">
+        <Type xlink:title="S" xlink:href="#nulls.S" />
+        <Default xsi:type="Types:StructureValue" />
+      </Field>
+    </Type>
+    <Type Id="nulls.I" Name="I" xsi:type="Catalogue:Interface" Uuid="11111111-0000-4000-8000-000000000217" Visibility="public">
+      <Operation Id="nulls.I.f-Ref" Name="f">
+        <Parameter Id="nulls.I.f-Ref.p" Name="p" Direction="in">
+          <Type xlink:title="Ref" xlink:href="#nulls.Ref" />
+        </Parameter>
+      </Operation>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

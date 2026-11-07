@@ -1,0 +1,20 @@
+catalogue components
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000711 */
+    public enum Mode { Off = 0, On = 1 }
+    /** @uuid 11111111-0000-4000-8000-000000000712 */
+    public model M { field Mode mode container M kids }
+}
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000713 */
+    public model Child { input field Smp.Int32 input }
+    /** @uuid 11111111-0000-4000-8000-000000000714 */
+    public model Root
+    {
+        output field Smp.Int32 output
+        container Child child
+        entrypoint step
+    }
+}

@@ -1,0 +1,19 @@
+catalogue platforms
+namespace n
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-000000000207
+     * @type int32_t
+     * @platform cpp
+     * @namespace std
+     * @platform java
+     * @type Integer
+     * @location rt.jar
+     */
+    public native Two
+    /**
+     * @uuid 11111111-0000-4000-8000-000000000208
+     * @type int32_t
+     */
+    public native One
+}

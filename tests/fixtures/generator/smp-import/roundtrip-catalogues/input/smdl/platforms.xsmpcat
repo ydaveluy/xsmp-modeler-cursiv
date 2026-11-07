@@ -1,0 +1,14 @@
+catalogue platforms
+namespace platform
+{
+    /**
+     * @uuid 11111111-1111-1111-1111-111111111111
+     * @platform cpp
+     * @type int32_t
+     * @platform java
+     * @type Integer
+     */
+    public native T
+    /** @uuid 22222222-2222-2222-2222-222222222222 */
+    public struct S { field Smp.String8 a = "say \"hi\"\nC:\\tmp" }
+}

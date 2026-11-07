@@ -1,0 +1,6 @@
+catalogue bounds
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000205 */
+    float Ratio extends Smp.Float32 in 0.1 ... 0.9
+}

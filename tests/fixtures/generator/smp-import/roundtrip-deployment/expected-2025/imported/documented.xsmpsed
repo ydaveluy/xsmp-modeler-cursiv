@@ -1,0 +1,18 @@
+/**
+ * @id documented
+ */
+schedule <Root = "R"> documented epoch "2025-01-01T00:00:00Z" mission "2025-01-01T01:00:00Z"
+/**
+ * @id documented.T
+ */
+task T
+{
+    /**
+     * Activity doc.
+     */
+    trig step
+}
+/**
+ * Event doc.
+ */
+event T simulation "PT1S"

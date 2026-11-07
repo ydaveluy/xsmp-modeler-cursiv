@@ -1,0 +1,6 @@
+# Google style. Long expressions break before their operators, so each
+# and `|` of a grammar rule starts a line.
+BasedOnStyle: Google
+BreakBeforeBinaryOperators: NonAssignment
+# A blank line between definitions keeps the code easy to read.
+SeparateDefinitionBlocks: Always

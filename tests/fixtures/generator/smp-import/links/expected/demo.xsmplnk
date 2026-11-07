@@ -1,0 +1,9 @@
+/**
+ * @id Demo
+ */
+link Demo
+/
+{
+    interface link svc.ref -> client:back
+    field link raw.out -> raw.in
+}

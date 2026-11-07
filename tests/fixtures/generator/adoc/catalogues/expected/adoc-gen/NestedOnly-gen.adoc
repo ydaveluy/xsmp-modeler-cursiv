@@ -1,0 +1,51 @@
+= Catalogue NestedOnly
+
+++++
+Catalogue with a parent namespace that only contains another namespace.
+++++
+
+== Namespace demo
+
+++++
+Parent namespace description.
+++++
+
+== Namespace demo::foundation
+
+++++
+Child namespace description.
+++++
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace foundation {
+
+                class Mode { <<Enumeration>> }
+
+}
+....
+
+[#demo-foundation-Mode]
+=== Enumeration Mode
+
+
+.Mode's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::foundation::Mode
+.^h|UUID |20000000-0000-0000-0000-000000000001
+|===
+
+
+.Mode's literals
+[%autowidth.stretch]
+|===
+|Name |Value
+|Off|0
+|On|1
+|===

@@ -1,0 +1,5 @@
+<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Literal">
+  <Component Path="/Root">
+    <FieldValue xsi:type="Types:EnumerationValue" Field="mode" Literal="On" Value="1"/>
+  </Component>
+</Configuration>

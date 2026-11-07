@@ -1,0 +1,11 @@
+/**
+ * @id Main
+ */
+schedule <Root = "R"> Main
+/**
+ * @id Main.Root
+ */
+task Root
+{
+    execute FallbackTask
+}

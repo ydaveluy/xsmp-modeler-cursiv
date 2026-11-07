@@ -1,0 +1,22 @@
+/**
+ * @id _escaped
+ */
+catalogue escaped
+
+/**
+ * @id esc
+ */
+namespace esc
+{
+    /**
+     * @id esc.State
+     * @uuid 11111111-0000-4000-8000-000000000702
+     */
+    public struct State
+    {
+        /**
+         * @id esc.State.line
+         */
+        field Smp.Char8 line = '\n'
+    }
+}

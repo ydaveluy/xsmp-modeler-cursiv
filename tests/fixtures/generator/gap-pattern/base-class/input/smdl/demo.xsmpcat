@@ -1,0 +1,19 @@
+// The attribute is only metadata: it changes nothing in the generated code.
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-0000000000d1 */
+    @Attributes.BaseClass("::Foo::Impl") public class C { }
+    /** @uuid 11111111-0000-4000-8000-0000000000d2 */
+    public class Plain { }
+    /** @uuid 11111111-0000-4000-8000-0000000000d3 */
+    @Attributes.BaseClass("::std::exception") public exception X { }
+    /** @uuid 11111111-0000-4000-8000-0000000000d4 */
+    @Attributes.BaseClass("::Foo::Impl") public struct S { }
+    /** @uuid 11111111-0000-4000-8000-0000000000d5 */
+    @Attributes.BaseClass("::Foo::Impl") public model M { }
+    /** @uuid 11111111-0000-4000-8000-0000000000d6 */
+    @Attributes.BaseClass("::Foo::Impl") public service V { }
+    /** @uuid 11111111-0000-4000-8000-0000000000d7 */
+    @Attributes.BaseClass(" ") public class Blank { }
+}

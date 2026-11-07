@@ -1,0 +1,1 @@
+configuration Markup /Root { a = "*x*" b = '\xE9' c = "\"\xFF" d = "ok" }

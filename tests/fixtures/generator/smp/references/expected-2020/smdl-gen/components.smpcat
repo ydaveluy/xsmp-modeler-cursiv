@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_components" Name="components">
+  <Namespace Id="demo" Name="demo">
+    <Type Id="demo.IProvider" Name="IProvider" xsi:type="Catalogue:Interface" Uuid="11111111-0000-4000-8000-000000000243" Visibility="public" />
+    <Type Id="demo.Provider" Name="Provider" xsi:type="Catalogue:Model" Uuid="11111111-0000-4000-8000-000000000244" Visibility="public">
+      <Interface xlink:title="IProvider" xlink:href="#demo.IProvider" />
+    </Type>
+    <Type Id="demo.Client" Name="Client" xsi:type="Catalogue:Model" Uuid="11111111-0000-4000-8000-000000000245" Visibility="public">
+      <Container Id="demo.Client.providers" Name="providers" Lower="1" Upper="1">
+        <Type xlink:title="Provider" xlink:href="#demo.Provider" />
+      </Container>
+      <Reference Id="demo.Client.provider" Name="provider" Lower="1" Upper="1">
+        <Interface xlink:title="IProvider" xlink:href="#demo.IProvider" />
+      </Reference>
+    </Type>
+    <Type Id="demo.Root" Name="Root" xsi:type="Catalogue:Model" Uuid="11111111-0000-4000-8000-000000000246" Visibility="public">
+      <Container Id="demo.Root.clients" Name="clients" Lower="1" Upper="1">
+        <Type xlink:title="Client" xlink:href="#demo.Client" />
+      </Container>
+      <Container Id="demo.Root.roots" Name="roots" Lower="1" Upper="1">
+        <Type xlink:title="Root" xlink:href="#demo.Root" />
+      </Container>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

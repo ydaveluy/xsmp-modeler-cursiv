@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package:Package xmlns:Package="http://www.ecss.nl/smp/2025/Smdl/Package" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_described" Name="described" Title="Demo">
+  <Description>Catalogue description.</Description>
+  <Implementation xlink:title="Count" xlink:href="described.smpcat#demo.Count" />
+  <Implementation xlink:title="Mode" xlink:href="described.smpcat#demo.Mode" />
+  <Implementation xlink:title="Data" xlink:href="described.smpcat#demo.Data" />
+</Package:Package>

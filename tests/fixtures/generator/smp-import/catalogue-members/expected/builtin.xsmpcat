@@ -1,0 +1,14 @@
+catalogue Builtin
+
+namespace builtin
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-000000000609
+     */
+    model M
+    {
+        reference Smp.Services.ILogger a
+        reference Smp.Services.ILogger b
+        reference Smp.ISimulatorL2 c
+    }
+}

@@ -1,0 +1,20 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000021 */
+    enum Mode
+    {
+        /** Idle mode. */
+        Standby = 0,
+        Nominal = 1,
+        /** Component is powered off and fully idle. */
+        Off = 2
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000022 */
+    array Samples = Smp.Float32[16]
+
+    /** @uuid 11111111-0000-4000-8000-000000000023 */
+    @SimpleArray
+    array SimpleSamples = Smp.Float32[16]
+}

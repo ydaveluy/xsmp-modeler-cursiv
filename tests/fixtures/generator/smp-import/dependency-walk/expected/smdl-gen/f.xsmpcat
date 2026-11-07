@@ -1,0 +1,19 @@
+catalogue D
+
+namespace dep
+{
+    /**
+     * @id dep.a
+     * @uuid 11111111-0000-4000-8000-00000000062b
+     */
+    struct A
+    {
+    }
+    /**
+     * @id dep.b
+     * @uuid 11111111-0000-4000-8000-00000000062c
+     */
+    struct B
+    {
+    }
+}

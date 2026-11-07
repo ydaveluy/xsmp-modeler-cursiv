@@ -1,0 +1,651 @@
+{
+  "cases": [
+    {
+      "name": "offers the catalogue snippet in an empty document #0",
+      "uri": "memory:///demo-root.xsmpcat",
+      "text": "<|>",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Catalogue"
+        },
+        {
+          "kind": "absent",
+          "label": "catalogue"
+        },
+        {
+          "kind": "insertContains",
+          "label": "Catalogue",
+          "value": "catalogue ${1:Catalogue}"
+        }
+      ]
+    },
+    {
+      "name": "offers only namespace snippets at catalogue level #1",
+      "uri": "memory:///demo-catalogue.xsmpcat",
+      "text": "catalogue demo\n<|>\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Namespace"
+        },
+        {
+          "kind": "absent",
+          "label": "namespace"
+        },
+        {
+          "kind": "insertContains",
+          "label": "Namespace",
+          "value": "namespace ${1:Namespace}"
+        },
+        {
+          "kind": "absent",
+          "label": "Model"
+        },
+        {
+          "kind": "absent",
+          "label": "Structure"
+        },
+        {
+          "kind": "absent",
+          "label": "Interface"
+        }
+      ]
+    },
+    {
+      "name": "offers namespace snippets for catalogue-level prefixes #2",
+      "uri": "memory:///demo-catalogue-prefix.xsmpcat",
+      "text": "catalogue demo\nna<|>\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Namespace"
+        },
+        {
+          "kind": "absent",
+          "label": "Model"
+        }
+      ]
+    },
+    {
+      "name": "offers type definitions inside a namespace #3",
+      "uri": "memory:///demo-namespace.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    <|>\n}\n",
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "Model",
+          "value": "/** @uuid "
+        },
+        {
+          "kind": "count",
+          "label": "Model",
+          "value": 1
+        },
+        {
+          "kind": "count",
+          "label": "Structure",
+          "value": 1
+        },
+        {
+          "kind": "count",
+          "label": "Interface",
+          "value": 1
+        },
+        {
+          "kind": "present",
+          "label": "Model"
+        },
+        {
+          "kind": "absent",
+          "label": "Constant"
+        },
+        {
+          "kind": "absent",
+          "label": "Property"
+        },
+        {
+          "kind": "absent",
+          "label": "Operation"
+        }
+      ]
+    },
+    {
+      "name": "returns to namespace-level snippets after a closed classifier #4",
+      "uri": "memory:///demo-namespace-after-class.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    /** @uuid 8aacd110-f87d-4ef5-a3ef-1f727f7c561e */\n    array BoolArray = Bool[10]\n\n    /** @uuid fc225edd-ffbc-48c2-b6ee-be095f83c595 */\n    class MyClass\n    {\n        association BoolArray a\n        constant Int8 f = 0\n        field Int32 name\n    }\n    <|>\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Model"
+        },
+        {
+          "kind": "present",
+          "label": "Structure"
+        },
+        {
+          "kind": "absent",
+          "label": "Constant"
+        },
+        {
+          "kind": "absent",
+          "label": "Property"
+        },
+        {
+          "kind": "absent",
+          "label": "Operation"
+        }
+      ]
+    },
+    {
+      "name": "returns to catalogue-level snippets after a closed namespace #5",
+      "uri": "memory:///demo-catalogue-after-namespace.xsmpcat",
+      "text": "catalogue Test\n\nnamespace demo::foundation\n{\n\n    /** @uuid afb4bd71-93c9-4dd1-8055-c7d80c1dbe7b */\n    model M1\n    {\n        field Bool bField\n\n    }\n    \n}\n\n<|>\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Namespace"
+        },
+        {
+          "kind": "absent",
+          "label": "Model"
+        },
+        {
+          "kind": "absent",
+          "label": "Structure"
+        },
+        {
+          "kind": "absent",
+          "label": "Field"
+        },
+        {
+          "kind": "absent",
+          "label": "Constant"
+        },
+        {
+          "kind": "absent",
+          "label": "Property"
+        },
+        {
+          "kind": "absent",
+          "label": "Operation"
+        }
+      ]
+    },
+    {
+      "name": "offers classifier members inside a model #6",
+      "uri": "memory:///demo-model.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    model M\n    {\n        <|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Field"
+        },
+        {
+          "kind": "present",
+          "label": "Reference"
+        },
+        {
+          "kind": "absent",
+          "label": "field"
+        },
+        {
+          "kind": "absent",
+          "label": "reference"
+        }
+      ]
+    },
+    {
+      "name": "prioritizes boolean literals before typed constants #7",
+      "uri": "memory:///demo.xsmpcat",
+      "text": "catalogue demo\nnamespace Smp\n{\n    public primitive Bool\n    public primitive Int32\n}\nnamespace demo\n{\n    public model M\n    {\n        public constant Smp.Bool Enabled = true\n        public constant Smp.Int32 Count = 0\n        field Smp.Bool enabled =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "false"
+        },
+        {
+          "kind": "present",
+          "label": "true"
+        },
+        {
+          "kind": "present",
+          "label": "Enabled"
+        },
+        {
+          "kind": "absent",
+          "label": "Count"
+        },
+        {
+          "kind": "count",
+          "label": "false",
+          "value": 1
+        },
+        {
+          "kind": "count",
+          "label": "true",
+          "value": 1
+        },
+        {
+          "kind": "absent",
+          "label": "Default Value"
+        },
+        {
+          "kind": "absent",
+          "label": "nullptr"
+        },
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "false"
+        },
+        {
+          "kind": "before",
+          "label": "true",
+          "value": "Enabled"
+        }
+      ]
+    },
+    {
+      "name": "keeps typed constants after direct value completions #8",
+      "uri": "memory:///demo-bool-constants.xsmpcat",
+      "text": "catalogue Test\nnamespace Smp\n{\n    public primitive Bool\n}\nnamespace a\n{\n    public struct Vector\n    {\n        constant Smp.Bool ON = true\n    }\n}\nnamespace demo\n{\n    public struct Vector\n    {\n        constant Smp.Bool ON = true\n    }\n\n    model M1\n    {\n        field Smp.Bool boolField =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "false"
+        },
+        {
+          "kind": "labelAt",
+          "index": 1,
+          "label": "true"
+        },
+        {
+          "kind": "present",
+          "label": "Vector.ON"
+        },
+        {
+          "kind": "present",
+          "label": "a.Vector.ON"
+        },
+        {
+          "kind": "before",
+          "label": "true",
+          "value": "Vector.ON"
+        }
+      ]
+    },
+    {
+      "name": "prioritizes integral literals before typed constants #9",
+      "uri": "memory:///demo-integral-values.xsmpcat",
+      "text": "catalogue demo\nnamespace Smp\n{\n    public primitive Int32\n    public primitive Int64\n    public primitive Float32\n}\nnamespace demo\n{\n    public model M\n    {\n        public constant Smp.Int32 Count = 0\n        public constant Smp.Int64 BigCount = 0L\n        public constant Smp.Float32 Ratio = 1.0f\n        field Smp.Int32 value =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "0"
+        },
+        {
+          "kind": "present",
+          "label": "Count"
+        },
+        {
+          "kind": "absent",
+          "label": "BigCount"
+        },
+        {
+          "kind": "absent",
+          "label": "Ratio"
+        },
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "0"
+        },
+        {
+          "kind": "preselectAt",
+          "index": 0,
+          "value": true
+        },
+        {
+          "kind": "before",
+          "label": "0",
+          "value": "Count"
+        }
+      ]
+    },
+    {
+      "name": "prioritizes floating-point literals before typed constants #10",
+      "uri": "memory:///demo-float-values.xsmpcat",
+      "text": "catalogue demo\nnamespace Smp\n{\n    public primitive Int32\n    public primitive Float32\n    public primitive Float64\n}\nnamespace demo\n{\n    public model M\n    {\n        public constant Smp.Float32 Ratio = 1.0f\n        public constant Smp.Float64 PreciseRatio = 1.0\n        public constant Smp.Int32 Count = 0\n        field Smp.Float32 value =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "0.f"
+        },
+        {
+          "kind": "present",
+          "label": "$PI"
+        },
+        {
+          "kind": "present",
+          "label": "$E"
+        },
+        {
+          "kind": "present",
+          "label": "Ratio"
+        },
+        {
+          "kind": "absent",
+          "label": "PreciseRatio"
+        },
+        {
+          "kind": "absent",
+          "label": "Count"
+        },
+        {
+          "kind": "absent",
+          "label": "Default Value"
+        },
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "0.f"
+        },
+        {
+          "kind": "preselectAt",
+          "index": 0,
+          "value": true
+        },
+        {
+          "kind": "before",
+          "label": "$E",
+          "value": "Ratio"
+        }
+      ]
+    },
+    {
+      "name": "prioritizes default value completion for structured field initializers #11",
+      "uri": "memory:///demo-structured-default.xsmpcat",
+      "text": "catalogue Test\n\nnamespace Smp\n{\n    public primitive Float32\n}\nnamespace demo::foundation\n{\n    /** @uuid 78a37ad7-03f3-4609-8f19-2109f3d426f3 */\n    struct Vector\n    {\n        field Smp.Float32 x\n        field Smp.Float32 y\n        field Smp.Float32 z\n    }\n\n    /** @uuid afb4bd71-93c9-4dd1-8055-c7d80c1dbe7b */\n    model M1\n    {\n        field Vector bField =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "{.x = 0.0f, .y = 0.0f, .z = 0.0f}"
+        },
+        {
+          "kind": "preselectAt",
+          "index": 0,
+          "value": true
+        },
+        {
+          "kind": "insertStartsWith",
+          "index": 0,
+          "value": " "
+        },
+        {
+          "kind": "absent",
+          "label": "false"
+        },
+        {
+          "kind": "absent",
+          "label": "Default Value"
+        }
+      ]
+    },
+    {
+      "name": "prioritizes enumeration literals before typed constants #12",
+      "uri": "memory:///demo-enum-default.xsmpcat",
+      "text": "catalogue Test\n\nnamespace Smp\n{\n    public primitive Bool\n}\nnamespace demo\n{\n    enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    model M\n    {\n        public constant Mode DefaultMode = demo.Mode.Nominal\n        public constant Smp.Bool Enabled = true\n        field Mode mode =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "demo.Mode.Nominal"
+        },
+        {
+          "kind": "labelAt",
+          "index": 1,
+          "label": "demo.Mode.Safe"
+        },
+        {
+          "kind": "present",
+          "label": "DefaultMode"
+        },
+        {
+          "kind": "absent",
+          "label": "Enabled"
+        },
+        {
+          "kind": "absent",
+          "label": "Default Value"
+        },
+        {
+          "kind": "preselectAt",
+          "index": 0,
+          "value": true
+        },
+        {
+          "kind": "insertStartsWith",
+          "index": 0,
+          "value": " "
+        },
+        {
+          "kind": "before",
+          "label": "demo.Mode.Safe",
+          "value": "DefaultMode"
+        }
+      ]
+    },
+    {
+      "name": "offers only aggregate default values for aggregate initializers #13",
+      "uri": "memory:///demo-struct-values.xsmpcat",
+      "text": "catalogue demo\nnamespace Smp\n{\n    public primitive Bool\n    public primitive Int32\n}\nnamespace demo\n{\n    public struct State\n    {\n        field Smp.Bool enabled\n    }\n\n    public model M\n    {\n        field State state =<|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "{.enabled = false}"
+        },
+        {
+          "kind": "absent",
+          "label": "DefaultState"
+        },
+        {
+          "kind": "absent",
+          "label": "false"
+        },
+        {
+          "kind": "absent",
+          "label": "Default Value"
+        },
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "{.enabled = false}"
+        }
+      ]
+    },
+    {
+      "name": "offers only aggregate default values for aggregate initializers #14",
+      "uri": "memory:///demo-array-values.xsmpcat",
+      "text": "catalogue demo\nnamespace Smp\n{\n    public primitive Int32\n}\nnamespace demo\n{\n    public array IntArray = Smp.Int32[2]\n\n    public model M\n    {\n        field IntArray values =<|>\n    }\n}\n        ",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "{0, 0}"
+        },
+        {
+          "kind": "absent",
+          "label": "Defaults"
+        },
+        {
+          "kind": "absent",
+          "label": "0"
+        },
+        {
+          "kind": "absent",
+          "label": "Default Value"
+        },
+        {
+          "kind": "labelAt",
+          "index": 0,
+          "label": "{0, 0}"
+        }
+      ]
+    },
+    {
+      "name": "does not duplicate the member keyword when completing a field type #15",
+      "uri": "memory:///demo-field-type.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    public struct State\n    {\n        field Smp.Bool enabled\n    }\n\n    public model M\n    {\n        field <|>\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "editEquals",
+          "label": "State",
+          "value": "State"
+        }
+      ]
+    },
+    {
+      "name": "replaces only the type when a field name already exists #16",
+      "uri": "memory:///demo-replace-field-type.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    public enum AccessKind\n    {\n        ReadOnly = 0,\n        WriteOnly = 1\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n    }\n\n    public model M\n    {\n        field <|>AccessKind toto\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "applyContains",
+          "label": "State",
+          "value": "field State toto"
+        }
+      ]
+    },
+    {
+      "name": "replaces the existing type token instead of prefixing it #17",
+      "uri": "memory:///demo-replace-existing-type.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    public enum AccessKind\n    {\n        ReadOnly = 0,\n        WriteOnly = 1\n    }\n\n    public primitive Bool\n\n    public model M\n    {\n        field <|>Bool name\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "applyContains",
+          "label": "AccessKind",
+          "value": "field AccessKind name"
+        }
+      ]
+    },
+    {
+      "name": "prioritizes primitive types before composite types in member type completion #18",
+      "uri": "memory:///demo-primitive-type-priority.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    public primitive AccessKind\n\n    public struct Vector\n    {\n        field Smp.Int32 x\n    }\n\n    public model M\n    {\n        field <|>Vector name\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "AccessKind"
+        },
+        {
+          "kind": "present",
+          "label": "Vector"
+        },
+        {
+          "kind": "before",
+          "label": "AccessKind",
+          "value": "Vector"
+        }
+      ]
+    },
+    {
+      "name": "filters field type completion by field owner #19",
+      "uri": "memory:///demo-model-field-type-filter.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    public interface IBus\n    {\n    }\n\n    public model Child\n    {\n    }\n\n    public enum State\n    {\n        Ready = 0\n    }\n\n    public model M\n    {\n        field <|> value\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "State"
+        },
+        {
+          "kind": "absent",
+          "label": "IBus"
+        },
+        {
+          "kind": "absent",
+          "label": "Child"
+        }
+      ]
+    },
+    {
+      "name": "filters field type completion by field owner #20",
+      "uri": "memory:///demo-struct-field-type-filter.xsmpcat",
+      "text": "catalogue demo\nnamespace demo\n{\n    public interface IBus\n    {\n    }\n\n    public model Child\n    {\n    }\n\n    public enum State\n    {\n        Ready = 0\n    }\n\n    public struct Packet\n    {\n        field <|> value\n    }\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "IBus"
+        },
+        {
+          "kind": "present",
+          "label": "Child"
+        },
+        {
+          "kind": "present",
+          "label": "State"
+        }
+      ]
+    },
+    {
+      "name": "completes attribute types from visible value types #21",
+      "uri": "memory:///demo.xsmpcat",
+      "text": "catalogue demo\nnamespace Smp\n{\n    public primitive Bool\n    public primitive Int32\n}\nnamespace Attribute\n{\n    public attribute <|>\n}\n",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Bool"
+        },
+        {
+          "kind": "present",
+          "label": "Smp.Bool"
+        },
+        {
+          "kind": "present",
+          "label": "Int32"
+        }
+      ]
+    },
+    {
+      "name": "builds reference snippets from visible reference types #22",
+      "uri": "memory:///completion-reference.xsmpcat",
+      "text": "\n        catalogue Demo\n        namespace demo\n        {\n            public interface Bus\n            {\n            }\n\n            public model Child\n            {\n            }\n\n            public model M\n            {\n                reference <|> target\n            }\n        }",
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Bus"
+        },
+        {
+          "kind": "present",
+          "label": "Child"
+        },
+        {
+          "kind": "present",
+          "label": "demo.Bus"
+        },
+        {
+          "kind": "present",
+          "label": "demo.Child"
+        }
+      ]
+    },
+    {
+      "name": "builds reference snippets from visible reference types #23",
+      "uri": "memory:///completion-snippet.xsmpcat",
+      "text": "\n        catalogue Demo\n        namespace demo\n        {\n            public interface Bus\n            {\n            }\n\n            public model Child\n            {\n            }\n\n            public model M\n            {\n                <|>\n                reference demo.Bus target\n            }\n        }",
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "Reference",
+          "value": "Bus"
+        },
+        {
+          "kind": "insertContains",
+          "label": "Reference",
+          "value": "demo.Bus"
+        }
+      ]
+    }
+  ]
+}

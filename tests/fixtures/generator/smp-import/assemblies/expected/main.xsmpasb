@@ -1,0 +1,8 @@
+/**
+ * @id main
+ */
+assembly Main
+Root: demo.Root
+{
+    child += Child: ImportedAssembly using config ImportedConfig using link ImportedLinks
+}

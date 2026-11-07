@@ -1,0 +1,15 @@
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000111 */
+    string Label[8]
+    /** @uuid 11111111-0000-4000-8000-000000000112 */
+    array Labels = Label[2]
+    /** @uuid 11111111-0000-4000-8000-000000000113 */
+    struct Payload { field Smp.Bool enabled = false }
+    /** @uuid 11111111-0000-4000-8000-000000000114 */
+    model M { entrypoint step }
+    // Its size is an argument only before ECSS SMP 2025.
+    /** @uuid 11111111-0000-4000-8000-000000000115 */
+    public enum E { A = 0 }
+}

@@ -1,0 +1,9 @@
+<Catalogue xmlns="http://www.ecss.nl/smp/2025/Smdl/Catalogue" Name="Opaque" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <Namespace Name="opaque">
+    <Type xsi:type="Types:Structure" Name="Local" Uuid="11111111-0000-4000-8000-000000000621">
+      <Field Name="external">
+        <Type xlink:href="dependency.smpcat#dep.opaque.id"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue>

@@ -1,0 +1,11 @@
+/**
+ * @id Main
+ */
+schedule <Root = "R"> Main
+/**
+ * @id Root
+ */
+task Root
+{
+    execute Hidden.Child
+}

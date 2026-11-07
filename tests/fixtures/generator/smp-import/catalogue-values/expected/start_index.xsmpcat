@@ -1,0 +1,24 @@
+/**
+ * @id startindex
+ */
+catalogue StartIndex
+
+namespace startindex
+{
+    /**
+     * @id startindex.SimpleIntQuad
+     * @uuid 11111111-0000-4000-8000-000000000613
+     */
+    array SimpleIntQuad = Smp.Int32[4]
+    /**
+     * @id startindex.Root
+     * @uuid 11111111-0000-4000-8000-000000000614
+     */
+    model Root
+    {
+        /**
+         * @id startindex.Root.simpleValues
+         */
+        field SimpleIntQuad simpleValues = {2}
+    }
+}

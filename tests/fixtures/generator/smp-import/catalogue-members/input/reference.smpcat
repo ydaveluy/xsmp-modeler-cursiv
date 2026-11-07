@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="references" Name="References">
+  <Namespace Name="references">
+    <Type xsi:type="Catalogue:Interface" Id="references.IBus" Name="IBus" Uuid="11111111-0000-4000-8000-000000000601"/>
+    <Type xsi:type="Catalogue:Model" Id="references.Child" Name="Child" Uuid="11111111-0000-4000-8000-000000000602"/>
+    <Type xsi:type="Catalogue:Model" Id="references.Root" Name="Root" Uuid="11111111-0000-4000-8000-000000000603">
+      <Reference Id="references.Root.childRef" Name="childRef">
+        <Type xlink:href="#references.Child" xlink:title="references.Child"/>
+      </Reference>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

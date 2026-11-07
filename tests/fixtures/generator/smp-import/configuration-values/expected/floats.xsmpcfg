@@ -1,0 +1,6 @@
+configuration Floats
+/m
+{
+    a = -1.5f64
+    b = +2.5e3f32
+}

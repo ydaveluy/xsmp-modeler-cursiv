@@ -1,0 +1,37 @@
+= Configuration Markup
+
+
+.Markup's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Configuration
+.^h|Name |Markup
+|===
+
+== Component Configurations
+
+=== Component /Root
+
+
+.Component /Root's information
+[%autowidth.stretch]
+|===
+.^h|Path |/Root
+|===
+
+==== Field Values
+
+.Field Values
+[%autowidth.stretch]
+|===
+|Field |Value
+
+|a
+|pass:c["*x*"]
+|b
+|'\351'
+|c
+|pass:c["\"\377"]
+|d
+|"ok"
+|===

@@ -1,0 +1,15 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Builtin">
+  <Namespace Name="builtin">
+    <Type xsi:type="Catalogue:Model" Name="M" Uuid="11111111-0000-4000-8000-000000000609">
+      <Reference Name="a">
+        <Type xlink:title="ILogger" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Services.ILogger"/>
+      </Reference>
+      <Reference Name="b">
+        <Type xlink:title="ILogger" xlink:href="http://www.ecss.nl/smp/2019/Smdl#_smp2_Smp.xml_Smp.Services.ILogger"/>
+      </Reference>
+      <Reference Name="c">
+        <Type xlink:title="ISimulatorL2" xlink:href="ecss.smp.l2.smpcat#_2021x_2_f3c035c_1711992041486_513898_3293"/>
+      </Reference>
+    </Type>
+  </Namespace>
+</Catalogue>

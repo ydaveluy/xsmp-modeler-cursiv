@@ -1,0 +1,7 @@
+/**
+ * @id dep
+ */
+assembly ImportedAssembly
+Root: demo.Root
+{
+}

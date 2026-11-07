@@ -1,0 +1,12 @@
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-0000000000c1 */
+    public class C { }
+    /** @uuid 11111111-0000-4000-8000-0000000000c2 */
+    public abstract class A { }
+    /** @uuid 11111111-0000-4000-8000-0000000000c3 */
+    public abstract exception X { }
+    /** @uuid 11111111-0000-4000-8000-0000000000c4 */
+    @Attributes.NoDestructor public class D { }
+}

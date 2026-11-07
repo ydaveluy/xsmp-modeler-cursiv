@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Assembly:Assembly xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="main" Name="Main">
+  <Model Name="Root" Implementation="demo::Root">
+    <Assembly Container="child" Name="Child" Assembly="dep.smpasb" Configuration="cfg.smpcfg" LinkBase="links.smplnk"/>
+  </Model>
+</Assembly:Assembly>

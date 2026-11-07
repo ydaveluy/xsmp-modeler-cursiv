@@ -1,0 +1,197 @@
+// Copyright line one
+// Copyright line two
+catalogue StressTypes
+
+/** Top namespace doc. */
+namespace top
+{
+    /** Inner namespace doc.
+     *  Second line.
+     */
+    namespace inner
+    {
+        /** An enumeration.
+         * @uuid 10000000-0000-4000-8000-000000000001 */
+        public enum Colour
+        {
+            /** The red one. */
+            Red = 0,
+            /** The green one, it's "fine". */
+            Green = 1,
+            Blue = 0x10
+        }
+
+        /** @uuid 10000000-0000-4000-8000-000000000002
+         * @unit m/s */
+        public integer Speed extends Int16 in 0 ... 1000
+
+        /** @uuid 10000000-0000-4000-8000-000000000003 */
+        public integer Plain
+
+        /** @uuid 10000000-0000-4000-8000-000000000004 */
+        public integer BigU extends UInt64 in 0 ... 18446744073709551615
+
+        /** @uuid 10000000-0000-4000-8000-000000000005 */
+        public integer SmallU extends UInt64 in 0 ... 1000
+
+        /** @uuid 10000000-0000-4000-8000-000000000006
+         * @unit "quoted" */
+        public float Ratio extends Float32 in 0.0 ... 1.0
+
+        /** @uuid 10000000-0000-4000-8000-000000000007 */
+        public float R1 extends Float64 in 0.0 <.. 1.0
+        /** @uuid 10000000-0000-4000-8000-000000000008 */
+        public float R2 extends Float64 in 0.0 ..< 1.0
+        /** @uuid 10000000-0000-4000-8000-000000000009 */
+        public float R3 extends Float64 in 0.0 <.< 1.0
+        /** @uuid 10000000-0000-4000-8000-00000000000a */
+        public float R4
+
+        /** A label.
+         * @uuid 10000000-0000-4000-8000-00000000000b */
+        public string Label[1'024]
+
+        /** @uuid 10000000-0000-4000-8000-00000000000c */
+        public using LabelRef = Label*
+
+        /** @uuid 10000000-0000-4000-8000-00000000000d */
+        public array Ints = Int32[3]
+        /** @uuid 10000000-0000-4000-8000-00000000000e */
+        public array Matrix = Ints[2]
+        /** @uuid 10000000-0000-4000-8000-00000000000f */
+        @SimpleArray public array Simple = Bool[2]
+        /** @uuid 10000000-0000-4000-8000-000000000010 */
+        @SimpleArray(false) public array NotSimple = Float64[2]
+        /** @uuid 10000000-0000-4000-8000-000000000011 */
+        public array Labels = Label[2]
+
+        /**
+         * @type NativeThing
+         * @namespace the::ns
+         * @location the/ns/NativeThing.h
+         * @uuid 10000000-0000-4000-8000-000000000012
+         */
+        public native NativeThing
+        /**
+         * @type int
+         * @uuid 10000000-0000-4000-8000-000000000013
+         */
+        public native NativeInt
+
+        /** A payload.
+         * @uuid 10000000-0000-4000-8000-000000000014 */
+        public struct Payload
+        {
+            constant Bool Second = First
+            constant Bool First = true
+            constant Int32 Answer = 42
+            constant Label Greeting = "hi \"there\""
+            /** A flag. */
+            field Bool enabled = false
+            transient field Int32 count = 3
+            @View(ViewKind.VK_Debug) input output field Float64 ratio = 1.5
+            field Colour colour = Colour.Green
+            field Ints values = {1, 2, 3}
+            field Matrix grid = {{1, 2, 3}, {4, 5, 6}}
+            field Label name = "bob"
+            field String8 lost
+            @Static field Int32 shared = 7
+            @Mutable field Int32 changing = 1
+            field Duration span = "PT1S"
+            field DateTime when = "2024-01-01T00:00:00Z"
+            field Int8 letter = 1
+        }
+
+        /** @uuid 10000000-0000-4000-8000-000000000015 */
+        public struct Nested
+        {
+            field Payload inner
+            field Bool ok
+        }
+
+        /** @uuid 10000000-0000-4000-8000-000000000016 */
+        public struct Empty { }
+
+        /** A base class.
+         * @uuid 10000000-0000-4000-8000-000000000017 */
+        public class Base
+        {
+            constant Int32 K = 1
+            public field Int32 a = 1
+            protected field Int32 b = 2
+            private field Int32 c = 3
+            @Static public field Int32 d = 4
+            public def void reset()
+            public def Int32 count()
+            @Virtual public def Int32 virt()
+            @Const public def Int32 viewed()
+            @Static public def Int32 stat()
+            public property Int32 p1 -> a
+            @Virtual public property Int32 p2
+            readOnly public property Int32 p3
+            writeOnly public property Int32 p4
+            @Static public property Int32 p5 -> d
+            @Mutable public association Int32 as1
+            @Static public association Int32 as2
+            public association Payload as3
+        }
+
+        /** @uuid 10000000-0000-4000-8000-000000000018 */
+        public class Derived extends Base
+        {
+            public field Bool z
+            @Constructor public def void Derived(in Int32 a)
+            @Operator(OperatorKind.Add) public def void add(in Int32 a)
+            @Operator(OperatorKind.Equal) public def Bool same(in Derived other)
+        }
+
+        /** A class that cannot be instantiated.
+         * @uuid 10000000-0000-4000-8000-000000000026 */
+        public abstract class Pure { @Abstract public def Int32 pure() }
+
+        /** A structure with designated initializers.
+         * @uuid 10000000-0000-4000-8000-000000000027 */
+        public struct Pair { field Int32 x field Int32 y }
+
+        /** @uuid 10000000-0000-4000-8000-000000000028 */
+        public struct Initialised
+        {
+            field Pair byName = {.x = 1, .y = 2}
+            field Pair byPosition = {3, 4}
+        }
+
+        /** @uuid 10000000-0000-4000-8000-000000000019 */
+        @NoConstructor @NoDestructor public class Bare { }
+
+        /** @uuid 10000000-0000-4000-8000-00000000001a */
+        public class WithDefaultCtor { @Constructor public def void WithDefaultCtor() }
+
+        /** @uuid 10000000-0000-4000-8000-00000000001b */
+        public exception Oops { public field Int32 code }
+
+        /** @uuid 10000000-0000-4000-8000-00000000001c */
+        public exception Oops2 extends Oops { }
+
+        /** @uuid 10000000-0000-4000-8000-00000000001d */
+        public event Tick extends Speed
+        /** @uuid 10000000-0000-4000-8000-00000000001e */
+        public event Bang
+    }
+
+    namespace other
+    {
+        /** @uuid 10000000-0000-4000-8000-000000000020 */
+        public struct Uses { field inner.Payload p  field inner.Colour c = inner.Colour.Red constant Int32 V = inner.Payload.Answer + 1 }
+        /** @uuid 10000000-0000-4000-8000-000000000021 */
+        public array Later = Earlier[2]
+        /** @uuid 10000000-0000-4000-8000-000000000022 */
+        public struct Earlier { field Later2 x }
+        /** @uuid 10000000-0000-4000-8000-000000000023 */
+        public array Later2 = Int32[1]
+        /** Derived declared before its base.
+         * @uuid 10000000-0000-4000-8000-000000000024 */
+        public class Kid extends Parent { }
+        /** @uuid 10000000-0000-4000-8000-000000000025 */
+        public class Parent { }
+    }
+}

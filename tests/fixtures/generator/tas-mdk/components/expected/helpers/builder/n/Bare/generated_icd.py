@@ -1,0 +1,6 @@
+
+# Model specific data
+IMPLEMENTATIONS = []
+REFERENCES = []
+EVENTSINKS = []
+EVENTSOURCES = []

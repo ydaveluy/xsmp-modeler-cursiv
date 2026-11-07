@@ -1,0 +1,13 @@
+catalogue Context
+
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-00000000040a */
+    public model Root
+    {
+        field Smp.Int32 countState
+
+        public property Smp.Int32 count -> countState
+        public def void apply(in Smp.Int32 nextCount, in Smp.Float64 nextRatio)
+    }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "xsmp-tas-mdk-cursiv",
+  "publisher": "ydaveluy",
+  "displayName": "XSMP TAS-MDK (Cursiv)",
+  "description": "Dynamically loaded TAS MDK profile for the Cursiv XSMP Modeler.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ydaveluy/xsmp-modeler-cursiv.git",
+    "directory": "extensions/tas-mdk"
+  },
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "extensionDependencies": [
+    "ydaveluy.xsmp-modeler-cursiv"
+  ],
+  "contributes": {
+    "xsmp": [
+      {
+        "descriptor": "./tas-mdk.xsmpprofile",
+        "handler": "./server/tas-mdk.wasm",
+        "apiVersion": "^2.0.0",
+        "deprecatedAliases": [
+          "org.eclipse.xsmp.profile.tas-mdk"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "package": "node ../../vscode/node_modules/@vscode/vsce/vsce package --no-dependencies"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "XSMP starts language-server and contribution processes and can generate files. Trust the workspace to enable these features."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "XSMP requires a local filesystem on the workspace extension host."
+    }
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "licenses",
+    "tas-mdk.xsmpprofile",
+    "server/tas-mdk.wasm"
+  ]
+}

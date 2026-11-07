@@ -1,0 +1,41 @@
+/**
+ * Demo schedule exercising all supported activity kinds.
+ * @title Demo Schedule
+ * @creator test-suite
+ * @date 2026-03-27T08:20:00Z
+ * @version 1.0
+ */
+schedule <root: string = "Root"> DemoSchedule epoch "2025-01-01T00:00:00Z" mission "2025-01-01T00:00:00Z"
+
+/** Root orchestration task. */
+task Dispatch on DemoAssembly
+{
+    /** Property update. */
+    property count = 2
+    /** Apply call. */
+    call apply(nextCount = 3, nextRatio = 1.5)
+    /** Data transfer. */
+    transfer outValue -> Child.inValue
+    /** Root trigger. */
+    trig run
+    /** Child task execution. */
+    execute ChildTick at Child
+    /** Mission-ready emission. */
+    async emit "MissionReady"
+}
+
+/** Child execution task. */
+task ChildTick on demo.Child
+{
+    /** Child trigger. */
+    trig tick
+}
+
+/** Mission-relative start. */
+event Dispatch mission "PT15S"
+/** Event-driven child follow-up. */
+event ChildTick on "MissionReady" using epoch delay "PT10S" cycle "PT1M" repeat 2
+/** Simulation-time child pulse. */
+event ChildTick simulation "PT20S"
+/** Absolute child pulse. */
+event ChildTick zulu "2025-01-01T00:01:00Z"

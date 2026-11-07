@@ -1,0 +1,3 @@
+schedule <Root = "main"> activities
+task Main { call unsafe reset(value = 7i32) property unsafe flag = true transfer unsafe output -> unsafe input trig unsafe step async emit "Ready" execute Main at /Root }
+event Main on "Ready" until "Stop" using mission delay "PT1S" cycle "PT2S" repeat 3

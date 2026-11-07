@@ -1,0 +1,6 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="D">
+  <Namespace Name="dep">
+    <Type xsi:type="Types:Structure" Name="A" Id="dep.a" Uuid="11111111-0000-4000-8000-000000000625"/>
+    <Type xsi:type="Types:Structure" Name="B" Id="dep.b" Uuid="11111111-0000-4000-8000-000000000626"/>
+  </Namespace>
+</Catalogue>

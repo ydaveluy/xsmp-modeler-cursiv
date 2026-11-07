@@ -1,0 +1,16 @@
+catalogue AssociationCycle
+namespace n
+{
+    /** @uuid 11111111-2222-3333-4444-555555555555 */
+    public class A
+    {
+        @Attributes.ByPointer
+        association B b
+    }
+    /** @uuid aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee */
+    public class B
+    {
+        @Attributes.ByPointer
+        association A a
+    }
+}

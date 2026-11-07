@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schedule:Schedule xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="Plan" Name="Plan">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="Main" />
+  <Task Id="Plan.Plan" Name="Plan">
+    <Activity Id="Plan.Plan.Trigger1" Name="Trigger1" xsi:type="Schedule:Trigger">
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+  </Task>
+  <Task Id="Plan.SimulationEvent1" Name="SimulationEvent1">
+    <Activity Id="Plan.SimulationEvent1.Trigger1" Name="Trigger1" xsi:type="Schedule:Trigger">
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+  </Task>
+  <Event Id="Plan-SimulationEvent1" Name="SimulationEvent1" CycleTime="PT0S" xsi:type="Schedule:SimulationEvent" SimulationTime="PT1S">
+    <Task xlink:title="Plan" xlink:href="#Plan.Plan" />
+  </Event>
+</Schedule:Schedule>

@@ -1,0 +1,85 @@
+/** Catalogue doc, not a notice.
+ * @title My title
+ * @version 1.0 */
+catalogue StressComments
+
+/* a plain comment */
+namespace c
+{
+    /** First paragraph with 'quotes' and "double" and \backslash.
+     *
+     * Second paragraph.
+     *   Indented line.
+     * @deprecated Do not use.
+     * @since 1.0
+     * @see other {@link Foo the foo} and more
+     * @uuid 30000000-0000-4000-8000-000000000001
+     * @id c.T1
+     */
+    public struct T1
+    {
+        /** One line. */
+        field Int32 a
+        /** Line one
+         * Line two
+         * @custom tag text
+         * continued */
+        field Int32 b
+        // a line comment in between
+        /** Described. */
+        field Int32 c
+        /* plain block */
+        field Int32 d
+        /** Doc then line comment. */
+        // the line comment
+        field Int32 e
+        /** Doc then plain block. */
+        /* the block */
+        field Int32 f
+    }
+
+    /** Doc then line comment on a type.
+     * @uuid 30000000-0000-4000-8000-000000000002 */
+    // in between
+    public struct T2 { }
+
+    /** See {@link T1} inline and {@link T2 two}.
+     * @uuid 30000000-0000-4000-8000-000000000003 */
+    public model M1
+    {
+        /** Does things.
+         * @param a The first, see {@link T1}.
+         * @param b The second
+         *          on two lines.
+         * @param  c   Spaced.
+         * @return The result, it's fine.
+         * @throws c.Oops never
+         */
+        def Int32 f(in Int32 a, in Int32 b, in Int32 c)
+        /** Trailing backslash \
+         * and next line */
+        field Int32 g
+        /** With a tab	inside and unicode é ü 漢字. */
+        field Int32 h
+        /** A question ??= trigraph and tab	. */
+        field Int32 i
+        /** @param x only a tag */
+        def void noText(in Int32 x)
+        /***/
+        field Int32 j
+        /** */
+        field Int32 k
+        /**
+         *
+         */
+        field Int32 l
+        /** @uuid not-removed-here */
+        field Int32 n
+        /** {@uuid inline} kept */
+        field Int32 o
+        /** Trailing spaces   
+         *   
+         * end */
+        field Int32 p
+    }
+}

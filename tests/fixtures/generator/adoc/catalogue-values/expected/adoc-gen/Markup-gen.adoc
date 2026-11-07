@@ -1,0 +1,91 @@
+= Catalogue Markup
+
+
+== Namespace markup
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace markup {
+
+                class S { <<Structure>> }
+
+}
+....
+
+[#markup-S]
+=== Structure S
+
+
+.S's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |markup::S
+.^h|UUID |11111111-0000-4000-8000-000000000322
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class S {
+        +constexpr String8 a = "*x*"
+        +constexpr String8 b = "#60;#60;x#62;#62;"
+        +constexpr String8 c = "&amp;"
+        +constexpr String8 d = "image:x[]"
+        +constexpr String8 e = "plain text"
+        +constexpr String8 f = "2022-10-22T09:07:44Z"
+        +constexpr String8 g = "a--b"
+        +constexpr Char8 h = '*'
+        +constexpr Char8 i = 'x'
+
+    }
+
+
+....
+
+==== Constants
+The S structure provides the following constants:
+
+.S's public constants
+[%autowidth.stretch]
+|===
+|Name |Type |Value
+
+|a
+|<<Smp-String8,Smp::String8>>
+|pass:c["*x*"]
+|b
+|<<Smp-String8,Smp::String8>>
+|pass:c["<<x>>"]
+|c
+|<<Smp-String8,Smp::String8>>
+|pass:c["&amp;"]
+|d
+|<<Smp-String8,Smp::String8>>
+|pass:c["image:x[\]"]
+|e
+|<<Smp-String8,Smp::String8>>
+|"plain text"
+|f
+|<<Smp-String8,Smp::String8>>
+|"2022-10-22T09:07:44Z"
+|g
+|<<Smp-String8,Smp::String8>>
+|pass:c["a--b"]
+|h
+|<<Smp-Char8,Smp::Char8>>
+|pass:c['*']
+|i
+|<<Smp-Char8,Smp::Char8>>
+|'x'
+|===

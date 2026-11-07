@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_Schema" Name="Schema">
+  <Namespace Id="demo" Name="demo">
+    <Type Id="demo.Mode" Name="Mode" xsi:type="Types:Enumeration" Uuid="11111111-1111-1111-1111-111111111111" Visibility="public">
+      <Literal Id="demo.Mode.Off" Name="Off" Value="0" />
+      <Literal Id="demo.Mode.On" Name="On" Value="1" />
+    </Type>
+    <Type Id="demo.State" Name="State" xsi:type="Types:Structure" Uuid="22222222-2222-2222-2222-222222222222" Visibility="public">
+      <Field Id="demo.State.count" Name="count">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        <Default xsi:type="Types:Int32Value" Value="1" />
+      </Field>
+    </Type>
+    <Type Id="demo.Child" Name="Child" xsi:type="Catalogue:Model" Uuid="33333333-3333-3333-3333-333333333333" Visibility="public">
+      <Property Id="demo.Child.count" Name="count" Visibility="public">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Property>
+      <Operation Id="demo.Child.reset-Int32" Name="reset" Visibility="public">
+        <Parameter Id="demo.Child.reset-Int32.value" Name="value" Direction="in">
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        </Parameter>
+      </Operation>
+      <EntryPoint Id="demo.Child.step" Name="step" />
+      <Field Id="demo.Child.inputValue" Name="inputValue" Input="true">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+      <Field Id="demo.Child.outputValue" Name="outputValue" Output="true">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+    </Type>
+    <Type Id="demo.Root" Name="Root" xsi:type="Catalogue:Model" Uuid="44444444-4444-4444-4444-444444444444" Visibility="public">
+      <EntryPoint Id="demo.Root.step" Name="step" />
+      <Field Id="demo.Root.state" Name="state">
+        <Type xlink:title="State" xlink:href="#demo.State" />
+      </Field>
+      <Field Id="demo.Root.position" Name="position">
+        <Type xlink:title="State" xlink:href="#demo.State" />
+        <Default xsi:type="Types:StructureValue">
+          <FieldValue Field="count" xsi:type="Types:Int32Value" Value="2" />
+        </Default>
+      </Field>
+      <Container Id="demo.Root.child" Name="child" Lower="1" Upper="1">
+        <Type xlink:title="Child" xlink:href="#demo.Child" />
+        <DefaultComponent xlink:title="Child" xlink:href="#demo.Child" />
+      </Container>
+    </Type>
+    <Type Id="demo.Pointer" Name="Pointer" xsi:type="Types:ValueReference" Uuid="55555555-5555-5555-5555-555555555555" Visibility="public">
+      <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+    </Type>
+    <Type Id="demo.Flag" Name="Flag" xsi:type="Types:AttributeType" Uuid="66666666-6666-6666-6666-666666666666" Visibility="public" AllowMultiple="false">
+      <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+      <Default xsi:type="Types:BoolValue" Value="true" />
+    </Type>
+    <Type Id="demo.Calls" Name="Calls" xsi:type="Catalogue:Interface" Uuid="77777777-7777-7777-7777-777777777777" Visibility="public">
+      <Operation Id="demo.Calls.over-Int32" Name="over">
+        <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.Calls.over-Int32.Flag.0">
+          <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+          <Value xsi:type="Types:BoolValue" Value="true" />
+        </Metadata>
+        <Parameter Id="demo.Calls.over-Int32.value" Name="value" Direction="in">
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+          <Default xsi:type="Types:Int32Value" Value="7" />
+        </Parameter>
+      </Operation>
+      <Operation Id="demo.Calls.over-Bool-String8" Name="over">
+        <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.Calls.over-Bool-String8.Flag.0">
+          <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+          <Value xsi:type="Types:BoolValue" Value="true" />
+        </Metadata>
+        <Parameter Id="demo.Calls.over-Bool-String8.value" Name="value" Direction="in">
+          <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+          <Default xsi:type="Types:BoolValue" Value="true" />
+        </Parameter>
+        <Parameter Id="demo.Calls.over-Bool-String8.text" Name="text" Direction="in">
+          <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+          <Default xsi:type="Types:String8Value" Value="say &quot;hi&quot;" />
+        </Parameter>
+      </Operation>
+      <Operation Id="demo.Calls.pointer-Pointer" Name="pointer">
+        <Parameter Id="demo.Calls.pointer-Pointer.value" Name="value" Direction="in">
+          <Type xlink:title="Pointer" xlink:href="#demo.Pointer" />
+        </Parameter>
+      </Operation>
+    </Type>
+    <Type Id="demo.Mapped" Name="Mapped" xsi:type="Types:NativeType" Uuid="88888888-8888-8888-8888-888888888888" Visibility="public">
+      <Platform Type="int" Name="cpp" />
+      <Platform Type="Integer" Name="java" />
+    </Type>
+    <Type Id="demo.Texts" Name="Texts" xsi:type="Types:Structure" Uuid="99999999-9999-9999-9999-999999999999" Visibility="public">
+      <Constant Id="demo.Texts.a" Name="a">
+        <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+        <Value xsi:type="Types:String8Value" Value="\x00\x01&#09;&#10;&#13;\xEF\xBF\xBE\xEF\xBF\xBF&lt;>&amp;'&quot;\x5Cx00" />
+      </Constant>
+      <Constant Id="demo.Texts.b" Name="b">
+        <Type xlink:title="Char8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Char8" />
+        <Value xsi:type="Types:Char8Value" Value="\x00" />
+      </Constant>
+      <Constant Id="demo.Texts.c" Name="c">
+        <Type xlink:title="Char8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Char8" />
+        <Value xsi:type="Types:Char8Value" Value="&lt;" />
+      </Constant>
+      <Constant Id="demo.Texts.d" Name="d">
+        <Type xlink:title="Char8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Char8" />
+        <Value xsi:type="Types:Char8Value" Value="'" />
+      </Constant>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="main" Name="main">
+  <Namespace Name="main">
+    <Type xsi:type="Types:Structure" Id="main.LocalStruct" Name="LocalStruct" Uuid="11111111-0000-4000-8000-000000000624">
+      <Field Id="main.LocalStruct.external" Name="external">
+        <Type xlink:href="dependency.smpcat#dep.struct.selected"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

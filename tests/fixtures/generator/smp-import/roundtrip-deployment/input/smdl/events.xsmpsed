@@ -1,0 +1,3 @@
+schedule <Root = "R"> events
+task T { emit "a\x01\\x01" emit "tab\t line\n return\r" emit " " emit "\n" }
+event T on "b\0" until "\\c"

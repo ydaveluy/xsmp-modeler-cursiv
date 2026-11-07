@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--First line
+Second line  -->
+<!--Another comment-->
+<Catalogue xmlns="urn:custom/Catalogue" Name="Notice"/>

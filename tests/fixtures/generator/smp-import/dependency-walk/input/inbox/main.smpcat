@@ -1,0 +1,21 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Walk">
+  <Namespace Name="walk">
+    <Type xsi:type="Catalogue:Model" Name="M" Uuid="11111111-0000-4000-8000-00000000062d">
+      <Field Name="a">
+        <Type xlink:href="e.smpcat#dep.a"/>
+      </Field>
+      <Field Name="b">
+        <Type xlink:href="e.smpcat#dep.b"/>
+      </Field>
+      <Field Name="c">
+        <Type xlink:href="two/d.smpcat#dep.a"/>
+      </Field>
+      <Field Name="d">
+        <Type xlink:href="d.smpcat#dep.a"/>
+      </Field>
+      <Field Name="e">
+        <Type xlink:href="f.smpcat#x"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue>

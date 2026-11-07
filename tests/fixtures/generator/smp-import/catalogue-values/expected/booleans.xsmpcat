@@ -1,0 +1,23 @@
+/**
+ * @id booleans
+ */
+catalogue Booleans
+
+namespace booleans
+{
+    /**
+     * @id booleans.Root
+     * @uuid 11111111-0000-4000-8000-000000000612
+     */
+    abstract model Root
+    {
+        /**
+         * @id booleans.Root.enabled
+         */
+        input transient field Smp.Bool enabled = true
+        /**
+         * @id booleans.Root.disabled
+         */
+        field Smp.Bool disabled = false
+    }
+}

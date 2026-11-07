@@ -1,0 +1,20 @@
+/** Integration-time configuration applied to the mission assembly. */
+configuration MissionIntegration
+/** Root mission-system instance provided by the assembly context. */
+/System: MissionDemo
+{
+    /** Marks the integrated system as ready. */
+    integrated = true
+    /** Reuses the orbital-segment nominal configuration on the integrated orbital platform. */
+    include OrbitalNominal at OrbitalPlatform
+    /** Reuses the payload-segment nominal configuration on the integrated payload platform. */
+    include PayloadSegmentNominal at PayloadPlatform
+    /** Overrides the assembly-provided ground console. */
+    GroundConsole
+    {
+        /** Displays an integration readiness message. */
+        consoleMessage = "integration ready"
+        /** Seeds a nominal uplink mode. */
+        uplinkMode = demo.foundation.Mode.Nominal
+    }
+}

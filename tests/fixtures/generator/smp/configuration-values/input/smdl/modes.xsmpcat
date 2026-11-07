@@ -1,0 +1,8 @@
+catalogue modes
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000231 */
+    public enum Mode { Off = 0, On = 1 }
+    /** @uuid 11111111-0000-4000-8000-000000000232 */
+    public model Root { field Mode mode }
+}

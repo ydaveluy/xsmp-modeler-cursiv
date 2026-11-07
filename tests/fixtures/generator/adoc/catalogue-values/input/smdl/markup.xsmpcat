@@ -1,0 +1,17 @@
+catalogue Markup
+namespace markup
+{
+    /** @uuid 11111111-0000-4000-8000-000000000322 */
+    public struct S
+    {
+        constant Smp.String8 a = "*x*"
+        constant Smp.String8 b = "<<x>>"
+        constant Smp.String8 c = "&amp;"
+        constant Smp.String8 d = "image:x[]"
+        constant Smp.String8 e = "plain text"
+        constant Smp.String8 f = "2022-10-22T09:07:44Z"
+        constant Smp.String8 g = "a--b"
+        constant Smp.Char8 h = '*'
+        constant Smp.Char8 i = 'x'
+    }
+}

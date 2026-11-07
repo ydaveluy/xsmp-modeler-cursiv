@@ -1,0 +1,9 @@
+/**
+ * @id state
+ */
+configuration state
+/root
+{
+    state = {count = 7i32, samples = [1.f64, 2.f64]}
+    elapsed = "PT1S"d
+}

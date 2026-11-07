@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration:Configuration xmlns:Configuration="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="cfg.main" Name="MainConfig">
+  <Include Path=".">
+    <Configuration xlink:href="base.smpcfg#cfg.base.custom"/>
+  </Include>
+</Configuration:Configuration>

@@ -1,0 +1,12 @@
+/**
+ * @id Demo
+ */
+link Demo
+/
+{
+    field link outValue -> child.inValue
+    child
+    {
+        event link outbound -> inbound
+    }
+}

@@ -1,0 +1,17 @@
+/**
+ * @id activities
+ */
+schedule <Root = "main"> activities
+/**
+ * @id activities.Main
+ */
+task Main
+{
+    call reset(value = 7i32)
+    property flag = true
+    transfer output -> input
+    trig step
+    async emit "Ready"
+    execute Main at /Root
+}
+event Main on "Ready" until "Stop" using mission delay "PT1S" cycle "PT2S" repeat 3

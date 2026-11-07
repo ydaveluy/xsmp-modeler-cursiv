@@ -1,0 +1,12 @@
+configuration texts /Root {
+  a = '\0'
+  b = "a\0b"
+  c = "\x01\x1F"
+  d = "\uFFFE\uFFFF"
+  e = "C:\\dir\\x"
+  f = "a\\nb"
+  g = "\\x01"
+  h = "\\x5c"
+  i = "\\x41 \\x0A"
+  j = "tab\t line\n"
+}

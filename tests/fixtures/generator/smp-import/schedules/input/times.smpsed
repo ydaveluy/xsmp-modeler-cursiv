@@ -1,0 +1,5 @@
+<Schedule xmlns="urn:custom/Schedule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Times">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="R"/>
+  <EpochTime>2025-01-01T00:00:00Z</EpochTime>
+  <MissionStart>2025-01-01T01:00:00Z</MissionStart>
+</Schedule>

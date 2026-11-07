@@ -1,0 +1,2 @@
+configuration Nominal
+/root: demo.Root { state = { count = 1i32 } }

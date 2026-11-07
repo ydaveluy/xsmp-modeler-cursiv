@@ -1,0 +1,217 @@
+= Catalogue Cells
+
+
+== Namespace cells
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace cells {
+
+                class Tick { <<EventType>> }
+class S { <<Structure>> }
+class I { <<Interface>> }
+class M { <<Model>> }
+
+}
+....
+
+[#cells-Tick]
+=== EventType Tick
+
+
+.Tick's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |cells::Tick
+.^h|UUID |11111111-0000-4000-8000-000000000324
+.^h|Event Type |<<void,void>>
+|===
+
+
+[#cells-S]
+=== Structure S
+
+
+.S's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |cells::S
+.^h|UUID |11111111-0000-4000-8000-000000000325
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class S {
+        +constexpr String8 c = "a|b"
+        +String8 f
+
+    }
+
+
+....
+
+==== Constants
+The S structure provides the following constants:
+
+.S's public constants
+[%autowidth.stretch]
+|===
+|Name |Type |Value
+
+|c
+|<<Smp-String8,Smp::String8>>
+|pass:c["a\|b"]
+|===
+==== Fields
+The S structure provides the following fields:
+
+.S's public fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type |Initial Value
+
+|state
+|f
+|<<Smp-String8,Smp::String8>>
+|pass:c["e\|f"]
+|===
+[#cells-I]
+=== Interface I
+
+
+.I's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |cells::I
+.^h|UUID |11111111-0000-4000-8000-000000000326
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class I {
+
+        +op(in String8) void
+    }
+
+
+....
+
+==== Operations
+The I interface provides the following operations:
+
+===== Operation op
+.op's parameters
+[%autowidth.stretch]
+|===
+|Direction |Name |Type |Default Value
+
+|in |s |<<Smp-String8,Smp::String8>> |pass:c["g\|h"]
+
+|===
+[#cells-M]
+=== Model M
+
+
+.M's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |cells::M
+.^h|UUID |11111111-0000-4000-8000-000000000327
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+
+
+    class M {
+        +EventSource~Tick~ src
+        +EventSink~Tick~ snk
+        -Bool forced
+        -Bool failed
+        -Bool free
+
+    }
+
+
+
+....
+
+==== Properties
+The M model provides the following properties:
+
+.M's private properties
+[%autowidth.stretch]
+|===
+|Name |Type |Category
+
+|p
+|<<Smp-Int32,Smp::Int32>>
+|c\|d
+|===
+==== Event Sinks
+The M model provides the following event sinks:
+
+.M's Event Sinks
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|snk
+|<<cells-Tick,Tick>>
+|===
+==== Event Sources
+The M model provides the following event sources:
+
+.M's Event Sources
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|src
+|<<cells-Tick,Tick>>
+|===
+==== Fields
+The M model provides the following fields:
+
+.M's private fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|state, forcible
+|forced
+|<<Smp-Bool,Smp::Bool>>
+|state, failure
+|failed
+|<<Smp-Bool,Smp::Bool>>
+|state
+|free
+|<<Smp-Bool,Smp::Bool>>
+|===

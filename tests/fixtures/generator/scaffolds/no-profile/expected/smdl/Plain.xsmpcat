@@ -1,0 +1,17 @@
+// Copyright (C) ${year} ${user}. All rights reserved.
+//
+// Generation date:  ${date} ${time}
+
+/**
+ * Catalogue Plain
+ *
+ * @creator golden-user
+ * @date 2026-01-31T13:45:09.000Z
+ */
+catalogue Plain
+
+namespace Plain
+{
+
+} // namespace Plain
+

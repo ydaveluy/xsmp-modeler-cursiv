@@ -1,0 +1,18 @@
+#!/bin/sh
+# Stands in for clang-format, so that tests need no installed tool and stay fast.
+# A test links this script into a scratch folder, and that folder drives it: each
+# run adds its arguments as a line of `runs`, it fails when `fails` exists, and
+# it gives as its version what `version` holds.
+folder=${0%/*}
+echo "$*" >> "$folder/runs"
+[ -e "$folder/slow" ] && sleep 0.05
+if [ "$1" = --version ]; then
+  cat "$folder/version" 2>/dev/null || echo "fake clang-format"
+  exit 0
+fi
+if [ -e "$folder/fails" ]; then
+  echo "broken style" >&2
+  exit 3
+fi
+printf '// formatted\n'
+cat

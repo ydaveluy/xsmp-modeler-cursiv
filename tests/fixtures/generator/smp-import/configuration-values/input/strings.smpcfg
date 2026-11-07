@@ -1,0 +1,8 @@
+<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Strings">
+  <Component Path="/m">
+    <FieldValue Field="a" xsi:type="Types:String8Value" Value="a&quot;b"/>
+    <FieldValue Field="b" xsi:type="Types:String8Value" Value="C:\"/>
+    <FieldValue Field="c" xsi:type="Types:String8Value" Value="x\ny"/>
+    <FieldValue Field="d" xsi:type="Types:Char8Value" Value="'"/>
+  </Component>
+</Configuration>

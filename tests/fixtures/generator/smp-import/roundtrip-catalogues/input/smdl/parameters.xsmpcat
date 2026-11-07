@@ -1,0 +1,9 @@
+catalogue parameters
+namespace parameter
+{
+    /** @uuid 33333333-3333-3333-3333-333333333333 */
+    public interface I
+    {
+        def void op(in Smp.Int32 a = 7, in Smp.Bool b = true, in Smp.String8 c = "x\ny")
+    }
+}

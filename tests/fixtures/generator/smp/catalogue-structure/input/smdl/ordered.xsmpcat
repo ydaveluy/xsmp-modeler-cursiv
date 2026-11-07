@@ -1,0 +1,16 @@
+catalogue ordered
+namespace outer
+{
+    /** @uuid 11111111-0000-4000-8000-000000000203 */
+    public model Device
+    {
+        field Smp.Bool flag
+        def void reset()
+        property Smp.Bool enabled
+    }
+    namespace nested
+    {
+        /** @uuid 11111111-0000-4000-8000-000000000204 */
+        public integer Count
+    }
+}

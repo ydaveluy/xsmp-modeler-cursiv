@@ -1,0 +1,68 @@
+/**
+ * Demo catalogue used by adoc tests.
+ * @title Demo Catalogue
+ * @creator test-suite
+ * @date 2026-03-27T08:00:00Z
+ * @version 1.0
+ */
+catalogue Demo
+
+namespace demo
+{
+    /** @uuid 10000000-0000-0000-0000-000000000001 */
+    public event ModeEvent extends Smp.Bool
+
+    /** @uuid 10000000-0000-0000-0000-000000000002 */
+    public interface Logger
+    {
+        def void log(in Smp.String8 message)
+    }
+
+    /** @uuid 10000000-0000-0000-0000-000000000003 */
+    public array IntPair = Smp.Int32[2]
+
+    /** @uuid 10000000-0000-0000-0000-000000000004 */
+    public struct NestedState
+    {
+        field Smp.Int32 count
+    }
+
+    /** @uuid 10000000-0000-0000-0000-000000000005 */
+    public struct ComplexState
+    {
+        field NestedState nested
+        field Smp.Bool enabled
+        field IntPair values
+    }
+
+    /** @uuid 10000000-0000-0000-0000-000000000006 */
+    public model Child implements demo.Logger
+    {
+        input field Smp.Int32 inValue
+        output field Smp.Int32 outValue
+        public property Smp.Int32 state -> outValue
+        public def void reset()
+        public def void log(in Smp.String8 message)
+        entrypoint tick
+        eventsink demo.ModeEvent inbound
+        eventsource demo.ModeEvent outbound
+        reference demo.Logger? backLogger
+    }
+
+    /** @uuid 10000000-0000-0000-0000-000000000007 */
+    public model Root implements demo.Logger
+    {
+        field ComplexState state
+        field Smp.Int32 countState
+        input field Smp.Int32 inValue
+        output field Smp.Int32 outValue
+        public property Smp.Int32 count -> countState
+        public def void apply(in Smp.Int32 nextCount, in Smp.Float64 nextRatio)
+        public def void log(in Smp.String8 message)
+        container Child child = demo.Child
+        reference demo.Logger? logger
+        entrypoint run
+        eventsink demo.ModeEvent inbound
+        eventsource demo.ModeEvent outbound
+    }
+}

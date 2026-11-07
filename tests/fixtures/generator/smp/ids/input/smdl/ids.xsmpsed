@@ -1,0 +1,4 @@
+schedule <Root = "Main"> Plan
+task Plan { trig unsafe step }
+task SimulationEvent1 { trig unsafe step }
+event Plan simulation "PT1S"

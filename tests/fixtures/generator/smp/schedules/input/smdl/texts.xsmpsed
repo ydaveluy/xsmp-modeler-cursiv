@@ -1,0 +1,3 @@
+schedule <Root = "R"> texts
+task T { emit "a\x01" }
+event T on "b\0" until "c\x02"

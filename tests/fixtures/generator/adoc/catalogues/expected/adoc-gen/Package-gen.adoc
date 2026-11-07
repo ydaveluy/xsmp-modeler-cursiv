@@ -1,0 +1,65 @@
+= Catalogue Package
+
+++++
+Package documentation.
+++++
+
+== Namespace demo
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace demo {
+
+                class Vector { <<Structure>> }
+
+}
+....
+
+[#demo-Vector]
+=== Structure Vector
+
+++++
+Vector description.
+++++
+
+.Vector's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |private
+.^h|Qualified Name |demo::Vector
+.^h|UUID |11111111-0000-4000-8000-000000000301
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class Vector {
+        +Float64 x
+
+    }
+
+
+....
+
+==== Fields
+The Vector structure provides the following fields:
+
+.Vector's public fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|state
+|x
+|<<Smp-Float64,Smp::Float64>>
+|===

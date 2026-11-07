@@ -1,0 +1,136 @@
+// -----------------------------------------------------------------------------
+// File Name    : ProbeGen.h
+// -----------------------------------------------------------------------------
+/// @file limits/ProbeGen.h
+// This file is auto-generated, Do not edit otherwise your changes will be lost
+
+#ifndef LIMITS_PROBEGEN_H_
+#define LIMITS_PROBEGEN_H_
+
+// ----------------------------------------------------------------------------
+// --------------------------- Forward Declarations ---------------------------
+// ----------------------------------------------------------------------------
+
+namespace limits
+{
+class Probe;
+} // namespace limits
+
+// ----------------------------------------------------------------------------
+// --------------------------- Include Header Files ---------------------------
+// ----------------------------------------------------------------------------
+
+#include <functional>
+#include <Smp/ISimulator.h>
+#include <Smp/PrimitiveTypes.h>
+#include <Smp/Publication/ITypeRegistry.h>
+#include <type_traits>
+
+// ----------------------------------------------------------------------------
+// --------------------------- Types and Interfaces ---------------------------
+// ----------------------------------------------------------------------------
+
+namespace limits
+{
+/// Universally unique identifier of type Probe.
+constexpr ::Smp::Uuid Uuid_Probe { 0x87000000U, 0x0000U, 0x4000U, 0x8000U, 0x000000000001U };
+
+class ProbeGen: public ::TasMdk::Model
+{
+    friend class ::limits::Probe;
+
+    ProbeGen(::Smp::Int32 value);
+    ProbeGen(::Smp::Float64 value);
+    virtual ::Smp::Int32* pointer()=0;
+    virtual ::Smp::Int32 calculate(::Smp::Int32 value)=0;
+    virtual ::Smp::Int32 calculate(::Smp::Float64 value)=0;
+    virtual ::Smp::Int32 normal(::Smp::Int32 value)=0;
+
+    // ------------------------------------------------------------------------------------
+    // ------------------------- Constructors/Destructor -------------------------
+    // ------------------------------------------------------------------------------------
+    public:
+    /// Constructor setting name, description and parent.
+    /// @param name Name of new model instance.
+    /// @param description Description of new model instance.
+    /// @param parent Parent of new model instance.
+    /// @param type_registry Reference to global type registry.
+    ProbeGen(
+            ::Smp::String8 name,
+            ::Smp::String8 description,
+            ::Smp::IObject* parent,
+            ::Smp::Publication::ITypeRegistry* type_registry);
+
+    /// Virtual destructor to release memory.
+    ~ProbeGen() override;
+
+    static ::TasMdk::Request::Handler<ProbeGen>::CollectionType requestHandlers;
+
+    // ----------------------------------------------------------------------------------
+    // ------------------------------- IComponent --------------------------------
+    // ----------------------------------------------------------------------------------
+
+    /// Publish fields, operations and properties of the model.
+    /// @param receiver Publication receiver.
+    void Publish(::Smp::IPublication* receiver) override;
+
+    /// Request for configuration.
+    /// @param logger Logger to use for log messages during Configure().
+    /// @param linkRegistry Link Registry to use for registration of
+    ///         links created during Configure() or later.
+    void Configure(::Smp::Services::ILogger* logger, ::Smp::Services::ILinkRegistry* linkRegistry) override;
+
+    /// Connect model to simulator.
+    /// @param simulator Simulation  Environment  that  hosts the model.
+    ///
+    void Connect(
+        ::Smp::ISimulator* simulator) override;
+
+    /// Disconnect model to simulator.
+    /// @throws Smp::InvalidComponentState
+    void Disconnect() override;
+
+    /// Return the Universally Unique Identifier of the Model.
+    /// @return  Universally Unique Identifier of the Model.
+    const Smp::Uuid& GetUuid() const override;
+
+    /// Invoke the operation for the given request.
+    /// @param request Request object to invoke.
+    void Invoke(::Smp::IRequest* request) override;
+
+    protected:
+    /// It populates the static map of request handler to implement the invoke function.
+    /// @param bluePrint an object to use as blue print if needed
+    /// @param handlers the map to be populated.
+    template <typename _Type>
+    static void PopulateRequestHandlers(_Type* bluePrint, typename ::TasMdk::Request::Handler<_Type>::CollectionType& handlers);
+
+    private:
+    /// Callback for custom publication
+    std::function<void(::Smp::IPublication*)> Publish_Callback;
+    /// Callback for custom configuration
+    std::function<void(::Smp::Services::ILogger *, ::Smp::Services::ILinkRegistry*)> Configure_Callback;
+    /// Callback for custom connection
+    std::function<void(::Smp::ISimulator*)> Connect_Callback;
+    /// Callback for custom disconnection
+    std::function<void()> Disconnect_Callback;
+};
+
+template <typename _Type>
+void ProbeGen::PopulateRequestHandlers(
+    [[maybe_unused]] _Type* bluePrint,
+    [[maybe_unused]] typename ::TasMdk::Request::Handler<_Type>::CollectionType& handlers)
+{
+    if (handlers.find("normal") == handlers.end()) {
+        handlers["normal"] = [](_Type & component, [[maybe_unused]] ::Smp::IRequest* request) {
+            ::Smp::Int32 p_value;
+            ::TasMdk::Request::initParameter(p_value, request, "value", ::Smp::PrimitiveTypeKind::PTK_Int32);
+
+            /// Invoke normal
+            request->SetReturnValue({::Smp::PrimitiveTypeKind::PTK_Int32, component.normal(p_value)});
+        };
+    }
+}
+} // namespace limits
+
+#endif // LIMITS_PROBEGEN_H_

@@ -1,0 +1,13 @@
+catalogue ids
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000221 */
+    public attribute Smp.Bool Flag = true
+    /** @uuid 11111111-0000-4000-8000-000000000222 */
+    public interface I
+    {
+        @Flag def void over(@Flag in Smp.Int32 a)
+        @Flag def void over(@Flag in Smp.Bool a)
+        @Flag def @Flag Smp.Bool get()
+    }
+}

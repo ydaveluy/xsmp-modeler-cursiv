@@ -1,0 +1,26 @@
+/**
+ * @id nulls
+ */
+catalogue Nulls
+
+namespace nulls
+{
+    /**
+     * @id nulls.ITarget
+     * @uuid 11111111-0000-4000-8000-000000000604
+     */
+    interface ITarget
+    {
+    }
+    /**
+     * @id nulls.IHolder
+     * @uuid 11111111-0000-4000-8000-000000000605
+     */
+    public interface IHolder
+    {
+        /**
+         * @id nulls.IHolder.SetTarget
+         */
+        def void SetTarget(inout ITarget target = nullptr)
+    }
+}

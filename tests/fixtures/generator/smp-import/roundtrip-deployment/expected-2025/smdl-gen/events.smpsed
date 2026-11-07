@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schedule:Schedule xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="events" Name="events">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="R" />
+  <Task Id="events.T" Name="T">
+    <Activity Id="events.T.EmitGlobalEvent1" Name="EmitGlobalEvent1" xsi:type="Schedule:EmitGlobalEvent">
+      <EventName>a\x01\x5Cx01</EventName>
+      <synchronous>true</synchronous>
+    </Activity>
+    <Activity Id="events.T.EmitGlobalEvent2" Name="EmitGlobalEvent2" xsi:type="Schedule:EmitGlobalEvent">
+      <EventName>tab	 line
+ return&#13;</EventName>
+      <synchronous>true</synchronous>
+    </Activity>
+    <Activity Id="events.T.EmitGlobalEvent3" Name="EmitGlobalEvent3" xsi:type="Schedule:EmitGlobalEvent">
+      <EventName> </EventName>
+      <synchronous>true</synchronous>
+    </Activity>
+    <Activity Id="events.T.EmitGlobalEvent4" Name="EmitGlobalEvent4" xsi:type="Schedule:EmitGlobalEvent">
+      <EventName>
+</EventName>
+      <synchronous>true</synchronous>
+    </Activity>
+  </Task>
+  <Event Id="events-GlobalEventTriggeredEvent1" Name="GlobalEventTriggeredEvent1" CycleTime="PT0S" xsi:type="Schedule:GlobalEventTriggeredEvent" StartEvent="b\x00" StopEvent="\c">
+    <Task xlink:title="T" xlink:href="#events.T" />
+  </Event>
+</Schedule:Schedule>

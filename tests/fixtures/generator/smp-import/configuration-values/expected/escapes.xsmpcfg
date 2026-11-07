@@ -1,0 +1,19 @@
+configuration Escapes
+/m
+{
+    a = "\0"
+    l = "\0001"
+    b = "\037\037"
+    c = "\uFFFE"
+    d = "\\x01"
+    e = "C:\\dir"
+    f = "a\\nb"
+    g = "\\x41\\x0A\\x20"
+    h = "�"
+    i = "\\x0"
+    j = "\\xZZ"
+    k = "\\"
+    m = "\377"
+    n = "a\303"
+    o = "é"
+}

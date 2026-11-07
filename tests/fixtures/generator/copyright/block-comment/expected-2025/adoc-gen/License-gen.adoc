@@ -1,0 +1,50 @@
+= Catalogue License
+
+
+== Namespace demo
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace demo {
+
+                class Device { <<Model>> }
+
+}
+....
+
+[#demo-Device]
+=== Model Device
+
+
+.Device's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::Device
+.^h|UUID |11111111-0000-4000-8000-000000000161
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+
+
+    class Device {
+
+
+    }
+
+
+
+....
+

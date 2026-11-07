@@ -1,0 +1,29 @@
+/**
+ * @id dep
+ */
+catalogue dependency
+
+namespace dep
+{
+    /**
+     * @id dep.struct.indexed
+     * @uuid 11111111-0000-4000-8000-00000000061c
+     */
+    public struct IndexedStruct
+    {
+    }
+    /**
+     * @id dep.struct.prebuilt
+     * @uuid 11111111-0000-4000-8000-00000000061d
+     */
+    public struct PrebuiltStruct
+    {
+    }
+    /**
+     * @id dep.opaque.id
+     * @uuid 11111111-0000-4000-8000-00000000061e
+     */
+    public struct Actual
+    {
+    }
+}

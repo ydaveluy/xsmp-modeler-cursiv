@@ -1,0 +1,9 @@
+// Copyright café
+/** Catalogue modèle */
+catalogue Latin1
+namespace demo {
+    /** Modèle
+     * @uuid abababab-abab-abab-abab-abababababab */
+    public struct Latin { field Smp.Int32 count = 1 // café
+    }
+}

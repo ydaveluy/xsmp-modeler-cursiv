@@ -1,0 +1,25 @@
+catalogue Demo
+namespace n
+{
+    // The warnings say what this profile restricts.
+    /** @uuid 11111111-0000-4000-8000-000000000121 */
+    public model Device
+    {
+        def void invisible()
+        @View(ViewKind.VK_All) def void measure(out Smp.Float64 value)
+    }
+
+    // Request handlers start from the root of the runtime.
+    /** @uuid 11111111-0000-4000-8000-000000000122 */
+    public model A { @View(ViewKind.VK_All) def void f() }
+
+    /** @uuid 11111111-0000-4000-8000-000000000123 */
+    public model B extends A
+    {
+        @View(ViewKind.VK_All) def void g()
+        @Attributes.Static @View(ViewKind.VK_All) def void shared()
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000124 */
+    public service S { @View(ViewKind.VK_All) def void h() }
+}

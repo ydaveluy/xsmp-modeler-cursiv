@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration:Configuration xmlns:Configuration="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="cfg" Name="StartIndex">
+  <Component Path=".">
+    <FieldValue xsi:type="Types:Int32ArrayValue" Field="simpleValues">
+      <StartIndex>2</StartIndex>
+      <ItemValue xsi:type="Types:Int32Value" Value="5"/>
+      <ItemValue xsi:type="Types:Int32Value" Value="6"/>
+    </FieldValue>
+  </Component>
+</Configuration:Configuration>

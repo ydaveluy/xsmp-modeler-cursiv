@@ -1,0 +1,18 @@
+schedule <Root = "Root"> Plan epoch "2025-01-01T00:00:00Z" mission "2025-01-01T01:00:00Z"
+/** A task named like its schedule. */
+task Plan on Deployment {
+    /** The activity. */
+    trig step
+    property Child.count = 1i32
+    call Child.reset(value = 1i32)
+    transfer Child.outputValue -> Child.inputValue
+    emit "Ready"
+    execute Main at Child
+}
+task Main on demo.Child { trig step }
+/** The event. */
+event Plan simulation "PT1S"
+event Plan mission "PT2S" cycle "PT1S" repeat 2
+event Plan epoch "2025-01-01T00:00:03Z"
+event Plan zulu "2025-01-01T00:00:04Z"
+event Plan on "Ready" until "Stop" using mission delay "PT1S"

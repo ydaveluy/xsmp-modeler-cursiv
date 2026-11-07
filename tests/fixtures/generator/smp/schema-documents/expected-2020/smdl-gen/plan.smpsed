@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schedule:Schedule xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="Plan" Name="Plan">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="Root" />
+  <EpochTime>2025-01-01T00:00:00Z</EpochTime>
+  <MissionStart>2025-01-01T01:00:00Z</MissionStart>
+  <Task Id="Plan.Plan" Name="Plan">
+    <Description>A task named like its schedule.</Description>
+    <Activity Id="Plan.Plan.Trigger1" Name="Trigger1" xsi:type="Schedule:Trigger">
+      <Description>The activity.</Description>
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+    <Activity Id="Plan.Plan.SetProperty1" Name="SetProperty1" xsi:type="Schedule:SetProperty">
+      <PropertyPath>Child.count</PropertyPath>
+      <Value xsi:type="Types:Int32Value" Value="1" />
+    </Activity>
+    <Activity Id="Plan.Plan.CallOperation1" Name="CallOperation1" xsi:type="Schedule:CallOperation">
+      <OperationPath>Child.reset</OperationPath>
+      <Parameter Parameter="value">
+        <Value xsi:type="Types:Int32Value" Value="1" />
+      </Parameter>
+    </Activity>
+    <Activity Id="Plan.Plan.Transfer1" Name="Transfer1" xsi:type="Schedule:Transfer">
+      <OutputFieldPath>Child.outputValue</OutputFieldPath>
+      <InputFieldPath>Child.inputValue</InputFieldPath>
+    </Activity>
+    <Activity Id="Plan.Plan.EmitGlobalEvent1" Name="EmitGlobalEvent1" xsi:type="Schedule:EmitGlobalEvent">
+      <EventName>Ready</EventName>
+      <synchronous>true</synchronous>
+    </Activity>
+    <Activity Id="Plan.Plan.ExecuteTask1" Name="ExecuteTask1" xsi:type="Schedule:ExecuteTask" Root="Child">
+      <Task xlink:title="Main" xlink:href="#Plan.Main" />
+    </Activity>
+  </Task>
+  <Task Id="Plan.Main" Name="Main">
+    <Activity Id="Plan.Main.Trigger1" Name="Trigger1" xsi:type="Schedule:Trigger">
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+  </Task>
+  <Event Id="Plan-SimulationEvent1" Name="SimulationEvent1" CycleTime="PT0S" xsi:type="Schedule:SimulationEvent" SimulationTime="PT1S">
+    <Description>The event.</Description>
+    <Task xlink:title="Plan" xlink:href="#Plan.Plan" />
+  </Event>
+  <Event Id="Plan-MissionEvent1" Name="MissionEvent1" CycleTime="PT1S" RepeatCount="2" xsi:type="Schedule:MissionEvent" MissionTime="PT2S">
+    <Task xlink:title="Plan" xlink:href="#Plan.Plan" />
+  </Event>
+  <Event Id="Plan-EpochEvent1" Name="EpochEvent1" CycleTime="PT0S" xsi:type="Schedule:EpochEvent" EpochTime="2025-01-01T00:00:03Z">
+    <Task xlink:title="Plan" xlink:href="#Plan.Plan" />
+  </Event>
+  <Event Id="Plan-ZuluEvent1" Name="ZuluEvent1" CycleTime="PT0S" xsi:type="Schedule:ZuluEvent" ZuluTime="2025-01-01T00:00:04Z">
+    <Task xlink:title="Plan" xlink:href="#Plan.Plan" />
+  </Event>
+  <Event Id="Plan-GlobalEventTriggeredEvent1" Name="GlobalEventTriggeredEvent1" CycleTime="PT0S" xsi:type="Schedule:GlobalEventTriggeredEvent" StartEvent="Ready" StopEvent="Stop" Delay="PT1S" TimeKind="MissionTime">
+    <Task xlink:title="Plan" xlink:href="#Plan.Plan" />
+  </Event>
+</Schedule:Schedule>

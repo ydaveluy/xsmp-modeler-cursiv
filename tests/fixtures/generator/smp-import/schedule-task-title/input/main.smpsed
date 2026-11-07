@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schedule:Schedule xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="Main" Name="Main"><Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="R"/>
+  <Task Id="Main.Root" Name="Root">
+    <Activity Id="Main.Root.ExecuteTask1" Name="ExecuteTask1" xsi:type="Schedule:ExecuteTask">
+      <Task xlink:title="FallbackTask" xlink:href="external.smpsed#Hidden/MissingTask"/>
+    </Activity>
+  </Task>
+</Schedule:Schedule>

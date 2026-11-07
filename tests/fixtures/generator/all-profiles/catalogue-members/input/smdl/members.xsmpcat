@@ -1,0 +1,189 @@
+/* Block notice
+ * line two
+ */
+catalogue StressMembers
+
+namespace m
+{
+    /** @uuid 20000000-0000-4000-8000-000000000001 */
+    public enum Mode { Off = 0, On = 1 }
+    /** @uuid 20000000-0000-4000-8000-000000000002 */
+    public struct Pair { field Int32 a = 1 field Int32 b }
+    /** @uuid 20000000-0000-4000-8000-000000000003 */
+    public array Three = Int32[3]
+    /** @uuid 20000000-0000-4000-8000-000000000004 */
+    public string Name[8]
+    /** @uuid 20000000-0000-4000-8000-000000000005 */
+    public event Tick extends Int32
+    /** @uuid 20000000-0000-4000-8000-000000000006 */
+    public event Bang
+    /** @uuid 20000000-0000-4000-8000-000000000007 */
+    public exception Failed { }
+
+    /** A device interface.
+     * @uuid 20000000-0000-4000-8000-000000000010 */
+    public interface IBase
+    {
+        constant Bool Ready = false
+        constant Name Label = "ab"
+        /** Ping it.
+         * @param value The value.
+         * @return The answer. */
+        def Bool ping(in Int32 value)
+        property Bool connected
+        readOnly property Int32 ro
+        writeOnly property Int32 wo
+    }
+
+    /** @uuid 20000000-0000-4000-8000-000000000011 */
+    public interface IDerived extends IBase, Smp.IComponent { def void other() }
+
+    /** A model.
+     * @uuid 20000000-0000-4000-8000-000000000020 */
+    public abstract model AbstractOne implements IBase
+    {
+        constant Int32 K = 2
+        field Bool connectedState = false
+        field Int32 valueState
+        @Abstract def Int32 mustImplement()
+        def Bool ping(in Int32 value)
+        property Bool connected -> connectedState
+        readOnly property Int32 ro -> valueState
+        writeOnly property Int32 wo -> valueState
+    }
+
+    /** @uuid 20000000-0000-4000-8000-000000000021 */
+    public model Full extends AbstractOne implements IDerived
+    {
+        /** Doc of a field. */
+        public field Int32 pub = 1
+        protected field Int32 prot = 2
+        private field Int32 priv = 3
+        input field Int32 in1 = 4
+        output field Int32 out1 = 5
+        transient field Int32 tr = 6
+        @Forcible output field Float64 forced = 1.5
+        @Failure field Bool failed
+        output field Three outArray = {1, 2, 3}
+        output field Pair outPair = {1, 2}
+        field Name named = "n"
+        field Mode mode = Mode.On
+        field Duration span = "PT2S"
+        field DateTime stamp
+        @Static field Int32 shared = 9
+        @Mutable field Int32 mut = 1
+        @View(ViewKind.VK_Expert) field Int32 expert = 1
+        @View(1) field Int32 viewInt = 1
+
+        /** An association. */
+        association Pair link
+        association Full self
+        @Static association Int32 sharedLink
+        @Mutable association Int32 mutLink
+        @Const association Int32 constLink
+
+        /** A container. */
+        container Smp.IComposite c0
+        container Smp.IComposite[0 ... 1] c1
+        container Smp.IComposite[2 ... 5] c2
+        container Smp.IComposite[3] c3
+        container Smp.IComposite[*] c4
+        container Smp.IComposite[+] c5
+        container Smp.IComposite? c6
+        /** A reference. */
+        reference IBase r0
+        reference IBase[0 ... 1] r1
+        reference IBase[*] r2
+        reference IBase[1 ... 4] r3
+        reference IBase? r4
+
+        /** Run it. */
+        entrypoint main
+        entrypoint second { in in1 out out1 }
+        /** Sink. */
+        eventsink Tick onTick
+        eventsink Bang onBang
+        /** Source. */
+        eventsource Tick doTick
+        eventsource Bang doBang
+
+        def Int32 mustImplement()
+        def void other()
+        def void noArgs()
+        def Int32 retInt()
+        def Bool retBool()
+        def Mode retEnum()
+        def Name retName()
+        def Pair retStruct()
+        def Three retArray()
+        def IBase retIface()
+        def String8 retStr8()
+        def Bool retChar()
+        def Float32 retF32()
+        def UInt64 retU64()
+        def Duration retDuration()
+        def void withIn(in Int32 a, in Float64 b = 2.5, in Bool c = true)
+        def void withOut(out Int32 a, inout Float64 b)
+        def void withStr8(in String8 s)
+        def void withStr8Out(out String8 s)
+        def void withName(in Name n, out Name o)
+        def void withDefaultOut(out Int32 a = nullptr)
+        def void withEnum(in Mode a = Mode.On)
+        def void withStruct(in Pair p)
+        def void withIface(in IBase i)
+        def void withRef(@ByReference in Int32 i)
+        def void withPtr(@ByPointer in Int32 i)
+        def void withConst(@Const in Int32 i)
+        @Static def Int32 statOp(in Int32 a)
+        @Virtual(false) def Int32 nonVirt(in Int32 a)
+        @Const def Int32 constOp()
+        @View(ViewKind.VK_All) def Int32 viewed(in Int32 a)
+        @View(ViewKind.VK_All) def void viewedVoid()
+        @View(ViewKind.VK_Debug) def Int32 debugged(in Name a)
+        @View(ViewKind.VK_All) def void viewedOut(out Int32 a)
+        @Operator(OperatorKind.Add) def void addOp(in Int32 a)
+        def void raises(in Int32 a) throws Failed
+
+        property Int32 plainProp
+        readOnly property Int32 roProp
+        writeOnly property Int32 woProp
+        readWrite property Int32 rwProp
+        property Name nameProp
+        property Pair pairProp
+        property Mode modeProp
+        property Int32 attached -> pub
+        readOnly property Int32 attachedRo -> pub
+        @ConstGetter property Int32 constGet
+        @Static property Int32 statProp -> shared
+        @Virtual(false) property Int32 nvProp
+        protected property Int32 protProp
+        private property Int32 privProp
+        property IBase ifaceProp
+        @ByPointer property Int32 ptrProp
+        @ByReference property Int32 refProp
+        @Const property Int32 constProp
+    }
+
+    /** A service.
+     * @uuid 20000000-0000-4000-8000-000000000022 */
+    public service Serv implements IBase
+    {
+        field Bool connectedState
+        def Bool ping(in Int32 value)
+        property Bool connected -> connectedState
+        readOnly property Int32 ro
+        writeOnly property Int32 wo
+        container Smp.IComposite kids
+        reference IBase peer
+        entrypoint go
+        eventsink Bang bang
+        eventsource Bang boom
+    }
+
+    /** @uuid 20000000-0000-4000-8000-000000000023 */
+    public service ServKid extends Serv { }
+    /** @uuid 20000000-0000-4000-8000-000000000024 */
+    public model Empty { }
+    /** @uuid 20000000-0000-4000-8000-000000000025 */
+    public model OnlyOutput { output field Int32 o @Failure field Bool f }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package:Package xmlns:Package="http://www.ecss.nl/smp/2019/Smdl/Package" xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_Schema" Name="Schema">
+  <Implementation xlink:title="Mode" xlink:href="model.smpcat#demo.Mode" />
+  <Implementation xlink:title="State" xlink:href="model.smpcat#demo.State" />
+  <Implementation xlink:title="Child" xlink:href="model.smpcat#demo.Child" />
+  <Implementation xlink:title="Root" xlink:href="model.smpcat#demo.Root" />
+  <Implementation xlink:title="Pointer" xlink:href="model.smpcat#demo.Pointer" />
+  <Implementation xlink:title="Flag" xlink:href="model.smpcat#demo.Flag" />
+  <Implementation xlink:title="Mapped" xlink:href="model.smpcat#demo.Mapped" />
+  <Implementation xlink:title="Texts" xlink:href="model.smpcat#demo.Texts" />
+</Package:Package>

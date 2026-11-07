@@ -1,0 +1,8 @@
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000131 */
+    public class C { public def Smp.Int32 value() }
+    /** @uuid 11111111-0000-4000-8000-000000000132 */
+    public exception E { public def void reset() }
+}

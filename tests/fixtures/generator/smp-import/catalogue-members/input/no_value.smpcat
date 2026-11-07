@@ -1,0 +1,9 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="NoValue">
+  <Namespace Name="novalue">
+    <Type xsi:type="Types:Structure" Name="S" Uuid="11111111-0000-4000-8000-00000000060e">
+      <Constant Name="k">
+        <Type xlink:href="#Smp.String8"/>
+      </Constant>
+    </Type>
+  </Namespace>
+</Catalogue>

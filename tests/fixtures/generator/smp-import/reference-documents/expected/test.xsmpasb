@@ -1,0 +1,16 @@
+/**
+ * @id Demo
+ */
+assembly Demo
+configure child
+{
+    count = 1i32
+}
+Root: demo.Root
+{
+    child += Child: demo.Child
+    {
+    }
+    field link outValue -> child.inValue
+    event link outbound -> child.inbound
+}

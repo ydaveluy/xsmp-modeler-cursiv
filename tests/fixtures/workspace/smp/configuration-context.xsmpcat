@@ -1,0 +1,29 @@
+catalogue Demo
+
+namespace demo
+{
+    public array IntPair = Smp.Int32[2]
+    @SimpleArray
+    public array SimpleIntQuad = Smp.Int32[4]
+
+    public struct Counters
+    {
+        field Smp.Int32 count
+        field Smp.Bool enabled
+        field IntPair values
+    }
+
+    public model Child
+    {
+        field Smp.Int32 value
+    }
+
+    public model Root
+    {
+        field Counters state
+        field SimpleIntQuad simpleValues
+        field Smp.Bool flag
+        field Smp.Float64 ratio
+        container Child child
+    }
+}

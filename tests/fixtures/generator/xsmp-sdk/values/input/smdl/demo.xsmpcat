@@ -1,0 +1,61 @@
+catalogue demo
+namespace n
+{
+    // Expressions keep their references, and a time is in nanoseconds.
+    /** @uuid 11111111-0000-4000-8000-000000000091 */
+    public struct State
+    {
+        constant Smp.Float64 Scale = $cos($PI)
+        field Smp.Float64 ratio = Scale + 1.0
+        field Smp.Duration cycle = "PT1.5S"
+        field Smp.DateTime epoch = "2022-10-22T09:07:44.101010101Z"
+    }
+
+    // A literal keeps the precision of a double.
+    /** @uuid 11111111-0000-4000-8000-000000000092 */
+    public struct Constants
+    {
+        constant Smp.Float64 Pi = 3.141592653589793
+        constant Smp.Float64 Small = 1.23456789012345e-20
+    }
+
+    // Repeated signs stay two operators.
+    /** @uuid 11111111-0000-4000-8000-000000000093 */
+    public struct Signs
+    {
+        constant Smp.Int32 twice = - -1
+        constant Smp.Int32 mixed = -+1
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000094 */
+    public string Name[8]
+
+    // Octal takes at most three digits, so it never reads into the next
+    // character.
+    /** @uuid 11111111-0000-4000-8000-000000000095 */
+    public struct Controls
+    {
+        constant Smp.Char8 nul = '\0'
+        constant Smp.Char8 control = '\x1F'
+        constant Smp.String8 inside = "a\0b"
+        constant Smp.String8 digit = "\x01" "1"
+        constant Smp.String8 nulDigit = "\0" "1"
+        constant Smp.String8 erase = "\x7F"
+        constant Smp.String8 path = "C:\\dir\n"
+        field Smp.Char8 field1 = '\x02'
+        field Name field2 = "\0\x03"
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000096 */
+    public interface IControls { def void f(in Smp.String8 a = "a\0b") }
+
+    /** @uuid 11111111-0000-4000-8000-000000000097 */
+    public model Wrapped { public field Name wrapped = "x\x04y" }
+
+    /**
+     * A path like C:\temp\
+     * Next line.
+     * @uuid 11111111-0000-4000-8000-000000000098
+     */
+    public struct Documented { }
+}

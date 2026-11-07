@@ -1,0 +1,44 @@
+/**
+ * Catalogue description.
+ * @id _described
+ * @title Demo
+ */
+catalogue described
+
+/**
+ * @id demo
+ */
+namespace demo
+{
+    /**
+     * @id demo.Count
+     * @uuid 00000000-0000-0000-0000-000000000001
+     */
+    public integer Count
+    /**
+     * @id demo.Mode
+     * @uuid 00000000-0000-0000-0000-000000000002
+     */
+    public enum Mode
+    {
+        /**
+         * @id demo.Mode.Off
+         */
+        Off = 0,
+        /**
+         * @id demo.Mode.On
+         */
+        On = 1
+    }
+    /**
+     * @id demo.Data
+     * @uuid 00000000-0000-0000-0000-000000000003
+     */
+    public struct Data
+    {
+        /**
+         * @id demo.Data.count
+         */
+        field Count count = 7
+    }
+}

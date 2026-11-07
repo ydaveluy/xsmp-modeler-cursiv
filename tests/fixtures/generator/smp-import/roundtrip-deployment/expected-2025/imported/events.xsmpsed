@@ -1,0 +1,15 @@
+/**
+ * @id events
+ */
+schedule <Root = "R"> events
+/**
+ * @id events.T
+ */
+task T
+{
+    emit "a\001\\x01"
+    emit "tab\t line\n return\r"
+    emit " "
+    emit "\n"
+}
+event T on "b\0" until "\\c"

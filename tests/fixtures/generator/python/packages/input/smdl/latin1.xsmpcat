@@ -1,0 +1,7 @@
+// Copyright café
+catalogue Latin1
+namespace latin
+{
+    /** @uuid 11111111-0000-4000-8000-000000000152 */
+    model M {}
+}

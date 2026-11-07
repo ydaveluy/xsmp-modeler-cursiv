@@ -1,0 +1,20 @@
+/**
+ * @id BootFlow
+ */
+schedule <Root = "R", count = 1, mode = "nominal"> BootFlow epoch "2026-01-01T00:00:00Z" mission "2026-01-01T00:00:10Z"
+/**
+ * @id BootFlow.Worker
+ */
+task Worker
+{
+}
+/**
+ * @id BootFlow.Main
+ */
+task Main
+{
+    execute Worker<count = 2, mode = "safe"> at /AssemblyRoot
+    /* unsupported activity */
+}
+event Main on "BootCompleted" until "ShutdownRequested" using simulation delay "PT5S" cycle "PT30S" repeat 4
+/* unsupported event for Worker */

@@ -1,0 +1,2 @@
+configuration runtime_values
+/Root: demo.Root { samples = [2: 3, 4] }

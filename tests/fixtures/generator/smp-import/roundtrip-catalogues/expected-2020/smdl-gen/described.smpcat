@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_described" Name="described" Title="Demo">
+  <Description>Catalogue description.</Description>
+  <Namespace Id="demo" Name="demo">
+    <Type Id="demo.Count" Name="Count" xsi:type="Types:Integer" Uuid="00000000-0000-0000-0000-000000000001" Visibility="public" />
+    <Type Id="demo.Mode" Name="Mode" xsi:type="Types:Enumeration" Uuid="00000000-0000-0000-0000-000000000002" Visibility="public">
+      <Literal Id="demo.Mode.Off" Name="Off" Value="0" />
+      <Literal Id="demo.Mode.On" Name="On" Value="1" />
+    </Type>
+    <Type Id="demo.Data" Name="Data" xsi:type="Types:Structure" Uuid="00000000-0000-0000-0000-000000000003" Visibility="public">
+      <Field Id="demo.Data.count" Name="count">
+        <Type xlink:title="Count" xlink:href="#demo.Count" />
+        <Default xsi:type="Types:Int32Value" Value="7" />
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

@@ -1,0 +1,17 @@
+catalogue Demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000101 */
+    public class C
+    {
+        @Attributes.Virtual public def Smp.Int32 compute()
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000102 */
+    public class Constructed
+    {
+        @Attributes.Constructor public def void Constructed(in Smp.Int32 a)
+        @Attributes.Constructor public def void Constructed(in Smp.Float64 b)
+        public property Smp.Int32 value
+    }
+}

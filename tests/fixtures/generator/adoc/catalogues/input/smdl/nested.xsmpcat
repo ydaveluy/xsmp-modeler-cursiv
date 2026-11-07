@@ -1,0 +1,19 @@
+/**
+ * Catalogue with a parent namespace that only contains another namespace.
+ */
+catalogue NestedOnly
+
+/** Parent namespace description. */
+namespace demo
+{
+    /** Child namespace description. */
+    namespace foundation
+    {
+        /** @uuid 20000000-0000-0000-0000-000000000001 */
+        public enum Mode
+        {
+            Off = 0,
+            On = 1
+        }
+    }
+}

@@ -1,0 +1,9 @@
+/** Catalogue modèle
+ * @title café */
+catalogue Latin1 namespace latin {
+  /** Modèle
+   * @uuid 11111111-0000-4000-8000-000000000323 */
+  public struct S {
+    /** fé */ field Smp.Int32 x
+  }
+}

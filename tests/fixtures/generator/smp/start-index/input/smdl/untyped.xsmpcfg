@@ -1,0 +1,1 @@
+configuration untyped /Root { a = [2: 3i32, 4i32] }

@@ -1,0 +1,4 @@
+assembly Child
+Root: n.Model
+{
+}

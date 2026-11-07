@@ -1,0 +1,8 @@
+link RootLinks
+/**
+ * Root component links.
+ */
+/
+{
+    interface link /ref -> /Client
+}

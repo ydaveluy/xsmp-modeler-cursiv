@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_metadata" Name="metadata">
+  <Namespace Id="n" Name="n">
+    <Type Id="n.I" Name="I" xsi:type="Catalogue:Interface" Uuid="11111111-0000-4000-8000-000000000206">
+      <Operation Id="n.I.ping-Int32" Name="ping">
+        <Metadata xsi:type="Types:Attribute" Name="View" Id="n.I.ping-Int32.View.0">
+          <Type xlink:title="View" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Attributes.View" />
+          <Value xsi:type="Types:EnumerationValue" Value="3" Literal="VK_All" />
+        </Metadata>
+        <Parameter Id="n.I.ping-Int32.value" Name="value" Direction="in">
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        </Parameter>
+        <Parameter Id="n.I.ping-Int32.return" Name="return" Direction="return">
+          <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+        </Parameter>
+      </Operation>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

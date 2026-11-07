@@ -1,0 +1,9 @@
+:doctype: book
+:toc:
+:pdf-themesdir: {docdir}
+
+= XSMP document set
+
+This AsciiDoc entry point is intentionally minimal.
+
+Generated documentation files are written to `adoc-gen/` next to the XSMP project root and can be included here as needed.

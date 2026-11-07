@@ -1,0 +1,15 @@
+/** Reusable link base wiring the integrated mission system. */
+link MissionLinks for MissionDemo
+
+/** Links declared at the root of the mission system. */
+/
+{
+    /** Connects the orbital platform upstream logger to the ground console. */
+    interface link OrbitalPlatform.upstreamLogger -> GroundConsole
+    /** Connects the payload platform upstream logger to the ground console. */
+    interface link PayloadPlatform.upstreamLogger -> GroundConsole
+    /** Routes console uplink events to the orbital inbound mode sink. */
+    event link GroundConsole.uplinkEvent -> OrbitalPlatform.inboundMode
+    /** Routes console uplink events to the payload inbound mode sink. */
+    event link GroundConsole.uplinkEvent -> PayloadPlatform.inboundMode
+}

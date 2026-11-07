@@ -1,0 +1,122 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build the server and the extension",
+      "detail": "Build xsmp_lsp with the active CMake preset, then compile the extension.",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "build the language server",
+        "install extension dependencies",
+        "compile the extension"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "build the language server",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "${command:cmake.buildDirectory}",
+        "--target",
+        "xsmp_lsp",
+        "--parallel"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "build XSMP and TAS-MDK for WASI Debug",
+      "detail": "Configure the WASI Debug preset, build the server and the TAS-MDK handler, which the build copies into the extension, then compile the extension.",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "configure WASI Debug",
+        "build WASI Debug servers",
+        "install extension dependencies",
+        "compile the extension"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "configure WASI Debug",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--preset",
+        "wasi-debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "build WASI Debug servers",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "wasi-debug",
+        "--target",
+        "xsmp_lsp",
+        "xsmp-tas-mdk-handler",
+        "--parallel"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "install extension dependencies",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "install",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/vscode"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "compile the extension",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "compile"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/vscode"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

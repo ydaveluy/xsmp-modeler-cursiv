@@ -1,0 +1,3 @@
+assembly texts
+Root: "n.\x01"
+configure Root { subscribe step -> "d\x03" }

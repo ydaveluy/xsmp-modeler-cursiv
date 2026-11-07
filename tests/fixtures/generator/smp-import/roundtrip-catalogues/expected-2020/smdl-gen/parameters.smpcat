@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_parameters" Name="parameters">
+  <Namespace Id="parameter" Name="parameter">
+    <Type Id="parameter.I" Name="I" xsi:type="Catalogue:Interface" Uuid="33333333-3333-3333-3333-333333333333" Visibility="public">
+      <Operation Id="parameter.I.op-Int32-Bool-String8" Name="op">
+        <Parameter Id="parameter.I.op-Int32-Bool-String8.a" Name="a" Direction="in">
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+          <Default xsi:type="Types:Int32Value" Value="7" />
+        </Parameter>
+        <Parameter Id="parameter.I.op-Int32-Bool-String8.b" Name="b" Direction="in">
+          <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+          <Default xsi:type="Types:BoolValue" Value="true" />
+        </Parameter>
+        <Parameter Id="parameter.I.op-Int32-Bool-String8.c" Name="c" Direction="in">
+          <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+          <Default xsi:type="Types:String8Value" Value="x&#10;y" />
+        </Parameter>
+      </Operation>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

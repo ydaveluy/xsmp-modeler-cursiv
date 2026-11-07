@@ -1,0 +1,2 @@
+link nested
+/ { field link output -> child.input interface link nested.logger -> child:back child { event link ready -> sink } }

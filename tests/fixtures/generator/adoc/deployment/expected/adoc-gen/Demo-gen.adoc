@@ -1,0 +1,457 @@
+= Demo Catalogue
+
+++++
+Demo catalogue used by adoc tests.
+++++
+
+== Namespace demo
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace demo {
+
+                class ModeEvent { <<EventType>> }
+class Logger { <<Interface>> }
+class IntPair { <<Array>> }
+class NestedState { <<Structure>> }
+class ComplexState { <<Structure>> }
+class Child { <<Model>> }
+class Root { <<Model>> }
+
+}
+....
+
+[#demo-ModeEvent]
+=== EventType ModeEvent
+
+
+.ModeEvent's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::ModeEvent
+.^h|UUID |10000000-0000-0000-0000-000000000001
+.^h|Event Type |<<Smp-Bool,Smp::Bool>>
+|===
+
+
+[#demo-Logger]
+=== Interface Logger
+
+
+.Logger's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::Logger
+.^h|UUID |10000000-0000-0000-0000-000000000002
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class Logger {
+
+        +log(in String8) void
+    }
+
+
+....
+
+==== Operations
+The Logger interface provides the following operations:
+
+===== Operation log
+.log's parameters
+[%autowidth.stretch]
+|===
+|Direction |Name |Type
+
+|in |message |<<Smp-String8,Smp::String8>>
+
+|===
+[#demo-IntPair]
+=== Array IntPair
+
+
+.IntPair's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::IntPair
+.^h|UUID |10000000-0000-0000-0000-000000000003
+.^h|Item Type |<<Smp-Int32,Smp::Int32>>
+.^h|Size |2
+|===
+
+
+[#demo-NestedState]
+=== Structure NestedState
+
+
+.NestedState's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::NestedState
+.^h|UUID |10000000-0000-0000-0000-000000000004
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class NestedState {
+        +Int32 count
+
+    }
+
+
+....
+
+==== Fields
+The NestedState structure provides the following fields:
+
+.NestedState's public fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|state
+|count
+|<<Smp-Int32,Smp::Int32>>
+|===
+[#demo-ComplexState]
+=== Structure ComplexState
+
+
+.ComplexState's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::ComplexState
+.^h|UUID |10000000-0000-0000-0000-000000000005
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class ComplexState {
+        +NestedState nested
+        +Bool enabled
+        +IntPair values
+
+    }
+
+
+....
+
+==== Fields
+The ComplexState structure provides the following fields:
+
+.ComplexState's public fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|state
+|nested
+|<<demo-NestedState,NestedState>>
+|state
+|enabled
+|<<Smp-Bool,Smp::Bool>>
+|state
+|values
+|<<demo-IntPair,IntPair>>
+|===
+[#demo-Child]
+=== Model Child
+
+
+.Child's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::Child
+.^h|UUID |10000000-0000-0000-0000-000000000006
+.1+.^h|Implements |<<demo-Logger,Logger>>
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+    class Logger { <<Interface>> }
+    class Logger { <<Interface>> }
+
+    class Child {
+        -Int32 inValue
+        -Int32 outValue
+        +EntryPoint tick
+        +EventSink~ModeEvent~ inbound
+        +EventSource~ModeEvent~ outbound
+        +reset() void
+        +log(in String8) void
+    }
+    Logger <|.. Child : implements
+    Child "?" o-- Logger : backLogger
+
+....
+
+==== Properties
+The Child model provides the following properties:
+
+.Child's public properties
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|state
+|<<Smp-Int32,Smp::Int32>>
+|===
+==== Operations
+The Child model provides the following operations:
+
+===== Operation reset
+===== Operation log
+.log's parameters
+[%autowidth.stretch]
+|===
+|Direction |Name |Type
+
+|in |message |<<Smp-String8,Smp::String8>>
+
+|===
+==== Entry Points
+The Child model provides the following entry points:
+
+.Child's Entry Points
+[%autowidth.stretch]
+|===
+|Name
+
+|tick
+|===
+==== Event Sinks
+The Child model provides the following event sinks:
+
+.Child's Event Sinks
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|inbound
+|<<demo-ModeEvent,ModeEvent>>
+|===
+==== Event Sources
+The Child model provides the following event sources:
+
+.Child's Event Sources
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|outbound
+|<<demo-ModeEvent,ModeEvent>>
+|===
+==== Fields
+The Child model provides the following fields:
+
+.Child's private fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|input, state
+|inValue
+|<<Smp-Int32,Smp::Int32>>
+|output, state
+|outValue
+|<<Smp-Int32,Smp::Int32>>
+|===
+==== References
+The Child model provides the following references:
+
+.Child's references
+[%autowidth.stretch]
+|===
+|Name |Type |Minimum |Maximum
+
+|backLogger
+|<<demo-Logger,Logger>>
+|0
+|1
+|===
+[#demo-Root]
+=== Model Root
+
+
+.Root's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::Root
+.^h|UUID |10000000-0000-0000-0000-000000000007
+.1+.^h|Implements |<<demo-Logger,Logger>>
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+    class Logger { <<Interface>> }
+    class Logger { <<Interface>> }
+    class Child { <<Model>> }
+    class Root {
+        -ComplexState state
+        -Int32 countState
+        -Int32 inValue
+        -Int32 outValue
+        +EntryPoint run
+        +EventSink~ModeEvent~ inbound
+        +EventSource~ModeEvent~ outbound
+        +apply(in Int32, in Float64) void
+        +log(in String8) void
+    }
+    Logger <|.. Root : implements
+    Root "?" o-- Logger : logger
+    Root "1" *-- Child : child
+....
+
+==== Properties
+The Root model provides the following properties:
+
+.Root's public properties
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|count
+|<<Smp-Int32,Smp::Int32>>
+|===
+==== Operations
+The Root model provides the following operations:
+
+===== Operation apply
+.apply's parameters
+[%autowidth.stretch]
+|===
+|Direction |Name |Type
+
+|in |nextCount |<<Smp-Int32,Smp::Int32>>
+|in |nextRatio |<<Smp-Float64,Smp::Float64>>
+
+|===
+===== Operation log
+.log's parameters
+[%autowidth.stretch]
+|===
+|Direction |Name |Type
+
+|in |message |<<Smp-String8,Smp::String8>>
+
+|===
+==== Entry Points
+The Root model provides the following entry points:
+
+.Root's Entry Points
+[%autowidth.stretch]
+|===
+|Name
+
+|run
+|===
+==== Event Sinks
+The Root model provides the following event sinks:
+
+.Root's Event Sinks
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|inbound
+|<<demo-ModeEvent,ModeEvent>>
+|===
+==== Event Sources
+The Root model provides the following event sources:
+
+.Root's Event Sources
+[%autowidth.stretch]
+|===
+|Name |Type
+
+|outbound
+|<<demo-ModeEvent,ModeEvent>>
+|===
+==== Fields
+The Root model provides the following fields:
+
+.Root's private fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|state
+|state
+|<<demo-ComplexState,ComplexState>>
+|state
+|countState
+|<<Smp-Int32,Smp::Int32>>
+|input, state
+|inValue
+|<<Smp-Int32,Smp::Int32>>
+|output, state
+|outValue
+|<<Smp-Int32,Smp::Int32>>
+|===
+==== Containers
+The Root model provides the following containers:
+
+.Root's containers
+[%autowidth.stretch]
+|===
+|Name |Type |Minimum |Maximum
+
+|child
+|<<demo-Child,Child>>
+|1
+|1
+|===
+==== References
+The Root model provides the following references:
+
+.Root's references
+[%autowidth.stretch]
+|===
+|Name |Type |Minimum |Maximum
+
+|logger
+|<<demo-Logger,Logger>>
+|0
+|1
+|===

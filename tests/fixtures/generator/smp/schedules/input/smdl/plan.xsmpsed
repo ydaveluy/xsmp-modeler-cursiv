@@ -1,0 +1,2 @@
+schedule <Root = "Main"> plan epoch "2025-01-01T00:00:00Z" mission "2025-01-01T01:00:00Z"
+task Main { trig unsafe step }

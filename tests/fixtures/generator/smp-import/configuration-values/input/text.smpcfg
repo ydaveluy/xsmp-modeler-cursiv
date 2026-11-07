@@ -1,0 +1,5 @@
+<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Text">
+  <Component Path="/Root">
+    <FieldValue xsi:type="Types:String8Value" Field="a" Value="line1&#10;C:\tmp"/>
+  </Component>
+</Configuration>

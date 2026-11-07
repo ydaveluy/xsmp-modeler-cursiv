@@ -1,0 +1,44 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Parameters">
+  <Namespace Name="demo">
+    <Type xsi:type="Types:Enumeration" Name="Mode" Id="demo.Mode" Uuid="11111111-0000-4000-8000-000000000606">
+      <Literal Name="On" Id="demo.Mode.On" Value="1"/>
+    </Type>
+    <Type xsi:type="Catalogue:Interface" Name="I" Id="demo.I" Uuid="11111111-0000-4000-8000-000000000607"/>
+    <Type xsi:type="Catalogue:Model" Name="M" Uuid="11111111-0000-4000-8000-000000000608">
+      <Operation Name="op">
+        <Parameter Name="f">
+          <Type xlink:href="#Smp.Int32"/>
+          <Default>new int(3)</Default>
+        </Parameter>
+        <Parameter Name="g">
+          <Type xlink:href="#Smp.Int32"/>
+          <Default></Default>
+        </Parameter>
+        <Parameter Name="a">
+          <Type xlink:href="#Smp.Int32"/>
+          <Default> 7 </Default>
+        </Parameter>
+        <Parameter Name="b">
+          <Type xlink:href="#demo.Mode"/>
+          <Default>::demo::Mode::On</Default>
+        </Parameter>
+        <Parameter Name="c">
+          <Type xlink:href="#demo.Mode"/>
+          <Default>demo::Mode::On</Default>
+        </Parameter>
+        <Parameter Name="d" Direction="inout">
+          <Type xlink:href="#demo.I"/>
+          <Default>nullptr</Default>
+        </Parameter>
+        <Parameter Name="e">
+          <Type xlink:href="#Smp.String8"/>
+          <Default>"a::b"</Default>
+        </Parameter>
+        <Parameter Name="h">
+          <Type xlink:href="#Smp.Int32"/>
+          <Default>3</Default>
+        </Parameter>
+      </Operation>
+    </Type>
+  </Namespace>
+</Catalogue>

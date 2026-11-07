@@ -1,0 +1,7 @@
+schedule <Root = "R"> documented
+task T {
+  /** Activity doc. */
+  trig unsafe step
+}
+/** Event doc. */
+event T simulation "PT1S"

@@ -1,0 +1,10 @@
+<LinkBase xmlns="urn:custom/LinkBase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="RootLinks">
+  <Component Path="/">
+    <Description>Root component links.</Description>
+    <Link xsi:type="LinkBase:InterfaceLink">
+      <OwnerPath>/</OwnerPath>
+      <Reference>ref</Reference>
+      <ClientPath>/Client</ClientPath>
+    </Link>
+  </Component>
+</LinkBase>

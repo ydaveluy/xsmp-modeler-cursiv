@@ -1,0 +1,2 @@
+configuration Floats
+/Root { first = 20.0f64 second = 1e+02f64 values = [1.0f64, 0.0f32] }

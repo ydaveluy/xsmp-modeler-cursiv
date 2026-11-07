@@ -1,0 +1,77 @@
+= Catalogue Unresolved
+
+
+== Namespace demo
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace demo {
+
+                class M { <<Model>> }
+
+}
+....
+
+[#demo-M]
+=== Model M
+
+
+.M's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |demo::M
+.^h|UUID |11111111-0000-4000-8000-000000000311
+.^h|Extends |Nope
+.1+.^h|Implements |Nada
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+
+
+    class M {
+        -Missing x
+        -constexpr Int32 c = ?
+
+    }
+
+
+
+....
+
+==== Constants
+The M model provides the following constants:
+
+.M's private constants
+[%autowidth.stretch]
+|===
+|Name |Type |Value
+
+|c
+|<<Smp-Int32,Smp::Int32>>
+|
+|===
+==== Fields
+The M model provides the following fields:
+
+.M's private fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type
+
+|state
+|x
+|Missing
+|===

@@ -1,0 +1,19 @@
+<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Escapes">
+  <Component Path="/m">
+    <FieldValue Field="a" xsi:type="Types:String8Value" Value="\x00"/>
+    <FieldValue Field="l" xsi:type="Types:String8Value" Value="\x001"/>
+    <FieldValue Field="b" xsi:type="Types:String8Value" Value="\x1f\x1F"/>
+    <FieldValue Field="c" xsi:type="Types:String8Value" Value="\xEF\xBF\xBE"/>
+    <FieldValue Field="d" xsi:type="Types:String8Value" Value="\x5Cx01"/>
+    <FieldValue Field="e" xsi:type="Types:String8Value" Value="C:\dir"/>
+    <FieldValue Field="f" xsi:type="Types:String8Value" Value="a\nb"/>
+    <FieldValue Field="g" xsi:type="Types:String8Value" Value="\x41\x0A\x20"/>
+    <FieldValue Field="h" xsi:type="Types:String8Value" Value="\xEF\xBF\xBD"/>
+    <FieldValue Field="i" xsi:type="Types:String8Value" Value="\x0"/>
+    <FieldValue Field="j" xsi:type="Types:String8Value" Value="\xZZ"/>
+    <FieldValue Field="k" xsi:type="Types:String8Value" Value="\"/>
+    <FieldValue Field="m" xsi:type="Types:String8Value" Value="\xFF"/>
+    <FieldValue Field="n" xsi:type="Types:String8Value" Value="a\xC3"/>
+    <FieldValue Field="o" xsi:type="Types:String8Value" Value="\xC3\xA9"/>
+  </Component>
+</Configuration>

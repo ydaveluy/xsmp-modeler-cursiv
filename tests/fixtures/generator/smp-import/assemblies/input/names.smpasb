@@ -1,0 +1,9 @@
+<Assembly xmlns="urn:custom/Assembly" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Names">
+  <Parameter Name="V" xsi:type="Assembly:StringArgument" Value="A"/>
+  <Model Name="Sys{V}" Implementation="n::M">
+    <Model Name="Kid{V}" Container="kids" Implementation="n::M"/>
+    <Assembly Name="Part{V}" Container="parts">
+      <Assembly>self_m.smpasb</Assembly>
+    </Assembly>
+  </Model>
+</Assembly>

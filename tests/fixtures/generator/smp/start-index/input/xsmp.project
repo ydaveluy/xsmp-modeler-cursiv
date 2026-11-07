@@ -1,0 +1,2 @@
+project 'start-index' using 'ECSS_SMP_2025'
+source 'smdl'

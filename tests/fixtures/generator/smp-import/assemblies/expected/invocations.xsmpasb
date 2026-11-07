@@ -1,0 +1,26 @@
+/**
+ * @id Invocations
+ */
+assembly Invocations
+configure .
+{
+    call bootstrap(count = 1i32)
+    property mode = "safe"
+    /* unsupported invocation */
+    subscribe Start -> "Boot"
+    enabled = true
+}
+Root: "__missing__"
+{
+    child += Child: dep<count = 2, mode = "safe"> using config cfg using link demo
+    {
+        configure child
+        {
+            property mode = "warmup"
+        }
+    }
+    child += Leaf: demo.Leaf
+    {
+        subscribe OnTick -> "Tick"
+    }
+}

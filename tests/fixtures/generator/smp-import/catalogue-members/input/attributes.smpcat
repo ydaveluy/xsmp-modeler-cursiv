@@ -1,0 +1,24 @@
+<Catalogue xmlns="http://www.ecss.nl/smp/2025/Smdl/Catalogue" Name="Attributes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <Namespace Name="n" Id="n">
+    <Type xsi:type="Types:Enumeration" Name="Mode" Id="n.Mode" Uuid="11111111-0000-4000-8000-00000000060a">
+      <Literal Name="On" Id="n.Mode.On" Value="1"/>
+    </Type>
+    <Type xsi:type="Types:AttributeType" Name="Setting" Id="n.Setting" Uuid="11111111-0000-4000-8000-00000000060b">
+      <Type xlink:href="#n.Mode" xlink:title="Mode"/>
+      <Default xsi:type="Types:EnumerationValue" Literal="On" Value="1"/>
+    </Type>
+    <Type xsi:type="Catalogue:Model" Name="M" Id="n.M" Uuid="11111111-0000-4000-8000-00000000060c">
+      <Field Name="flag" Id="n.M.flag">
+        <Metadata xsi:type="Types:Attribute">
+          <Type xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Attributes.View" xlink:title="View"/>
+          <Value xsi:type="Types:EnumerationValue" Literal="VK_None" Value="0"/>
+        </Metadata>
+        <Metadata xsi:type="Types:Attribute">
+          <Type xlink:href="#n.Setting" xlink:title="Setting"/>
+          <Value xsi:type="Types:EnumerationValue" Literal="On" Value="1"/>
+        </Metadata>
+        <Type xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" xlink:title="Bool"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue>

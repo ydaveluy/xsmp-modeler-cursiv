@@ -1,0 +1,5 @@
+<LinkBase xmlns="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Component>
+    <Link xsi:type="LinkBase:FieldLink"/>
+  </Component>
+</LinkBase>

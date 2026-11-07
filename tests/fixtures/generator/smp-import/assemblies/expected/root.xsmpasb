@@ -1,0 +1,8 @@
+assembly Outer
+Root: n.Model
+{
+    /**
+     * Nested occurrence documentation.
+     */
+    child += Unit: Child
+}

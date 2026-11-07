@@ -1,0 +1,177 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 60
+    container: gcc:16
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends cmake ninja-build python3 git libxml2-utils
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - name: Configure
+        run: cmake --preset gcc-release
+      - name: Build
+        run: cmake --build --preset gcc-release --parallel 4
+      - name: Test
+        run: ctest --preset gcc-release --parallel 4 --output-on-failure
+      - name: Validate the example workspace
+        run: build/src/xsmp_cli validate example/06-mission-system -w example
+  wasi:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 60
+    container: gcc:16
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build tools
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends cmake ninja-build python3 git libxml2-utils
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - name: Install pinned WASI SDK
+        run: cmake -P tools/fetch-wasi-sdk.cmake
+      - name: Configure
+        run: cmake --preset wasi-release
+      - name: Build
+        run: cmake --build --preset wasi-release --parallel 4
+      - name: Test
+        run: ctest --preset wasi-release --parallel 4
+      - name: Validate the example workspace with WASI
+        run: node --no-warnings vscode/server/wasi-run.mjs --host-module vscode/server/wasi-host.mjs build-wasi/src/xsmp_cli validate example/06-mission-system -w example
+      - name: Test and audit the editor extension
+        run: |
+          npm --prefix vscode ci
+          npm --prefix vscode test
+          npm --prefix vscode audit --audit-level=moderate
+      - name: Package WASI and TAS
+        run: |
+          npm --prefix vscode run package
+          npm --prefix extensions/tas-mdk run package
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: wasi-packages
+          if-no-files-found: error
+          path: |
+            vscode/xsmp-modeler-cursiv-*.vsix
+            extensions/tas-mdk/xsmp-tas-mdk-cursiv-*.vsix
+      - name: Keep the module for the other hosts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: wasi-cli
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            build-wasi/src/xsmp_cli
+            vscode/server/wasi-run.mjs
+            vscode/server/wasi-host.mjs
+
+  # One module runs on every host, but the runner maps its files differently on
+  # each: the module the Linux job built, on the workspace of this checkout.
+  wasi-hosts:
+    needs: wasi
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, macos-26]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    # Not blocking until a run on a real runner has passed.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: wasi-cli
+      - name: Validate the example workspace with WASI
+        run: node --no-warnings vscode/server/wasi-run.mjs --host-module vscode/server/wasi-host.mjs build-wasi/src/xsmp_cli validate example/06-mission-system -w example
+
+  # Apple Clang from the runner's default Xcode: std::jthread needs the libc++
+  # of Xcode 26.4 or later.
+  macos:
+    runs-on: macos-26
+    timeout-minutes: 240
+    # Not blocking until a run on a real runner has passed.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build tools
+        run: |
+          brew install ninja
+          clang++ --version
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - name: Configure
+        run: cmake --preset clang-release
+      # This runner has 3 cores and 7 GB.
+      - name: Build
+        run: cmake --build --preset clang-release --parallel 3
+      - name: Test
+        run: ctest --preset clang-release --parallel 3 --output-on-failure
+      # The host is detected and its archive unpacks, whatever the build did.
+      - name: Fetch the WASI SDK
+        if: ${{ !cancelled() }}
+        run: cmake -P tools/fetch-wasi-sdk.cmake
+
+  # MinGW-w64 GCC from MSYS2, the GCC of the native job on Windows: generated
+  # parsers use computed goto and guaranteed tail calls, which MSVC lacks.
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 240
+    # Not blocking until a run on a real runner has passed.
+    continue-on-error: true
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2.33.0
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-ninja
+      - name: Configure
+        run: cmake --preset gcc-release
+      - name: Build
+        run: cmake --build --preset gcc-release --parallel 4
+      - name: Test
+        run: ctest --preset gcc-release --parallel 4 --output-on-failure
+      # The host is detected and its archive unpacks, whatever the build did.
+      - name: Fetch the WASI SDK
+        if: ${{ !cancelled() }}
+        run: cmake -P tools/fetch-wasi-sdk.cmake

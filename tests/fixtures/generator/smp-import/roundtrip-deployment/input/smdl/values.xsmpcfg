@@ -1,0 +1,1 @@
+configuration values /Root { a = [2: 3i32, 4i32] b = "x\nC:\\tmp" }

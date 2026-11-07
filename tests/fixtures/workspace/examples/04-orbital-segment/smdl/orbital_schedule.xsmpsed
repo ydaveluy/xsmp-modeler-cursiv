@@ -1,0 +1,46 @@
+/** Operational schedule driving one orbital segment over time. */
+schedule <root: string = "OrbitalPlatform"> OrbitalSchedule epoch "2025-01-01T00:00:00Z" mission "2025-01-01T00:00:00Z"
+
+/** Bootstrap task that initializes the orbital-segment assembly. */
+task Bootstrap on OrbitalSegment
+{
+    /** Logs the bootstrap phase on the segment logger. */
+    call SegmentLogger.log(message = "orbital bootstrap")
+    /** Forces the platform into nominal mode. */
+    property mode = demo.foundation.Mode.Nominal
+    /** Executes one avionics step. */
+    trig AvionicsUnit.step
+    /** Reuses the dedicated avionics balancing task. */
+    execute PowerBalance
+    /** Emits the global event that starts cyclic monitoring. */
+    async emit "PlatformReady"
+}
+
+/** Cyclic observation task supervising routing and logging. */
+task Observe on OrbitalSegment
+{
+    /** Copies the power bus from avionics to the platform router. */
+    transfer AvionicsUnit.BatteryPack.lineVoltage -> PowerRouter.incomingBus
+    /** Runs the platform power distribution step. */
+    trig PowerRouter.distribute
+    /** Logs the cyclic observation. */
+    call SegmentLogger.log(message = "orbital cycle")
+    /** Runs the platform supervision entry point. */
+    trig run
+}
+
+/** Nested avionics task focused on power and control balancing. */
+task PowerBalance on OrbitalSegment
+{
+    /** Rebalances the embedded battery pack. */
+    trig AvionicsUnit.BatteryPack.balance
+    /** Forces the control computer into nominal mode. */
+    call AvionicsUnit.AttitudeComputer.apply(requestedMode = demo.foundation.Mode.Nominal)
+}
+
+/** Starts the bootstrap once at a fixed epoch time. */
+event Bootstrap epoch "2025-01-01T00:00:10Z"
+/** Starts cyclic observation after the platform-ready event. */
+event Observe on "PlatformReady" using mission delay "PT5S" cycle "PT30S" repeat 3
+/** Triggers a standalone balancing task in simulation time. */
+event PowerBalance simulation "PT45S"

@@ -1,0 +1,30 @@
+/** Orbital-segment assembly combining platform, avionics and routing. */
+assembly OrbitalSegment
+/** Configures the avionics child after instantiation. */
+configure AvionicsUnit
+{
+    /** Subscribes the avionics step entry point to the platform-ready event. */
+    subscribe step -> "PlatformReady"
+    /** Forces the exposed avionics mode property to nominal. */
+    property mode = demo.foundation.Mode.Nominal
+}
+/** Root orbital platform instance used by the segment assembly. */
+OrbitalPlatform: demo.orbit.OrbitalPlatform
+{
+    /** Starts the platform in standby before schedules take over. */
+    missionMode = demo.foundation.Mode.Standby
+    /** Instantiates the avionics child. */
+    avionics += AvionicsUnit: demo.avionics.AvionicsUnit
+    {
+        /** Instantiates the avionics power chain. */
+        power += BatteryPack
+        /** Instantiates the attitude-control computer. */
+        computer += AttitudeComputer
+        /** Instantiates the avionics sensor head. */
+        sensor += SensorHead
+    }
+    /** Instantiates the power router child. */
+    router += PowerRouter
+    /** Instantiates the local logger child. */
+    logger += SegmentLogger
+}

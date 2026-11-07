@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schedule:Schedule xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="documented" Name="documented">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="R" />
+  <Task Id="documented.T" Name="T">
+    <Activity Id="documented.T.Trigger1" Name="Trigger1" xsi:type="Schedule:Trigger">
+      <Description>Activity doc.</Description>
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+  </Task>
+  <Event Id="documented-SimulationEvent1" Name="SimulationEvent1" CycleTime="PT0S" xsi:type="Schedule:SimulationEvent" SimulationTime="PT1S">
+    <Description>Event doc.</Description>
+    <Task xlink:title="T" xlink:href="#documented.T" />
+  </Event>
+</Schedule:Schedule>

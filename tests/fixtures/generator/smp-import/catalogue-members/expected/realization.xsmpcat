@@ -1,0 +1,11 @@
+catalogue Realized
+
+namespace realized
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-00000000060d
+     */
+    model M
+    {
+    }
+}

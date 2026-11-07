@@ -1,0 +1,28 @@
+/** Payload-segment assembly combining payload, routing and logging. */
+assembly PayloadSegment
+/** Configures the payload child after instantiation. */
+configure PayloadUnit
+{
+    /** Subscribes the payload capture entry point to the payload-ready event. */
+    subscribe capture -> "PayloadReady"
+    /** Forces the payload mode property to nominal. */
+    property mode = demo.foundation.Mode.Nominal
+}
+/** Root payload platform instance used by the segment assembly. */
+PayloadPlatform: demo.payloadsegment.PayloadPlatform
+{
+    /** Starts the platform in standby before schedules take over. */
+    platformMode = demo.foundation.Mode.Standby
+    /** Instantiates the payload child. */
+    payload += PayloadUnit
+    {
+        /** Instantiates the payload camera head. */
+        camera += CameraHead
+        /** Instantiates the payload mass memory. */
+        memory += MassMemory
+    }
+    /** Instantiates the downlink router child. */
+    router += DownlinkRouter
+    /** Instantiates the segment logger child. */
+    logger += PayloadLogger
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_ids" Name="ids">
+  <Namespace Id="demo" Name="demo">
+    <Type Id="demo.Flag" Name="Flag" xsi:type="Types:AttributeType" Uuid="11111111-0000-4000-8000-000000000221" Visibility="public" AllowMultiple="false">
+      <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+      <Default xsi:type="Types:BoolValue" Value="true" />
+    </Type>
+    <Type Id="demo.I" Name="I" xsi:type="Catalogue:Interface" Uuid="11111111-0000-4000-8000-000000000222" Visibility="public">
+      <Operation Id="demo.I.over-Int32" Name="over">
+        <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.I.over-Int32.Flag.0">
+          <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+          <Value xsi:type="Types:BoolValue" Value="true" />
+        </Metadata>
+        <Parameter Id="demo.I.over-Int32.a" Name="a" Direction="in">
+          <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.I.over-Int32.a.Flag.0">
+            <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+            <Value xsi:type="Types:BoolValue" Value="true" />
+          </Metadata>
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        </Parameter>
+      </Operation>
+      <Operation Id="demo.I.over-Bool" Name="over">
+        <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.I.over-Bool.Flag.0">
+          <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+          <Value xsi:type="Types:BoolValue" Value="true" />
+        </Metadata>
+        <Parameter Id="demo.I.over-Bool.a" Name="a" Direction="in">
+          <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.I.over-Bool.a.Flag.0">
+            <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+            <Value xsi:type="Types:BoolValue" Value="true" />
+          </Metadata>
+          <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+        </Parameter>
+      </Operation>
+      <Operation Id="demo.I.get" Name="get">
+        <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.I.get.Flag.0">
+          <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+          <Value xsi:type="Types:BoolValue" Value="true" />
+        </Metadata>
+        <Parameter Id="demo.I.get.return" Name="return" Direction="return">
+          <Metadata xsi:type="Types:Attribute" Name="Flag" Id="demo.I.get.return.Flag.0">
+            <Type xlink:title="Flag" xlink:href="#demo.Flag" />
+            <Value xsi:type="Types:BoolValue" Value="true" />
+          </Metadata>
+          <Type xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+        </Parameter>
+      </Operation>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

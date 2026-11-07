@@ -1,0 +1,12 @@
+catalogue NoValue
+
+namespace novalue
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-00000000060e
+     */
+    struct S
+    {
+        constant Smp.String8 k
+    }
+}

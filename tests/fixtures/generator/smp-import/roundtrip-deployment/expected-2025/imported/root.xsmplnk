@@ -1,0 +1,8 @@
+/**
+ * @id root
+ */
+link root
+/
+{
+    interface link /ref -> /Client
+}

@@ -1,0 +1,31 @@
+
+/**
+ * XSMP Project configuration for project-name
+ */
+project 'project-name'
+
+// project relative path(s) containing modeling file(s)
+source 'smdl'
+
+
+// use XSMP-SDK
+profile 'xsmp-sdk'
+
+
+// use Python
+tool 'python'
+
+
+// use AsciiDoc
+tool 'adoc'
+
+
+// use SMP XML
+tool 'smp'
+
+
+// If your project needs types from outside sources,
+// you can include them by adding project dependencies.
+// For example: dependency 'otherProject'
+//              dependency 'otherProject2'
+

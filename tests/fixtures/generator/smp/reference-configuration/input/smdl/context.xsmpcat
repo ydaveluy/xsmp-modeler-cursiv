@@ -1,0 +1,34 @@
+catalogue Context
+
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000405 */
+    public array IntPair = Smp.Int32[2]
+    /** @uuid 11111111-0000-4000-8000-000000000406 */
+    @SimpleArray
+    public array SimpleIntQuad = Smp.Int32[4]
+
+    /** @uuid 11111111-0000-4000-8000-000000000407 */
+    public struct Counters
+    {
+        field Smp.Int32 count
+        field Smp.Bool enabled
+        field IntPair values
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000408 */
+    public model Child
+    {
+        field Smp.Int32 value
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000409 */
+    public model Root
+    {
+        field Counters state
+        field SimpleIntQuad simpleValues
+        field Smp.Bool flag
+        field Smp.Float64 ratio
+        container Child child
+    }
+}

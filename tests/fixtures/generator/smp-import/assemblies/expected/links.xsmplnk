@@ -1,0 +1,8 @@
+/**
+ * @id lnk
+ */
+link ImportedLinks
+/
+{
+    field link out -> in
+}

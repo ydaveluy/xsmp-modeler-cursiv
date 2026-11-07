@@ -1,0 +1,18 @@
+catalogue defaults
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000211 */
+    public enum Mode { Off = 0, On = 1 }
+    /** @uuid 11111111-0000-4000-8000-000000000212 */
+    public using Pointer = Smp.Int32*
+    /** @uuid 11111111-0000-4000-8000-000000000213 */
+    public interface I
+    {
+        def void op(in Smp.Int32 a = 7, in Smp.Float64 b = 1.5, in Smp.Bool c = true,
+                    in Smp.String8 d = "say \"hi\"", in Smp.Char8 e = '\n',
+                    in Mode f = Mode.On, in Pointer g = nullptr,
+                    in Smp.Duration h = "PT1S")
+    }
+    /** @uuid 11111111-0000-4000-8000-000000000214 */
+    public struct S { field Pointer p = nullptr field Smp.Int32 v = 1 }
+}

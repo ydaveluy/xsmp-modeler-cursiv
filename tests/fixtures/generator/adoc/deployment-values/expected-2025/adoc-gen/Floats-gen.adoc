@@ -1,0 +1,35 @@
+= Configuration Floats
+
+
+.Floats's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Configuration
+.^h|Name |Floats
+|===
+
+== Component Configurations
+
+=== Component /Root
+
+
+.Component /Root's information
+[%autowidth.stretch]
+|===
+.^h|Path |/Root
+|===
+
+==== Field Values
+
+.Field Values
+[%autowidth.stretch]
+|===
+|Field |Value
+
+|first
+|20.0
+|second
+|1e+02
+|values
+|[1.0, 0.0]
+|===

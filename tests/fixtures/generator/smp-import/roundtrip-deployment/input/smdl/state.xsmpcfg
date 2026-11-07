@@ -1,0 +1,1 @@
+configuration state /root { state = { count = 7i32, samples = [1.0f64, 2.0f64] } elapsed = "PT1S"d }

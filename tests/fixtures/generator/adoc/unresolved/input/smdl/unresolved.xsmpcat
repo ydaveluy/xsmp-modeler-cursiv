@@ -1,0 +1,10 @@
+catalogue Unresolved
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000311 */
+    public model M extends Nope implements Nada
+    {
+        field Missing x
+        constant Smp.Int32 c = 1 / 0
+    }
+}

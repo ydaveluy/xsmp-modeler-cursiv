@@ -1,0 +1,10 @@
+link Demo
+
+/
+{
+    field link unsafe outValue -> child.inValue
+    child
+    {
+        event link unsafe outbound -> inbound
+    }
+}

@@ -1,0 +1,2 @@
+configuration Cells
+/Root { a = [1: 1i32, 2i32] b = [3i32] c = [0: 4i32] }

@@ -1,0 +1,15 @@
+schedule <Root = "R"> Docs
+/**
+ * @id Docs.T
+ */
+task T
+{
+    /**
+     * Activity doc.
+     */
+    trig step
+}
+/**
+ * Event doc.
+ */
+event T simulation "PT1S"

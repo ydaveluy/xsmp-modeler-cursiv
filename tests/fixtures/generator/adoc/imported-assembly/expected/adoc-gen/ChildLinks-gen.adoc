@@ -1,0 +1,33 @@
+= Link Base ChildLinks
+
+
+.ChildLinks's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Link Base
+.^h|Name |ChildLinks
+|===
+
+== Component Link Blocks
+
+=== Component /
+
+
+.Component /'s information
+[%autowidth.stretch]
+|===
+.^h|Path |/
+|===
+
+==== Links
+
+.Links
+[%autowidth.stretch]
+|===
+|Kind |Owner |Reference |Client
+
+|field
+|unsafe x
+|
+|unsafe y
+|===

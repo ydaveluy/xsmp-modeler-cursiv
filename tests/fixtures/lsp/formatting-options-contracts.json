@@ -1,0 +1,544 @@
+{
+  "cases": [
+    {
+      "name": "xsmpcat:4:True:False",
+      "language": "xsmpcat",
+      "before": "/**\n * Catalogue Test\n * \n */\n    catalogue    catalogue\n\n\n    /** element that does not start with a letter */\n    namespace    ns\n {\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "after": "/**\n * Catalogue Test\n * \n */\ncatalogue catalogue\n\n\n/** element that does not start with a letter */\nnamespace ns\n{\n    \n    /** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @SimpleArray(true)\n    public array AnArray = Bool[4 + 5 - 3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n    protected attribute Bool AnAttribute = false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n    abstract private class AClass extends AClass\n    {\n        private association Bool asso\n        protected constant Int32 Cst = { .x = 42 * -5, 1, 1 + -1 }\n        public def void voidOp()\n        protected def Bool returnName anOp(in Bool p = true, in Bool p2 = false)\n        field Bool aField = false || true && (true)\n        property Bool aProperty get throws A, B set throws A, C -> aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType extends Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum\n    {\n        L1 = 0\n    }\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n    abstract protected model MyModel\n    {\n        container MyModel[0 ... *] ctn\n        reference IComponent[5] ref\n        entrypoint ep\n        eventsink EventType esi\n        eventsource EventType eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct MyStruct\n    {\n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer MyInt extends Int32 in 0 ... 42\n\n\n    /** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\n    float MyFloat extends Float32 in 0 <.< 5 / 3.1\n\n    /** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\n    string MyStr[4 + 5]\n\n    /** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n    using VRef = Bool*\n\n\n\n    /** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\n    interface MyInter extends IAggregate, ICollection\n    {\n    }\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n    /** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n    exception AnException\n    {\n    }\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\n    service AService\n    {\n    }\n    primitive UInt64\n} // namespace Expressions\n\n\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpcat:4:True:True",
+      "language": "xsmpcat",
+      "before": "/**\n * Catalogue Test\n * \n */\n    catalogue    catalogue\n\n\n    /** element that does not start with a letter */\n    namespace    ns\n {\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "after": "/**\n * Catalogue Test\n * \n */\ncatalogue catalogue\n\n\n/** element that does not start with a letter */\nnamespace ns\n{\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpcat:2:True:False",
+      "language": "xsmpcat",
+      "before": "/**\n * Catalogue Test\n * \n */\n    catalogue    catalogue\n\n\n    /** element that does not start with a letter */\n    namespace    ns\n {\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "after": "/**\n * Catalogue Test\n * \n */\ncatalogue catalogue\n\n\n/** element that does not start with a letter */\nnamespace ns\n{\n    \n  /** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n  @SimpleArray(true)\n  public array AnArray = Bool[4 + 5 - 3]\n\n\n  /** \n   * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n   */\n  protected attribute Bool AnAttribute = false\n\n\n  /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n  abstract private class AClass extends AClass\n  {\n    private association Bool asso\n    protected constant Int32 Cst = { .x = 42 * -5, 1, 1 + -1 }\n    public def void voidOp()\n    protected def Bool returnName anOp(in Bool p = true, in Bool p2 = false)\n    field Bool aField = false || true && (true)\n    property Bool aProperty get throws A, B set throws A, C -> aField\n  }\n\n\n\n  /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n  event EventType extends Char8\n    \n\n    \n  /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n  enum MyEnum\n  {\n    L1 = 0\n  }\n\n  /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n  abstract protected model MyModel\n  {\n    container MyModel[0 ... *] ctn\n    reference IComponent[5] ref\n    entrypoint ep\n    eventsink EventType esi\n    eventsource EventType eso\n  }\n    \n  /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n  struct MyStruct\n  {\n  }\n\n    \n  /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n  integer MyInt extends Int32 in 0 ... 42\n\n\n  /** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\n  float MyFloat extends Float32 in 0 <.< 5 / 3.1\n\n  /** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\n  string MyStr[4 + 5]\n\n  /** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n  using VRef = Bool*\n\n\n\n  /** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\n  interface MyInter extends IAggregate, ICollection\n  {\n  }\n\n\n  /** \n   * @type native_type\n   * @location native_location\n   * @namespace native_namespace\n   * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n   */\n  native NativeType\n\n\n  /** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n  exception AnException\n  {\n  }\n\n\n  /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\n  service AService\n  {\n  }\n  primitive UInt64\n} // namespace Expressions\n\n\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpcat:2:True:True",
+      "language": "xsmpcat",
+      "before": "/**\n * Catalogue Test\n * \n */\n    catalogue    catalogue\n\n\n    /** element that does not start with a letter */\n    namespace    ns\n {\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "after": "/**\n * Catalogue Test\n * \n */\ncatalogue catalogue\n\n\n/** element that does not start with a letter */\nnamespace ns\n{\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpcat:4:False:False",
+      "language": "xsmpcat",
+      "before": "/**\n * Catalogue Test\n * \n */\n    catalogue    catalogue\n\n\n    /** element that does not start with a letter */\n    namespace    ns\n {\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "after": "/**\n * Catalogue Test\n * \n */\ncatalogue catalogue\n\n\n/** element that does not start with a letter */\nnamespace ns\n{\n    \n\t/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n\t@SimpleArray(true)\n\tpublic array AnArray = Bool[4 + 5 - 3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n\tprotected attribute Bool AnAttribute = false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n\tabstract private class AClass extends AClass\n\t{\n\t\tprivate association Bool asso\n\t\tprotected constant Int32 Cst = { .x = 42 * -5, 1, 1 + -1 }\n\t\tpublic def void voidOp()\n\t\tprotected def Bool returnName anOp(in Bool p = true, in Bool p2 = false)\n\t\tfield Bool aField = false || true && (true)\n\t\tproperty Bool aProperty get throws A, B set throws A, C -> aField\n\t}\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n\tevent EventType extends Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n\tenum MyEnum\n\t{\n\t\tL1 = 0\n\t}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n\tabstract protected model MyModel\n\t{\n\t\tcontainer MyModel[0 ... *] ctn\n\t\treference IComponent[5] ref\n\t\tentrypoint ep\n\t\teventsink EventType esi\n\t\teventsource EventType eso\n\t}\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n\tstruct MyStruct\n\t{\n\t}\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n\tinteger MyInt extends Int32 in 0 ... 42\n\n\n\t/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\n\tfloat MyFloat extends Float32 in 0 <.< 5 / 3.1\n\n\t/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\n\tstring MyStr[4 + 5]\n\n\t/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n\tusing VRef = Bool*\n\n\n\n\t/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\n\tinterface MyInter extends IAggregate, ICollection\n\t{\n\t}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n\tnative NativeType\n\n\n\t/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n\texception AnException\n\t{\n\t}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\n\tservice AService\n\t{\n\t}\n\tprimitive UInt64\n} // namespace Expressions\n\n\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      }
+    },
+    {
+      "name": "xsmpcat:4:False:True",
+      "language": "xsmpcat",
+      "before": "/**\n * Catalogue Test\n * \n */\n    catalogue    catalogue\n\n\n    /** element that does not start with a letter */\n    namespace    ns\n {\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "after": "/**\n * Catalogue Test\n * \n */\ncatalogue catalogue\n\n\n/** element that does not start with a letter */\nnamespace ns\n{\n    \n/** @uuid ab0a7c41-a2c6-402e-a008-c25495479f73 */\n    @   SimpleArray    (true   )\n    public     array    AnArray    =    Bool   [ 4   + 5    -3]\n\n\n    /** \n     * @uuid 457a8f9b-fdde-4af5-b95e-d2879a6b8502\n     */\n     protected     attribute   Bool    AnAttribute     =  false\n\n\n    /** @uuid 60911584-10fc-49d6-945e-d27a8e9ba1b3 */\n   abstract   private    class    AClass    extends AClass\n    {\n        private    association    Bool   asso\n      protected  constant    Int32    Cst     =   {. x   =42* -5,1,1+-1}\n     public    def   void    voidOp    (   )\n     protected def Bool  returnName anOp(in    Bool p    =true    , in Bool p2=   false)\nfield Bool    aField =   false     ||true &&(true)\n     property Bool aProperty get throws A   ,B set   throws A   ,   C    ->aField\n    }\n\n\n\n    /** @uuid 7e0af47c-0c14-4365-9c5f-a532874d282c */\n    event EventType  extends  Char8\n    \n\n    \n    /** @uuid ef098f86-1778-41c4-9438-79e21f56cf64 */\n    enum MyEnum    {\n     L1    =    0}\n\n    /** @uuid 80043e07-e0d1-40c1-92ac-7d547e75c87a */\n   abstract    protected   model    MyModel\n    {\n        container    MyModel   [  0   ... *  ]    ctn\n        reference    IComponent   [  5 ]    ref\n        entrypoint    ep\n        eventsink   EventType  esi\n        eventsource   EventType  eso\n    }\n    \n    /** @uuid 08aaf20f-a684-45d7-87d4-0e8cc4ade2f8 */\n    struct    MyStruct\n    {\n        \n    }\n\n    \n    /** @uuid a0a9b46d-c521-4cb6-982e-5f45ba5c4d7a */\n    integer     MyInt    extends    Int32   in    0    ...42\n\n\n/** @uuid ac1c88fe-e5fc-4e16-b47e-b7124238fb83 */\nfloat    MyFloat    extends    Float32   in   0   <.<5/3.1\n\n/** @uuid fe017ee6-93b3-4876-b1f9-699f73fcd900 */\nstring    MyStr   [ 4   +5  ]\n\n/** @uuid 36f30717-fa90-4809-8dca-7454a4485823 */\n   using    VRef    =   Bool   *\n\n\n\n/** @uuid a5a5d6a2-5af1-4019-8ba6-724e2d97d374 */\ninterface    MyInter    extends IAggregate   , ICollection \n{\n    \n}\n\n\n    /** \n     * @type native_type\n     * @location native_location\n     * @namespace native_namespace\n     * @uuid cf6efcd7-aa8e-4d0b-bdf5-a4fcb205e90c\n     */\n    native NativeType\n\n\n/** @uuid a10c5dbd-bba3-4e23-ae83-6798319c7d06 */\n   exception    AnException \n{\n    \n}\n\n\n    /** @uuid 8d1bf2ef-5665-4076-a555-477288e608d9 */\nservice   AService{\n\n}\n    primitive     UInt64\n          } // namespace Expressions\n\n\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpasb:4:True:False",
+      "language": "xsmpasb",
+      "before": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\nsubscribe Start->\"Boot\"\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate={x=1i32,y=true}\n}\nRoot:\"Impl\"\n{\nevent link src->dst\nfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "after": "assembly <_root: string = \"root\", count: int32 = 1> Demo\nconfigure unsafe child/path\n{\n    subscribe Start -> \"Boot\"\n    call init(a = 1i32, b = 2i32)\n    property flag = true\n    state = { x = 1i32, y = true }\n}\nRoot: \"Impl\"\n{\n    event link src -> dst\n    field link src.out -> dst.in\n    interface link src.ref -> dst:back\n    call init(a = 1i32, b = 2i32)\n    property flag = true\n    state = [1i32, 2i32]\n    child += Child: \"ChildImpl\"\n    sub += Nested: NestedAsm<_root = \"nested\", count = 2> using config Conf using link Links\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpasb:4:True:True",
+      "language": "xsmpasb",
+      "before": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\nsubscribe Start->\"Boot\"\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate={x=1i32,y=true}\n}\nRoot:\"Impl\"\n{\nevent link src->dst\nfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "after": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\n    subscribe Start -> \"Boot\"\n    call init(a = 1i32, b = 2i32)\n    property flag = true\n    state = { x = 1i32, y = true }\n}\nRoot: \"Impl\"\n{\n    event link src -> dst\n    field link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpasb:2:True:False",
+      "language": "xsmpasb",
+      "before": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\nsubscribe Start->\"Boot\"\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate={x=1i32,y=true}\n}\nRoot:\"Impl\"\n{\nevent link src->dst\nfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "after": "assembly <_root: string = \"root\", count: int32 = 1> Demo\nconfigure unsafe child/path\n{\n  subscribe Start -> \"Boot\"\n  call init(a = 1i32, b = 2i32)\n  property flag = true\n  state = { x = 1i32, y = true }\n}\nRoot: \"Impl\"\n{\n  event link src -> dst\n  field link src.out -> dst.in\n  interface link src.ref -> dst:back\n  call init(a = 1i32, b = 2i32)\n  property flag = true\n  state = [1i32, 2i32]\n  child += Child: \"ChildImpl\"\n  sub += Nested: NestedAsm<_root = \"nested\", count = 2> using config Conf using link Links\n}\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpasb:2:True:True",
+      "language": "xsmpasb",
+      "before": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\nsubscribe Start->\"Boot\"\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate={x=1i32,y=true}\n}\nRoot:\"Impl\"\n{\nevent link src->dst\nfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "after": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\n  subscribe Start -> \"Boot\"\n  call init(a = 1i32, b = 2i32)\n  property flag = true\n  state = { x = 1i32, y = true }\n}\nRoot: \"Impl\"\n{\n  event link src -> dst\n  field link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpasb:4:False:False",
+      "language": "xsmpasb",
+      "before": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\nsubscribe Start->\"Boot\"\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate={x=1i32,y=true}\n}\nRoot:\"Impl\"\n{\nevent link src->dst\nfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "after": "assembly <_root: string = \"root\", count: int32 = 1> Demo\nconfigure unsafe child/path\n{\n\tsubscribe Start -> \"Boot\"\n\tcall init(a = 1i32, b = 2i32)\n\tproperty flag = true\n\tstate = { x = 1i32, y = true }\n}\nRoot: \"Impl\"\n{\n\tevent link src -> dst\n\tfield link src.out -> dst.in\n\tinterface link src.ref -> dst:back\n\tcall init(a = 1i32, b = 2i32)\n\tproperty flag = true\n\tstate = [1i32, 2i32]\n\tchild += Child: \"ChildImpl\"\n\tsub += Nested: NestedAsm<_root = \"nested\", count = 2> using config Conf using link Links\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      }
+    },
+    {
+      "name": "xsmpasb:4:False:True",
+      "language": "xsmpasb",
+      "before": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\nsubscribe Start->\"Boot\"\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate={x=1i32,y=true}\n}\nRoot:\"Impl\"\n{\nevent link src->dst\nfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "after": "assembly<_root:string=\"root\",count:int32=1>Demo\nconfigure unsafe child/path\n{\n\tsubscribe Start -> \"Boot\"\n\tcall init(a = 1i32, b = 2i32)\n\tproperty flag = true\n\tstate = { x = 1i32, y = true }\n}\nRoot: \"Impl\"\n{\n\tevent link src -> dst\n\tfield link src.out->dst.in\ninterface link src.ref->dst:back\ncall init(a=1i32,b=2i32)\nproperty flag=true\nstate=[1i32,2i32]\nchild += Child:\"ChildImpl\"\nsub += Nested:NestedAsm<_root=\"nested\",count=2> using config Conf using link Links\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpcfg:4:True:False",
+      "language": "xsmpcfg",
+      "before": "configuration Demo\n/local:pkg.Comp\n{\ninclude Other at unsafe child\nunsafe state={x=1i32,unsafe y=true}\nchild\n{\nvalue=[1i32,2i32]\n}\n}\n",
+      "after": "configuration Demo\n/local: pkg.Comp\n{\n    include Other at unsafe child\n    unsafe state = { x = 1i32, unsafe y = true }\n    child\n    {\n        value = [1i32, 2i32]\n    }\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpcfg:4:True:True",
+      "language": "xsmpcfg",
+      "before": "configuration Demo\n/local:pkg.Comp\n{\ninclude Other at unsafe child\nunsafe state={x=1i32,unsafe y=true}\nchild\n{\nvalue=[1i32,2i32]\n}\n}\n",
+      "after": "configuration Demo\n/local:pkg.Comp\n{\n    include Other at unsafe child\n    unsafe state = { x = 1i32, unsafe y = true }\n    child\n    {\n        value = [1i32, 2i32]\n    }\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 9,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpcfg:2:True:False",
+      "language": "xsmpcfg",
+      "before": "configuration Demo\n/local:pkg.Comp\n{\ninclude Other at unsafe child\nunsafe state={x=1i32,unsafe y=true}\nchild\n{\nvalue=[1i32,2i32]\n}\n}\n",
+      "after": "configuration Demo\n/local: pkg.Comp\n{\n  include Other at unsafe child\n  unsafe state = { x = 1i32, unsafe y = true }\n  child\n  {\n    value = [1i32, 2i32]\n  }\n}\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpcfg:2:True:True",
+      "language": "xsmpcfg",
+      "before": "configuration Demo\n/local:pkg.Comp\n{\ninclude Other at unsafe child\nunsafe state={x=1i32,unsafe y=true}\nchild\n{\nvalue=[1i32,2i32]\n}\n}\n",
+      "after": "configuration Demo\n/local:pkg.Comp\n{\n  include Other at unsafe child\n  unsafe state = { x = 1i32, unsafe y = true }\n  child\n  {\n    value = [1i32, 2i32]\n  }\n}\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 9,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpcfg:4:False:False",
+      "language": "xsmpcfg",
+      "before": "configuration Demo\n/local:pkg.Comp\n{\ninclude Other at unsafe child\nunsafe state={x=1i32,unsafe y=true}\nchild\n{\nvalue=[1i32,2i32]\n}\n}\n",
+      "after": "configuration Demo\n/local: pkg.Comp\n{\n\tinclude Other at unsafe child\n\tunsafe state = { x = 1i32, unsafe y = true }\n\tchild\n\t{\n\t\tvalue = [1i32, 2i32]\n\t}\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      }
+    },
+    {
+      "name": "xsmpcfg:4:False:True",
+      "language": "xsmpcfg",
+      "before": "configuration Demo\n/local:pkg.Comp\n{\ninclude Other at unsafe child\nunsafe state={x=1i32,unsafe y=true}\nchild\n{\nvalue=[1i32,2i32]\n}\n}\n",
+      "after": "configuration Demo\n/local:pkg.Comp\n{\n\tinclude Other at unsafe child\n\tunsafe state = { x = 1i32, unsafe y = true }\n\tchild\n\t{\n\t\tvalue = [1i32, 2i32]\n\t}\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 9,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmplnk:4:True:False",
+      "language": "xsmplnk",
+      "before": "link Demo for DemoAsm\n/\n{\nevent link unsafe a->b\nfield link out->{Target}.in\ninterface link child.ref->child:back\nchild\n{\nfield link unsafe local.out->local.in\n}\n}\n",
+      "after": "link Demo for DemoAsm\n/\n{\n    event link unsafe a -> b\n    field link out -> {Target}.in\n    interface link child.ref -> child:back\n    child\n    {\n        field link unsafe local.out -> local.in\n    }\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmplnk:4:True:True",
+      "language": "xsmplnk",
+      "before": "link Demo for DemoAsm\n/\n{\nevent link unsafe a->b\nfield link out->{Target}.in\ninterface link child.ref->child:back\nchild\n{\nfield link unsafe local.out->local.in\n}\n}\n",
+      "after": "link Demo for DemoAsm\n/\n{\n    event link unsafe a -> b\n    field link out -> {Target}.in\n    interface link child.ref -> child:back\n    child\n    {\n        field link unsafe local.out -> local.in\n    }\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmplnk:2:True:False",
+      "language": "xsmplnk",
+      "before": "link Demo for DemoAsm\n/\n{\nevent link unsafe a->b\nfield link out->{Target}.in\ninterface link child.ref->child:back\nchild\n{\nfield link unsafe local.out->local.in\n}\n}\n",
+      "after": "link Demo for DemoAsm\n/\n{\n  event link unsafe a -> b\n  field link out -> {Target}.in\n  interface link child.ref -> child:back\n  child\n  {\n    field link unsafe local.out -> local.in\n  }\n}\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmplnk:2:True:True",
+      "language": "xsmplnk",
+      "before": "link Demo for DemoAsm\n/\n{\nevent link unsafe a->b\nfield link out->{Target}.in\ninterface link child.ref->child:back\nchild\n{\nfield link unsafe local.out->local.in\n}\n}\n",
+      "after": "link Demo for DemoAsm\n/\n{\n  event link unsafe a -> b\n  field link out -> {Target}.in\n  interface link child.ref -> child:back\n  child\n  {\n    field link unsafe local.out -> local.in\n  }\n}\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmplnk:4:False:False",
+      "language": "xsmplnk",
+      "before": "link Demo for DemoAsm\n/\n{\nevent link unsafe a->b\nfield link out->{Target}.in\ninterface link child.ref->child:back\nchild\n{\nfield link unsafe local.out->local.in\n}\n}\n",
+      "after": "link Demo for DemoAsm\n/\n{\n\tevent link unsafe a -> b\n\tfield link out -> {Target}.in\n\tinterface link child.ref -> child:back\n\tchild\n\t{\n\t\tfield link unsafe local.out -> local.in\n\t}\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      }
+    },
+    {
+      "name": "xsmplnk:4:False:True",
+      "language": "xsmplnk",
+      "before": "link Demo for DemoAsm\n/\n{\nevent link unsafe a->b\nfield link out->{Target}.in\ninterface link child.ref->child:back\nchild\n{\nfield link unsafe local.out->local.in\n}\n}\n",
+      "after": "link Demo for DemoAsm\n/\n{\n\tevent link unsafe a -> b\n\tfield link out -> {Target}.in\n\tinterface link child.ref -> child:back\n\tchild\n\t{\n\t\tfield link unsafe local.out -> local.in\n\t}\n}\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpsed:4:True:False",
+      "language": "xsmpsed",
+      "before": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\ncall unsafe {Target}.op(a=1i32,b=2i32)\nproperty flag=true\ntransfer out->in\ntrig entry\nexecute Other<_root=\"sub\",count=2> at child\nasync emit\"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "after": "schedule <_root: string = \"/Root\", count: int32 = 1> Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\n    call unsafe {Target}.op(a = 1i32, b = 2i32)\n    property flag = true\n    transfer out -> in\n    trig entry\n    execute Other<_root = \"sub\", count = 2> at child\n    async emit \"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\" cycle \"PT2S\" repeat 3\nevent Main on \"Boot\" until \"Stop\" using mission delay \"PT5S\" cycle \"PT30S\" repeat 4\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpsed:4:True:True",
+      "language": "xsmpsed",
+      "before": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\ncall unsafe {Target}.op(a=1i32,b=2i32)\nproperty flag=true\ntransfer out->in\ntrig entry\nexecute Other<_root=\"sub\",count=2> at child\nasync emit\"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "after": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\n    call unsafe {Target}.op(a = 1i32, b = 2i32)\n    property flag = true\n    transfer out -> in\n    trig entry\n    execute Other<_root = \"sub\", count = 2> at child\n    async emit \"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpsed:2:True:False",
+      "language": "xsmpsed",
+      "before": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\ncall unsafe {Target}.op(a=1i32,b=2i32)\nproperty flag=true\ntransfer out->in\ntrig entry\nexecute Other<_root=\"sub\",count=2> at child\nasync emit\"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "after": "schedule <_root: string = \"/Root\", count: int32 = 1> Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\n  call unsafe {Target}.op(a = 1i32, b = 2i32)\n  property flag = true\n  transfer out -> in\n  trig entry\n  execute Other<_root = \"sub\", count = 2> at child\n  async emit \"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\" cycle \"PT2S\" repeat 3\nevent Main on \"Boot\" until \"Stop\" using mission delay \"PT5S\" cycle \"PT30S\" repeat 4\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpsed:2:True:True",
+      "language": "xsmpsed",
+      "before": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\ncall unsafe {Target}.op(a=1i32,b=2i32)\nproperty flag=true\ntransfer out->in\ntrig entry\nexecute Other<_root=\"sub\",count=2> at child\nasync emit\"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "after": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\n  call unsafe {Target}.op(a = 1i32, b = 2i32)\n  property flag = true\n  transfer out -> in\n  trig entry\n  execute Other<_root = \"sub\", count = 2> at child\n  async emit \"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpsed:4:False:False",
+      "language": "xsmpsed",
+      "before": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\ncall unsafe {Target}.op(a=1i32,b=2i32)\nproperty flag=true\ntransfer out->in\ntrig entry\nexecute Other<_root=\"sub\",count=2> at child\nasync emit\"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "after": "schedule <_root: string = \"/Root\", count: int32 = 1> Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\n\tcall unsafe {Target}.op(a = 1i32, b = 2i32)\n\tproperty flag = true\n\ttransfer out -> in\n\ttrig entry\n\texecute Other<_root = \"sub\", count = 2> at child\n\tasync emit \"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\" cycle \"PT2S\" repeat 3\nevent Main on \"Boot\" until \"Stop\" using mission delay \"PT5S\" cycle \"PT30S\" repeat 4\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      }
+    },
+    {
+      "name": "xsmpsed:4:False:True",
+      "language": "xsmpsed",
+      "before": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\ncall unsafe {Target}.op(a=1i32,b=2i32)\nproperty flag=true\ntransfer out->in\ntrig entry\nexecute Other<_root=\"sub\",count=2> at child\nasync emit\"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "after": "schedule<_root:string=\"/Root\",count:int32=1>Demo epoch \"2025-01-01T00:00:00Z\" mission \"PT0S\"\ntask Main on demo.Root\n{\n\tcall unsafe {Target}.op(a = 1i32, b = 2i32)\n\tproperty flag = true\n\ttransfer out -> in\n\ttrig entry\n\texecute Other<_root = \"sub\", count = 2> at child\n\tasync emit \"Tick\"\n}\ntask Other on demo.Root\n{\n}\nevent Main mission \"PT1S\"cycle \"PT2S\" repeat 3\nevent Main on \"Boot\"until \"Stop\"using mission delay \"PT5S\"cycle \"PT30S\"repeat 4\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpprofile:4:True:False",
+      "language": "xsmpproject",
+      "before": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile   'xsmp-sdk'\ntool  'adoc'\n",
+      "after": "project 'Format' using   'ECSS_SMP_2025'\nsource '.'\nprofile 'xsmp-sdk'\ntool 'adoc'\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpprofile:4:True:True",
+      "language": "xsmpproject",
+      "before": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile   'xsmp-sdk'\ntool  'adoc'\n",
+      "after": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile 'xsmp-sdk'\ntool 'adoc'\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 3,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpprofile:2:True:False",
+      "language": "xsmpproject",
+      "before": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile   'xsmp-sdk'\ntool  'adoc'\n",
+      "after": "project 'Format' using   'ECSS_SMP_2025'\nsource '.'\nprofile 'xsmp-sdk'\ntool 'adoc'\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      }
+    },
+    {
+      "name": "xsmpprofile:2:True:True",
+      "language": "xsmpproject",
+      "before": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile   'xsmp-sdk'\ntool  'adoc'\n",
+      "after": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile 'xsmp-sdk'\ntool 'adoc'\n",
+      "options": {
+        "tabSize": 2,
+        "insertSpaces": true
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 3,
+          "character": 0
+        }
+      }
+    },
+    {
+      "name": "xsmpprofile:4:False:False",
+      "language": "xsmpproject",
+      "before": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile   'xsmp-sdk'\ntool  'adoc'\n",
+      "after": "project 'Format' using   'ECSS_SMP_2025'\nsource '.'\nprofile 'xsmp-sdk'\ntool 'adoc'\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      }
+    },
+    {
+      "name": "xsmpprofile:4:False:True",
+      "language": "xsmpproject",
+      "before": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile   'xsmp-sdk'\ntool  'adoc'\n",
+      "after": "project   'Format' using   'ECSS_SMP_2025'\nsource   '.'\nprofile 'xsmp-sdk'\ntool 'adoc'\n",
+      "options": {
+        "tabSize": 4,
+        "insertSpaces": false
+      },
+      "range": {
+        "start": {
+          "line": 2,
+          "character": 0
+        },
+        "end": {
+          "line": 3,
+          "character": 0
+        }
+      }
+    }
+  ]
+}

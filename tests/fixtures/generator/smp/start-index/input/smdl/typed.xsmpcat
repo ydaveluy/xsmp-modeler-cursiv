@@ -1,0 +1,15 @@
+catalogue typed
+namespace demo
+{
+    /** @uuid 11111111-1111-1111-1111-111111111111 */
+    @Attributes.SimpleArray public array Samples = Smp.Int32[4]
+    /** @uuid 22222222-2222-2222-2222-222222222222 */
+    public model Root
+    {
+        field Smp.Int32 countState
+        field Smp.Float32 ratioState
+        field Samples samples
+        public property Smp.Int32 count -> countState
+        public def void apply(in Smp.Int32 value)
+    }
+}

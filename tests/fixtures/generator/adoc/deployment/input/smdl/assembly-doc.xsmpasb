@@ -1,0 +1,42 @@
+/**
+ * Demo assembly covering configure blocks, statements and links.
+ * @title Demo Assembly
+ * @creator test-suite
+ * @date 2026-03-27T08:10:00Z
+ * @version 1.0
+ */
+assembly DemoAssembly
+
+/** Applies local child defaults before startup. */
+configure Child
+{
+    /** Child output seed. */
+    outValue = 1
+    /** Local property initialization. */
+    property state = 2
+    /** Child reset call. */
+    call reset()
+    /** Child cycle subscription. */
+    subscribe tick -> "CycleStart"
+}
+
+/** Root demo model instance. */
+Root: demo.Root
+{
+    /** Initial state count. */
+    countState = 4
+    /** Child instance. */
+    child += Child: demo.Child
+    /** Public property initialization. */
+    property count = 3
+    /** Startup apply call. */
+    call apply(nextCount = 5, nextRatio = 1.5)
+    /** Root startup subscription. */
+    subscribe run -> "MissionStart"
+    /** Output field routing. */
+    field link outValue -> Child.inValue
+    /** Event propagation. */
+    event link outbound -> Child.inbound
+    /** Logger publication. */
+    interface link logger -> Child:backLogger
+}

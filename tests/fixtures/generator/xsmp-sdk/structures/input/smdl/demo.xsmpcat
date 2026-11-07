@@ -1,0 +1,22 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000031 */
+    struct S
+    {
+        constant Smp.Int32 K = 42
+        /** The X value. */
+        field Smp.Float64 x
+        field Smp.Float64 y = 1.0
+    }
+
+    // A static field and a String8 field are not registered with AddField.
+    /** @uuid 11111111-0000-4000-8000-000000000032 */
+    struct Excluded
+    {
+        @Static
+        field Smp.Int32 shared
+        field Smp.String8 label
+        field Smp.Int32 kept
+    }
+}

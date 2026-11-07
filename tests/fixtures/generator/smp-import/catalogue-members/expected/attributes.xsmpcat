@@ -1,0 +1,37 @@
+catalogue Attributes
+
+/**
+ * @id n
+ */
+namespace n
+{
+    /**
+     * @id n.Mode
+     * @uuid 11111111-0000-4000-8000-00000000060a
+     */
+    enum Mode
+    {
+        /**
+         * @id n.Mode.On
+         */
+        On = 1
+    }
+    /**
+     * @id n.Setting
+     * @uuid 11111111-0000-4000-8000-00000000060b
+     */
+    attribute Mode Setting = Mode.On
+    /**
+     * @id n.M
+     * @uuid 11111111-0000-4000-8000-00000000060c
+     */
+    model M
+    {
+        /**
+         * @id n.M.flag
+         */
+        @Attributes.View(ViewKind.VK_None)
+        @Setting
+        field Smp.Bool flag
+    }
+}

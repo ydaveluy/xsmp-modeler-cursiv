@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--First license line
+Second license line-->
+<Package:Package xmlns:Package="http://www.ecss.nl/smp/2025/Smdl/Package" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_License" Name="License">
+  <Implementation xlink:title="Device" xlink:href="license.smpcat#demo.Device" />
+</Package:Package>

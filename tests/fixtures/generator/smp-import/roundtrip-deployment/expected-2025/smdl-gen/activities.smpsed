@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schedule:Schedule xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="activities" Name="activities">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="main" />
+  <Task Id="activities.Main" Name="Main">
+    <Activity Id="activities.Main.CallOperation1" Name="CallOperation1" xsi:type="Schedule:CallOperation">
+      <OperationPath>reset</OperationPath>
+      <Parameter Parameter="value">
+        <Value xsi:type="Types:Int32Value" Value="7" />
+      </Parameter>
+    </Activity>
+    <Activity Id="activities.Main.SetProperty1" Name="SetProperty1" xsi:type="Schedule:SetProperty">
+      <PropertyPath>flag</PropertyPath>
+      <Value xsi:type="Types:BoolValue" Value="true" />
+    </Activity>
+    <Activity Id="activities.Main.Transfer1" Name="Transfer1" xsi:type="Schedule:Transfer">
+      <OutputFieldPath>output</OutputFieldPath>
+      <InputFieldPath>input</InputFieldPath>
+    </Activity>
+    <Activity Id="activities.Main.Trigger1" Name="Trigger1" xsi:type="Schedule:Trigger">
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+    <Activity Id="activities.Main.EmitGlobalEvent1" Name="EmitGlobalEvent1" xsi:type="Schedule:EmitGlobalEvent">
+      <EventName>Ready</EventName>
+      <synchronous>false</synchronous>
+    </Activity>
+    <Activity Id="activities.Main.ExecuteTask1" Name="ExecuteTask1" xsi:type="Schedule:ExecuteTask" Root="/Root">
+      <Task xlink:title="Main" xlink:href="#activities.Main" />
+    </Activity>
+  </Task>
+  <Event Id="activities-GlobalEventTriggeredEvent1" Name="GlobalEventTriggeredEvent1" CycleTime="PT2S" RepeatCount="3" xsi:type="Schedule:GlobalEventTriggeredEvent" StartEvent="Ready" StopEvent="Stop" Delay="PT1S" TimeKind="MissionTime">
+    <Task xlink:title="Main" xlink:href="#activities.Main" />
+  </Event>
+</Schedule:Schedule>

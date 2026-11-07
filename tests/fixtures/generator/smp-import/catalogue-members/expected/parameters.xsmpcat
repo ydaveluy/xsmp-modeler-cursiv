@@ -1,0 +1,30 @@
+catalogue Parameters
+
+namespace demo
+{
+    /**
+     * @id demo.Mode
+     * @uuid 11111111-0000-4000-8000-000000000606
+     */
+    enum Mode
+    {
+        /**
+         * @id demo.Mode.On
+         */
+        On = 1
+    }
+    /**
+     * @id demo.I
+     * @uuid 11111111-0000-4000-8000-000000000607
+     */
+    interface I
+    {
+    }
+    /**
+     * @uuid 11111111-0000-4000-8000-000000000608
+     */
+    model M
+    {
+        def void op(Smp.Int32 f, Smp.Int32 g, Smp.Int32 a = 7, Mode b = demo.Mode.On, Mode c = demo.Mode.On, inout I d = nullptr, Smp.String8 e = "a::b", Smp.Int32 h = 3)
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_platforms" Name="platforms">
+  <Namespace Id="n" Name="n">
+    <Type Id="n.Two" Name="Two" xsi:type="Types:NativeType" Uuid="11111111-0000-4000-8000-000000000207" Visibility="public">
+      <Platform Type="int32_t" Name="cpp" Namespace="std" />
+      <Platform Type="Integer" Name="java" Location="rt.jar" />
+    </Type>
+    <Type Id="n.One" Name="One" xsi:type="Types:NativeType" Uuid="11111111-0000-4000-8000-000000000208" Visibility="public">
+      <Platform Type="int32_t" Name="cpp" />
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

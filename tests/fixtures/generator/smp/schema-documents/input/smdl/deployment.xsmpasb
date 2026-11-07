@@ -1,0 +1,7 @@
+assembly Deployment
+configure Child { call reset(value = 1i32) inputValue = 1i32 subscribe step -> "Start" }
+/** The root. */
+Root: demo.Root {
+    /** The child. */
+    child += Child: "demo.Child"
+}

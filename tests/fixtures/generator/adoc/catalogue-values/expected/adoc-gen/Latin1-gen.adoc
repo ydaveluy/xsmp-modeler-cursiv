@@ -1,0 +1,66 @@
+= caf\xE9
+
+++++
+Catalogue mod\xE8le
+++++
+
+== Namespace latin
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+direction LR
+
+namespace latin {
+
+                class S { <<Structure>> }
+
+}
+....
+
+[#latin-S]
+=== Structure S
+
+++++
+Mod\xE8le
+++++
+
+.S's informations
+[%autowidth.stretch]
+|===
+.^h|Visibility |public
+.^h|Qualified Name |latin::S
+.^h|UUID |11111111-0000-4000-8000-000000000323
+|===
+
+==== Diagram
+
+[.center]
+[mermaid]
+....
+classDiagram
+
+
+    class S {
+        +Int32 x
+
+    }
+
+
+....
+
+==== Fields
+The S structure provides the following fields:
+
+.S's public fields
+[%autowidth.stretch]
+|===
+|Kind |Name |Type |Description
+
+|state
+|x
+|<<Smp-Int32,Smp::Int32>>
+|f\xE9
+|===

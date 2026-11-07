@@ -1,0 +1,7 @@
+/** Catalogue modèle */ catalogue latin1 namespace latin {
+  /** Modèle
+   * @uuid 11111111-1111-1111-1111-111111111111 */
+  public struct S { constant Smp.String8 k = "a\377b" }
+  /** @uuid 11111111-1111-1111-1111-111111111112 */
+  public interface I { def void f(in Smp.String8 a = "\xFF" "1") }
+}

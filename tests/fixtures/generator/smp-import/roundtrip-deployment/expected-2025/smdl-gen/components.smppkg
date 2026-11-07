@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package:Package xmlns:Package="http://www.ecss.nl/smp/2025/Smdl/Package" xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_components" Name="components">
+  <Implementation xlink:title="Mode" xlink:href="components.smpcat#n.Mode" />
+  <Implementation xlink:title="M" xlink:href="components.smpcat#n.M" />
+  <Implementation xlink:title="Child" xlink:href="components.smpcat#demo.Child" />
+  <Implementation xlink:title="Root" xlink:href="components.smpcat#demo.Root" />
+</Package:Package>

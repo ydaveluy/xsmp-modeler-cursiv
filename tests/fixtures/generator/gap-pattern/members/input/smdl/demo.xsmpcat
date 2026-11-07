@@ -1,0 +1,49 @@
+catalogue Demo
+namespace n
+{
+    // What is not virtual is defined in the regenerated class.
+    /** @uuid 11111111-0000-4000-8000-0000000000b1 */
+    public model M
+    {
+        @Attributes.Static def void shared()
+        @Attributes.Virtual(false) def Smp.Int32 plain()
+        @Attributes.Virtual(false) def M self()
+        def void overridden()
+        def M fluent()
+        @Attributes.Static property Smp.Int32 sharedValue
+        @Attributes.Virtual(false) property Smp.Int32 plainValue
+    }
+
+    // Constructors are declared only in the Gen class.
+    /** @uuid 11111111-0000-4000-8000-0000000000b2 */
+    public model Constructed
+    {
+        @Attributes.Constructor def void Constructed(in Smp.Int32 a)
+        @Attributes.Constructor def void Constructed(in Smp.Float64 b)
+    }
+
+    // A const property has a const type, and no const setter.
+    /** @uuid 11111111-0000-4000-8000-0000000000b3 */
+    public model ConstProperty
+    {
+        @Attributes.Const property Smp.Int32 p
+    }
+
+    /** @uuid 11111111-0000-4000-8000-0000000000b4 */
+    public string Text[4]
+
+    /** @uuid 11111111-0000-4000-8000-0000000000b5 */
+    public interface I { constant Text Name = "ab" }
+
+    /** @uuid 11111111-0000-4000-8000-0000000000b6 */
+    public interface Empty { }
+
+    // Each declared member has a definition.
+    /** @uuid 11111111-0000-4000-8000-0000000000b7 */
+    public class C
+    {
+        public property Smp.Int32 value
+        @Attributes.Constructor public def void C(in Smp.Int32 a)
+        @Attributes.Static public association Smp.Int32 shared
+    }
+}

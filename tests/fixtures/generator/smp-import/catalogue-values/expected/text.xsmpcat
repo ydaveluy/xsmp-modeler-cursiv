@@ -1,0 +1,13 @@
+catalogue Texts
+
+namespace texts
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-000000000615
+     */
+    struct S
+    {
+        field Smp.String8 a = "say \"hi\"\nC:\\tmp\t'"
+        field Smp.Char8 b = '\''
+    }
+}

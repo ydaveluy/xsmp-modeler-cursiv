@@ -1,0 +1,9 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Realized">
+  <Namespace Name="realized">
+    <Type xsi:type="Catalogue:Model" Name="M" Uuid="11111111-0000-4000-8000-00000000060d">
+      <Realization Name="logger">
+        <Interface xlink:href="#realized.I"/>
+      </Realization>
+    </Type>
+  </Namespace>
+</Catalogue>

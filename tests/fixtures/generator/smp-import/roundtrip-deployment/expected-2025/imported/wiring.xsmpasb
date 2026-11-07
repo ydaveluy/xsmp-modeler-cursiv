@@ -1,0 +1,12 @@
+/**
+ * @id wiring
+ */
+assembly <Root = "main"> wiring
+Root: demo.Root
+{
+    subscribe step -> "Start"
+    child += Child: demo.Child
+    {
+    }
+    field link output -> Child.input
+}

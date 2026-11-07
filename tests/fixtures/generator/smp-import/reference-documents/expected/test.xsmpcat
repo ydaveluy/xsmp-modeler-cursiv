@@ -1,0 +1,678 @@
+/**
+ * Catalogue Test
+ * @id _Test
+ * @title a title
+ * @date 2022-10-31T09:33:21.000Z
+ * @creator creator1, creator2
+ * @version 1.0.0
+ */
+catalogue Test
+
+/**
+ * @id custom_id
+ */
+namespace ns
+{
+    /**
+     * @id ns.nestedNs
+     */
+    namespace nestedNs
+    {
+    }
+    /**
+     * @id ns.Int10
+     */
+    primitive Int10
+    /**
+     * A description
+     * @id ns.SingleAttribute
+     * @uuid c489402d-7ecc-466a-a2e7-e1cb3d1da3c5
+     * @usage NamedElement
+     */
+    public attribute Smp.Bool SingleAttribute = false
+    /**
+     * @id ns.MultipleAttribute
+     * @uuid 52057807-e889-40fb-89f9-f568018bddf1
+     * @allowMultiple
+     * @usage NamedElement
+     */
+    public attribute Smp.Bool MultipleAttribute = true
+    /**
+     * @id ns.ArrayOf3Bool
+     * @uuid 621cf9ac-7b8d-4111-a1ef-69084815a903
+     */
+    @SingleAttribute(true)
+    @MultipleAttribute(true)
+    @MultipleAttribute(true)
+    array ArrayOf3Bool = Smp.Bool[3]
+    /**
+     * @id ns.MatrixOf3_3Bool
+     * @uuid b92805e6-20c6-455f-b791-7327a58c499a
+     */
+    array MatrixOf3_3Bool = ArrayOf3Bool[3]
+    /**
+     * @id ns.ArrayOf3Char8
+     * @uuid a6b216a8-838c-4a2b-aac3-3155b51e90a5
+     */
+    array ArrayOf3Char8 = Smp.Char8[3]
+    /**
+     * @id ns.ArrayOf3Int8
+     * @uuid 118e9d39-6359-4dcb-9ca3-f7f3ed408ba7
+     */
+    array ArrayOf3Int8 = Smp.Int8[3]
+    /**
+     * @id ns.ArrayOf3Int16
+     * @uuid bb7123e4-982d-47d8-b4e1-6cf470d66bed
+     */
+    array ArrayOf3Int16 = Smp.Int16[3]
+    /**
+     * @id ns.ArrayOf3Int32
+     * @uuid 675c2305-e381-4083-982e-8b3a64216b11
+     */
+    array ArrayOf3Int32 = Smp.Int32[3]
+    /**
+     * @id ns.ArrayOf3Int64
+     * @uuid bc8abc6b-dfe1-445d-8ba2-eea4c2d1fa25
+     */
+    array ArrayOf3Int64 = Smp.Int64[3]
+    /**
+     * @id ns.ArrayOf3UInt8
+     * @uuid 1e783d5c-f6e9-48e7-9f5f-15d1c430f603
+     */
+    array ArrayOf3UInt8 = Smp.UInt8[3]
+    /**
+     * @id ns.ArrayOf3UInt16
+     * @uuid 69528823-d681-418e-92d9-4cb17ad9d226
+     */
+    array ArrayOf3UInt16 = Smp.UInt16[3]
+    /**
+     * @id ns.ArrayOf3UInt32
+     * @uuid 41eb616b-fdd5-4fcb-8abc-c6c0e889f3ca
+     */
+    array ArrayOf3UInt32 = Smp.UInt32[3]
+    /**
+     * @id ns.ArrayOf3UInt64
+     * @uuid f40b2852-997e-461f-a4af-9575ab7920a0
+     */
+    array ArrayOf3UInt64 = Smp.UInt64[3]
+    /**
+     * @id ns.ArrayOf3Float32
+     * @uuid edd0eb26-9a1b-4fd1-860c-3c862c3fb752
+     */
+    array ArrayOf3Float32 = Smp.Float32[3]
+    /**
+     * @id ns.ArrayOf3Float64
+     * @uuid 6f228799-6e9a-4da8-9a53-d612050f0669
+     */
+    array ArrayOf3Float64 = Smp.Float64[3]
+    /**
+     * @id ns.ArrayOf3Duration
+     * @uuid 3f203a6e-2f0a-4fd0-b3de-ef3299565749
+     */
+    array ArrayOf3Duration = Smp.Duration[3]
+    /**
+     * @id ns.ArrayOf3DateTime
+     * @uuid a7ed47b1-01b2-407c-90b0-864993f026ca
+     */
+    array ArrayOf3DateTime = Smp.DateTime[3]
+    /**
+     * @id ns.ArrayOf3AnEnum
+     * @uuid 582a38b3-77f7-4c67-9d1b-2df6722233bd
+     */
+    array ArrayOf3AnEnum = AnEnum[3]
+    /**
+     * @id ns.ArrayOf3AString
+     * @uuid 7f28e66a-0741-4fc8-a8cf-e1c9d8ddb6ea
+     */
+    array ArrayOf3AString = AString[3]
+    /**
+     * @id ns.AnAbstractClass
+     * @uuid 9b21955e-bbf9-41e6-9bc4-5ed613bf7821
+     */
+    abstract class AnAbstractClass extends InvalidCrossRef
+    {
+        /**
+         * @id ns.AnAbstractClass.constant
+         */
+        constant Smp.Bool constant = true
+        /**
+         * @id ns.AnAbstractClass.field
+         */
+        field Smp.Bool field = false
+        /**
+         * @id ns.AnAbstractClass.property
+         * @category test
+         */
+        property Smp.Bool property -> AnAbstractClass.field
+        /**
+         * @id ns.AnAbstractClass.voidOperation
+         */
+        def void voidOperation()
+        /**
+         * @id ns.AnAbstractClass.getter
+         */
+        def Smp.Bool getter()
+        /**
+         * @id ns.AnAbstractClass.Setter-Bool
+         */
+        def void Setter(Smp.Bool value)
+        /**
+         * @id ns.AnAbstractClass.association
+         */
+        association Smp.Float32 association
+    }
+    /**
+     * @id ns.AClass
+     * @uuid 1d8f1fc8-4ce1-4a70-9883-3c2728f1cba4
+     */
+    class AClass extends AnAbstractClass
+    {
+    }
+    /**
+     * @id ns.AnEnum
+     * @uuid 7cb57c5f-acc1-46c7-b8c8-23e3949a6584
+     */
+    public enum AnEnum
+    {
+        /**
+         * @id ns.AnEnum.L1
+         */
+        L1 = 0,
+        /**
+         * @id ns.AnEnum.L2
+         */
+        L2 = 1,
+        /**
+         * @id ns.AnEnum.L3
+         */
+        L3 = 2
+    }
+    /**
+     * @id ns.AnIn32EventType
+     * @uuid 6eb41667-3fd3-4742-a1a7-6ba3224099a6
+     */
+    event AnIn32EventType extends Smp.Int32
+    /**
+     * @id ns.AVoidEventType
+     * @uuid 675ca788-4876-481a-bb51-b04a822d1f8b
+     */
+    event AVoidEventType
+    /**
+     * @id ns.AnAbstractException
+     * @uuid cc5c3af5-5565-4641-a070-93c2afd55968
+     */
+    exception AnAbstractException
+    {
+    }
+    /**
+     * @id ns.AnException
+     * @uuid c0d3d9c5-6636-4e62-bd04-1dcc3a30eca1
+     */
+    exception AnException extends AnAbstractException
+    {
+    }
+    /**
+     * @id ns.AFloat
+     * @uuid 850a9105-b093-4c0e-8863-1d7f51a43286
+     * @unit m
+     */
+    float AFloat
+    /**
+     * @id ns.AFloat32
+     * @uuid e83b1c21-d97d-45af-9158-d3beaa4687c5
+     */
+    float AFloat32 extends Smp.Float32
+    /**
+     * @id ns.AFloat64
+     * @uuid a6526234-6242-49ab-ab14-fbf1ab9b44b2
+     */
+    float AFloat64 extends Smp.Float64
+    /**
+     * @id ns.AFloatWithRange
+     * @uuid 9cbf0614-53b7-4a27-9b6e-3ff9134d50ea
+     */
+    float AFloatWithRange in 0 ... 100
+    /**
+     * @id ns.AFloatWithExclusiveRange
+     * @uuid 6dbdb0c2-c291-4f21-a0b1-3775881e062e
+     */
+    float AFloatWithExclusiveRange in 0 <.< 100
+    /**
+     * @id ns.AnInteger
+     * @uuid 53e1f876-1347-4874-a931-a357d0a3d4c2
+     */
+    integer AnInteger
+    /**
+     * @id ns.AnInt8Integer
+     * @uuid bc6e34b8-1a0c-46cc-8565-695f60873011
+     * @unit s
+     */
+    integer AnInt8Integer extends Smp.Int8
+    /**
+     * @id ns.AnInt16Integer
+     * @uuid 058690f7-fd28-4a31-bac1-498df537b4f9
+     */
+    integer AnInt16Integer extends Smp.Int16
+    /**
+     * @id ns.AnInt32Integer
+     * @uuid 8489b78e-3531-44fa-b36e-8f9a9350d5f9
+     */
+    integer AnInt32Integer extends Smp.Int32
+    /**
+     * @id ns.AnInt64Integer
+     * @uuid 9932c757-903e-49d4-a454-f8e88d05e099
+     */
+    integer AnInt64Integer extends Smp.Int64
+    /**
+     * @id ns.AnUInt8Integer
+     * @uuid 831facb7-aad5-4862-b837-7e187f2d26bb
+     */
+    integer AnUInt8Integer extends Smp.UInt8
+    /**
+     * @id ns.AnUInt16Integer
+     * @uuid 029ff31c-c57a-4cf1-b18e-53926ae09419
+     */
+    integer AnUInt16Integer extends Smp.UInt16
+    /**
+     * @id ns.AnUInt32Integer
+     * @uuid 1db4285c-2140-4fe0-ae48-bd1b5557ee4d
+     */
+    integer AnUInt32Integer extends Smp.UInt32
+    /**
+     * @id ns.AnUInt64Integer
+     * @uuid 9e4c3c41-234a-48d6-a249-00be87bbbdae
+     */
+    integer AnUInt64Integer extends Smp.UInt64
+    /**
+     * @id ns.AnIntegerWithRange
+     * @uuid 93b6170a-b9b9-4df5-b69d-14493f7c9cf5
+     */
+    private integer AnIntegerWithRange in 0 ... 100
+    /**
+     * @id ns.AString
+     * @uuid adfec040-aba1-4bc8-8561-476c1e738a02
+     */
+    string AString[10]
+    /**
+     * @id ns.NativeType
+     * @uuid d9806d07-4cf1-4a40-982b-10b6a7e55909
+     * @platform cpp
+     * @type NativeType
+     * @namespace Test
+     * @location Test/NativeType.h
+     */
+    public native NativeType
+    /**
+     * @id ns.NativeType2
+     * @platform cpp
+     */
+    public native NativeType2
+    /**
+     * @id ns.ValueReference
+     * @uuid 35c6cdeb-4980-46b4-8d37-e990ab4f0fc2
+     */
+    using ValueReference = Smp.Bool*
+    /**
+     * @id ns.AnInterface
+     * @uuid d2e665e3-5f66-425e-9840-6b4ebf1bdbe5
+     */
+    public interface AnInterface extends Smp.IComponent, Smp.ICollection
+    {
+        /**
+         * @id ns.AnInterface.constant
+         */
+        constant Smp.Bool constant = false
+        /**
+         * @id ns.AnInterface.property
+         */
+        property Smp.Bool property
+        /**
+         * @id ns.AnInterface.voidOperation
+         */
+        def void voidOperation()
+        /**
+         * @param inout a desc1
+         * @return a boolean value
+         * @id ns.AnInterface.op-Float32-Float64-Duration
+         */
+        def Smp.Bool op(in Smp.Float32 in, out Smp.Float64 out, inout Smp.Duration inout = "PT0.000000042S")
+    }
+    /**
+     * @id ns.AnAbstractModel
+     * @uuid 02b2a015-71c8-48bc-beb1-95a494c5e438
+     */
+    protected model AnAbstractModel
+    {
+        /**
+         * @id ns.AnAbstractModel.hidden_field
+         */
+        @Attributes.View(ViewKind.VK_None)
+        field Smp.Bool hidden_field = false
+        /**
+         * @id ns.AnAbstractModel.debug_field
+         */
+        @Attributes.View(ViewKind.VK_Debug)
+        field Smp.Bool debug_field = false
+        /**
+         * @id ns.AnAbstractModel.expert_field
+         */
+        @Attributes.View(ViewKind.VK_Expert)
+        field Smp.Bool expert_field = false
+        /**
+         * @id ns.AnAbstractModel.all_field
+         */
+        @Attributes.View(ViewKind.VK_All)
+        field Smp.Bool all_field = false
+        /**
+         * @id ns.AnAbstractModel.forcible_field
+         */
+        @Attributes.Forcible(true)
+        field Smp.Bool forcible_field = false
+        /**
+         * @id ns.AnAbstractModel.mutable_field
+         */
+        @Attributes.Mutable(true)
+        field Smp.Bool mutable_field = false
+        /**
+         * @id ns.AnAbstractModel.failure_field
+         */
+        @Attributes.Failure(true)
+        field Smp.Bool failure_field = false
+    }
+    /**
+     * @id ns.AModel
+     * @uuid 4fd30ec9-4add-41a5-84b2-bdccc968115b
+     */
+    public model AModel extends AnAbstractModel implements AnInterface
+    {
+        /**
+         * @id ns.AModel.ep
+         */
+        entrypoint ep
+        {
+            in AModel.inout
+            in AModel.input
+            out AModel.output
+        }
+        /**
+         * @id ns.AModel.voidEventSink
+         */
+        eventsink AVoidEventType voidEventSink
+        /**
+         * @id ns.AModel.int32EventSink
+         */
+        eventsink AnIn32EventType int32EventSink
+        /**
+         * @id ns.AModel.voidEventSource
+         */
+        eventsource AVoidEventType voidEventSource
+        /**
+         * @id ns.AModel.int32EventSource
+         * @singlecast
+         */
+        eventsource AnIn32EventType int32EventSource
+        /**
+         * @id ns.AModel.aChar
+         */
+        field Smp.Char8 aChar = 'c'
+        /**
+         * @id ns.AModel.aCharNumber
+         */
+        field Smp.Char8 aCharNumber = '\n'
+        /**
+         * @id ns.AModel.aCharWithEscape
+         */
+        field Smp.Char8 aCharWithEscape = '\n'
+        /**
+         * @id ns.AModel.aDateTime
+         */
+        field Smp.DateTime aDateTime = "2000-01-01T12:00:00.000000042Z"
+        /**
+         * @id ns.AModel.aDateTimeStr
+         */
+        field Smp.DateTime aDateTimeStr = "2022-10-22T09:07:44.101010101Z"
+        /**
+         * @id ns.AModel.aDuration
+         */
+        field Smp.Duration aDuration = "PT0.0000001S"
+        /**
+         * @id ns.AModel.aDurationStr
+         */
+        field Smp.Duration aDurationStr = "PT20.345000001S"
+        /**
+         * @id ns.AModel.aFloat
+         */
+        field AFloat aFloat = 4.5
+        /**
+         * @id ns.AModel.aFloat32
+         */
+        field AFloat32 aFloat32 = 10.f
+        /**
+         * @id ns.AModel.aFloat64
+         */
+        field AFloat64 aFloat64 = 2.5
+        /**
+         * @id ns.AModel.aFloatWithExclusiveRange
+         */
+        field AFloatWithExclusiveRange aFloatWithExclusiveRange = 0.001
+        /**
+         * @id ns.AModel.aFloatWithRange
+         */
+        field AFloatWithRange aFloatWithRange = 0.
+        /**
+         * @id ns.AModel.anInteger
+         */
+        field AnInteger anInteger = 10
+        /**
+         * @id ns.AModel.anIntegerWithRange
+         */
+        field AnIntegerWithRange anIntegerWithRange = 10
+        /**
+         * @id ns.AModel.anInt8
+         */
+        field AnInt8Integer anInt8 = 8
+        /**
+         * @id ns.AModel.anInt16
+         */
+        field AnInt16Integer anInt16 = 16
+        /**
+         * @id ns.AModel.anInt32
+         */
+        field AnInt32Integer anInt32 = 32
+        /**
+         * @id ns.AModel.anInt64
+         */
+        field AnInt64Integer anInt64 = 64
+        /**
+         * @id ns.AModel.anUInt8
+         */
+        field AnUInt8Integer anUInt8 = 8U
+        /**
+         * @id ns.AModel.anUInt16
+         */
+        field AnUInt16Integer anUInt16 = 16U
+        /**
+         * @id ns.AModel.anUInt32
+         */
+        field AnUInt32Integer anUInt32 = 32U
+        /**
+         * @id ns.AModel.anUInt64
+         */
+        field AnUInt64Integer anUInt64 = 64UL
+        /**
+         * @id ns.AModel.anEnum
+         */
+        field AnEnum anEnum = AnEnum.L1
+        /**
+         * @id ns.AModel.aString
+         */
+        field AString aString = "test"
+        /**
+         * @id ns.AModel.arrayOf3Bool
+         */
+        field ArrayOf3Bool arrayOf3Bool = {false, false, false}
+        /**
+         * @id ns.AModel.matrixOf3_3Bool
+         */
+        field MatrixOf3_3Bool matrixOf3_3Bool = {{false, false, false}, {true, true, false}, {false, false, true}}
+        /**
+         * @id ns.AModel.arrayOf3Char8
+         */
+        field ArrayOf3Char8 arrayOf3Char8 = {'a', '\n', '\t'}
+        /**
+         * @id ns.AModel.arrayOf3Int8
+         */
+        field ArrayOf3Int8 arrayOf3Int8 = {0, 1, 2}
+        /**
+         * @id ns.AModel.arrayOf3Int16
+         */
+        field ArrayOf3Int16 arrayOf3Int16 = {0, 1, 2}
+        /**
+         * @id ns.AModel.arrayOf3Int32
+         */
+        field ArrayOf3Int32 arrayOf3Int32 = {0, 1, 2}
+        /**
+         * @id ns.AModel.arrayOf3Int64
+         */
+        field ArrayOf3Int64 arrayOf3Int64 = {0, 1, 2}
+        /**
+         * @id ns.AModel.arrayOf3UInt8
+         */
+        field ArrayOf3UInt8 arrayOf3UInt8 = {0U, 1U, 2U}
+        /**
+         * @id ns.AModel.arrayOf3UInt16
+         */
+        field ArrayOf3UInt16 arrayOf3UInt16 = {0U, 1U, 2U}
+        /**
+         * @id ns.AModel.arrayOf3UInt32
+         */
+        field ArrayOf3UInt32 arrayOf3UInt32 = {0U, 1U, 2U}
+        /**
+         * @id ns.AModel.arrayOf3UInt64
+         */
+        field ArrayOf3UInt64 arrayOf3UInt64 = {0UL, 1UL, 2UL}
+        /**
+         * @id ns.AModel.arrayOf3Float32
+         */
+        field ArrayOf3Float32 arrayOf3Float32 = {0.f, 1.f, 2.f}
+        /**
+         * @id ns.AModel.arrayOf3Float64
+         */
+        field ArrayOf3Float64 arrayOf3Float64 = {0., 1., 2.}
+        /**
+         * @id ns.AModel.arrayOf3Duration
+         */
+        field ArrayOf3Duration arrayOf3Duration = {"PT0S", "PT0.000000001S", "PT0.000000002S"}
+        /**
+         * @id ns.AModel.arrayOf3DateTime
+         */
+        field ArrayOf3DateTime arrayOf3DateTime = {"2000-01-01T12:00:00.000000000Z", "2000-01-01T12:00:00.000000001Z", "2000-01-01T12:00:00.000000002Z"}
+        /**
+         * @id ns.AModel.arrayOf3AnEnum
+         */
+        field ArrayOf3AnEnum arrayOf3AnEnum = {AnEnum.L1, AnEnum.L2, AnEnum.L3}
+        /**
+         * @id ns.AModel.arrayOf3AString
+         */
+        field ArrayOf3AString arrayOf3AString = {"0", "1", "2"}
+        /**
+         * @id ns.AModel.aStruct
+         */
+        field AStruct aStruct = {.field1 = true, .field2 = 10}
+        /**
+         * @id ns.AModel.input
+         */
+        protected input field Smp.Bool input
+        /**
+         * @id ns.AModel.output
+         */
+        output field Smp.Bool output
+        /**
+         * @id ns.AModel.transient
+         */
+        transient field Smp.Bool transient
+        /**
+         * @id ns.AModel.inout
+         */
+        input output field Smp.Bool inout
+        /**
+         * @id ns.AModel.asso
+         */
+        protected association Smp.Bool asso
+        /**
+         * @id ns.AModel.container
+         */
+        container Smp.IComposite container = AModel
+        /**
+         * @id ns.AModel.optional_container
+         */
+        container Smp.IComposite? optional_container = AnAbstractModel
+        /**
+         * @id ns.AModel.list_container
+         */
+        container Smp.IComposite* list_container = AnAbstractModel
+        /**
+         * @id ns.AModel.non_empty_list_container
+         */
+        container Smp.IComposite+ non_empty_list_container = AnAbstractModel
+        /**
+         * @id ns.AModel.list_container_4
+         */
+        container Smp.IComposite[4 ... 4] list_container_4 = AnAbstractModel
+        /**
+         * @id ns.AModel.list_container_4_or_more
+         */
+        container Smp.IComposite[4 ... *] list_container_4_or_more = AnAbstractModel
+        /**
+         * @id ns.AModel.list_container_betwwen_4_and_10
+         */
+        container Smp.IComposite[4 ... 10] list_container_betwwen_4_and_10
+        /**
+         * @id ns.AModel.reference
+         */
+        reference Smp.IComposite reference
+        /**
+         * @id ns.AModel.optional_reference
+         */
+        reference Smp.IComposite? optional_reference
+        /**
+         * @id ns.AModel.list_reference
+         */
+        reference Smp.IComposite* list_reference
+        /**
+         * @id ns.AModel.non_empty_list_reference
+         */
+        reference Smp.IComposite+ non_empty_list_reference
+        /**
+         * @id ns.AModel.list_reference_4
+         */
+        reference Smp.IComposite[4 ... 4] list_reference_4
+        /**
+         * @id ns.AModel.list_reference_4_or_more
+         */
+        reference Smp.IComposite[4 ... *] list_reference_4_or_more
+        /**
+         * @id ns.AModel.list_reference_betwwen_4_and_10
+         */
+        reference Smp.IComposite[4 ... 10] list_reference_betwwen_4_and_10
+    }
+    /**
+     * @id ns.AStruct
+     * @uuid 717d3adb-4aa8-4997-b4f4-ea20cba12c14
+     */
+    struct AStruct
+    {
+        /**
+         * @id ns.AStruct.constant
+         */
+        constant Smp.Bool constant = true
+        /**
+         * @id ns.AStruct.field1
+         */
+        field Smp.Bool field1
+        /**
+         * @id ns.AStruct.field2
+         */
+        field Smp.Int16 field2
+    }
+}

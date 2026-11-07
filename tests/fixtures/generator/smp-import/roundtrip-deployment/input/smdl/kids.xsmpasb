@@ -1,0 +1,5 @@
+assembly <V = "A"> kids
+Sys{V}: "n::M" {
+  /** Sub doc. */
+  kids += Kid{V}: "n::M" { mode = 1lit }
+}

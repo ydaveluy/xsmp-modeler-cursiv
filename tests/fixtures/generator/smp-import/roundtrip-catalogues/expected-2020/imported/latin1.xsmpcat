@@ -1,0 +1,35 @@
+/**
+ * Catalogue modèle
+ * @id _latin1
+ */
+catalogue latin1
+
+/**
+ * @id latin
+ */
+namespace latin
+{
+    /**
+     * Modèle
+     * @id latin.S
+     * @uuid 11111111-0000-4000-8000-000000000703
+     */
+    public struct S
+    {
+        /**
+         * @id latin.S.k
+         */
+        constant Smp.String8 k = "a\377b"
+    }
+    /**
+     * @id latin.I
+     * @uuid 11111111-0000-4000-8000-000000000704
+     */
+    public interface I
+    {
+        /**
+         * @id latin.I.f-String8
+         */
+        def void f(in Smp.String8 a = "\3771")
+    }
+}

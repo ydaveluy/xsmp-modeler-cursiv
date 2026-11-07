@@ -1,0 +1,26 @@
+catalogue DeclarationOrder
+namespace order {
+    /** @uuid 83000000-0000-4000-8000-000000000001 */
+    public array Outer = Inner[2]
+    /** @uuid 83000000-0000-4000-8000-000000000002 */
+    public array Inner = Value[2]
+    /** @uuid 83000000-0000-4000-8000-000000000003 */
+    public class Child extends Parent {}
+    /** @uuid 83000000-0000-4000-8000-000000000004 */
+    public struct Holder { field Value first field Value second }
+    /** @uuid 83000000-0000-4000-8000-000000000005 */
+    public using ValueRef = Value*
+    /** @uuid 83000000-0000-4000-8000-000000000006 */
+    public struct Value { field Int32 value }
+    /** @uuid 83000000-0000-4000-8000-000000000007 */
+    public class Parent {}
+    /** @uuid 83000000-0000-4000-8000-000000000008 */
+    public interface External { constant Int32 Value = 4 }
+    /** @uuid 83000000-0000-4000-8000-000000000009 */
+    public interface Constants {
+        constant Int32 Last = Middle + First + Middle
+        constant Int32 Independent = order.External.Value
+        constant Int32 Middle = First + 1
+        constant Int32 First = 1
+    }
+}

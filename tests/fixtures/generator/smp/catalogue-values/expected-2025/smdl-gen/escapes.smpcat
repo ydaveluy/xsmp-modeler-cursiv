@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_escapes" Name="escapes">
+  <Namespace Id="escapes" Name="escapes">
+    <Type Id="escapes.I" Name="I" xsi:type="Catalogue:Interface" Uuid="11111111-0000-4000-8000-000000000219" Visibility="public">
+      <Operation Id="escapes.I.f-String8" Name="f">
+        <Parameter Id="escapes.I.f-String8.a" Name="a" Direction="in">
+          <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+          <Default>"e\177\001\\x01"</Default>
+        </Parameter>
+      </Operation>
+    </Type>
+    <Type Id="escapes.S" Name="S" xsi:type="Types:Structure" Uuid="11111111-0000-4000-8000-00000000021a" Visibility="public">
+      <Constant Id="escapes.S.k" Name="k">
+        <Type xlink:title="Char8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Char8" />
+        <Value xsi:type="Types:Char8Value" Value="\x00" />
+      </Constant>
+      <Field Id="escapes.S.s" Name="s">
+        <Type xlink:title="String8" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.String8" />
+        <Default xsi:type="Types:String8Value" Value="f\x00" />
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

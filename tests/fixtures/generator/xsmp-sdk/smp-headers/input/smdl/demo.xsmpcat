@@ -1,0 +1,10 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-0000000000a1 */
+    public class C
+    {
+        public def void f(in Smp.UInt64 n, in Smp.AnySimpleArray values)
+        @Attributes.ByPointer association Smp.FieldCollection fields
+    }
+}

@@ -1,0 +1,5 @@
+link __link__
+.
+{
+    field link __owner__ -> __client__
+}

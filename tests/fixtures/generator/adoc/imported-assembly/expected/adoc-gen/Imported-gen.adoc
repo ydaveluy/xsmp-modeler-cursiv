@@ -1,0 +1,37 @@
+= Assembly Imported
+
+
+.Imported's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Assembly
+.^h|Name |Imported
+|===
+
+== Template Parameters
+
+.Template parameters
+[%autowidth.stretch]
+|===
+|Name |Type |Default
+
+|Id
+|string
+|base
+|Index
+|int32
+|0
+|===
+
+== Root Model Instance
+
+=== Model Instance Root
+
+
+.Root's information
+[%autowidth.stretch]
+|===
+.^h|Name |Root
+.^h|Implementation |demo::Child
+|===
+

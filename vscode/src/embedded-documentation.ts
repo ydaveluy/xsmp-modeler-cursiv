@@ -1,0 +1,94 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as vscode from 'vscode';
+import { getEmbeddedDocumentationTarget, type XsmpEmbeddedDocumentationTarget } from './embedded-documentation-links.js';
+import { createXsmpDocumentSelector } from './xsmp-language-support.js';
+
+export const OpenEmbeddedDocumentationCommand = 'xsmp.openDocumentation';
+
+export function registerEmbeddedDocumentation(context: vscode.ExtensionContext): void {
+    context.subscriptions.push(
+        vscode.commands.registerCommand(OpenEmbeddedDocumentationCommand, async (target: XsmpEmbeddedDocumentationTarget) => {
+            const pageUri = resolveEmbeddedDocumentationUri(context, target.page);
+            if (!fs.existsSync(pageUri.fsPath)) {
+                void vscode.window.showErrorMessage(`Embedded XSMP documentation page not found: ${target.page}`);
+                return;
+            }
+
+            await vscode.commands.executeCommand('markdown.showPreviewToSide', pageUri.with({ fragment: target.anchor }));
+        }),
+        vscode.languages.registerHoverProvider(
+            createXsmpDocumentSelector(),
+            {
+                provideHover(document, position) {
+                    const range = document.getWordRangeAtPosition(position, /[A-Za-z_]\w*/);
+                    if (!range) {
+                        return undefined;
+                    }
+
+                    const keyword = document.getText(range);
+                    const target = getEmbeddedDocumentationTarget(document.languageId, keyword, document.lineAt(position.line).text);
+                    // The whole text before the word is read only for a keyword.
+                    if (!target || isInsideCommentOrString(document, position)) {
+                        return undefined;
+                    }
+
+                    const targetUri = resolveEmbeddedDocumentationUri(context, target.page);
+                    if (!fs.existsSync(targetUri.fsPath)) {
+                        return undefined;
+                    }
+
+                    const markdown = new vscode.MarkdownString(
+                        `[Open docs](${createOpenDocumentationCommandUri(target)})`,
+                    );
+                    markdown.isTrusted = { enabledCommands: [OpenEmbeddedDocumentationCommand] };
+                    return new vscode.Hover(markdown, range);
+                },
+            },
+        ),
+    );
+}
+
+function resolveEmbeddedDocumentationUri(context: vscode.ExtensionContext, page: string): vscode.Uri {
+    return vscode.Uri.file(context.asAbsolutePath(path.join('out', 'docs', page)));
+}
+
+function createOpenDocumentationCommandUri(target: XsmpEmbeddedDocumentationTarget): vscode.Uri {
+    return vscode.Uri.parse(
+        `command:${OpenEmbeddedDocumentationCommand}?${encodeURIComponent(JSON.stringify([target]))}`,
+    );
+}
+
+// Whether `position` is in a comment or a string, read from the start of the
+// document: a comment may hold a quote, and a string `//`.
+function isInsideCommentOrString(document: vscode.TextDocument, position: vscode.Position): boolean {
+    const text = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
+    let quote: '"' | "'" | undefined;
+    let lineComment = false;
+    let blockComment = false;
+    for (let index = 0; index < text.length; index++) {
+        const char = text[index];
+        const next = text[index + 1];
+        if (lineComment) {
+            if (char === '\n' || char === '\r') lineComment = false;
+        } else if (blockComment) {
+            if (char === '*' && next === '/') {
+                blockComment = false;
+                index++;
+            }
+        } else if (quote) {
+            // Only a catalogue escapes a character of a string.
+            if (char === '\\' && document.languageId === 'xsmpcat') index++;
+            else if (char === quote) quote = undefined;
+        } else if (char === '"' || char === "'") {
+            quote = char;
+        } else if (char === '/' && next === '/') {
+            lineComment = true;
+            index++;
+        } else if (char === '/' && next === '*') {
+            blockComment = true;
+            index++;
+        }
+    }
+    return lineComment || blockComment || quote !== undefined;
+}

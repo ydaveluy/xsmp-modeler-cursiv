@@ -1,0 +1,48 @@
+catalogue demo
+namespace n
+{
+    // Time fields keep their type when published.
+    /** @uuid 11111111-0000-4000-8000-000000000081 */
+    public model TimeFields
+    {
+        field Smp.Duration span
+        field Smp.DateTime epoch
+        field Smp.Int64 count
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000082 */
+    public struct WithOutput { output field Smp.Int32 x }
+
+    /** @uuid 11111111-0000-4000-8000-000000000083 */
+    public array Items = WithOutput[2]
+
+    // Only an output, failure or forcible field is wrapped.
+    /** @uuid 11111111-0000-4000-8000-000000000084 */
+    public model Wrapping
+    {
+        field WithOutput plain
+        field Items list
+        @Attributes.Forcible field Smp.Int32 forced
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000085 */
+    public struct Single { field Smp.Int32 x }
+
+    /** @uuid 11111111-0000-4000-8000-000000000086 */
+    public array Pair = Single[2]
+
+    /** @uuid 11111111-0000-4000-8000-000000000087 */
+    public array Row = Smp.Int32[2]
+
+    /** @uuid 11111111-0000-4000-8000-000000000088 */
+    public array Grid = Row[2]
+
+    // A default has the braces of its type.
+    /** @uuid 11111111-0000-4000-8000-000000000089 */
+    public model OutputDefaults
+    {
+        output field Pair pair = {{3}, {4}}
+        output field Grid grid = {{1, 2}, {3, 4}}
+        output field Single single = {5}
+    }
+}

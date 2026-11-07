@@ -1,0 +1,1036 @@
+{
+  "cases": [
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #0",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-0/src/demo.xsmpcfg",
+      "text": "configuration Demo\n<|>\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-0/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-0/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Root Component Configuration"
+        },
+        {
+          "kind": "present",
+          "label": "Include Configuration"
+        },
+        {
+          "kind": "absent",
+          "label": "configuration"
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #1",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-1/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-1/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-1/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "flag",
+          "value": "flag = "
+        },
+        {
+          "kind": "insertContains",
+          "label": "flags",
+          "value": "[false, false]"
+        },
+        {
+          "kind": "present",
+          "label": "Component Configuration"
+        },
+        {
+          "kind": "present",
+          "label": "Include Configuration"
+        },
+        {
+          "kind": "absent",
+          "label": "child: demo.Child"
+        },
+        {
+          "kind": "absent",
+          "label": "include at child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #2",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-2/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    child: demo.Child\n    {\n        <|>\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-2/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-2/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Component Configuration"
+        },
+        {
+          "kind": "absent",
+          "label": "Root Component Configuration"
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #3",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-3/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    child: demo.Child\n    {\n        flag = true\n    }\n\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-3/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-3/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Component Configuration"
+        },
+        {
+          "kind": "present",
+          "label": "Include Configuration"
+        },
+        {
+          "kind": "absent",
+          "label": "Root Component Configuration"
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #4",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-4/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    flag = <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-4/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-4/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "false"
+        },
+        {
+          "kind": "present",
+          "label": "true"
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #5",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-5/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state = {\n        <|>\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-5/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-5/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "count",
+          "value": "count = "
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #6",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-6/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state = {\n        count = <|>\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-6/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-6/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Default Value"
+        },
+        {
+          "kind": "absent",
+          "label": "false"
+        },
+        {
+          "kind": "absent",
+          "label": "true"
+        },
+        {
+          "kind": "detailContains",
+          "label": "Default Value",
+          "value": "Smp.Int32"
+        }
+      ]
+    },
+    {
+      "name": "xsmpcfg offers structure snippets and typed field/value completion #7",
+      "language": "xsmpcfg",
+      "uri": "file:///completion/source-7/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    flags = <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-7/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-7/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": []
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #8",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-8/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-8/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-8/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Sub Model Instance"
+        },
+        {
+          "kind": "present",
+          "label": "Field Link"
+        },
+        {
+          "kind": "present",
+          "label": "Interface Link"
+        },
+        {
+          "kind": "present",
+          "label": "child += Child"
+        },
+        {
+          "kind": "absent",
+          "label": "field link outValue -> Child.inValue"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #9",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-9/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    ch<|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-9/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-9/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "child += Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #10",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-10/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    child += Child: demo.Child\n\n    ch<|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-10/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-10/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "child += Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #11",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-11/src/demo.xsmpasb",
+      "text": "assembly <Lane = \"Ops\"> Demo\nRoot{Lane}: demo.Root\n{\n    child += Child: demo.Child\nch<|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-11/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-11/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "child += Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #12",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-12/src/demo.xsmpasb",
+      "text": "assembly <Lane = \"Ops\"> Demo\nRoot{Lane}: demo.Root\n{\n    child += Child: demo.Child\n}\n\n<|>\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-12/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-12/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Configure Instance"
+        },
+        {
+          "kind": "present",
+          "label": "Root Model Instance"
+        },
+        {
+          "kind": "absent",
+          "label": "assembly"
+        },
+        {
+          "kind": "absent",
+          "label": "Sub Model Instance"
+        },
+        {
+          "kind": "absent",
+          "label": "Field Link"
+        },
+        {
+          "kind": "absent",
+          "label": "child += Child"
+        },
+        {
+          "kind": "absent",
+          "label": "child += Child: demo.Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #13",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-13/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    call <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-13/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-13/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "apply",
+          "value": "apply("
+        },
+        {
+          "kind": "insertContains",
+          "label": "apply",
+          "value": "requestedMode = "
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #14",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-14/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    property <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-14/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-14/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "mode",
+          "value": "mode = "
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #15",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-15/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n}\n\nconfigure /\n{\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-15/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-15/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "flag"
+        },
+        {
+          "kind": "present",
+          "label": "subscribe step"
+        },
+        {
+          "kind": "present",
+          "label": "property mode"
+        },
+        {
+          "kind": "present",
+          "label": "call apply"
+        },
+        {
+          "kind": "absent",
+          "label": "Root Model Instance"
+        },
+        {
+          "kind": "absent",
+          "label": "Configure Instance"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #16",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-16/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    child += Child: <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-16/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-16/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #17",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-17/src/demo.xsmpasb",
+      "text": "assembly <Lane = \"Ops\"> Demo\nRoot: demo.Root\n{\n    child += Logger{Lane}: <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-17/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-17/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #18",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-18/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.Root\n{\n    child += Child: demo.<|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-18/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-18/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Child"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #19",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-19/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: <|>\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-19/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-19/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Root"
+        },
+        {
+          "kind": "absent",
+          "label": "Sub Model Instance"
+        },
+        {
+          "kind": "absent",
+          "label": "Field Link"
+        },
+        {
+          "kind": "absent",
+          "label": "Root Model Instance"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #20",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-20/src/demo.xsmpasb",
+      "text": "assembly <Lane = \"Ops\", BusMember = \"avionics\"> Demo\nScenario{Lane}: <|>\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-20/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-20/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Root"
+        },
+        {
+          "kind": "absent",
+          "label": "Lane"
+        },
+        {
+          "kind": "absent",
+          "label": "BusMember"
+        }
+      ]
+    },
+    {
+      "name": "xsmpasb offers model snippets and enriches local call/property completion #21",
+      "language": "xsmpasb",
+      "uri": "file:///completion/source-21/src/demo.xsmpasb",
+      "text": "assembly Demo\nRoot: demo.<|>\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-21/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-21/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Root"
+        }
+      ]
+    },
+    {
+      "name": "xsmplnk offers link snippets and typed reference completion #22",
+      "language": "xsmplnk",
+      "uri": "file:///completion/source-22/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n<|>\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-22/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-22/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-22/src/demo-anchor.xsmpasb",
+          "text": "assembly DemoAsm\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Root Component Link Base"
+        },
+        {
+          "kind": "absent",
+          "label": "link"
+        }
+      ]
+    },
+    {
+      "name": "xsmplnk offers link snippets and typed reference completion #23",
+      "language": "xsmplnk",
+      "uri": "file:///completion/source-23/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n/\n{\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-23/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-23/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-23/src/demo-anchor.xsmpasb",
+          "text": "assembly DemoAsm\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Component Link Base"
+        },
+        {
+          "kind": "absent",
+          "label": "Root Component Link Base"
+        },
+        {
+          "kind": "present",
+          "label": "Child"
+        },
+        {
+          "kind": "present",
+          "label": "Field Link"
+        }
+      ]
+    },
+    {
+      "name": "xsmplnk offers link snippets and typed reference completion #24",
+      "language": "xsmplnk",
+      "uri": "file:///completion/source-24/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n/\n{\n    Child\n    {\n        field link outValue -> inValue\n    }\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-24/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-24/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-24/src/demo-anchor.xsmpasb",
+          "text": "assembly DemoAsm\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Component Link Base"
+        },
+        {
+          "kind": "present",
+          "label": "Field Link"
+        },
+        {
+          "kind": "absent",
+          "label": "Root Component Link Base"
+        }
+      ]
+    },
+    {
+      "name": "xsmplnk offers link snippets and typed reference completion #25",
+      "language": "xsmplnk",
+      "uri": "file:///completion/source-25/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n/\n{\n    interface link <|> -> Child:\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-25/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-25/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-25/src/demo-anchor.xsmpasb",
+          "text": "assembly DemoAsm\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "logger"
+        }
+      ]
+    },
+    {
+      "name": "xsmplnk offers link snippets and typed reference completion #26",
+      "language": "xsmplnk",
+      "uri": "file:///completion/source-26/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n/\n{\n    interface link  -> Child:<|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-26/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-26/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-26/src/demo-anchor.xsmpasb",
+          "text": "assembly DemoAsm\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "backLogger"
+        }
+      ]
+    },
+    {
+      "name": "xsmplnk offers assembly instance names for anchored link-base completions #27",
+      "language": "xsmplnk",
+      "uri": "file:///completion/source-27/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n/\n{\n    <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-27/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-27/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-27/src/demo-anchor.xsmpasb",
+          "text": "assembly DemoAsm\nRoot: demo.Root\n{\n    child += Leaf: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Leaf"
+        },
+        {
+          "kind": "absent",
+          "label": "Child"
+        },
+        {
+          "kind": "present",
+          "label": "Field Link"
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #28",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-28/src/demo.xsmpsed",
+      "text": "schedule Demo\n<|>\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-28/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-28/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Task"
+        },
+        {
+          "kind": "present",
+          "label": "Event Epoch"
+        },
+        {
+          "kind": "present",
+          "label": "Event Global Trigger"
+        },
+        {
+          "kind": "absent",
+          "label": "schedule"
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #29",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-29/src/demo.xsmpsed",
+      "text": "schedule Demo\ntask Main on demo.Root\n{\n    call <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-29/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-29/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "apply",
+          "value": "apply("
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #30",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-30/src/demo.xsmpsed",
+      "text": "schedule <Root: string = \"child\", Cycles: int32 = 3> Demo\ntask Main on demo.Root\n{\n    execute <|>\n}\n\ntask Worker on demo.Child\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-30/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-30/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "Worker",
+          "value": "Worker<"
+        },
+        {
+          "kind": "insertContains",
+          "label": "Worker",
+          "value": "Root = "
+        },
+        {
+          "kind": "insertContains",
+          "label": "Worker",
+          "value": "Cycles = "
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #31",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-31/src/demo.xsmpsed",
+      "text": "schedule Demo\ntask Main on demo.Root\n{\n    property mode = <|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-31/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-31/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "demo.Mode.Nominal"
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #32",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-32/src/demo.xsmpsed",
+      "text": "schedule <Root: string = \"child\", Cycles: int32 = 3> Demo\ntask Main on demo.Root\n{\n    <|>\n}\n\ntask Worker on demo.Child\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-32/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-32/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "call apply"
+        },
+        {
+          "kind": "present",
+          "label": "property mode"
+        },
+        {
+          "kind": "present",
+          "label": "trig step"
+        },
+        {
+          "kind": "present",
+          "label": "Field Transfer"
+        },
+        {
+          "kind": "present",
+          "label": "execute Worker"
+        },
+        {
+          "kind": "absent",
+          "label": "Task"
+        },
+        {
+          "kind": "absent",
+          "label": "Event Epoch"
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #33",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-33/src/demo.xsmpsed",
+      "text": "schedule Demo\ntask Main on demo.Root\n{\n    call apply(requestedMode = demo.Mode.Nominal)\n}\n<|>\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-33/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-33/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Task"
+        },
+        {
+          "kind": "present",
+          "label": "Event Epoch"
+        },
+        {
+          "kind": "absent",
+          "label": "call apply"
+        },
+        {
+          "kind": "absent",
+          "label": "property mode"
+        }
+      ]
+    },
+    {
+      "name": "xsmpsed offers schedule snippets, typed values and execute-task snippets #34",
+      "language": "xsmpsed",
+      "uri": "file:///completion/source-34/src/demo.xsmpsed",
+      "text": "schedule Demo\ntask Main on DemoAsm\n{\n    call Ch<|>\n}\n",
+      "documents": [
+        {
+          "uri": "file:///completion/source-34/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///completion/source-34/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public enum Mode\n    {\n        Nominal = 0,\n        Safe = 1\n    }\n\n    public interface ILogger\n    {\n    }\n\n    public struct State\n    {\n        field Smp.Bool enabled\n        field Smp.Int32 count\n    }\n\n    public array BoolPair = Smp.Bool[2]\n\n    public model Child\n    {\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n        public def void reset()\n        reference demo.ILogger backLogger\n    }\n\n    public model Root\n    {\n        field State state\n        field Smp.Bool flag\n        field BoolPair flags\n        output field Smp.Int32 outValue\n        input field Smp.Int32 inValue\n        readWrite property demo.Mode mode\n        public def void apply(in demo.Mode requestedMode)\n        entrypoint step\n        container Child child = demo.Child\n        reference demo.ILogger logger\n    }\n}\n"
+        },
+        {
+          "uri": "file:///completion/source-34/src/demo-anchor.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "ChildOps"
+        }
+      ]
+    }
+  ]
+}

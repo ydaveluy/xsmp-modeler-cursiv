@@ -1,0 +1,24 @@
+catalogue Limits
+namespace limits {
+    /** @uuid 87000000-0000-4000-8000-000000000001 */
+    public model Probe {
+        @Constructor def void make(in Int32 value)
+        @Constructor def void create(in Float64 value)
+        def @ByPointer Int32 pointer()
+        def Int32 calculate(in Int32 value)
+        def Int32 calculate(in Float64 value)
+        def Int32 normal(in Int32 value)
+    }
+    /** @uuid 87000000-0000-4000-8000-000000000002 */
+    public model Child extends Probe {
+        def Int32 normal(in Float64 value)
+        def Int32 fresh()
+    }
+    /** @uuid 87000000-0000-4000-8000-000000000003 */
+    public class OrdinaryClass {
+        @Constructor def void make(in Int32 value)
+        def @ByPointer Int32 pointer()
+        def Int32 calculate(in Int32 value)
+        def Int32 calculate(in Float64 value)
+    }
+}

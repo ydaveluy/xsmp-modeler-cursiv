@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration:Configuration xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="runtime" Name="runtime">
+  <Component Path="/Root">
+    <FieldValue Field="mode" xsi:type="Types:EnumerationValue" Value="1" />
+    <FieldValue Field="unknown" xsi:type="Types:EnumerationValue" />
+  </Component>
+</Configuration:Configuration>

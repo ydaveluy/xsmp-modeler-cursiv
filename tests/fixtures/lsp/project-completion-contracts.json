@@ -1,0 +1,216 @@
+{
+  "cases": [
+    {
+      "name": "offers contextual root and concrete project statements #0",
+      "uri": "memory:///root/xsmp.project",
+      "text": "<|>",
+      "documents": [
+        {
+          "uri": "memory:/foundation/xsmp.project",
+          "text": "project 'foundation'\nsource 'smdl'\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Project"
+        },
+        {
+          "kind": "absent",
+          "label": "project"
+        },
+        {
+          "kind": "insertContains",
+          "label": "Project",
+          "value": "source '"
+        }
+      ]
+    },
+    {
+      "name": "offers contextual root and concrete project statements #1",
+      "uri": "memory:///project/xsmp.project",
+      "text": "project 'MissionDemo' using 'ECSS_SMP_2025'\n<|>\n",
+      "documents": [
+        {
+          "uri": "memory:/foundation/xsmp.project",
+          "text": "project 'foundation'\nsource 'smdl'\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "Source"
+        },
+        {
+          "kind": "present",
+          "label": "dependency 'foundation'"
+        },
+        {
+          "kind": "present",
+          "label": "profile 'xsmp-sdk'"
+        },
+        {
+          "kind": "present",
+          "label": "tool 'smp'"
+        }
+      ]
+    },
+    {
+      "name": "uses registry-backed defaults for profile and tool snippets #2",
+      "uri": "memory:///esa.xsmpprofile",
+      "text": "<|>",
+      "documents": [],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "Profile",
+          "value": "xsmp-sdk"
+        }
+      ]
+    },
+    {
+      "name": "uses registry-backed defaults for profile and tool snippets #3",
+      "uri": "memory:///adoc.xsmptool",
+      "text": "<|>",
+      "documents": [],
+      "assertions": [
+        {
+          "kind": "insertContains",
+          "label": "Tool",
+          "value": "smp"
+        }
+      ]
+    },
+    {
+      "name": "offers standard values #4",
+      "uri": "memory:///mission/xsmp.project",
+      "text": "project 'MissionDemo' using <|>\ndependency ''\ntool ''\nprofile ''\n",
+      "documents": [
+        {
+          "uri": "memory:/esa.xsmpprofile",
+          "text": "profile 'esa-cdk'"
+        },
+        {
+          "uri": "memory:/adoc.xsmptool",
+          "text": "tool 'adoc'"
+        },
+        {
+          "uri": "memory:/foundation/xsmp.project",
+          "text": "project 'foundation'\nsource 'smdl'\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "ECSS_SMP_2025"
+        }
+      ]
+    },
+    {
+      "name": "replaces statement prefixes with concrete profile, tool and dependency statements #5",
+      "uri": "memory:///mission/xsmp.project",
+      "text": "project 'MissionDemo'\nsource 'smdl'\nto<|>\n",
+      "documents": [
+        {
+          "uri": "memory:/foundation/xsmp.project",
+          "text": "project 'foundation'\nsource 'smdl'\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "tool 'smp'"
+        },
+        {
+          "kind": "absent",
+          "label": "Tool"
+        },
+        {
+          "kind": "present",
+          "label": "profile 'xsmp-sdk'"
+        },
+        {
+          "kind": "present",
+          "label": "dependency 'foundation'"
+        },
+        {
+          "kind": "insertContains",
+          "label": "tool 'smp'",
+          "value": "tool '"
+        }
+      ]
+    },
+    {
+      "name": "filters already used contributions and keeps dependency suggestions ordered #6",
+      "uri": "memory:///mission/xsmp.project",
+      "text": "project 'mission' using 'ECSS_SMP_2025'\ntool 'smp'\nprofile 'xsmp-sdk'\n<|>\n",
+      "documents": [
+        {
+          "uri": "memory:/foundation/xsmp.project",
+          "text": "project 'foundation'\ndependency 'mission'\n"
+        },
+        {
+          "uri": "memory:/shared/xsmp.project",
+          "text": "project 'shared'\n"
+        }
+      ],
+      "assertions": [
+        {
+          "kind": "absent",
+          "label": "dependency 'mission'"
+        },
+        {
+          "kind": "present",
+          "label": "tool 'adoc'"
+        },
+        {
+          "kind": "absent",
+          "label": "tool 'smp'"
+        },
+        {
+          "kind": "present",
+          "label": "profile 'esa-cdk'"
+        },
+        {
+          "kind": "absent",
+          "label": "profile 'xsmp-sdk'"
+        }
+      ]
+    },
+    {
+      "name": "falls back to contextual snippets when all dependencies and contributions are already used #7",
+      "uri": "memory:///mission/xsmp.project",
+      "text": "project 'mission' using 'ECSS_SMP_2025'\nsource 'smdl'\nprofile 'xsmp-sdk'\nprofile 'esa-cdk'\nprofile 'tas-mdk'\ntool 'smp'\ntool 'adoc'\ntool 'python'\n<|>\n",
+      "documents": [],
+      "assertions": [
+        {
+          "kind": "present",
+          "label": "profile 'xsmp-sdk'"
+        },
+        {
+          "kind": "present",
+          "label": "tool 'smp'"
+        },
+        {
+          "kind": "present",
+          "label": "dependency '<project-name>'"
+        },
+        {
+          "kind": "insertContains",
+          "label": "profile 'xsmp-sdk'",
+          "value": "profile '${1:xsmp-sdk}'"
+        },
+        {
+          "kind": "insertContains",
+          "label": "tool 'smp'",
+          "value": "tool '${1:smp}'"
+        },
+        {
+          "kind": "insertContains",
+          "label": "dependency '<project-name>'",
+          "value": "dependency '${1:project}'"
+        }
+      ]
+    }
+  ]
+}

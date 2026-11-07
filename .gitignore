@@ -1,0 +1,16 @@
+# Build output, including the parser generated from the grammar.
+generated/
+/build*
+/.cache/
+/compile_commands.json
+vscode/node_modules
+vscode/out
+*.vsix
+vscode/server/
+vscode/bin/
+
+# XSMP.
+/CMakeUserPresets.json
+extensions/tas-mdk/server/
+__pycache__/
+*.pyc

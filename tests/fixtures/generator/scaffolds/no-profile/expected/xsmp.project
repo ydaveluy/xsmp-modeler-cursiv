@@ -1,0 +1,15 @@
+
+/**
+ * XSMP Project configuration for Plain
+ */
+project 'Plain'
+
+// project relative path(s) containing modeling file(s)
+source 'smdl'
+
+
+// If your project needs types from outside sources,
+// you can include them by adding project dependencies.
+// For example: dependency 'otherProject'
+//              dependency 'otherProject2'
+

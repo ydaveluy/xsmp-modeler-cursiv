@@ -1,0 +1,11 @@
+/**
+ * Imported occurrence documentation.
+ * @creator first
+ * @creator second
+ */
+assembly Outer
+Root: demo.Root {
+ child += Unit: Imported<Id="Ops", Index=42> using config ChildPreset using link ChildLinks {
+  configure . { outValue = 7 }
+ }
+}

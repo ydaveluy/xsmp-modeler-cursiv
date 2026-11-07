@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2025/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2025/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2025/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_Context" Name="Context">
+  <Namespace Id="demo" Name="demo">
+    <Type Id="demo.FlagEvent" Name="FlagEvent" xsi:type="Catalogue:EventType" Uuid="11111111-0000-4000-8000-000000000401" Visibility="public">
+      <EventArgs xlink:title="Bool" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Bool" />
+    </Type>
+    <Type Id="demo.SimpleIntQuad" Name="SimpleIntQuad" xsi:type="Types:Array" Uuid="11111111-0000-4000-8000-000000000402" Visibility="public" Size="4">
+      <Metadata xsi:type="Types:Attribute" Name="SimpleArray" Id="demo.SimpleIntQuad.SimpleArray.0">
+        <Type xlink:title="SimpleArray" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Attributes.SimpleArray" />
+        <Value xsi:type="Types:BoolValue" Value="true" />
+      </Metadata>
+      <ItemType xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+    </Type>
+    <Type Id="demo.Child" Name="Child" xsi:type="Catalogue:Model" Uuid="11111111-0000-4000-8000-000000000403" Visibility="public">
+      <EventSink Id="demo.Child.inbound" Name="inbound">
+        <Type xlink:title="FlagEvent" xlink:href="#demo.FlagEvent" />
+      </EventSink>
+      <EventSource Id="demo.Child.outbound" Name="outbound">
+        <Type xlink:title="FlagEvent" xlink:href="#demo.FlagEvent" />
+      </EventSource>
+      <Field Id="demo.Child.count" Name="count">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+      <Field Id="demo.Child.ratio" Name="ratio">
+        <Type xlink:title="Float64" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Float64" />
+      </Field>
+      <Field Id="demo.Child.inValue" Name="inValue" Input="true">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+      <Field Id="demo.Child.outValue" Name="outValue" Output="true">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+    </Type>
+    <Type Id="demo.Root" Name="Root" xsi:type="Catalogue:Model" Uuid="11111111-0000-4000-8000-000000000404" Visibility="public">
+      <Property Id="demo.Root.count" Name="count" Visibility="public">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        <AttachedField xlink:title="countState" xlink:href="#demo.Root.countState" />
+      </Property>
+      <Operation Id="demo.Root.apply-Int32-Float64" Name="apply" Visibility="public">
+        <Parameter Id="demo.Root.apply-Int32-Float64.nextCount" Name="nextCount" Direction="in">
+          <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+        </Parameter>
+        <Parameter Id="demo.Root.apply-Int32-Float64.nextRatio" Name="nextRatio" Direction="in">
+          <Type xlink:title="Float64" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Float64" />
+        </Parameter>
+      </Operation>
+      <EventSink Id="demo.Root.inbound" Name="inbound">
+        <Type xlink:title="FlagEvent" xlink:href="#demo.FlagEvent" />
+      </EventSink>
+      <EventSource Id="demo.Root.outbound" Name="outbound">
+        <Type xlink:title="FlagEvent" xlink:href="#demo.FlagEvent" />
+      </EventSource>
+      <Field Id="demo.Root.countState" Name="countState">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+      <Field Id="demo.Root.simpleValues" Name="simpleValues">
+        <Type xlink:title="SimpleIntQuad" xlink:href="#demo.SimpleIntQuad" />
+      </Field>
+      <Field Id="demo.Root.outValue" Name="outValue" Output="true">
+        <Type xlink:title="Int32" xlink:href="http://www.ecss.nl/smp/2019/Smdl#Smp.Int32" />
+      </Field>
+      <Container Id="demo.Root.child" Name="child" Lower="1" Upper="1">
+        <Type xlink:title="Child" xlink:href="#demo.Child" />
+        <DefaultComponent xlink:title="Child" xlink:href="#demo.Child" />
+      </Container>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

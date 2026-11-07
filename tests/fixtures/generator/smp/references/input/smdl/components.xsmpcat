@@ -1,0 +1,20 @@
+catalogue components
+namespace demo
+{
+    /** @uuid 11111111-0000-4000-8000-000000000243 */
+    public interface IProvider { }
+    /** @uuid 11111111-0000-4000-8000-000000000244 */
+    public model Provider implements IProvider { }
+    /** @uuid 11111111-0000-4000-8000-000000000245 */
+    public model Client
+    {
+        reference IProvider provider
+        container Provider providers
+    }
+    /** @uuid 11111111-0000-4000-8000-000000000246 */
+    public model Root
+    {
+        container Client clients
+        container Root roots
+    }
+}

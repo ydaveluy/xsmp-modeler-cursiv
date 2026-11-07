@@ -1,0 +1,22 @@
+
+/**
+ * XSMP Project configuration for My-Proj.1
+ */
+project 'My-Proj.1'
+
+// project relative path(s) containing modeling file(s)
+source 'smdl'
+
+
+// use TAS MDK
+profile 'tas-mdk'
+
+
+dependency 'TasMdk'
+
+
+// If your project needs types from outside sources,
+// you can include them by adding project dependencies.
+// For example: dependency 'otherProject'
+//              dependency 'otherProject2'
+

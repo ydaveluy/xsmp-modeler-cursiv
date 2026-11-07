@@ -1,0 +1,61 @@
+= Assembly Outer
+
+++++
+Imported occurrence documentation.
+++++
+
+.Outer's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Assembly
+.^h|Name |Outer
+.^h|Creator |first, second
+|===
+
+
+== Root Model Instance
+
+=== Model Instance Root
+
+
+.Root's information
+[%autowidth.stretch]
+|===
+.^h|Name |Root
+.^h|Implementation |demo::Root
+|===
+
+==== Assembly Instance Unit
+
+
+.Unit's information
+[%autowidth.stretch]
+|===
+.^h|Name |Unit
+.^h|Container |child
+.^h|Assembly |Imported
+.^h|Configuration |ChildPreset
+.^h|Link Base |ChildLinks
+.^h|Arguments |Id = Ops, Index = 42
+|===
+
+===== Configuration .
+
+
+.Configuration .'s information
+[%autowidth.stretch]
+|===
+.^h|Path |.
+|===
+
+====== Statements
+
+.Statements
+[%autowidth.stretch]
+|===
+|Kind |Target |Details
+
+|field
+|outValue
+|7
+|===

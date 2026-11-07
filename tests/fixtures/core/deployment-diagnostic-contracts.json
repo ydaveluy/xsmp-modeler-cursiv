@@ -1,0 +1,2201 @@
+{
+  "cases": [
+    {
+      "index": 0,
+      "name": "validates typed assembly configuration and link paths and honors unsafe",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Int32.",
+          "range": [
+            [
+              4,
+              12
+            ],
+            [
+              4,
+              16
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'missing' shall resolve to a Field of the configured Component.",
+          "range": [
+            [
+              5,
+              4
+            ],
+            [
+              5,
+              11
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'enabled' shall resolve to a child Model Instance or Assembly Instance.",
+          "range": [
+            [
+              9,
+              10
+            ],
+            [
+              9,
+              17
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'outValue' shall resolve to a Field marked as Input of the current Component.",
+          "range": [
+            [
+              16,
+              33
+            ],
+            [
+              16,
+              41
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'missing' shall resolve to a supported member of the current Component.",
+          "range": [
+            [
+              19,
+              33
+            ],
+            [
+              19,
+              40
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "matches templated child instance names from assembly parameters",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 2,
+      "name": "allows sub-instance model implementations to be inferred from container defaults",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 3,
+      "name": "allows sub-instance model implementations to be inferred from container defaults",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 4,
+      "name": "requires a root model implementation and default-backed shorthand sub-instances",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A root Model Instance shall declare an implementation.",
+          "range": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "requires a root model implementation and default-backed shorthand sub-instances",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A sub-instance without an explicit implementation shall target a Container with a default component.",
+          "range": [
+            [
+              4,
+              13
+            ],
+            [
+              4,
+              18
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "allows unsuffixed numeric values when the safe resolved target type is known",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 7,
+      "name": "rejects duplicate document names across document kinds",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Duplicated Document name.",
+          "range": [
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              18
+            ]
+          ],
+          "relatedInformation": [
+            {
+              "uri": "file:///cases/src/types.xsmpcat",
+              "message": "DemoTypes",
+              "range": [
+                [
+                  0,
+                  10
+                ],
+                [
+                  0,
+                  19
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "name": "concretizes nested assembly instance names from template arguments",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 9,
+      "name": "reports unknown placeholders in assembly paths",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The placeholder '{Missing}' shall resolve to a Template Argument of the enclosing Assembly.",
+          "range": [
+            [
+              2,
+              10
+            ],
+            [
+              2,
+              27
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "name": "supports template placeholders followed by suffix text in instance names",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 11,
+      "name": "validates that a sub-instance type matches the selected container",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The type of the sub-instance shall be compatible with the selected Container.",
+          "range": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              9
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "name": "reports when a container upper bound is exceeded",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The Container 'child' shall not contain more than 1 sub-instance(s).",
+          "range": [
+            [
+              5,
+              4
+            ],
+            [
+              5,
+              9
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "name": "reports when a reference upper bound is exceeded across nested assembly occurrences",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The Reference 'logger' of instance '/Bus' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              5,
+              19
+            ],
+            [
+              5,
+              29
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "name": "warns when an assembly template parameter is not used",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 2,
+          "message": "The Template Parameter 'Unused' is not used.",
+          "range": [
+            [
+              0,
+              25
+            ],
+            [
+              0,
+              31
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "name": "requires explicit template values and validates expanded instance names",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 2,
+          "message": "The Template Parameter 'Lane' is not used.",
+          "range": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              14
+            ]
+          ]
+        },
+        {
+          "severity": 2,
+          "message": "The Template Parameter 'Index' is not used.",
+          "range": [
+            [
+              0,
+              24
+            ],
+            [
+              0,
+              29
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "A template parameter needs a value.",
+          "range": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              22
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "A template parameter needs a value.",
+          "range": [
+            [
+              0,
+              24
+            ],
+            [
+              0,
+              36
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The expanded name '1bad' is not valid for SMP Level 2.",
+          "range": [
+            [
+              4,
+              13
+            ],
+            [
+              4,
+              18
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "name": "validates subscriptions, operation parameters, and writable properties",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The path segment 'child' shall resolve to a child Model Instance or Assembly Instance.",
+          "range": [
+            [
+              2,
+              10
+            ],
+            [
+              2,
+              15
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The selected entry point shall resolve to an EntryPoint of the current Component.",
+          "range": [
+            [
+              4,
+              14
+            ],
+            [
+              4,
+              19
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "A PropertyValue shall target a writable Property.",
+          "range": [
+            [
+              9,
+              13
+            ],
+            [
+              9,
+              19
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The selected operation shall resolve to an Operation of the current Component.",
+          "range": [
+            [
+              10,
+              9
+            ],
+            [
+              10,
+              16
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The parameter 'missing' shall resolve to a Parameter of operation apply.",
+          "range": [
+            [
+              11,
+              51
+            ],
+            [
+              11,
+              65
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Float64.",
+          "range": [
+            [
+              11,
+              79
+            ],
+            [
+              11,
+              83
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "Duplicated parameter name.",
+          "range": [
+            [
+              11,
+              33
+            ],
+            [
+              11,
+              49
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "name": "validates assembly structure and array values",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Int32.",
+          "range": [
+            [
+              5,
+              16
+            ],
+            [
+              5,
+              20
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The structure field path 'missing' does not exist on type demo.Counters.",
+          "range": [
+            [
+              6,
+              8
+            ],
+            [
+              6,
+              15
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The array value shall not exceed 4 item(s) when StartIndex is applied.",
+          "range": [
+            [
+              7,
+              17
+            ],
+            [
+              7,
+              29
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "StartIndex is only available in a Configuration.",
+          "range": [
+            [
+              7,
+              18
+            ],
+            [
+              7,
+              19
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The structure value shall not contain more values than the fields of demo.Counters.",
+          "range": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              12
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Char8.",
+          "range": [
+            [
+              11,
+              12
+            ],
+            [
+              11,
+              15
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.String8.",
+          "range": [
+            [
+              12,
+              12
+            ],
+            [
+              12,
+              15
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "name": "validates interface links against endpoint types and path constraints",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The Reference 'logger' of instance '/' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              8,
+              19
+            ],
+            [
+              8,
+              25
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The Reference 'logger' of instance '/' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              9,
+              19
+            ],
+            [
+              9,
+              25
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              5,
+              15
+            ],
+            [
+              5,
+              26
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The Client Path shall refer to the current Model Instance or one of its children.",
+          "range": [
+            [
+              5,
+              30
+            ],
+            [
+              5,
+              44
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The selected source reference shall be compatible with the Client Component.",
+          "range": [
+            [
+              6,
+              19
+            ],
+            [
+              6,
+              29
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              7,
+              19
+            ],
+            [
+              7,
+              28
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The selected reference shall resolve to a Reference of the Client Component.",
+          "range": [
+            [
+              8,
+              35
+            ],
+            [
+              8,
+              43
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The selected reference shall be compatible with the Owner Component.",
+          "range": [
+            [
+              9,
+              35
+            ],
+            [
+              9,
+              46
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "name": "reports recursive assembly instantiation without crashing",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The type of the sub-instance shall be compatible with the selected Container.",
+          "range": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              7
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Recursive Assembly instantiation is not allowed.",
+          "range": [
+            [
+              4,
+              18
+            ],
+            [
+              4,
+              22
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "name": "navigates to templated child instances from a concrete configuration path",
+      "language": "xsmpasb",
+      "diagnostics": []
+    },
+    {
+      "index": 21,
+      "name": "rejects an out-of-bounds array index in an assembly field path",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Array index 5 is out of bounds for the array of size 4.",
+          "range": [
+            [
+              4,
+              16
+            ],
+            [
+              4,
+              19
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "name": "rejects a negative array index in an assembly field path",
+      "language": "xsmpasb",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Array index shall not be negative.",
+          "range": [
+            [
+              4,
+              16
+            ],
+            [
+              4,
+              20
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "name": "keeps legacy text mode when no component is defined",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 24,
+      "name": "allows unsuffixed numeric values when the safe resolved target type is known",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 25,
+      "name": "rejects duplicate document names across document kinds",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Duplicated Document name.",
+          "range": [
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              21
+            ]
+          ],
+          "relatedInformation": [
+            {
+              "uri": "file:///cases/src/assembly.xsmpasb",
+              "message": "DemoAsm",
+              "range": [
+                [
+                  0,
+                  24
+                ],
+                [
+                  0,
+                  31
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "name": "validates typed field paths and values and honors unsafe paths",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Bool.",
+          "range": [
+            [
+              3,
+              11
+            ],
+            [
+              3,
+              15
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'unknown' shall resolve to a Field of the current Structure value.",
+          "range": [
+            [
+              4,
+              10
+            ],
+            [
+              4,
+              17
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Int32.",
+          "range": [
+            [
+              6,
+              16
+            ],
+            [
+              6,
+              20
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The structure field 'missing' does not exist on type demo.Counters.",
+          "range": [
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              15
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type Smp.Int32.",
+          "range": [
+            [
+              9,
+              24
+            ],
+            [
+              9,
+              28
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "A safe Component Configuration inside a Component-backed context shall declare an explicit context.",
+          "range": [
+            [
+              11,
+              4
+            ],
+            [
+              11,
+              8
+            ]
+          ]
+        },
+        {
+          "severity": 2,
+          "message": "The `unsafe` modifier is unnecessary for a Configuration Usage inside a Component-backed context.",
+          "range": [
+            [
+              16,
+              21
+            ],
+            [
+              16,
+              27
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "name": "rejects unsuffixed numeric values outside safe resolved typing",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "This value has no known type: write a suffix, as in 1i32.",
+          "range": [
+            [
+              3,
+              11
+            ],
+            [
+              3,
+              12
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "This value has no known type: write a suffix, as in 1.0f64.",
+          "range": [
+            [
+              7,
+              19
+            ],
+            [
+              7,
+              22
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "This value has no known type: write a suffix, as in 1i32.",
+          "range": [
+            [
+              9,
+              23
+            ],
+            [
+              9,
+              24
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "name": "validates primitive and derived numeric ranges",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Conversion overflow for type UInt8.",
+          "range": [
+            [
+              3,
+              16
+            ],
+            [
+              3,
+              19
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Integral value shall be greater than or equal to 1.",
+          "range": [
+            [
+              4,
+              11
+            ],
+            [
+              4,
+              12
+            ]
+          ],
+          "relatedInformation": [
+            {
+              "uri": "file:///cases/src/types.xsmpcat",
+              "message": "1",
+              "range": [
+                [
+                  7,
+                  52
+                ],
+                [
+                  7,
+                  53
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Float value shall be less than 2.",
+          "range": [
+            [
+              5,
+              17
+            ],
+            [
+              5,
+              23
+            ]
+          ],
+          "relatedInformation": [
+            {
+              "uri": "file:///cases/src/types.xsmpcat",
+              "message": "2",
+              "range": [
+                [
+                  8,
+                  59
+                ],
+                [
+                  8,
+                  62
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "name": "inherits the effective component in nested component configurations with an explicit context",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 30,
+      "name": "allows explicit nested component contexts inside a component-backed configuration without resolving a container",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 31,
+      "name": "rejects safe nested component configurations without an explicit context inside a component-backed configuration",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A safe Component Configuration inside a Component-backed context shall declare an explicit context.",
+          "range": [
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              9
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "name": "allows safe configuration usage paths inside a component-backed configuration",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 33,
+      "name": "accepts an assembly context and resolves inherited template parameters in paths",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 34,
+      "name": "rejects explicit nested contexts inside an assembly-backed configuration when the path is safe",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A safe Component Configuration inside an Assembly-backed context shall not declare an explicit context.",
+          "range": [
+            [
+              3,
+              17
+            ],
+            [
+              3,
+              27
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "name": "allows explicit nested contexts inside an assembly-backed configuration when the path is unsafe",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 36,
+      "name": "warns when unsafe is useless on a nested component configuration with an explicit component context",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 2,
+          "message": "The `unsafe` modifier is unnecessary when a nested Component Configuration already declares an explicit Component context.",
+          "range": [
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              10
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "name": "warns when unsafe is useless on a configuration usage inside a component-backed context",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 2,
+          "message": "The `unsafe` modifier is unnecessary for a Configuration Usage inside a Component-backed context.",
+          "range": [
+            [
+              3,
+              21
+            ],
+            [
+              3,
+              27
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "name": "accepts StartIndex for simple arrays in ECSS_SMP_2025 and rejects unsupported cases",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 39,
+      "name": "accepts StartIndex for simple arrays in ECSS_SMP_2025 and rejects unsupported cases",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "StartIndex is only allowed for SimpleArray values.",
+          "range": [
+            [
+              4,
+              18
+            ],
+            [
+              4,
+              19
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "name": "accepts StartIndex for simple arrays in ECSS_SMP_2025 and rejects unsupported cases",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "StartIndex is only available in ECSS_SMP_2025.",
+          "range": [
+            [
+              3,
+              20
+            ],
+            [
+              3,
+              21
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 41,
+      "name": "infers types for positional structure and array values",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 42,
+      "name": "reports array overflow, duplicate structure fields, and excess positional structure values",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The array value shall not exceed 4 item(s) when StartIndex is applied.",
+          "range": [
+            [
+              3,
+              19
+            ],
+            [
+              3,
+              31
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.array.size"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The structure field 'count' shall not be initialized more than once.",
+          "range": [
+            [
+              6,
+              8
+            ],
+            [
+              6,
+              13
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The structure value shall not contain more values than the fields of demo.Counters.",
+          "range": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              13
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 43,
+      "name": "rejects non-collection values for typed array and structure fields",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type demo.SimpleIntQuad.",
+          "range": [
+            [
+              3,
+              19
+            ],
+            [
+              3,
+              23
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        },
+        {
+          "severity": 1,
+          "message": "The value shall be compatible with type demo.Counters.",
+          "range": [
+            [
+              4,
+              12
+            ],
+            [
+              4,
+              17
+            ]
+          ],
+          "data": {
+            "code": "xsmpcfg.value.type"
+          }
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "name": "resolves include paths from an assembly context and reports missing placeholders",
+      "language": "xsmpcfg",
+      "diagnostics": []
+    },
+    {
+      "index": 45,
+      "name": "resolves include paths from an assembly context and reports missing placeholders",
+      "language": "xsmpcfg",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The placeholder '{Missing}' shall resolve to a Template Argument of the enclosing Assembly context.",
+          "range": [
+            [
+              3,
+              21
+            ],
+            [
+              3,
+              35
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 46,
+      "name": "validates anchored component link bases and link endpoints by instance name and honors unsafe",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The path segment 'outValue' shall resolve to a Field marked as Input of the current Component.",
+          "range": [
+            [
+              4,
+              32
+            ],
+            [
+              4,
+              40
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'enabled' shall resolve to a child Model Instance or Assembly Instance.",
+          "range": [
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              11
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "name": "rejects component type names when an anchored assembly instance has a different name",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The path segment 'Child' shall resolve to a child Model Instance or Assembly Instance.",
+          "range": [
+            [
+              4,
+              27
+            ],
+            [
+              4,
+              32
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 48,
+      "name": "resolves absolute nested link paths from the assembly root",
+      "language": "xsmplnk",
+      "diagnostics": []
+    },
+    {
+      "index": 49,
+      "name": "keeps unanchored link bases in text mode",
+      "language": "xsmplnk",
+      "diagnostics": []
+    },
+    {
+      "index": 50,
+      "name": "requires an assembly anchor for templated link base paths",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A Link Base using templated paths shall declare an Assembly anchor with 'for <Assembly>'.",
+          "range": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 51,
+      "name": "rejects duplicate document names across document kinds",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Duplicated Document name.",
+          "range": [
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              12
+            ]
+          ],
+          "relatedInformation": [
+            {
+              "uri": "file:///cases/src/assembly.xsmpasb",
+              "message": "DemoAsm",
+              "range": [
+                [
+                  0,
+                  9
+                ],
+                [
+                  0,
+                  16
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 52,
+      "name": "resolves templated link paths with imported assembly defaults",
+      "language": "xsmplnk",
+      "diagnostics": []
+    },
+    {
+      "index": 53,
+      "name": "resolves templated link paths without spaces inside instance names",
+      "language": "xsmplnk",
+      "diagnostics": []
+    },
+    {
+      "index": 54,
+      "name": "reports unknown placeholders from the anchored assembly",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The placeholder '{Missing}' shall resolve to a Template Argument of the anchored Assembly.",
+          "range": [
+            [
+              4,
+              27
+            ],
+            [
+              4,
+              36
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 55,
+      "name": "reports when a reference upper bound is exceeded in a link base",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The Reference 'logger' of component path '/' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              4,
+              19
+            ],
+            [
+              4,
+              25
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The Reference 'logger' of component path '/' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              5,
+              19
+            ],
+            [
+              5,
+              25
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 56,
+      "name": "reports when an owner-prefixed source reference upper bound is exceeded in a link base",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The Reference 'backLogger' of component path '/Leaf' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              4,
+              19
+            ],
+            [
+              4,
+              34
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The Reference 'backLogger' of component path '/Leaf' shall not be connected more than 1 time(s).",
+          "range": [
+            [
+              5,
+              19
+            ],
+            [
+              5,
+              34
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 57,
+      "name": "rejects an event link owner path that selects no member",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The path shall resolve to a supported member of the current Component.",
+          "range": [
+            [
+              4,
+              15
+            ],
+            [
+              4,
+              16
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 58,
+      "name": "rejects parent traversal in component, owner, client, and source link paths",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              8
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              4,
+              17
+            ],
+            [
+              4,
+              26
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              4,
+              35
+            ],
+            [
+              4,
+              38
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              5,
+              19
+            ],
+            [
+              5,
+              28
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              5,
+              32
+            ],
+            [
+              5,
+              40
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The selected reference shall resolve to a Reference of the Client Component.",
+          "range": [
+            [
+              5,
+              41
+            ],
+            [
+              5,
+              51
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 59,
+      "name": "requires at least one component link base",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A Link Base shall contain at least one Component Link Base.",
+          "range": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 60,
+      "name": "requires anchored instance paths and at least one link per component link base",
+      "language": "xsmplnk",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The path segment 'logger' shall resolve to a child Model Instance or Assembly Instance.",
+          "range": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "A Component Link Base shall contain at least one Link.",
+          "range": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 61,
+      "name": "validates typed schedule paths, execute compatibility and honors unsafe",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A Schedule shall declare at least one String8 Template Argument for the root path.",
+          "range": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              8
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'enabled' shall resolve to a supported member of the current Component.",
+          "range": [
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              16
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'child' shall resolve to a supported member of the current Component.",
+          "range": [
+            [
+              6,
+              13
+            ],
+            [
+              6,
+              18
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'Child' shall resolve to a Field marked as Input of the current Component.",
+          "range": [
+            [
+              7,
+              25
+            ],
+            [
+              7,
+              30
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'missing' shall resolve to a supported member of the current Component.",
+          "range": [
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              16
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The root path shall resolve to a Component compatible with the execution context of task Worker.",
+          "range": [
+            [
+              9,
+              22
+            ],
+            [
+              9,
+              23
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 62,
+      "name": "does not treat container types or default components as child instances in typed schedule paths",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The path segment 'Child' shall resolve to a Field marked as Input of the current Component.",
+          "range": [
+            [
+              4,
+              25
+            ],
+            [
+              4,
+              30
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The path segment 'SpecializedChild' shall resolve to a Field marked as Input of the current Component.",
+          "range": [
+            [
+              5,
+              25
+            ],
+            [
+              5,
+              41
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 63,
+      "name": "resolves templated schedule paths with schedule defaults",
+      "language": "xsmpsed",
+      "diagnostics": []
+    },
+    {
+      "index": 64,
+      "name": "accepts templated task names as atomic schedule names",
+      "language": "xsmpsed",
+      "diagnostics": []
+    },
+    {
+      "index": 65,
+      "name": "rejects duplicate document names across document kinds",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Duplicated Document name.",
+          "range": [
+            [
+              0,
+              25
+            ],
+            [
+              0,
+              32
+            ]
+          ],
+          "relatedInformation": [
+            {
+              "uri": "file:///cases/src/assembly.xsmpasb",
+              "message": "DemoAsm",
+              "range": [
+                [
+                  0,
+                  24
+                ],
+                [
+                  0,
+                  31
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 66,
+      "name": "allows unsuffixed numeric values when the safe resolved target type is known",
+      "language": "xsmpsed",
+      "diagnostics": []
+    },
+    {
+      "index": 67,
+      "name": "reports unknown placeholders and invalid expanded schedule path segments",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The placeholder '{Missing}' shall resolve to a Template Argument of the enclosing Schedule.",
+          "range": [
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              18
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 68,
+      "name": "reports unknown placeholders and invalid expanded schedule path segments",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The expanded path segment '1bad' is not valid for SMP Level 2.",
+          "range": [
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              17
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 69,
+      "name": "warns when a schedule template parameter is not used",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 2,
+          "message": "The Template Parameter 'Unused' is not used.",
+          "range": [
+            [
+              0,
+              31
+            ],
+            [
+              0,
+              37
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 70,
+      "name": "accepts assembly execution contexts and resolves inherited template parameters in paths",
+      "language": "xsmpsed",
+      "diagnostics": []
+    },
+    {
+      "index": 71,
+      "name": "requires a root String8 parameter even when the schedule only uses task-scoped paths",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "A Schedule shall declare at least one String8 Template Argument for the root path.",
+          "range": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 72,
+      "name": "rejects parent traversal in schedule paths",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              4,
+              11
+            ],
+            [
+              4,
+              17
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Paths shall not contain '..'.",
+          "range": [
+            [
+              5,
+              22
+            ],
+            [
+              5,
+              30
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 73,
+      "name": "requires explicit schedule template values and unique names",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "Duplicated template argument name.",
+          "range": [
+            [
+              0,
+              24
+            ],
+            [
+              0,
+              28
+            ]
+          ]
+        },
+        {
+          "severity": 2,
+          "message": "The Template Parameter 'Lane' is not used.",
+          "range": [
+            [
+              0,
+              39
+            ],
+            [
+              0,
+              43
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "A template parameter needs a value.",
+          "range": [
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              22
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "A template parameter needs a value.",
+          "range": [
+            [
+              0,
+              39
+            ],
+            [
+              0,
+              50
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 74,
+      "name": "validates duplicate and unknown schedule operation parameters",
+      "language": "xsmpsed",
+      "diagnostics": [
+        {
+          "severity": 1,
+          "message": "The parameter 'missing' shall resolve to a Parameter of operation apply.",
+          "range": [
+            [
+              4,
+              51
+            ],
+            [
+              4,
+              65
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "Duplicated parameter name.",
+          "range": [
+            [
+              4,
+              33
+            ],
+            [
+              4,
+              49
+            ]
+          ]
+        },
+        {
+          "severity": 1,
+          "message": "The parameter 'nextRatio' of operation apply needs a value.",
+          "range": [
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              66
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

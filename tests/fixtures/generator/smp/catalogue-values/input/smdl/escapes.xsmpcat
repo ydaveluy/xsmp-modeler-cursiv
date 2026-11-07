@@ -1,0 +1,8 @@
+catalogue escapes
+namespace escapes
+{
+    /** @uuid 11111111-0000-4000-8000-000000000219 */
+    public interface I { def void f(in Smp.String8 a = "e\x7F\x01\\x01") }
+    /** @uuid 11111111-0000-4000-8000-00000000021a */
+    public struct S { constant Smp.Char8 k = '\0' field Smp.String8 s = "f\0" }
+}

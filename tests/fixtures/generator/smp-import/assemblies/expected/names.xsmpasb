@@ -1,0 +1,8 @@
+assembly <V = "A"> Names
+Sys{V}: n.M
+{
+    kids += Kid{V}: n.M
+    {
+    }
+    parts += Part{V}: PartOfM
+}

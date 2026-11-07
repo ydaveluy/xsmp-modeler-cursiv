@@ -1,0 +1,107 @@
+{
+  "hello-world/catalogue": {
+    "kind": "catalogue",
+    "label": "Catalogue",
+    "extension": ".xsmpcat",
+    "fileName": "hello-world.xsmpcat",
+    "content": "/**\n * Hello World catalogue.\n * @title Hello World Catalogue\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\ncatalogue hello_world_catalogue\n\nnamespace demo::hello_world\n{\n    /**\n     * Hello World model.\n     * @uuid ${uuid}\n     */\n    public model HelloWorld\n    {\n        entrypoint run\n\n        output field Smp.Bool ready\n        input field Smp.Bool enabled\n    }\n}\n"
+  },
+  "hello-world/configuration": {
+    "kind": "configuration",
+    "label": "Configuration",
+    "extension": ".xsmpcfg",
+    "fileName": "hello-world.xsmpcfg",
+    "content": "/**\n * Hello World configuration.\n * @title Hello World Configuration\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nconfiguration HelloWorldConfig\n\n/helloWorld: demo.hello_world.HelloWorld\n{\n}\n"
+  },
+  "hello-world/assembly": {
+    "kind": "assembly",
+    "label": "Assembly",
+    "extension": ".xsmpasb",
+    "fileName": "hello-world.xsmpasb",
+    "content": "/**\n * Hello World assembly.\n * @title Hello World Assembly\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nassembly HelloWorldAssembly\n\nhelloWorld: demo.hello_world.HelloWorld\n{\n}\n"
+  },
+  "hello-world/link-base": {
+    "kind": "link-base",
+    "label": "Link Base",
+    "extension": ".xsmplnk",
+    "fileName": "hello-world.xsmplnk",
+    "content": "/**\n * Hello World link base.\n * @title Hello World Link Base\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nlink HelloWorldLinks for HelloWorldAssembly\n\n/\n{\n    field link ready -> enabled\n}\n"
+  },
+  "hello-world/schedule": {
+    "kind": "schedule",
+    "label": "Schedule",
+    "extension": ".xsmpsed",
+    "fileName": "hello-world.xsmpsed",
+    "content": "/**\n * Hello World schedule.\n * @title Hello World Schedule\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nschedule <Root = \"helloWorld\"> HelloWorldSchedule\n\ntask Tick on demo.hello_world.HelloWorld\n{\n    trig run\n}\n\nevent Tick simulation \"PT1S\"\n"
+  },
+  "Spacecraft.configuration/catalogue": {
+    "kind": "catalogue",
+    "label": "Catalogue",
+    "extension": ".xsmpcat",
+    "fileName": "Spacecraft.configuration.xsmpcat",
+    "content": "/**\n * Hello World catalogue.\n * @title Hello World Catalogue\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\ncatalogue spacecraft_catalogue\n\nnamespace demo::spacecraft\n{\n    /**\n     * Hello World model.\n     * @uuid ${uuid}\n     */\n    public model Spacecraft\n    {\n        entrypoint run\n\n        output field Smp.Bool ready\n        input field Smp.Bool enabled\n    }\n}\n"
+  },
+  "Spacecraft.configuration/configuration": {
+    "kind": "configuration",
+    "label": "Configuration",
+    "extension": ".xsmpcfg",
+    "fileName": "Spacecraft.configuration.xsmpcfg",
+    "content": "/**\n * Hello World configuration.\n * @title Hello World Configuration\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nconfiguration SpacecraftConfig\n\n/spacecraft: demo.spacecraft.Spacecraft\n{\n}\n"
+  },
+  "Spacecraft.configuration/assembly": {
+    "kind": "assembly",
+    "label": "Assembly",
+    "extension": ".xsmpasb",
+    "fileName": "Spacecraft.configuration.xsmpasb",
+    "content": "/**\n * Hello World assembly.\n * @title Hello World Assembly\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nassembly SpacecraftAssembly\n\nspacecraft: demo.spacecraft.Spacecraft\n{\n}\n"
+  },
+  "Spacecraft.configuration/link-base": {
+    "kind": "link-base",
+    "label": "Link Base",
+    "extension": ".xsmplnk",
+    "fileName": "Spacecraft.configuration.xsmplnk",
+    "content": "/**\n * Hello World link base.\n * @title Hello World Link Base\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nlink SpacecraftLinks for SpacecraftAssembly\n\n/\n{\n    field link ready -> enabled\n}\n"
+  },
+  "Spacecraft.configuration/schedule": {
+    "kind": "schedule",
+    "label": "Schedule",
+    "extension": ".xsmpsed",
+    "fileName": "Spacecraft.configuration.xsmpsed",
+    "content": "/**\n * Hello World schedule.\n * @title Hello World Schedule\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nschedule <Root = \"spacecraft\"> SpacecraftSchedule\n\ntask Tick on demo.spacecraft.Spacecraft\n{\n    trig run\n}\n\nevent Tick simulation \"PT1S\"\n"
+  },
+  "MyModel_schedule/catalogue": {
+    "kind": "catalogue",
+    "label": "Catalogue",
+    "extension": ".xsmpcat",
+    "fileName": "MyModel_schedule.xsmpcat",
+    "content": "/**\n * Hello World catalogue.\n * @title Hello World Catalogue\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\ncatalogue mymodel_catalogue\n\nnamespace demo::mymodel\n{\n    /**\n     * Hello World model.\n     * @uuid ${uuid}\n     */\n    public model MyModel\n    {\n        entrypoint run\n\n        output field Smp.Bool ready\n        input field Smp.Bool enabled\n    }\n}\n"
+  },
+  "MyModel_schedule/configuration": {
+    "kind": "configuration",
+    "label": "Configuration",
+    "extension": ".xsmpcfg",
+    "fileName": "MyModel_schedule.xsmpcfg",
+    "content": "/**\n * Hello World configuration.\n * @title Hello World Configuration\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nconfiguration MyModelConfig\n\n/myModel: demo.mymodel.MyModel\n{\n}\n"
+  },
+  "MyModel_schedule/assembly": {
+    "kind": "assembly",
+    "label": "Assembly",
+    "extension": ".xsmpasb",
+    "fileName": "MyModel_schedule.xsmpasb",
+    "content": "/**\n * Hello World assembly.\n * @title Hello World Assembly\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nassembly MyModelAssembly\n\nmyModel: demo.mymodel.MyModel\n{\n}\n"
+  },
+  "MyModel_schedule/link-base": {
+    "kind": "link-base",
+    "label": "Link Base",
+    "extension": ".xsmplnk",
+    "fileName": "MyModel_schedule.xsmplnk",
+    "content": "/**\n * Hello World link base.\n * @title Hello World Link Base\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nlink MyModelLinks for MyModelAssembly\n\n/\n{\n    field link ready -> enabled\n}\n"
+  },
+  "MyModel_schedule/schedule": {
+    "kind": "schedule",
+    "label": "Schedule",
+    "extension": ".xsmpsed",
+    "fileName": "MyModel_schedule.xsmpsed",
+    "content": "/**\n * Hello World schedule.\n * @title Hello World Schedule\n * @creator alice\n * @date 2026-03-27T08:00:00Z\n */\nschedule <Root = \"myModel\"> MyModelSchedule\n\ntask Tick on demo.mymodel.MyModel\n{\n    trig run\n}\n\nevent Tick simulation \"PT1S\"\n"
+  }
+}

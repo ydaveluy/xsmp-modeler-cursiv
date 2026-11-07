@@ -1,0 +1,12 @@
+= Configuration ChildPreset
+
+++++
+Included configuration reused by DemoConfig.
+++++
+
+.ChildPreset's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Configuration
+.^h|Name |ChildPreset
+|===

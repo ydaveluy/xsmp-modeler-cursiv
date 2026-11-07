@@ -1,0 +1,12 @@
+catalogue nulls
+namespace nulls
+{
+    /** @uuid 11111111-0000-4000-8000-000000000218 */
+    public using Ref = Smp.Int32*
+    /** @uuid 11111111-0000-4000-8000-000000000215 */
+    public struct S { field Ref a = nullptr }
+    /** @uuid 11111111-0000-4000-8000-000000000216 */
+    public struct T { field S s = {.a = nullptr} }
+    /** @uuid 11111111-0000-4000-8000-000000000217 */
+    public interface I { def void f(in Ref p = nullptr) }
+}

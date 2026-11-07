@@ -1,0 +1,35 @@
+/** Nominal configuration applied to one orbital-segment assembly. */
+configuration OrbitalNominal
+/** Root orbital-platform instance provided by the assembly context. */
+/OrbitalPlatform: OrbitalSegment
+{
+    /** Starts the platform in nominal mission mode. */
+    missionMode = demo.foundation.Mode.Nominal
+    /** Seeds a representative thermal state for the orbital segment. */
+    thermal = {
+        /** Measured platform temperature. */
+        sensor = 15.0,
+        /** Requested platform temperature. */
+        target = 18.0,
+        /** Initial heater level. */
+        heater = 12,
+        /** Enables the thermal loop. */
+        enabled = true
+    }
+    /** Reuses the nominal avionics configuration on the assembly-provided avionics instance. */
+    include AvionicsNominal at AvionicsUnit
+    /** Overrides the assembly-provided power router. */
+    PowerRouter
+    {
+        /** Injects a nominal incoming bus voltage. */
+        incomingBus = 28.0
+        /** Starts with a matching distributed voltage. */
+        distributedBus = 28.0
+    }
+    /** Overrides the assembly-provided segment logger. */
+    SegmentLogger
+    {
+        /** Seeds the logger with a readiness message. */
+        lastMessage = "orbital ready"
+    }
+}

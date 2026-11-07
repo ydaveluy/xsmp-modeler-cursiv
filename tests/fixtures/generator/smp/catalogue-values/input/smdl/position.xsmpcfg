@@ -1,0 +1,2 @@
+configuration position_values
+/Root: demo.M { q = {1i32, 2.5f64} r = {b = 2.5f64, 1i32, 3i32} }

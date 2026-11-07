@@ -1,0 +1,2 @@
+assembly <Root = "main"> wiring
+Root: "demo::Root" { child += Child: "demo::Child" field link output -> Child.input subscribe step -> "Start" }

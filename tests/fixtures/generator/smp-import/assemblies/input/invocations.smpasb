@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Assembly:Assembly xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="Invocations" Name="Invocations">
+  <ComponentConfiguration InstancePath=".">
+    <Invocation xsi:type="Assembly:OperationCall" Operation="bootstrap">
+      <Parameter Parameter="count">
+        <Value xsi:type="Types:Int32Value" Value="1"/>
+      </Parameter>
+    </Invocation>
+    <Invocation xsi:type="Assembly:PropertyValue" Property="mode">
+      <Value xsi:type="Types:String8Value" Value="safe"/>
+    </Invocation>
+    <Invocation xsi:type="Assembly:CustomInvocation"/>
+    <GlobalEventHandler EntryPointName="Start" GlobalEventName="Boot"/>
+    <FieldValue xsi:type="Types:BoolValue" Value="true" Field="enabled"/>
+  </ComponentConfiguration>
+  <Model Name="Root">
+    <Assembly Container="child" Name="Child" Assembly="missing/dep.smpasb" Configuration="configs/cfg.smpcfg" LinkBase="links/demo.smplnk">
+      <Argument Name="count" xsi:type="Assembly:Int32Argument" Value="2"/>
+      <Argument Name="mode" xsi:type="Assembly:StringArgument" Value="safe"/>
+      <ModelConfiguration InstancePath="child">
+        <Invocation xsi:type="Assembly:PropertyValue" Property="mode">
+          <Value xsi:type="Types:String8Value" Value="warmup"/>
+        </Invocation>
+      </ModelConfiguration>
+    </Assembly>
+    <Model Container="child" Name="Leaf" Implementation="demo::Leaf">
+      <GlobalEventHandler EntryPointName="OnTick" GlobalEventName="Tick"/>
+    </Model>
+  </Model>
+</Assembly:Assembly>

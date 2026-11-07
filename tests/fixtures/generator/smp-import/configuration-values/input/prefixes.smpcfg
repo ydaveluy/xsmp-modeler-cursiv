@@ -1,0 +1,8 @@
+<C:Configuration xmlns:C="urn:custom/Configuration" xmlns:T="urn:types" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" Name="Prefixes">
+  <Component Path="/Root">
+    <FieldValue i:type="T:Int32ArrayValue" Field="items">
+      <ItemValue Value="7"/>
+      <ItemValue Value="9"/>
+    </FieldValue>
+  </Component>
+</C:Configuration>

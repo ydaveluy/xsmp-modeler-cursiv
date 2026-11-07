@@ -1,0 +1,45 @@
+catalogue Components
+
+namespace n
+{
+    /**
+     * @id n.Model
+     * @uuid 11111111-0000-4000-8000-000000000617
+     */
+    public model Model
+    {
+        /**
+         * @id n.Model.child
+         */
+        container Model child
+    }
+    /**
+     * @id n.M
+     * @uuid 11111111-0000-4000-8000-000000000618
+     */
+    public model M
+    {
+        /**
+         * @id n.M.kids
+         */
+        container M kids
+        /**
+         * @id n.M.parts
+         */
+        container M parts
+    }
+}
+namespace demo
+{
+    /**
+     * @id demo.Root
+     * @uuid 11111111-0000-4000-8000-000000000619
+     */
+    public model Root
+    {
+        /**
+         * @id demo.Root.child
+         */
+        container Root child
+    }
+}

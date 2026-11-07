@@ -1,0 +1,217 @@
+[
+  {
+    "arguments": [
+      "xsmpproject",
+      "tool"
+    ],
+    "expected": {
+      "page": "languages/xsmpproject.md",
+      "anchor": "tool"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpasb",
+      "assembly"
+    ],
+    "expected": {
+      "page": "languages/xsmpasb.md",
+      "anchor": "root-structure"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpcat",
+      "readOnly"
+    ],
+    "expected": {
+      "page": "languages/xsmpcat.md",
+      "anchor": "property"
+    }
+  },
+  {
+    "arguments": [
+      "xsmplnk",
+      "interface"
+    ],
+    "expected": {
+      "page": "languages/xsmplnk.md",
+      "anchor": "interface-link"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "simulation"
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "simulation-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmplnk",
+      "link",
+      "event link publishedMode -> sink"
+    ],
+    "expected": {
+      "page": "languages/xsmplnk.md",
+      "anchor": "event-link"
+    }
+  },
+  {
+    "arguments": [
+      "xsmplnk",
+      "link",
+      "link OrbitalLinks for OrbitalSegment"
+    ],
+    "expected": {
+      "page": "languages/xsmplnk.md",
+      "anchor": "root-structure"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "event",
+      "event Bootstrap mission \"PT10S\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "mission-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "event",
+      "event Bootstrap epoch \"2026-03-28T10:00:00Z\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "epoch-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "event",
+      "event Bootstrap simulation \"PT10S\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "simulation-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "repeat",
+      "event Bootstrap zulu \"2026-03-28T10:00:00Z\" repeat \"PT1M\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "zulu-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "repeat",
+      "event Dispatch on \"Ready\" repeat \"PT1M\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "global-event-triggered-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "on",
+      "task Bootstrap on demo.orbit.Platform"
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "tasks"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "on",
+      "event Dispatch on \"Ready\" until \"PT5S\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "global-event-triggered-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "using",
+      "event Dispatch on \"Ready\" using mission delay \"PT5S\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "global-event-triggered-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "until",
+      "event Dispatch on \"Ready\" until mission \"PT5S\""
+    ],
+    "expected": {
+      "page": "languages/xsmpsed.md",
+      "anchor": "global-event-triggered-event"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpasb",
+      "link",
+      "interface link logger -> payload:backLogger"
+    ],
+    "expected": {
+      "page": "languages/xsmpasb.md",
+      "anchor": "interface-link"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpasb",
+      "using",
+      "payload += PayloadA: PayloadSegment using config PayloadCfg using link PayloadLinks"
+    ],
+    "expected": {
+      "page": "languages/xsmpasb.md",
+      "anchor": "sub-assembly-instances"
+    }
+  },
+  {
+    "arguments": [
+      "xsmpcfg",
+      "assembly"
+    ],
+    "expected": null
+  },
+  {
+    "arguments": [
+      "unknown",
+      "project"
+    ],
+    "expected": null
+  },
+  {
+    "arguments": [
+      "xsmpsed",
+      "later",
+      "task Bootstrap call demo.orbit.Platform.step"
+    ],
+    "expected": null
+  }
+]

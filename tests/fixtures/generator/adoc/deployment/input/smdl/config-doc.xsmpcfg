@@ -1,0 +1,25 @@
+/**
+ * Root configuration for the demo system.
+ * @title Demo Configuration
+ * @creator test-suite
+ * @date 2026-03-27T08:05:00Z
+ * @version 1.0
+ */
+configuration DemoConfig
+
+/** Root component configuration. */
+/root: demo.Root
+{
+    /** Shared child calibration. */
+    include ChildPreset at child
+    /** Complex structured state. */
+    state = { nested = { count = 3 }, enabled = true, values = [1, 2] }
+    /** Direct field override. */
+    countState = 4
+    /** Nested child configuration. */
+    child: demo.Child
+    {
+        /** Output seed. */
+        outValue = 7
+    }
+}

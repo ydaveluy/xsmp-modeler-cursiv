@@ -1,0 +1,6 @@
+<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Floats">
+  <Component Path="/m">
+    <FieldValue Field="a" xsi:type="Types:Float64Value" Value="-1.5"/>
+    <FieldValue Field="b" xsi:type="Types:Float32Value" Value="+2.5e3"/>
+  </Component>
+</Configuration>

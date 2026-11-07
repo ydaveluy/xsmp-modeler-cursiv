@@ -1,0 +1,33 @@
+/**
+ * @id references
+ */
+catalogue References
+
+namespace references
+{
+    /**
+     * @id references.IBus
+     * @uuid 11111111-0000-4000-8000-000000000601
+     */
+    interface IBus
+    {
+    }
+    /**
+     * @id references.Child
+     * @uuid 11111111-0000-4000-8000-000000000602
+     */
+    model Child
+    {
+    }
+    /**
+     * @id references.Root
+     * @uuid 11111111-0000-4000-8000-000000000603
+     */
+    model Root
+    {
+        /**
+         * @id references.Root.childRef
+         */
+        reference Child childRef
+    }
+}

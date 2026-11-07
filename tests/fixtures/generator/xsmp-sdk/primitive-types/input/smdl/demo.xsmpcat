@@ -1,0 +1,67 @@
+catalogue demo
+namespace n
+{
+    /**
+     * @uuid 11111111-0000-4000-8000-00000000001b
+     * @type std::uint32_t
+     * @location cstdint
+     */
+    native NT
+
+    /**
+     * @uuid 11111111-0000-4000-8000-00000000001c
+     * @type string
+     * @namespace std
+     * @location string
+     */
+    native Prefixed
+
+    /**
+     * A percentage.
+     * @uuid 11111111-2222-3333-4444-555555555555
+     * @unit %
+     */
+    integer Pct in 0 ... 100
+
+    // Without bounds, the limits of the type.
+    /** @uuid 11111111-0000-4000-8000-000000000011 */
+    integer Any
+
+    // Bounds above the largest Int64 are clamped.
+    /** @uuid 11111111-0000-4000-8000-000000000012 */
+    public integer Whole extends Smp.UInt64
+    /** @uuid 11111111-0000-4000-8000-000000000013 */
+    public integer Written extends Smp.UInt64 in 0 ... 18446744073709551615
+    /** @uuid 11111111-0000-4000-8000-000000000014 */
+    public integer Small extends Smp.UInt64 in 0 ... 100
+    /** @uuid 11111111-0000-4000-8000-000000000015 */
+    public integer Narrow extends Smp.UInt32
+
+    /**
+     * @unit kg\m"s
+     * @uuid 11111111-0000-4000-8000-000000000016
+     */
+    public integer Count
+
+    /** @uuid 11111111-0000-4000-8000-000000000017 */
+    float Ratio in 0.0 <.. 1.0
+
+    /**
+     * @unit kg\m"s
+     * @uuid 11111111-0000-4000-8000-000000000018
+     */
+    public float Hostile
+
+    /**
+     * A short label.
+     * @uuid 11111111-0000-4000-8000-000000000019
+     */
+    string Label[16]
+
+    /** @uuid 11111111-0000-4000-8000-00000000001a */
+    integer Foo
+
+    // A plain pointer alias, with no source file.
+    /** @uuid 22222222-3333-4444-5555-666666666666 */
+    using Ref = Foo*
+}

@@ -1,0 +1,8 @@
+assembly Unknown
+configure .
+{
+    /* unsupported invocation */
+}
+Root: "__missing__"
+{
+}

@@ -1,0 +1,35 @@
+= Configuration Cells
+
+
+.Cells's information
+[%autowidth.stretch]
+|===
+.^h|Kind |Configuration
+.^h|Name |Cells
+|===
+
+== Component Configurations
+
+=== Component /Root
+
+
+.Component /Root's information
+[%autowidth.stretch]
+|===
+.^h|Path |/Root
+|===
+
+==== Field Values
+
+.Field Values
+[%autowidth.stretch]
+|===
+|Field |Value
+
+|a
+|[1: 1, 2]
+|b
+|[3]
+|c
+|[4]
+|===

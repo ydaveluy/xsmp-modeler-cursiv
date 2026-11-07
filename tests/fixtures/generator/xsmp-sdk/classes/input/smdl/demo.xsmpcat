@@ -1,0 +1,40 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000041 */
+    class Base
+    {
+        constant Smp.Int32 K = 7
+        field Smp.Int32 x
+        def void doIt()
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000042 */
+    class Derived extends Base
+    {
+    }
+
+    // Written before its base, and still registered after it.
+    /** @uuid 11111111-0000-4000-8000-000000000043 */
+    class Late extends Early
+    {
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000044 */
+    class Early
+    {
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000045 */
+    class Sensor
+    {
+        field Smp.Float64 raw
+        property Smp.Float64 Value -> raw
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000046 */
+    exception InvalidMode
+    {
+        field Smp.String8 reason
+    }
+}

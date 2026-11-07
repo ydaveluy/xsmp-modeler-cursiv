@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Catalogue:Catalogue xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:Types="http://www.ecss.nl/smp/2019/Core/Types" xmlns:Catalogue="http://www.ecss.nl/smp/2019/Smdl/Catalogue" xmlns:Configuration="http://www.ecss.nl/smp/2019/Smdl/Configuration" xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Assembly="http://www.ecss.nl/smp/2025/Smdl/Assembly" xmlns:Schedule="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="_modes" Name="modes">
+  <Namespace Id="n" Name="n">
+    <Type Id="n.Mode" Name="Mode" xsi:type="Types:Enumeration" Uuid="11111111-0000-4000-8000-000000000231" Visibility="public">
+      <Literal Id="n.Mode.Off" Name="Off" Value="0" />
+      <Literal Id="n.Mode.On" Name="On" Value="1" />
+    </Type>
+    <Type Id="n.Root" Name="Root" xsi:type="Catalogue:Model" Uuid="11111111-0000-4000-8000-000000000232" Visibility="public">
+      <Field Id="n.Root.mode" Name="mode">
+        <Type xlink:title="Mode" xlink:href="#n.Mode" />
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue:Catalogue>

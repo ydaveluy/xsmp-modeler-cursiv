@@ -1,0 +1,25 @@
+catalogue Numeric
+
+namespace numeric
+{
+    /**
+     * @id numeric.Root
+     * @uuid 11111111-0000-4000-8000-00000000060f
+     */
+    abstract model Root
+    {
+        input transient field Smp.Bool enabled = true
+    }
+    /**
+     * @id numeric.Pointer
+     * @uuid 11111111-0000-4000-8000-000000000610
+     */
+    public using Pointer = Smp.Int32*
+    /**
+     * @uuid 11111111-0000-4000-8000-000000000611
+     */
+    struct Holder
+    {
+        field Pointer target = nullptr
+    }
+}

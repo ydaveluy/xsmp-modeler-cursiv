@@ -1,0 +1,13 @@
+catalogue Values
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000321 */
+    public struct S
+    {
+        constant Smp.String8 a = "{()}<~#$>"
+        constant Smp.String8 b = "\0\a\x01\t￾|"
+        constant Smp.Char8 c = '\''
+        constant Smp.Char8 d = '"'
+        field Smp.Char8 e = '\x01'
+    }
+}

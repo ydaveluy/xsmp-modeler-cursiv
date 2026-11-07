@@ -1,0 +1,13 @@
+<Schedule xmlns="urn:custom/Schedule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Docs">
+  <Parameter Name="Root" xsi:type="Assembly:StringArgument" Value="R"/>
+  <Task Id="Docs.T" Name="T">
+    <Activity xsi:type="Schedule:Trigger" Id="Docs.T.A">
+      <Description>Activity doc.</Description>
+      <EntryPoint>step</EntryPoint>
+    </Activity>
+  </Task>
+  <Event xsi:type="Schedule:SimulationEvent" Id="Docs.E" SimulationTime="PT1S">
+    <Description>Event doc.</Description>
+    <Task xlink:href="#Docs.T"/>
+  </Event>
+</Schedule>

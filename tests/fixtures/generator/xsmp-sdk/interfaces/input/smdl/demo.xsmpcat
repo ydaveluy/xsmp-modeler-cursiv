@@ -1,0 +1,25 @@
+catalogue demo
+namespace n
+{
+    /** @uuid 11111111-0000-4000-8000-000000000051 */
+    interface ICommandable
+    {
+        property Smp.Int32 Mode
+        def void apply(in Smp.Int32 requestedMode)
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000052 */
+    interface IA
+    {
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000053 */
+    interface IB
+    {
+    }
+
+    /** @uuid 11111111-0000-4000-8000-000000000054 */
+    interface IAB extends IA, IB
+    {
+    }
+}

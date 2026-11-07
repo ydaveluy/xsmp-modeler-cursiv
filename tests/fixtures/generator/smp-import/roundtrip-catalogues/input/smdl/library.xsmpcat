@@ -1,0 +1,6 @@
+catalogue library
+namespace lib
+{
+    /** @uuid 11111111-0000-4000-8000-000000000701 */
+    public model M { reference Smp.Services.ILogger log }
+}

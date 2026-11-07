@@ -1,0 +1,557 @@
+{
+  "cases": [
+    {
+      "name": "supports definition and hover on typed assembly paths #0",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-0/src/demo.xsmpasb",
+      "text": "assembly Demo\n\nconfigure Child\n{\n    co<|>unt = 1i32\n}\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-0/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-0/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child count */\n        field Smp.Int32 count\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-0/src/demo.xsmpcat",
+          "name": "count"
+        }
+      ]
+    },
+    {
+      "name": "supports definition on typed link base paths and avoids false links without anchors #1",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-1/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n\n/\n{\n    field link outValue -> Child.in<|>Value\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-1/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-1/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child input */\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n    }\n\n    public model Root\n    {\n        output field Smp.Int32 outValue\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-1/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-1/src/demo.xsmpcat",
+          "name": "inValue"
+        }
+      ]
+    },
+    {
+      "name": "supports definition on typed link base paths and avoids false links without anchors #2",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-2/src/demo.xsmplnk",
+      "text": "link Demo\n\nLoose\n{\n    field link out<|>Value -> inValue\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-2/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-2/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child input */\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n    }\n\n    public model Root\n    {\n        output field Smp.Int32 outValue\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "supports template parameter navigation inside templated link-base paths #3",
+      "language": "xsmplnk",
+      "uri": "file:///navigation/case-3/src/demo.xsmplnk",
+      "text": "link Demo for DemoAsm\n\n/\n{\n    field link outValue -> Child{La<|>ne}.inValue\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-3/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-3/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child input */\n        input field Smp.Int32 inValue\n        output field Smp.Int32 outValue\n    }\n\n    public model Root\n    {\n        output field Smp.Int32 outValue\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-3/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\n\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-3/src/demo.xsmpasb",
+          "name": "Lane"
+        }
+      ]
+    },
+    {
+      "name": "supports definition and hover on typed schedule paths #4",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-4/src/demo.xsmpsed",
+      "text": "schedule Demo\n\ntask Main on DemoAsm\n{\n    call Child.re<|>set()\n    execute Worker at Child\n}\n\ntask Worker on demo.Child\n{\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-4/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-4/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-4/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-4/src/demo.xsmpcat",
+          "name": "reset"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation and concretized definition on templated schedule paths #5",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-5/src/demo.xsmpsed",
+      "text": "schedule <Target = \"Child\", Tail = \"set\"> Demo\n\ntask Main on DemoAsm\n{\n    call {T<|>arget}.re{Tail}()\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-5/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-5/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-5/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-5/src/demo.xsmpsed",
+          "name": "Target"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation and concretized definition on templated schedule paths #6",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-6/src/demo.xsmpsed",
+      "text": "schedule <Target = \"Child\", Tail = \"set\"> Demo\n\ntask Main on DemoAsm\n{\n    call {Target}.r<|>e{Tail}()\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-6/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-6/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-6/src/demo.xsmpasb",
+          "text": "assembly DemoAsm\n\nRoot: demo.Root\n{\n    child += Child: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-6/src/demo.xsmpcat",
+          "name": "reset"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation inside templated schedule task names #7",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-7/src/demo.xsmpsed",
+      "text": "schedule <Lane = \"Ops\"> Demo\n\ntask Task{<|>Lane} on demo.Root\n{\n    call reset()\n}\n\nevent Task{Lane} mission \"PT1S\"\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-7/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-7/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-7/src/demo.xsmpsed",
+          "name": "Lane"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation inside templated schedule task names #8",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-8/src/demo.xsmpsed",
+      "text": "schedule <Lane = \"Ops\"> Demo\n\ntask Task{Lane} on demo.Root\n{\n    call reset()\n}\n\nevent Task{<|>Lane} mission \"PT1S\"\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-8/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-8/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-8/src/demo.xsmpsed",
+          "name": "Lane"
+        }
+      ]
+    },
+    {
+      "name": "supports definition on templated instance names inherited from an assembly context #9",
+      "language": "xsmpsed",
+      "uri": "file:///navigation/case-9/src/demo.xsmpsed",
+      "text": "schedule Demo\n\ntask Main on DemoAsm\n{\n    call Chi<|>ld{Lane}.reset()\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-9/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-9/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child reset */\n        public def void reset()\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-9/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\n\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-9/src/demo.xsmpasb",
+          "name": "Child{Lane}"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation inside templated instance names #10",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-10/src/demo.xsmpasb",
+      "text": "assembly <Index = 1, Suffix = \"Tail\"> Demo\n\nRoot: demo.Root\n{\n    child += Unit{I<|>ndex}_{Suffix}: demo.Child\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-10/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-10/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child count */\n        field Smp.Int32 count\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-10/src/demo.xsmpasb",
+          "name": "Index"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation inside templated instance names #11",
+      "language": "xsmpasb",
+      "uri": "file:///navigation/case-11/src/demo.xsmpasb",
+      "text": "assembly <Index = 1, Suffix = \"Tail\"> Demo\n\nRoot: demo.Root\n{\n    child += Unit{Index}_{S<|>uffix}: demo.Child\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-11/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-11/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        /** child count */\n        field Smp.Int32 count\n    }\n\n    public model Root\n    {\n        container Child child = demo.Child\n    }\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-11/src/demo.xsmpasb",
+          "name": "Suffix"
+        }
+      ]
+    },
+    {
+      "name": "supports hover and definition on typed field path segments #12",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-12/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state.co<|>unt = 1i32\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-12/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-12/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        /** count field */\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-12/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-12/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-12/src/demo.xsmpcat",
+          "name": "count"
+        }
+      ]
+    },
+    {
+      "name": "supports hover and definition on typed cfg structure field references #13",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-13/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state = {\n        co<|>unt = 1i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-13/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-13/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public struct Counters\n    {\n        /** count field */\n        field Smp.Int32 count\n        field Smp.Bool enabled\n    }\n\n    public model Root\n    {\n        field Counters state\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-13/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-13/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-13/src/demo.xsmpcat",
+          "name": "count"
+        }
+      ]
+    },
+    {
+      "name": "keeps cfg structure field references in text mode when unsafe or untyped #14",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-14/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    state = {\n        unsafe co<|>unt = 1i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-14/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-14/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-14/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-14/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "keeps cfg structure field references in text mode when unsafe or untyped #15",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-15/src/demo.xsmpcfg",
+      "text": "configuration Legacy\n/Root\n{\n    state = {\n        co<|>unt = 1i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-15/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-15/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-15/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-15/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "does not resolve component-backed component configuration names to containers #16",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-16/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    chi<|>ld\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-16/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-16/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        /** child container */\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-16/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-16/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "does not resolve component-backed include paths to containers #17",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-17/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    include Other at chi<|>ld\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-17/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-17/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        /** child container */\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-17/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-17/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "keeps absolute root names in text mode #18",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-18/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/<|>Root: demo.Root\n{\n    flag = true\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-18/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-18/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public model Root\n    {\n        field Smp.Bool flag\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-18/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-18/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "does not resolve typed nested component configuration names to containers in component-backed contexts #19",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-19/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: demo.Root\n{\n    ch<|>ild: demo.Child\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-19/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-19/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-19/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-19/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": []
+    },
+    {
+      "name": "supports definition on assembly-backed component configuration names using inherited template parameters #20",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-20/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: DemoAsm\n{\n    Chi<|>ld{Lane}\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-20/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-20/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-20/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-20/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-20/src/demo.xsmpasb",
+          "name": "Child{Lane}"
+        }
+      ]
+    },
+    {
+      "name": "supports template parameter navigation inside assembly-backed configuration paths #21",
+      "language": "xsmpcfg",
+      "uri": "file:///navigation/case-21/src/demo.xsmpcfg",
+      "text": "configuration Demo\n/Root: DemoAsm\n{\n    Child{La<|>ne}\n    {\n        value = 2i32\n    }\n}\n",
+      "documents": [
+        {
+          "uri": "file:///navigation/case-21/xsmp.project",
+          "text": "project \"Demo\" using \"ECSS_SMP_2025\"\nsource \"src\"\n"
+        },
+        {
+          "uri": "file:///navigation/case-21/src/demo.xsmpcat",
+          "text": "catalogue Demo\n\nnamespace demo\n{\n    public array IntPair = Smp.Int32[2]\n\n    public struct Counters\n    {\n        field Smp.Int32 count\n        field Smp.Bool enabled\n        field IntPair values\n    }\n\n    public model Child\n    {\n        field Smp.Int32 value\n    }\n\n    public model Root\n    {\n        field Counters state\n        field Smp.Bool flag\n        container Child child\n    }\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-21/src/demo.xsmpasb",
+          "text": "assembly <Lane = \"Ops\"> DemoAsm\nRoot: demo.Root\n{\n    child += Child{Lane}: demo.Child\n}\n"
+        },
+        {
+          "uri": "file:///navigation/case-21/src/other.xsmpcfg",
+          "text": "configuration Other\n/Other\n{\n}\n"
+        }
+      ],
+      "targets": [
+        {
+          "uri": "file:///navigation/case-21/src/demo.xsmpasb",
+          "name": "Lane"
+        }
+      ]
+    }
+  ]
+}

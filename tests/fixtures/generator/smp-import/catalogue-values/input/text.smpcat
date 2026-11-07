@@ -1,0 +1,14 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Texts">
+  <Namespace Name="texts">
+    <Type xsi:type="Types:Structure" Name="S" Uuid="11111111-0000-4000-8000-000000000615">
+      <Field Name="a">
+        <Type xlink:href="#Smp.String8"/>
+        <Default xsi:type="Types:String8Value" Value="say &quot;hi&quot;&#10;C:\tmp&#9;'"/>
+      </Field>
+      <Field Name="b">
+        <Type xlink:href="#Smp.Char8"/>
+        <Default xsi:type="Types:Char8Value" Value="'"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue>

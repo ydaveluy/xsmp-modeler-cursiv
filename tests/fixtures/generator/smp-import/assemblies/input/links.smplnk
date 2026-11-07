@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinkBase:LinkBase xmlns:LinkBase="http://www.ecss.nl/smp/2025/Smdl/LinkBase" xmlns:Elements="http://www.ecss.nl/smp/2019/Core/Elements" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Id="lnk" Name="ImportedLinks"><Component Path="/"><Link xsi:type="LinkBase:FieldLink"><OwnerPath>out</OwnerPath><ClientPath>in</ClientPath></Link></Component></LinkBase:LinkBase>

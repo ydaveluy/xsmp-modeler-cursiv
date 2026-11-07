@@ -1,0 +1,10 @@
+<Catalogue xmlns="urn:custom/Catalogue" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" Name="Numbers">
+  <Namespace Name="numbers">
+    <Type xsi:type="Catalogue:Model" Name="M" Uuid="11111111-0000-4000-8000-000000000616">
+      <Field Name="x">
+        <Type xlink:href="#Smp.Float64"/>
+        <Default xsi:type="Types:Float64Value" Value="-INF"/>
+      </Field>
+    </Type>
+  </Namespace>
+</Catalogue>

@@ -1,0 +1,19 @@
+/**
+ * Demo link base for the root model wiring.
+ * @title Demo Link Base
+ * @creator test-suite
+ * @date 2026-03-27T08:15:00Z
+ * @version 1.0
+ */
+link DemoLinks for DemoAssembly
+
+/** Root link definitions. */
+/
+{
+    /** Output field routing. */
+    field link outValue -> Child.inValue
+    /** Event propagation. */
+    event link outbound -> Child.inbound
+    /** Logger publication. */
+    interface link logger -> Child:backLogger
+}

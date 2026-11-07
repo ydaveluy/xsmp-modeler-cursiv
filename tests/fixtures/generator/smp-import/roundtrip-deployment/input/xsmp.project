@@ -1,0 +1,2 @@
+project 'roundtrip-deployment' using 'ECSS_SMP_2025'
+source 'smdl'

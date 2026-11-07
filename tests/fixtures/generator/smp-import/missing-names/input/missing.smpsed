@@ -1,0 +1,8 @@
+<Schedule xmlns="http://www.ecss.nl/smp/2025/Smdl/Schedule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Task>
+    <Activity xsi:type="Schedule:Trigger"/>
+    <Activity xsi:type="Schedule:EmitGlobalEvent">
+      <synchronous>0</synchronous>
+    </Activity>
+  </Task>
+</Schedule>
