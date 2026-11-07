@@ -174,10 +174,15 @@ void importTree(const path& from, const path& to, std::string_view label,
     if (const auto found = expectedWarnings().find(name);
         found != expectedWarnings().end())
       expected = found->second;
+    // A warning names a file by its path on the system, with its separators.
     for (auto& warning : expected)
-      for (auto at = warning.find("__ROOT__"); at != warning.npos;
-           at = warning.find("__ROOT__", at + root.string().size()))
-        warning.replace(at, 8, root.string());
+      for (auto at = warning.find("__ROOT__/"); at != warning.npos;
+           at = warning.find("__ROOT__/", at)) {
+        const auto end = warning.find('\'', at);
+        const auto file =
+            (root / warning.substr(at + 9, end - at - 9)).make_preferred();
+        warning.replace(at, end - at, file.string());
+      }
     EXPECT_EQ(imported.warnings, expected) << name;
   }
 }
