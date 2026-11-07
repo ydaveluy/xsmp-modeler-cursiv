@@ -21,7 +21,7 @@ class XsmpcatCompletionProvider final
   }
 
   ::lsp::CompletionList getCompletion(
-      const cursiv::Document&, ::lsp::Position,
+      const cursiv::Document&, const ::lsp::CompletionParams&,
       const cursiv::CancellationToken& = {}) const override;
 
  protected:

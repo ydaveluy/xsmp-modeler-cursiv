@@ -18,7 +18,7 @@ class XsmpprojectCompletionProvider final
  public:
   using DefaultCompletionProvider::DefaultCompletionProvider;
   ::lsp::CompletionList getCompletion(
-      const cursiv::Document& document, ::lsp::Position position,
+      const cursiv::Document& document, const ::lsp::CompletionParams& params,
       const cursiv::CancellationToken& token = {}) const override;
 
  protected:

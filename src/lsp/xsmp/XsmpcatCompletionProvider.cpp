@@ -660,18 +660,17 @@ std::vector<::lsp::CompletionItem> XsmpcatCompletionProvider::deduplicateItems(
 }
 
 ::lsp::CompletionList XsmpcatCompletionProvider::getCompletion(
-    const cursiv::Document& document, ::lsp::Position position,
+    const cursiv::Document& document, const ::lsp::CompletionParams& params,
     const cursiv::CancellationToken& token) const {
-  auto list =
-      DefaultCompletionProvider::getCompletion(document, position, token);
+  auto list = DefaultCompletionProvider::getCompletion(document, params, token);
   std::ranges::stable_sort(list.items, {}, [](const auto& item) {
     return item.sortText.value_or(item.label);
   });
 
-  const auto offset =
-      std::min(document.textDocument().offsetAt(cursiv::from_lsp(position)),
-               static_cast<cursiv::TextOffset>(
-                   document.textDocument().getText().size()));
+  const auto offset = std::min(
+      document.textDocument().offsetAt(cursiv::from_lsp(params.position)),
+      static_cast<cursiv::TextOffset>(
+          document.textDocument().getText().size()));
 
   // Right after the `=` of a field or a constant, wherever the caret is on the
   // lines after, a value is offered. Inside a token there is none to offer.

@@ -115,10 +115,9 @@ std::set<std::string> XsmpprojectCompletionProvider::used(
 }
 
 ::lsp::CompletionList XsmpprojectCompletionProvider::getCompletion(
-    const cursiv::Document& document, ::lsp::Position position,
+    const cursiv::Document& document, const ::lsp::CompletionParams& params,
     const cursiv::CancellationToken& token) const {
-  auto list =
-      DefaultCompletionProvider::getCompletion(document, position, token);
+  auto list = DefaultCompletionProvider::getCompletion(document, params, token);
   std::ranges::stable_sort(list.items, {}, [](const auto& i) {
     return i.sortText.value_or(i.label);
   });

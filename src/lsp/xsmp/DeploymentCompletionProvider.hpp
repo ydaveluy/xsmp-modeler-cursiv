@@ -19,7 +19,7 @@ class DeploymentCompletionProvider : public cursiv::DefaultCompletionProvider {
  public:
   using DefaultCompletionProvider::DefaultCompletionProvider;
   ::lsp::CompletionList getCompletion(
-      const cursiv::Document&, ::lsp::Position,
+      const cursiv::Document&, const ::lsp::CompletionParams&,
       const cursiv::CancellationToken& = {}) const override;
 
   cursiv::CompletionProviderOptions completionOptions() const override {
