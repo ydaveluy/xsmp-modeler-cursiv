@@ -153,6 +153,16 @@ TEST(SourceUri, VirtualUrisHaveOneSpelling) {
            {"xsmp:///virtual/a%23b%3Fc%25d%2540.xsmpcat",
             "xsmp:/virtual/a%23b%3Fc%25d%2540.xsmpcat"},
            {"xsmp-smp:///model%23%3F%25.smpcat",
-            "xsmp-smp:/model%23%3F%25.smpcat"}})
+            "xsmp-smp:/model%23%3F%25.smpcat"},
+           // A Windows path: the drive letter goes to lower case, and the
+           // separators stay `/` on every system.
+           {"xsmp-smp:///C:/work/model.smpcat",
+            "xsmp-smp:/c%3A/work/model.smpcat"},
+           {"xsmp-smp://localhost/c%3A/work/model.smpcat",
+            "xsmp-smp:/c%3A/work/model.smpcat"},
+           {"xsmp-smp://server/work/model.smpcat",
+            "xsmp-smp://server/work/model.smpcat"}})
     EXPECT_EQ(xsmp::canonicalVirtualUri(spelled), canonical);
+  EXPECT_EQ(xsmp::smpMirrorUri("file:///C:/work/model.smpcat"),
+            "xsmp-smp:/c%3A/work/model.smpcat");
 }

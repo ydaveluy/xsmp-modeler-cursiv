@@ -115,16 +115,47 @@ bool isBuiltinUri(std::string_view uri) noexcept {
 std::string canonicalVirtualUri(std::string_view uri) {
   const auto colon = uri.find(':');
   if (colon == std::string_view::npos) return std::string(uri);
-  const auto rest = uri.substr(colon);
+  const auto rest = uri.substr(colon + 1);
   const auto suffix = std::min(rest.find_first_of("?#"), rest.size());
-  const auto path =
-      cursiv::file_uri_to_path("file" + std::string(rest.substr(0, suffix)));
-  if (!path) return std::string(uri);
+  auto written = rest.substr(0, suffix);
+  // An empty authority or `localhost` is dropped; any other host names no
+  // document of this server.
+  const bool hasAuthority = written.starts_with("//");
+  if (hasAuthority) {
+    written.remove_prefix(2);
+    const auto authority = written.substr(0, written.find('/'));
+    if (!authority.empty()
+        && !std::ranges::equal(authority, std::string_view("localhost"), {},
+                               [](unsigned char c) { return std::tolower(c); }))
+      return std::string(uri);
+    written.remove_prefix(authority.size());
+  }
+  // Decoded as a URI path, not as a file path, which takes the separators of
+  // the system.
+  std::string path;
+  for (std::size_t i = 0; i < written.size(); ++i) {
+    if (written[i] == '%' && i + 2 < written.size()
+        && std::isxdigit(static_cast<unsigned char>(written[i + 1]))
+        && std::isxdigit(static_cast<unsigned char>(written[i + 2]))) {
+      path += static_cast<char>(
+          std::stoi(std::string(written.substr(i + 1, 2)), nullptr, 16));
+      i += 2;
+    } else {
+      path += written[i];
+    }
+  }
+  if ((path.empty() && hasAuthority) || path.find('\0') != std::string::npos)
+    return std::string(uri);
+  if (!path.starts_with('/')) path.insert(path.begin(), '/');
+  if (path.size() >= 3 && std::isalpha(static_cast<unsigned char>(path[1]))
+      && path[2] == ':')
+    path[1] =
+        static_cast<char>(std::tolower(static_cast<unsigned char>(path[1])));
   // The way the protocol library spells a path, so that a URI a client sends
   // back is the one the document was stored under.
   constexpr std::string_view hex = "0123456789ABCDEF";
   std::string canonical(uri.substr(0, colon + 1));
-  for (const unsigned char c : *path) {
+  for (const unsigned char c : path) {
     if (std::isalnum(c) || c == '_' || c == '.' || c == '-' || c == '/') {
       canonical += static_cast<char>(c);
     } else {

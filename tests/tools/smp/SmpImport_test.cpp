@@ -214,11 +214,11 @@ struct ImportedProject {
     shared.documentBuilder->build(documents, {.validation = true});
   }
 
-  // The path of `document` in the imported tree.
+  // The path of `document` in the imported tree. URIs are compared, where a
+  // drive letter has one case.
   std::string relative(const cursiv::Document& document) const {
-    const auto file = cursiv::file_uri_to_path(document.uri);
-    return file ? path(*file).lexically_relative(root / "smdl").generic_string()
-                : document.uri;
+    return cursiv::relative_uri(
+        cursiv::path_to_file_uri((root / "smdl").string()), document.uri);
   }
 };
 

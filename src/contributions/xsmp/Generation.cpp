@@ -289,8 +289,12 @@ void Registry::generate(std::span<const GenerationGroup> groups) const {
           kept.insert(file);
         }
       }
-      for (const auto& file : record.generatedUnder(root))
-        kept.insert(pathText(file));
+      // The list separates folders with `/` on every system, as the other
+      // XSMP tools write it.
+      for (const auto& file : record.generatedUnder(root)) {
+        const auto text = file.generic_u8string();
+        kept.emplace(reinterpret_cast<const char*>(text.data()), text.size());
+      }
       files = std::move(kept);
     }
     // A file of the user leaves every list: generation no longer owns it.

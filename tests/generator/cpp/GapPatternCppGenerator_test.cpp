@@ -43,7 +43,7 @@ TEST(GapPatternCppGenerator, WrittenMethodBodiesArePreserved) {
   const xsmp::EsaCdkGenerator generator(*fixture.language);
   generator.generate(catalogue, fixture.directory);
   const auto method = fixture.directory / "src/n/C.cpp";
-  std::ofstream(method) << "// user implementation\n";
+  std::ofstream(method, std::ios::binary) << "// user implementation\n";
   generator.generate(catalogue, fixture.directory);
   EXPECT_EQ(xsmp::readFile(method), "// user implementation\n");
 }

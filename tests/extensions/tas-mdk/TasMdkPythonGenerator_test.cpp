@@ -14,7 +14,7 @@ TEST(TasMdkPythonGenerator, UserCodeIsPreserved) {
   const xsmp::TasMdkPythonGenerator generator(*fixture.language);
   generator.generate(catalogue, fixture.directory);
   const auto user = fixture.directory / "helpers/builder/n/M/user_code.py";
-  std::ofstream(user) << "# preserved user code\n";
+  std::ofstream(user, std::ios::binary) << "# preserved user code\n";
   generator.generate(catalogue, fixture.directory);
   EXPECT_EQ(xsmp::readFile(user), "# preserved user code\n");
 }
