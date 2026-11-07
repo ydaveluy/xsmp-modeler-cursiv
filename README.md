@@ -1,9 +1,39 @@
-# XSMP Modeler — Cursiv
+# XSMP Modeler (Cursiv)
 
-Language services, generators and tools for the six XSMP languages, written in
-C++20 with [Cursiv](https://ydaveluy.github.io/cursiv/). It builds for WASI,
-Linux, macOS and Windows. WASI is the recommended build: one module runs on every
-platform, and the VS Code packages use it.
+[![CI](https://github.com/ydaveluy/xsmp-modeler-cursiv/actions/workflows/ci.yml/badge.svg)](https://github.com/ydaveluy/xsmp-modeler-cursiv/actions/workflows/ci.yml)
+
+XSMP Modeler is a framework for developing SMDL (Simulation Model Definition
+Language) models as defined in the ECSS SMP standards. This version is written in
+C++20 with [Cursiv](https://ydaveluy.github.io/cursiv/).
+
+## Documentation
+
+User documentation is published at:
+
+- <https://ydaveluy.github.io/xsmp-modeler-cursiv/>
+
+The published documentation covers:
+
+- installation from a GitHub release
+- project creation with the wizard
+- command-line usage
+- projects, tools and profiles
+- the full XSMP language set
+- the built-in user-facing tools and profiles
+
+## Installation
+
+Download `xsmp-modeler-cursiv-<version>.vsix` from the
+[GitHub Releases page](https://github.com/ydaveluy/xsmp-modeler-cursiv/releases),
+then run **Extensions: Install from VSIX...** in VS Code. For the TAS-MDK profile,
+install `xsmp-tas-mdk-cursiv-<version>.vsix` of the same release after it.
+
+Requires VS Code **1.101 or newer**.
+
+## Development
+
+The project builds for WASI, Linux, macOS and Windows. WASI is the recommended
+build: one module runs on every platform, and the VS Code packages use it.
 
 | To change… | Edit |
 |---|---|
@@ -15,12 +45,13 @@ platform, and the VS Code packages use it.
 | CLI behavior | `src/cli.cpp` |
 | Generators, tools, profiles | `src/generator/`, `src/tools/`, `src/profiles/` |
 | TAS-MDK profile | `extensions/tas-mdk/` |
-| Contributions | `src/contributions/`, see [Create Tools and Profiles](vscode/docs/extending/tools-and-profiles.md) |
+| Contributions | `src/contributions/`, see [Create Tools and Profiles](docs/extending/tools-and-profiles.md) |
+| User documentation | `docs/`, built with `mkdocs build --strict` |
 
 Each of the six languages has its own files. `Deployment*` classes hold what the
 four deployment languages share.
 
-## Build
+### Build
 
 You need CMake 3.30 or later, Ninja, Git, Node 22.13 or later, npm and the
 compiler of your target. Cursiv is downloaded from its `main` branch; to use a
@@ -51,7 +82,7 @@ npm --prefix extensions/tas-mdk run package
 A native build uses the same CMake and CTest commands with its own preset. To
 package a native server, see [the extension](vscode/README.md#build-and-package).
 
-## Test
+### Test
 
 `tests/` follows `src/`: the tests of `src/core/xsmp/solver/Solver.cpp` are in
 `tests/core/solver/Solver_test.cpp`, and those of TAS-MDK are in
@@ -77,7 +108,7 @@ optional CMake variables `XSMP_SDK_2020_INCLUDE_DIRS`,
 Generated files name the present time and user in a copyright notice or a new
 project. To pin the time, set the standard `SOURCE_DATE_EPOCH`, as the goldens do.
 
-## Run
+### Run
 
 ```sh
 build/src/xsmp_cli validate example/06-mission-system -w example
@@ -89,3 +120,14 @@ Generated C++ is formatted with clang-format when it is installed.
 
 In VS Code, select a CMake preset and launch **Run XSMP Extension**, or **Run XSMP
 + TAS-MDK Extensions (WASI Debug)** to load both extensions. Both open `example/`.
+
+### Release
+
+Set the new version in `CMakeLists.txt`, `vscode/package.json` and
+`extensions/tas-mdk/package.json`, then push a tag `v<version>`. The release
+workflow builds both extensions and attaches their `.vsix` files to the GitHub
+release of the tag.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
