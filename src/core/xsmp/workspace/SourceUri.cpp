@@ -118,17 +118,12 @@ std::string canonicalVirtualUri(std::string_view uri) {
   const auto rest = uri.substr(colon + 1);
   const auto suffix = std::min(rest.find_first_of("?#"), rest.size());
   auto written = rest.substr(0, suffix);
-  // An empty authority or `localhost` is dropped; any other host names no
-  // document of this server.
+  // An empty authority is dropped. A host, `localhost` included, stays as
+  // written, as it does in a normalized `file:` URI.
   const bool hasAuthority = written.starts_with("//");
   if (hasAuthority) {
     written.remove_prefix(2);
-    const auto authority = written.substr(0, written.find('/'));
-    if (!authority.empty()
-        && !std::ranges::equal(authority, std::string_view("localhost"), {},
-                               [](unsigned char c) { return std::tolower(c); }))
-      return std::string(uri);
-    written.remove_prefix(authority.size());
+    if (!written.empty() && !written.starts_with('/')) return std::string(uri);
   }
   // Decoded as a URI path, not as a file path, which takes the separators of
   // the system.

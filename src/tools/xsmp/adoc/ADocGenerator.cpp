@@ -414,9 +414,8 @@ std::string value(const Value* node) {
       || as<Float64Value>(node)) {
     if (node->cstNodeId != cursiv::kNoNode) {
       const auto& document = *node->getDocument();
-      const cursiv::CstNodeView cst{.cst = &document.parseResult.cst(),
-                                    .id = node->cstNodeId};
-      const auto ranges = cursiv::find_nodes_for_feature(cst, "value");
+      const auto ranges =
+          cursiv::find_nodes_for_feature(*node, "value", &document);
       if (const auto first = ranges.begin(); first != ranges.end())
         return std::string(document.textDocument().getText().substr(
             first->begin(), first->end() - first->begin()));

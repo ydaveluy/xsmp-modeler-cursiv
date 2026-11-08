@@ -6,6 +6,7 @@
 #include <array>
 #include <cstdlib>
 #include <cursiv/cli.hpp>
+#include <cursiv/services/ServiceRegistry.hpp>
 #include <cursiv/utils/UriUtils.hpp>
 #include <cursiv/workspace/Documents.hpp>
 #include <filesystem>

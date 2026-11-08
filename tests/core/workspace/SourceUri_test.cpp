@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <cursiv/utils/UriUtils.hpp>
 #include <cursiv/workspace/Documents.hpp>
 #include <xsmp/CoreModule.hpp>
 #include <xsmp/Json.hpp>
@@ -73,6 +74,7 @@ TEST(SourceUri,
 
 #include <cursiv/services/ServiceRegistry.hpp>
 #include <cursiv/workspace/DocumentBuilder.hpp>
+#include <cursiv/utils/UriUtils.hpp>
 #include <cursiv/workspace/Documents.hpp>
 #include <cursiv/workspace/IndexManager.hpp>
 #include <xsmp/SharedCoreServices.hpp>
@@ -158,11 +160,16 @@ TEST(SourceUri, VirtualUrisHaveOneSpelling) {
            // separators stay `/` on every system.
            {"xsmp-smp:///C:/work/model.smpcat",
             "xsmp-smp:/c%3A/work/model.smpcat"},
-           {"xsmp-smp://localhost/c%3A/work/model.smpcat",
-            "xsmp-smp:/c%3A/work/model.smpcat"},
+           // A host stays, `localhost` too, as in a normalized `file:` URI.
+           {"xsmp-smp://localhost/work/model.smpcat",
+            "xsmp-smp://localhost/work/model.smpcat"},
            {"xsmp-smp://server/work/model.smpcat",
             "xsmp-smp://server/work/model.smpcat"}})
     EXPECT_EQ(xsmp::canonicalVirtualUri(spelled), canonical);
   EXPECT_EQ(xsmp::smpMirrorUri("file:///C:/work/model.smpcat"),
             "xsmp-smp:/c%3A/work/model.smpcat");
+  for (const auto* file :
+       {"file:///work/model.smpcat", "file://localhost/work/model.smpcat"})
+    EXPECT_EQ(xsmp::sourceDocumentUri(xsmp::smpMirrorUri(file)),
+              cursiv::normalize_uri(file));
 }
