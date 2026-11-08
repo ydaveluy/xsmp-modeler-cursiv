@@ -6,8 +6,10 @@ scaffolding. The server loads the handler when it starts and calls it directly.
 
 Both extensions require a trusted workspace and run on the workspace extension
 host, including SSH, WSL and containers. Install the Modeler VSIX first, then
-this VSIX, and reload the window when VS Code requests it. The bundled WASI
-handler is a library of the WASI server, so both must come from the same version.
+this VSIX, and reload the window when VS Code requests it. The handler is a
+library of the server, so both VSIX must come from the same release and system.
+A native server on Windows loads no handler: on Windows, use the VSIX of both
+extensions for any system.
 Virtual workspaces without a local filesystem are not supported.
 
 Build and package from the repository root:

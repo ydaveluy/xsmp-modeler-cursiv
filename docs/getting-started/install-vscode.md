@@ -6,18 +6,36 @@ XSMP Modeler is distributed as a Visual Studio Code extension.
 
 You need **Visual Studio Code 1.101 or later**.
 
-1. Download `xsmp-modeler-cursiv-<version>.vsix` from the
+1. Download the package of your system from the
    [GitHub Releases page](https://github.com/ydaveluy/xsmp-modeler-cursiv/releases).
 2. In VS Code, run **Extensions: Install from VSIX...** and select the file.
 
-You can also install it from a terminal:
+| System | Package |
+| --- | --- |
+| Linux x64, glibc 2.34 or later | `xsmp-modeler-cursiv-linux-x64-<version>.vsix` |
+| Linux Arm64, glibc 2.34 or later | `xsmp-modeler-cursiv-linux-arm64-<version>.vsix` |
+| Alpine Linux x64 | `xsmp-modeler-cursiv-alpine-x64-<version>.vsix` |
+| Alpine Linux Arm64 | `xsmp-modeler-cursiv-alpine-arm64-<version>.vsix` |
+| macOS 13.3 or later, Apple silicon | `xsmp-modeler-cursiv-darwin-arm64-<version>.vsix` |
+| macOS 13.3 or later, Intel | `xsmp-modeler-cursiv-darwin-x64-<version>.vsix` |
+| Windows x64 | `xsmp-modeler-cursiv-win32-x64-<version>.vsix` |
+| Any system | `xsmp-modeler-cursiv-<version>.vsix` |
+
+Each system package holds a server built for that system. The last package
+holds a WebAssembly server, which runs wherever VS Code runs.
+
+You can also install a package from a terminal:
 
 ```bash
-code --install-extension xsmp-modeler-cursiv-<version>.vsix
+code --install-extension xsmp-modeler-cursiv-linux-x64-<version>.vsix
 ```
 
-For the TAS-MDK profile, install `xsmp-tas-mdk-cursiv-<version>.vsix` of the same
-release in the same way, after XSMP Modeler.
+For the TAS-MDK profile, install the TAS-MDK package of the same system and
+release after XSMP Modeler, such as
+`xsmp-tas-mdk-cursiv-linux-x64-<version>.vsix`. There is no TAS-MDK package for
+Windows, because the Windows server loads no extension: to use TAS-MDK on
+Windows, install the two packages for any system,
+`xsmp-modeler-cursiv-<version>.vsix` and `xsmp-tas-mdk-cursiv-<version>.vsix`.
 
 The extension runs on the desktop and on a Node-based remote host (SSH, WSL or containers). Install it on the remote host in that case. VS Code for the Web and virtual workspaces are not supported.
 

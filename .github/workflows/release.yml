@@ -4,12 +4,15 @@ on:
   push:
     tags:
       - 'v*'
+  # Builds every package without publishing them.
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  package:
+  # The packages for any platform: the WASI server and the WASI TAS-MDK handler.
+  universal:
     runs-on: ubuntu-26.04
     timeout-minutes: 60
     container: gcc:16
@@ -26,6 +29,7 @@ jobs:
           node-version: '22'
       # The project and both extensions carry the version of the tag.
       - name: Check the versions
+        if: github.ref_type == 'tag'
         shell: bash
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
@@ -45,15 +49,209 @@ jobs:
           npm --prefix extensions/tas-mdk run package
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: vsix
+          name: vsix-universal
           if-no-files-found: error
           retention-days: 1
           path: |
-            vscode/xsmp-modeler-cursiv-*.vsix
-            extensions/tas-mdk/xsmp-tas-mdk-cursiv-*.vsix
+            vscode/*.vsix
+            extensions/tas-mdk/*.vsix
+
+  # Linux with glibc 2.35 or later: Ubuntu 22.04 is the oldest base, and the
+  # compiler and libc++ come from apt.llvm.org.
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: linux-x64
+            runner: ubuntu-22.04
+          - target: linux-arm64
+            runner: ubuntu-22.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - name: Build tools
+        run: |
+          wget -q https://apt.llvm.org/llvm.sh
+          sudo bash llvm.sh 22
+          sudo apt-get install -y libc++-22-dev libc++abi-22-dev ninja-build patchelf
+      - name: Configure
+        run: >-
+          cmake --preset clang-release
+          -DCMAKE_C_COMPILER=clang-22 -DCMAKE_CXX_COMPILER=clang++-22
+          -DCMAKE_CXX_FLAGS=-stdlib=libc++
+          -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++
+          -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++
+      - name: Build
+        run: cmake --build --preset clang-release --target xsmp_lsp xsmp_cli xsmp-tas-mdk-handler --parallel 4
+      - name: Package
+        run: |
+          npm --prefix vscode ci
+          tools/package-native.sh ${{ matrix.target }} build-clang
+      - name: Check the packages
+        run: tools/check-native.sh build-clang
+      # The server and its libc++ alone, on the oldest system aimed at.
+      - name: Start the server on a bare Ubuntu 22.04
+        run: >-
+          docker run --rm -v "$PWD:/src:ro" ubuntu:22.04
+          sh /src/tools/start-server.sh /src/vscode/bin/xsmp_lsp
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix-${{ matrix.target }}
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            vscode/*.vsix
+            extensions/tas-mdk/*.vsix
+
+  # Alpine: built, checked and packaged in Alpine, where musl is the C library.
+  alpine:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: alpine-x64
+            runner: ubuntu-24.04
+          - target: alpine-arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build, check and package
+        run: |
+          docker run --rm -v "$PWD:/src" -w /src alpine:3.24 sh -euxc '
+            apk add --no-cache bash build-base clang22 cmake git libc++-dev \
+              linux-headers llvm-libunwind-dev nodejs npm patchelf python3 samurai
+            cmake --preset clang-release -DCMAKE_C_COMPILER=clang \
+              -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_FLAGS=-stdlib=libc++ \
+              -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ \
+              -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++
+            cmake --build --preset clang-release \
+              --target xsmp_lsp xsmp_cli xsmp-tas-mdk-handler --parallel 4
+            npm --prefix vscode ci
+            tools/package-native.sh ${{ matrix.target }} build-clang
+            tools/check-native.sh build-clang'
+      # The server and its libc++ alone, with the libraries VS Code asks for.
+      - name: Start the server on a bare Alpine
+        run: >-
+          docker run --rm -v "$PWD:/src:ro" alpine:3.24
+          sh -c 'apk add --no-cache libgcc
+          && sh /src/tools/start-server.sh /src/vscode/bin/xsmp_lsp'
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix-${{ matrix.target }}
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            vscode/*.vsix
+            extensions/tas-mdk/*.vsix
+
+  # macOS 13.3 or later, both built on an Apple silicon runner: the Intel
+  # build and its checks run through Rosetta.
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: darwin-arm64
+            arch: arm64
+          - target: darwin-x64
+            arch: x86_64
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - name: Build tools
+        run: |
+          brew install ninja
+          if [ ${{ matrix.arch }} = x86_64 ]; then
+            sudo softwareupdate --install-rosetta --agree-to-license
+          fi
+      - name: Configure
+        run: >-
+          cmake --preset clang-release
+          -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=13.3
+      - name: Build
+        run: cmake --build --preset clang-release --target xsmp_lsp xsmp_cli xsmp-tas-mdk-handler --parallel 3
+      - name: Package
+        run: |
+          npm --prefix vscode ci
+          tools/package-native.sh ${{ matrix.target }} build-clang
+      - name: Check the packages
+        run: |
+          tools/check-native.sh build-clang
+          tools/start-server.sh vscode/bin/xsmp_lsp
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix-${{ matrix.target }}
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            vscode/*.vsix
+            extensions/tas-mdk/*.vsix
+
+  # Windows: a static executable from MSYS2 GCC. A native server on Windows
+  # loads no handler, so there is no TAS-MDK package for it.
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '22'
+      - uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2.33.0
+        with:
+          msystem: UCRT64
+          update: true
+          path-type: inherit
+          install: >-
+            git
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-ninja
+      - name: Configure
+        run: cmake --preset gcc-release -DCMAKE_EXE_LINKER_FLAGS=-static
+      - name: Build
+        run: cmake --build --preset gcc-release --target xsmp_lsp xsmp_cli --parallel 4
+      - name: Package
+        run: |
+          npm --prefix vscode ci
+          tools/package-native.sh win32-x64 build
+      - name: Check the package
+        run: |
+          build/src/xsmp_cli validate example/06-mission-system -w example
+          tools/start-server.sh vscode/bin/xsmp_lsp.exe
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: vsix-win32-x64
+          if-no-files-found: error
+          retention-days: 1
+          path: vscode/*.vsix
 
   release:
-    needs: package
+    if: github.ref_type == 'tag'
+    needs: [universal, linux, alpine, macos, windows]
     runs-on: ubuntu-26.04
     timeout-minutes: 15
     permissions:
@@ -61,8 +259,10 @@ jobs:
     steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          name: vsix
+          pattern: vsix-*
+          merge-multiple: true
           path: vsix
+      # The universal packages, and 7 platform servers with 6 TAS-MDK handlers.
       - name: Create the release or update its packages
         env:
           GH_TOKEN: ${{ github.token }}
@@ -71,7 +271,7 @@ jobs:
         run: |
           shopt -s globstar
           PACKAGES=(vsix/**/*.vsix)
-          test "${#PACKAGES[@]}" -eq 2
+          test "${#PACKAGES[@]}" -eq 15
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" "${PACKAGES[@]}" --clobber
           else

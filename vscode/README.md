@@ -21,7 +21,11 @@ npm --prefix vscode run package
 
 The WASI build copies the server to `vscode/server/xsmp_lsp.wasm`, next to the runner, and `npm run package` puts them in the `.vsix`. Install the package through **Extensions: Install from VSIX** or `code --install-extension <package.vsix>`.
 
-To package a native server instead, build it with a native preset and copy the executable to `vscode/bin/`. Remove `vscode/server/xsmp_lsp.wasm` first, because the extension prefers it. The package then works on that platform only, so pass the platform to `vsce`, for example `npm --prefix vscode run package -- --target win32-x64`. On Windows, configure with `-DCMAKE_EXE_LINKER_FLAGS=-static`, so that the executable does not need the DLLs of the compiler.
+To package a native server instead, build `xsmp_lsp`, `xsmp_cli` and `xsmp-tas-mdk-handler` with a native preset, then run `tools/package-native.sh <target> <build folder>` from the repository root, with a `vsce` target such as `linux-x64`. It packages the server for that target only, and the TAS-MDK handler beside it except on Windows. It replaces `vscode/bin`, `vscode/server` and `extensions/tas-mdk/server`, so run it from a clean checkout. `tools/check-native.sh <build folder>` then checks the build and the TAS-MDK package. The release workflow shows the settings of each target:
+
+- Linux and Alpine: build with Clang and `-stdlib=libc++`. The package carries libc++, and the script needs `patchelf`.
+- macOS: set `CMAKE_OSX_DEPLOYMENT_TARGET`, or the server runs only on the macOS version that built it.
+- Windows: configure with `-DCMAKE_EXE_LINKER_FLAGS=-static`, so that the executable does not need the DLLs of the compiler.
 
 ## Develop with F5
 
@@ -38,7 +42,7 @@ Use **Developer: Reload Window** after changing the server path. When the server
 
 The server provides the six XSMP languages with specialized completion, typed value snippets, template parameter navigation, type definitions, symbols, folding, formatting, rename, and the project and file wizards.
 
-SDK, ESA-CDK, SMP XML, Python and AsciiDoc contributions are built in. TAS-MDK is a separate extension in `extensions/tas-mdk`: build its handler, then package and install it next to this one. Its C++ handler runs through WASI.
+SDK, ESA-CDK, SMP XML, Python and AsciiDoc contributions are built in. TAS-MDK is a separate extension in `extensions/tas-mdk`: build its handler, then package and install it next to this one. Its C++ handler runs in the WASI server, and in the native server on Linux and macOS.
 
 External extensions declare `contributes.xsmp` entries. The extension looks for them at startup and after a server restart. A handler is a library the server loads as it starts and calls directly, as described in [Create Tools and Profiles](https://github.com/ydaveluy/xsmp-modeler-cursiv/blob/main/docs/extending/tools-and-profiles.md).
 

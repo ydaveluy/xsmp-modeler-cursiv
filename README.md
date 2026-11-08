@@ -23,10 +23,12 @@ The published documentation covers:
 
 ## Installation
 
-Download `xsmp-modeler-cursiv-<version>.vsix` from the
+Download the package of your system from the
 [GitHub Releases page](https://github.com/ydaveluy/xsmp-modeler-cursiv/releases),
-then run **Extensions: Install from VSIX...** in VS Code. For the TAS-MDK profile,
-install `xsmp-tas-mdk-cursiv-<version>.vsix` of the same release after it.
+then run **Extensions: Install from VSIX...** in VS Code. There are packages for
+Linux, Alpine Linux and macOS on x64 and Arm64, for Windows on x64, and one for any
+system. [Install in VS Code](docs/getting-started/install-vscode.md) lists them,
+with the TAS-MDK packages.
 
 Requires VS Code **1.101 or newer**.
 
@@ -125,8 +127,9 @@ In VS Code, select a CMake preset and launch **Run XSMP Extension**, or **Run XS
 
 Set the new version in `CMakeLists.txt`, `vscode/package.json` and
 `extensions/tas-mdk/package.json`, then push a tag `v<version>`. The release
-workflow builds both extensions and attaches their `.vsix` files to the GitHub
-release of the tag.
+workflow builds both extensions for each system and for any system, and attaches
+their `.vsix` files to the GitHub release of the tag. Run it from the Actions tab
+to build the packages without publishing them.
 
 ## License
 

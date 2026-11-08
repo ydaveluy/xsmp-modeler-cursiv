@@ -23,7 +23,13 @@
     "xsmp": [
       {
         "descriptor": "./tas-mdk.xsmpprofile",
-        "handler": "./server/tas-mdk.wasm",
+        "wasiHandler": "./server/tas-mdk.wasm",
+        "nativeHandler": {
+          "linux-x64": "./server/tas-mdk.so",
+          "linux-arm64": "./server/tas-mdk.so",
+          "darwin-x64": "./server/tas-mdk.so",
+          "darwin-arm64": "./server/tas-mdk.so"
+        },
         "apiVersion": "^2.0.0",
         "deprecatedAliases": [
           "org.eclipse.xsmp.profile.tas-mdk"
@@ -53,6 +59,6 @@
     "LICENSE",
     "licenses",
     "tas-mdk.xsmpprofile",
-    "server/tas-mdk.wasm"
+    "server/tas-mdk.*"
   ]
 }
