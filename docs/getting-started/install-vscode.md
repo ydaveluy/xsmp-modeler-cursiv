@@ -16,13 +16,14 @@ You need **Visual Studio Code 1.101 or later**.
 | Linux Arm64, glibc 2.34 or later | `xsmp-modeler-cursiv-linux-arm64-<version>.vsix` |
 | Alpine Linux x64 | `xsmp-modeler-cursiv-alpine-x64-<version>.vsix` |
 | Alpine Linux Arm64 | `xsmp-modeler-cursiv-alpine-arm64-<version>.vsix` |
-| macOS 13.3 or later, Apple silicon | `xsmp-modeler-cursiv-darwin-arm64-<version>.vsix` |
-| macOS 13.3 or later, Intel | `xsmp-modeler-cursiv-darwin-x64-<version>.vsix` |
+| macOS 26 or later, Apple silicon | `xsmp-modeler-cursiv-darwin-arm64-<version>.vsix` |
+| macOS 26 or later, Intel | `xsmp-modeler-cursiv-darwin-x64-<version>.vsix` |
 | Windows x64 | `xsmp-modeler-cursiv-win32-x64-<version>.vsix` |
 | Any system | `xsmp-modeler-cursiv-<version>.vsix` |
 
 Each system package holds a server built for that system. The last package
-holds a WebAssembly server, which runs wherever VS Code runs.
+holds a WebAssembly server, which runs wherever VS Code runs, such as on macOS 15
+or earlier.
 
 You can also install a package from a terminal:
 

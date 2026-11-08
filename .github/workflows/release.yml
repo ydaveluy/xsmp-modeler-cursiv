@@ -155,8 +155,9 @@ jobs:
             vscode/*.vsix
             extensions/tas-mdk/*.vsix
 
-  # macOS 13.3 or later, both built on an Apple silicon runner: the Intel
-  # build and its checks run through Rosetta.
+  # macOS 26 or later: Apple's libc++ reads floating-point numbers with
+  # `std::from_chars` from macOS 26 only. Both are built on an Apple silicon
+  # runner, where the Intel build and its checks run through Rosetta.
   macos:
     strategy:
       fail-fast: false
@@ -185,7 +186,7 @@ jobs:
         run: >-
           cmake --preset clang-release
           -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
-          -DCMAKE_OSX_DEPLOYMENT_TARGET=13.3
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=26.0
       - name: Build
         run: cmake --build --preset clang-release --target xsmp_lsp xsmp_cli xsmp-tas-mdk-handler --parallel 3
       - name: Package
