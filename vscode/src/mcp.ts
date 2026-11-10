@@ -44,6 +44,9 @@ export function startMcpBridge(
     outputChannel: vscode.OutputChannel,
 ): vscode.Disposable {
     const token = crypto.randomUUID();
+    // The requests the language server has yet to answer, all answered at
+    // once when the bridge closes, as are any later ones.
+    let waiting: Set<() => void> | undefined = new Set();
 
     const server = http.createServer((request, response) => {
         const answer = (status: number, body?: unknown): void => {
@@ -83,19 +86,41 @@ export function startMcpBridge(
                 return refusal(400, -32700, 'parse error');
             }
             const id = (message as { id?: unknown })?.id ?? null;
+            const stopped = (): void => answer(503, {
+                jsonrpc: '2.0',
+                id,
+                error: { code: -32603, message: 'the language server stopped' },
+            });
+            const pending = waiting;
+            if (pending === undefined) {
+                return stopped();
+            }
+            pending.add(stopped);
+            // Answered once: by the language server, or when the bridge closes.
+            const settle = (reply: () => void): void => {
+                if (pending.delete(stopped)) {
+                    reply();
+                }
+            };
             client.sendRequest(MCP_METHOD, message).then(
                 // A notification has no result: reply 202 Accepted.
-                (result) => (result === null ? answer(202) : answer(200, result)),
-                (error) => answer(500, {
+                (result) => settle(() => (result === null ? answer(202) : answer(200, result))),
+                (error) => settle(() => answer(500, {
                     jsonrpc: '2.0',
                     id,
                     error: { code: -32603, message: String((error as Error)?.message ?? error) },
-                }),
+                })),
             );
         });
     });
 
     const registration = new Promise<vscode.Disposable | undefined>((resolve) => {
+        // If the port cannot be opened, log the error and run without the MCP
+        // server. Later server errors are logged too.
+        server.on('error', (error: Error) => {
+            outputChannel.appendLine(`mcp: ${error.message}`);
+            resolve(undefined);
+        });
         server.listen(0, '127.0.0.1', () => {
             const address = server.address();
             if (address === null || typeof address === 'string') {
@@ -112,18 +137,27 @@ export function startMcpBridge(
             if (register === undefined || HttpDefinition === undefined) {
                 return resolve(undefined);
             }
-            resolve(register.call(api.lm, `cursiv.${key}.mcp`, {
-                provideMcpServerDefinitions: () => [
-                    new HttpDefinition(`cursiv ${label}`, vscode.Uri.parse(url), {
-                        Authorization: `Bearer ${token}`,
-                    }),
-                ],
-            }));
+            try {
+                resolve(register.call(api.lm, `cursiv.${key}.mcp`, {
+                    provideMcpServerDefinitions: () => [
+                        new HttpDefinition(`cursiv ${label}`, vscode.Uri.parse(url), {
+                            Authorization: `Bearer ${token}`,
+                        }),
+                    ],
+                }));
+            } catch (error) {
+                outputChannel.appendLine(`mcp: ${String((error as Error)?.message ?? error)}`);
+                resolve(undefined);
+            }
         });
     });
 
     return new vscode.Disposable(() => {
         void registration.then((r) => r?.dispose());
         server.close();
+        const pending = waiting;
+        waiting = undefined;
+        pending?.forEach((stopped) => stopped());
+        pending?.clear();
     });
 }

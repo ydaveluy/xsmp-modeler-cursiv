@@ -175,7 +175,7 @@ cursiv::LocalSymbols XsmpcatScopeComputation::collectLocalSymbols(
       }
     }
   }
-  symbols.seal();
+  symbols.build_index();
   return symbols;
 }
 

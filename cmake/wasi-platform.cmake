@@ -5,6 +5,24 @@ set(CMAKE_SYSTEM_NAME WASI)
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR wasm32)
 
+# The current WASI SDK drops C++ exception handlers under LTO. Disable IPO,
+# including configuration-specific requests, until that path is validated.
+get_cmake_property(_cursiv_wasi_ipo_settings VARIABLES)
+list(FILTER _cursiv_wasi_ipo_settings INCLUDE
+     REGEX "^CMAKE_INTERPROCEDURAL_OPTIMIZATION($|_)")
+list(APPEND _cursiv_wasi_ipo_settings CMAKE_INTERPROCEDURAL_OPTIMIZATION)
+list(REMOVE_DUPLICATES _cursiv_wasi_ipo_settings)
+foreach(_cursiv_wasi_ipo IN LISTS _cursiv_wasi_ipo_settings)
+  if(${_cursiv_wasi_ipo})
+    message(STATUS
+        "cursiv: disabling ${_cursiv_wasi_ipo} for WASI: "
+        "LTO breaks C++ exceptions in the current SDK")
+  endif()
+  set(${_cursiv_wasi_ipo} OFF CACHE BOOL
+      "Enable interprocedural optimization" FORCE)
+  set(${_cursiv_wasi_ipo} OFF)
+endforeach()
+
 # Carried into try_compile, which re-runs the toolchain in a scope the cache
 # does not reach.
 list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
@@ -32,10 +50,9 @@ if(CURSIV_WASI_THREADS)
   # selects libpthread and shared memory; the memory must also be imported so
   # the runner can hand it to each worker.
   add_compile_options(-pthread)
-  # A shared memory must declare its maximum at link time (wasm format). It is
-  # an addressing cap, not a reservation: pages are committed as the heap
-  # grows. Must be a multiple of 65536; 4 GiB is the wasm32 ceiling.
-  # The 100,000-level LL stress test needs about 1 GiB with mimalloc.
+  # A shared memory declares its maximum at link time: a cap, not a
+  # reservation, a multiple of 65536 up to 4 GiB. The 100,000-level LL stress
+  # test needs about 1 GiB.
   set(CURSIV_WASI_MAX_MEMORY 2147483648 CACHE STRING
       "Shared-memory maximum handed to the linker (bytes)")
   add_link_options("LINKER:--import-memory,--max-memory=${CURSIV_WASI_MAX_MEMORY}")

@@ -3,7 +3,6 @@ import { registerWorkflows } from './workflows';
 import { registerEmbeddedDocumentation } from './embedded-documentation';
 import { createXsmpDocumentSelector } from './xsmp-language-support';
 import * as fs from 'node:fs';
-import * as os from 'node:os';
 import * as path from 'node:path';
 import * as vscode from 'vscode';
 import type { LanguageClientOptions, ServerOptions } from 'vscode-languageclient/node';
@@ -79,9 +78,9 @@ export function createServerOptions(serverCommand: string, context: vscode.Exten
             options: {
                 cwd: path.dirname(path.resolve(serverCommand)),
                 // With ELECTRON_RUN_AS_NODE, the executable of VS Code runs as Node.js.
-                // A WebAssembly server cannot see how many CPU cores there are.
-                env: { ...env, ELECTRON_RUN_AS_NODE: '1',
-                    CURSIV_WORKERS: String(Math.max(0, os.availableParallelism() - 1)) }
+                // A WebAssembly server cannot see how many CPU cores there are:
+                // unless CURSIV_WORKERS says otherwise, the runner chooses for it.
+                env: { ...env, ELECTRON_RUN_AS_NODE: '1' }
             }
         };
     }
