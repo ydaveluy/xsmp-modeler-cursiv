@@ -1,7 +1,6 @@
 // XSMP application imports for the generic Cursiv WASI runner.
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { getEnvironmentData, setEnvironmentData } from 'node:worker_threads';
 
 // The file behind a path a WASI module names. The runner shows each Windows
 // drive as a folder of the root (its `preopensFor`), so `/c:/a/b` is `c:\a\b`.
@@ -74,7 +73,6 @@ function libraryLayout(bytes) {
   throw new Error('This file is no extension library');
 }
 
-const librariesKey = 'xsmp.extension-libraries';
 // A thread that starts has no stack yet, so it cannot call malloc: a library
 // has its thread-local blocks made when it loads.
 const maxThreads = 1024;
@@ -84,10 +82,10 @@ const maxThreads = 1024;
 //
 // A thread has its own instance of the program and of each library, and its own
 // table, which no other thread can change. So a program loads its libraries
-// before it starts a thread, and each later thread links them again at the
-// addresses of the first load: `libraries` holds what that decided.
-function createLinker(memory) {
-  const libraries = getEnvironmentData(librariesKey) ?? [];
+// before it starts a thread, and passes `libraries`, what that load decided, to
+// each thread it starts, which links them again at the same addresses.
+function createLinker(memory, inherited) {
+  const libraries = inherited ?? [];
   const instances = [];
   let main, table, mainSlots, failure = '';
 
@@ -184,6 +182,7 @@ function createLinker(memory) {
   };
 
   return {
+    threadData: () => libraries,
     instantiated(instance) {
       main = instance;
       table = instance.exports.__indirect_function_table;
@@ -197,7 +196,6 @@ function createLinker(memory) {
           const record = { path: text(path, size) };
           instances.push(link(record));
           libraries.push(record);
-          setEnvironmentData(librariesKey, libraries);
           return instances.length;
         } catch (error) {
           failure = String(error?.message ?? error);
@@ -215,7 +213,6 @@ function createLinker(memory) {
         const slot = record.symbols[symbol] ?? (record.tableEnd = table.grow(1) + 1) - 1;
         table.set(slot, fn);
         record.symbols[symbol] = slot;
-        setEnvironmentData(librariesKey, libraries);
         return slot;
       },
       load_error(output, capacity) {
@@ -227,7 +224,7 @@ function createLinker(memory) {
   };
 }
 
-export function createHost({ memory }) {
+export function createHost({ memory, threadData }) {
   let answer;
   const hostCall = (input, length, output, capacity) => {
     const heap = () => new Uint8Array(memory().buffer);
@@ -259,9 +256,10 @@ export function createHost({ memory }) {
     if (capacity >= size) { heap().set(answer, output); answer = undefined; }
     return size;
   };
-  const linker = createLinker(memory);
+  const linker = createLinker(memory, threadData);
   return {
     imports: { xsmp: { host_call: hostCall, ...linker.imports } },
     instantiated: linker.instantiated,
+    threadData: linker.threadData,
   };
 }
