@@ -138,8 +138,8 @@ std::string assignmentValue(const Type* type) {
 const Node* openBlock(const cursiv::CompletionContext& context) {
   const auto& cst = context.document.parseResult.cst();
   const Node* last = nullptr;
-  for (auto rank = cst.leaves_before(context.offset); rank > 0 && !last;) {
-    const auto leaf = cst.leaf(--rank);
+  for (auto id = cst.leaf_after(context.offset); id > 0 && !last;) {
+    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
     if (!leaf.hidden && !leaf.recovered)
       last = cursiv::owner_of_leaf(cst, leaf.id);
   }
@@ -155,9 +155,9 @@ const Node* openBlock(const cursiv::CompletionContext& context) {
 
     const auto& span = cst[at->cstNodeId];
     auto opened = false, closed = false;
-    for (auto rank = cst.leaves_before(span.begin); rank < cst.leaf_count();
-         ++rank) {
-      const auto leaf = cst.leaf(rank);
+    for (auto id = cst.leaf_after(span.begin); id < cst.size();
+         id = cst.next_leaf(id)) {
+      const auto leaf = cst.as_leaf(id);
       if (leaf.begin < span.begin) continue;
       if (leaf.begin >= span.end || leaf.begin >= context.offset) break;
       if (leaf.hidden || leaf.recovered) continue;
@@ -298,8 +298,8 @@ void DeploymentCompletionProvider::visitReferenceCandidates(
   // The first path of a link is the one no arrow stands before.
   auto first = true;
   const auto& cst = context.document.parseResult.cst();
-  for (auto rank = cst.leaves_before(context.offset); rank > 0 && first;) {
-    const auto leaf = cst.leaf(--rank);
+  for (auto id = cst.leaf_after(context.offset); id > 0 && first;) {
+    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
     if (leaf.hidden) continue;
     if (cst.text(leaf.id) == "->") first = false;
     if (cst.text(leaf.id) == "link" || cst.text(leaf.id) == "transfer") break;

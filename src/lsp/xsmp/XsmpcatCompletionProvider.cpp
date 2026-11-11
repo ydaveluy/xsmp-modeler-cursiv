@@ -25,8 +25,8 @@ namespace {
 // Whether the last token before the caret closes a type or a namespace.
 bool afterClosedBlock(const cursiv::CompletionContext& context) {
   const auto& cst = context.document.parseResult.cst();
-  for (auto rank = cst.leaves_before(context.offset); rank > 0;) {
-    const auto leaf = cst.leaf(--rank);
+  for (auto id = cst.leaf_after(context.offset); id > 0;) {
+    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
     if (leaf.hidden || leaf.recovered) continue;
     const auto* owner = cursiv::owner_of_leaf(cst, leaf.id);
     return cst.text(leaf.id) == "}"
@@ -38,8 +38,9 @@ bool afterClosedBlock(const cursiv::CompletionContext& context) {
 
 // The first token written at or after `offset`, empty if none.
 std::string_view tokenAfter(const cursiv::Cst& cst, cursiv::TextOffset offset) {
-  for (auto rank = cst.leaves_before(offset); rank < cst.leaf_count(); ++rank)
-    if (const auto leaf = cst.leaf(rank); !leaf.hidden && !leaf.recovered)
+  for (auto id = cst.leaf_after(offset); id < cst.size();
+       id = cst.next_leaf(id))
+    if (const auto leaf = cst.as_leaf(id); !leaf.hidden && !leaf.recovered)
       return cst.text(leaf.id);
   return {};
 }
@@ -49,8 +50,8 @@ std::string_view tokenAfter(const cursiv::Cst& cst, cursiv::TextOffset offset) {
 cursiv::TextOffset declarationStart(const cursiv::CompletionContext& context) {
   const auto& cst = context.document.parseResult.cst();
   auto start = context.tokenOffset;
-  for (auto rank = cst.leaves_before(start); rank > 0;) {
-    const auto leaf = cst.leaf(--rank);
+  for (auto id = cst.leaf_after(start); id > 0;) {
+    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
     if (leaf.hidden || leaf.recovered) continue;
     if (cst.grammar()->recordFeature(cst[leaf.id]) != "modifiers"
         && !cursiv::container_of_type<Attribute>(
@@ -675,13 +676,13 @@ std::vector<::lsp::CompletionItem> XsmpcatCompletionProvider::deduplicateItems(
   // Right after the `=` of a field or a constant, wherever the caret is on the
   // lines after, a value is offered. Inside a token there is none to offer.
   const auto& cst = document.parseResult.cst();
-  if (const auto rank = cst.leaves_before(offset);
-      rank < cst.leaf_count() && cst.leaf(rank).begin < offset)
+  if (const auto id = cst.leaf_after(offset);
+      id < cst.size() && cst.as_leaf(id).begin < offset)
     return list;
   const cursiv::AstNode* valueOwner = nullptr;
   cursiv::TextOffset equalsEnd = 0;
-  for (auto rank = cst.leaves_before(offset); rank > 0;) {
-    const auto leaf = cst.leaf(--rank);
+  for (auto id = cst.leaf_after(offset); id > 0;) {
+    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
     if (leaf.hidden || leaf.recovered) continue;
     if (cst.text(leaf.id) == "=") {
       valueOwner = cursiv::owner_of_leaf(cst, leaf.id);

@@ -34,8 +34,8 @@ inline std::string newUuid() {
 inline std::optional<cursiv::CstLeaf> docCommentBefore(
     const cursiv::Document& document, cursiv::TextOffset start) {
   const auto& cst = document.parseResult.cst();
-  for (auto rank = cst.leaves_before(start); rank > 0;) {
-    const auto leaf = cst.leaf(--rank);
+  for (auto id = cst.leaf_after(start); id > 0;) {
+    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
     if (leaf.begin == leaf.end) continue;
     if (const auto text = cst.text(leaf.id);
         leaf.hidden && text.starts_with("/**") && text.ends_with("*/")

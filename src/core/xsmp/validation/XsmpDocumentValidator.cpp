@@ -26,9 +26,8 @@ namespace {
 // with its text as written.
 void forEachLiteral(const cursiv::Document& document, const auto& visit) {
   const auto& cst = document.parseResult.cst();
-  const auto leaves = cst.leaf_count();
-  for (cursiv::NodeCount rank = 0; rank < leaves; ++rank) {
-    const auto leaf = cst.leaf(rank);
+  for (cursiv::NodeId id = 0; id < cst.size(); id = cst.next_leaf(id)) {
+    const auto leaf = cst.as_leaf(id);
     if (leaf.hidden) continue;
     const auto text = cst.text(leaf.id);
     if (text.starts_with('"') || text.starts_with('\'')) visit(leaf, text);

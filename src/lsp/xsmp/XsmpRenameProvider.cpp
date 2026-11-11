@@ -45,8 +45,9 @@ std::string spelled(const cursiv::Document& document, cursiv::TextOffset begin,
                     cursiv::TextOffset end) {
   const auto& cst = document.parseResult.cst();
   std::string text;
-  for (auto rank = cst.leaves_before(begin); rank < cst.leaf_count(); ++rank) {
-    const auto leaf = cst.leaf(rank);
+  for (auto id = cst.leaf_after(begin); id < cst.size();
+       id = cst.next_leaf(id)) {
+    const auto leaf = cst.as_leaf(id);
     if (leaf.begin >= end) break;
     if (leaf.begin >= begin && !leaf.hidden) text += cst.text(leaf.id);
   }
