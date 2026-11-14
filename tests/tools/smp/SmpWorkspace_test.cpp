@@ -1,7 +1,9 @@
 #include <gtest/gtest.h>
 
 #include <cursiv/services/SharedCoreServices.hpp>
+#include <cursiv/utils/Cancellation.hpp>
 #include <cursiv/utils/UriUtils.hpp>
+#include <cursiv/workspace/Document.hpp>
 #include <cursiv/workspace/DocumentBuilder.hpp>
 #include <cursiv/workspace/DocumentFactory.hpp>
 #include <cursiv/workspace/Documents.hpp>
@@ -411,4 +413,69 @@ TEST(SmpWorkspace, EditingNativeDocumentsLeavesTheMirrorsAlone) {
   EXPECT_EQ(xsmp::takeMirrorChanges(*shared).changed,
             (std::vector<std::string>{mirror}));
   EXPECT_TRUE(shared->documents->hasDocument(mirror));
+}
+
+// An update superseded before it starts still applies its changes and tells
+// its listeners; the next build finishes them.
+TEST(SmpWorkspace, ACancelledUpdateStillAppliesItsChanges) {
+  xsmp::ScratchDirectory dir;
+  const auto project =
+      dir.write("xsmp.project", "project 'Mirror' source 'first'\n");
+  const auto xml = [](std::string_view name) {
+    return R"(<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" Name=")"
+           + std::string(name) + R"("/>)";
+  };
+  const auto first = dir.write("first/model.smpcfg", xml("First"));
+  const auto second = dir.write("second/model.smpcfg", xml("Second"));
+  auto shared = xsmp::createXsmpSharedServices();
+  xsmp::registerLanguages(*shared);
+  cursiv::initialize_root(dir.path.string(), *shared);
+  const auto firstMirror =
+      xsmp::smpMirrorUri(cursiv::path_to_file_uri(first.string()));
+  const auto secondMirror =
+      xsmp::smpMirrorUri(cursiv::path_to_file_uri(second.string()));
+  const auto text = [&](const std::string& uri) {
+    const auto document = shared->documents->getDocument(uri);
+    return document ? std::string(document->textDocument().getText())
+                    : std::string();
+  };
+  cursiv::CancellationTokenSource superseded;
+  superseded.request_stop();
+  const auto cut = [&](const std::filesystem::path& file) {
+    const auto uri = cursiv::path_to_file_uri(file.string());
+    const std::string_view view(uri);
+    EXPECT_THROW(shared->documentBuilder->update(std::span(&view, 1), {},
+                                                 superseded.get_token()),
+                 cursiv::OperationCancelled);
+  };
+  // The build that follows a cut update names nothing.
+  const auto build = [&] { shared->documentBuilder->update({}, {}); };
+
+  // An XML source changed on disk.
+  dir.write("first/model.smpcfg", xml("Edited"));
+  cut(first);
+  build();
+  EXPECT_NE(text(firstMirror).find("configuration Edited"), std::string::npos);
+
+  // A project changed on disk.
+  dir.write("xsmp.project", "project 'Mirror' source 'second'\n");
+  cut(project);
+  EXPECT_FALSE(shared->documents->hasDocument(firstMirror));
+  build();
+  EXPECT_NE(text(secondMirror).find("configuration Second"), std::string::npos);
+
+  // An open project edited in place: nobody keeps its dropped tree.
+  const auto held = shared->documents->getDocument(
+      cursiv::path_to_file_uri(project.string()));
+  ASSERT_EQ(shared->projectManager->getProjects().size(), 1u);
+  held->isOpen = true;
+  shared->documentFactory->attachTextDocument(
+      *held,
+      cursiv::TextDocument::create(std::string(held->uri), "xsmpproject", 1,
+                                   "project 'Renamed' source 'second'\n"));
+  cut(project);
+  ASSERT_TRUE(shared->projectManager->getProjects().empty());
+  build();
+  ASSERT_EQ(shared->projectManager->getProjects().size(), 1u);
+  EXPECT_EQ(shared->projectManager->getProjects().front()->name, "Renamed");
 }

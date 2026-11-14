@@ -95,9 +95,9 @@ Json generateProjects(XsmpSharedServices& shared, std::string_view uri,
 
   cursiv::throw_if_cancelled(token);
   for (const auto& [projectUri, projectName] : targets) {
-    // A build settles its write. A separate durable action per project keeps
-    // later resets on the mutation side of that boundary, even for Generate
-    // All.
+    // A build allows immediate reads, and nothing is reset after that in the
+    // same write: each project gets a protected write of its own, even for
+    // Generate All.
     shared.workspaceLock->write(
         [&](const cursiv::CancellationToken&) {
           cursiv::throw_if_cancelled(token);
@@ -119,7 +119,7 @@ Json generateProjects(XsmpSharedServices& shared, std::string_view uri,
           append("skippedProjects", skipped);
           append("failures", failures);
         },
-        cursiv::WorkspaceLock::WriteMode::Durable);
+        cursiv::WorkspaceLock::WriteMode::Protected);
   }
 
   return JsonObject{{"generatedProjects", std::move(generated)},
@@ -250,8 +250,8 @@ void XsmpLanguageServer::registerRequests() {
            const auto entries =
                param.isArray() ? param : Json(JsonArray{param});
            Json report;
-           // A build settles a write, and a registration resets every document
-           // after: the placeholders go in a write of their own.
+           // Deleting the placeholders builds, which allows immediate reads; a
+           // registration resets every document, so it takes its own write.
            std::vector<std::string> placeholders;
            (void)_shared.workspaceLock->read([&] {
              placeholders = registry(_shared).placeholders(_shared, entries);
@@ -263,13 +263,13 @@ void XsmpLanguageServer::registerRequests() {
                        placeholders.begin(), placeholders.end());
                    _shared.documentBuilder->update({}, deleted);
                  },
-                 cursiv::WorkspaceLock::WriteMode::Durable);
+                 cursiv::WorkspaceLock::WriteMode::Protected);
            _shared.workspaceLock->write(
                [&](const cursiv::CancellationToken&) {
                  report = registry(_shared).registerManifestEntries(_shared,
                                                                     entries);
                },
-               cursiv::WorkspaceLock::WriteMode::Durable);
+               cursiv::WorkspaceLock::WriteMode::Protected);
            return report;
          });
 }
@@ -311,7 +311,7 @@ void XsmpLanguageServer::didChangeWorkspaceFolders(
         _shared.projectManager->contributionsChanged();
         _shared.workspaceManager->initializeWorkspace(folders, token);
       },
-      cursiv::WorkspaceLock::WriteMode::Durable);
+      cursiv::WorkspaceLock::WriteMode::Protected);
 }
 
 // The document builder refreshes the mirrors on any change that can move them.

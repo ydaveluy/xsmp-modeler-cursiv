@@ -480,12 +480,11 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
   using ProjectOverrides =
       std::map<std::string, std::shared_ptr<cursiv::Document>>;
 
-  // Refreshes the mirrors before the builder applies an update, which has not
-  // reached the project documents yet: their new state comes in as overrides,
-  // with a null document for a deleted project.
+  // Refreshes the mirrors before the builder applies an update: the new state
+  // of its projects comes in as overrides, null for a deleted one. It takes no
+  // token, as an update applies its changes before the builder tests it.
   MirrorRefreshResult prepareUpdate(std::span<const std::string_view> changed,
-                                    std::span<const std::string_view> deleted,
-                                    const cursiv::CancellationToken& token) {
+                                    std::span<const std::string_view> deleted) {
     ProjectOverrides overrides;
     for (auto uri : deleted)
       if (cursiv::uri_file_name(uri) == "xsmp.project")
@@ -504,9 +503,9 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
         }
         overrides.insert_or_assign(
             std::string(uri),
-            shared.documentFactory->fromString(std::move(text), uri, token));
+            shared.documentFactory->fromString(std::move(text), uri));
       }
-    return prepare(overrides, token);
+    return prepare(overrides, {});
   }
 
  private:
@@ -697,7 +696,7 @@ class SmpDocumentBuilder final : public cursiv::DocumentBuilder {
     std::set<std::string> nextDeleted(deleted.begin(), deleted.end());
     if (manager && manager->canRefresh()
         && (relevant(changed) || relevant(deleted))) {
-      auto result = manager->prepareUpdate(changed, deleted, token);
+      auto result = manager->prepareUpdate(changed, deleted);
       nextChanged.insert(result.changed.begin(), result.changed.end());
       nextDeleted.insert(result.deleted.begin(), result.deleted.end());
       // A mirror that the scan would no longer reach drops out.
