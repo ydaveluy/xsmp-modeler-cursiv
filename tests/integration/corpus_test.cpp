@@ -49,7 +49,7 @@ TEST_P(CorpusParse, ParsesWithoutSyntaxErrors) {
 
   auto document = xsmp::parsePath(GetParam().string(), langServices,
                                   /*validation=*/false);
-  EXPECT_TRUE(document->parseSucceeded())
+  EXPECT_TRUE(document->parseResult.accepted)
       << "syntax error while parsing " << GetParam();
 }
 

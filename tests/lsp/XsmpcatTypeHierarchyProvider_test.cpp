@@ -77,7 +77,7 @@ TEST(XsmpcatTypeHierarchyProvider, NumericBasesKindsDetailsAndDeprecatedTags) {
       " float Ratio extends Float64\n}\n";
   const auto result =
       cursiv::test::validationHelper(ws.language("xsmpcat"), text);
-  ASSERT_TRUE(result.document->parseSucceeded());
+  ASSERT_TRUE(result.document->parseResult.accepted);
   const auto prepare = [&](std::string_view needle) {
     return ws.language("xsmpcat").typeHierarchyProvider->prepareTypeHierarchy(
         *result.document,
@@ -121,7 +121,7 @@ TEST(XsmpcatTypeHierarchyProvider, SubtypesIncludeArrayAndValueReferenceUses) {
       "catalogue c\nnamespace n { primitive Int32 "
       "array Values = Int32[2] using IntPointer = Int32* }\n";
   const auto document = xsmp::parse(ws, "xsmpcat", text);
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto item =
       ws.language("xsmpcat").typeHierarchyProvider->prepareTypeHierarchy(
           *document, cursiv::to_lsp(document->textDocument().positionAt(

@@ -138,8 +138,8 @@ std::string assignmentValue(const Type* type) {
 const Node* openBlock(const cursiv::CompletionContext& context) {
   const auto& cst = context.document.parseResult.cst();
   const Node* last = nullptr;
-  for (auto id = cst.leaf_after(context.offset); id > 0 && !last;) {
-    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
+  for (auto id = cst.leafAfter(context.offset); id > 0 && !last;) {
+    const auto leaf = cst.asLeaf(id = cst.leafBefore(id));
     if (!leaf.hidden && !leaf.recovered)
       last = cursiv::owner_of_leaf(cst, leaf.id);
   }
@@ -155,9 +155,9 @@ const Node* openBlock(const cursiv::CompletionContext& context) {
 
     const auto& span = cst[at->cstNodeId];
     auto opened = false, closed = false;
-    for (auto id = cst.leaf_after(span.begin); id < cst.size();
-         id = cst.next_leaf(id)) {
-      const auto leaf = cst.as_leaf(id);
+    for (auto id = cst.leafAfter(span.begin); id < cst.size();
+         id = cst.nextLeaf(id)) {
+      const auto leaf = cst.asLeaf(id);
       if (leaf.begin < span.begin) continue;
       if (leaf.begin >= span.end || leaf.begin >= context.offset) break;
       if (leaf.hidden || leaf.recovered) continue;
@@ -298,8 +298,8 @@ void DeploymentCompletionProvider::visitReferenceCandidates(
   // The first path of a link is the one no arrow stands before.
   auto first = true;
   const auto& cst = context.document.parseResult.cst();
-  for (auto id = cst.leaf_after(context.offset); id > 0 && first;) {
-    const auto leaf = cst.as_leaf(id = cst.leaf_before(id));
+  for (auto id = cst.leafAfter(context.offset); id > 0 && first;) {
+    const auto leaf = cst.asLeaf(id = cst.leafBefore(id));
     if (leaf.hidden) continue;
     if (cst.text(leaf.id) == "->") first = false;
     if (cst.text(leaf.id) == "link" || cst.text(leaf.id) == "transfer") break;
@@ -650,7 +650,7 @@ template <class RelativeComponents>
 Ports portsOf(const RelativeComponents& relative) {
   Ports ports;
   for (const auto& component : relative)
-    (void)visitMembers(component.node, [&](const NamedElement& member) {
+    (void)visitProperties(component.node, [&](const NamedElement& member) {
       const Port port{component.path, &member};
       if (const auto* field = cursiv::ast_cast<Field>(&member)) {
         if (hasModifier(*field, "output")) ports.outputs.push_back(port);
@@ -770,7 +770,7 @@ DeploymentCompletionProvider::relativeComponents(const Node* component,
 std::vector<const NamedElement*> DeploymentCompletionProvider::members(
     const Node* owner) {
   std::vector<const NamedElement*> result;
-  visitMembers(owner, [&](const NamedElement& node) {
+  visitProperties(owner, [&](const NamedElement& node) {
     result.push_back(&node);
     return true;
   });

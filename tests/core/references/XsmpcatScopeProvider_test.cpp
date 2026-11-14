@@ -43,7 +43,7 @@ TEST(XsmpcatScopeProvider, ExpectedTypeOfPropertyChildrenIsThePropertyType) {
       xsmp::parse(ws, "xsmpcat", R"(catalogue PropertyType namespace n {
     model M { @Attributes.Static public property Smp.Int32 value }
   })");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto& language =
       dynamic_cast<const xsmp::XsmpcatCoreServices&>(ws.language("xsmpcat"));
   const xsmp::Property* property = nullptr;
@@ -67,7 +67,7 @@ TEST(XsmpcatScopeProvider,
     struct S { @Attributes.Static(1) field A ignored field B selected }
     model M { field S value = { .selected = B.ValueB } }
   })");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto& language =
       dynamic_cast<const xsmp::XsmpcatCoreServices&>(ws.language("xsmpcat"));
   const xsmp::DesignatedInitializer* initializer = nullptr;
@@ -101,7 +101,7 @@ TEST(XsmpcatScopeProvider, ResolvesTypeReferences) {
                               "  namespace sub { primitive Q }\n"
                               "  struct T { field demo.sub.Q y }\n"
                               "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   ASSERT_FALSE(catalogue->elements.empty());
@@ -135,7 +135,7 @@ TEST(XsmpcatScopeProvider, ReportsUnresolvedTypeReference) {
                               "{\n"
                               "  struct S { field Missing x }\n"
                               "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -168,7 +168,7 @@ TEST(XsmpcatScopeProvider, ResolvesMemberReferences) {
                                            // type
       "  }\n"
       "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -217,7 +217,7 @@ TEST(XsmpcatScopeProvider, BareEnumLiteralResolvesWithinItsOwnEnumBody) {
       "  integer Int32\n"
       "  enum Mode { A = 0, B = A + 1 }\n"  // B's value references bare A
       "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -254,7 +254,7 @@ TEST(XsmpcatScopeProvider, ConstantExpressionDoesNotResolveToSameNamedType) {
       "  struct Same {}\n"
       "  struct S { constant Int32 Same = 1 constant Int32 c = Same }\n"
       "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -288,7 +288,7 @@ TEST(XsmpcatScopeProvider, ResolvesInheritedMembers) {
       "    public property Bool p -> inherited\n"  // field from the base class
       "  }\n"
       "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -322,7 +322,7 @@ TEST(XsmpcatScopeProvider,
                   "  struct Vec { field Float64 x field Float64 y }\n"
                   "  struct Holder { field Vec v = { .x = 1.0, .y = 2.0 } }\n"
                   "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -356,7 +356,7 @@ TEST(XsmpcatScopeProvider,
       "  struct Vec { field Float64 x }\n"
       "  struct Holder { field Float64 x field Vec v = { .x = 1.0 } }\n"
       "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -392,7 +392,7 @@ TEST(XsmpcatScopeProvider, DesignatedInitializerUnknownFieldNameIsUnresolved) {
                   "  struct Vec { field Float64 x }\n"
                   "  struct Holder { field Vec v = { .bogus = 1.0 } }\n"
                   "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -419,7 +419,7 @@ TEST(XsmpcatScopeProvider,
                               "  integer Int32\n"
                               "  struct Holder { field Int32 x = { .y = 1 } }\n"
                               "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -449,7 +449,7 @@ TEST(XsmpcatScopeProvider,
                   "  class Derived extends Base { field Int32 b }\n"
                   "  struct Holder { field Derived d = { .a = 1, .b = 2 } }\n"
                   "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];
@@ -484,7 +484,7 @@ TEST(XsmpcatScopeProvider, ResolvesAgainstBuiltins) {
                               "    field Bool c\n"      // Smp.* shortcut
                               "  }\n"
                               "}\n");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   const auto* demo = catalogue->elements[0];

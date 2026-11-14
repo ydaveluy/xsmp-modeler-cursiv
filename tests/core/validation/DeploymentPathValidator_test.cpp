@@ -41,7 +41,7 @@ TEST_F(DeploymentPathValidatorTest,
       cycle = model;
   ASSERT_NE(cycle, nullptr);
   std::size_t members = 0;
-  EXPECT_TRUE(xsmp::visitMembers(cycle, [&](const xsmp::NamedElement&) {
+  EXPECT_TRUE(xsmp::visitProperties(cycle, [&](const xsmp::NamedElement&) {
     ++members;
     return true;
   }));

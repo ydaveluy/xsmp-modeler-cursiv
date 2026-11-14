@@ -36,7 +36,7 @@ TEST(Builtins, AutoLoadedOnRegistration) {
   auto* raw = document.get();
   shared->documentBuilder->build(std::span(&raw, 1), options);
 
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
   ASSERT_FALSE(catalogue->elements.empty());

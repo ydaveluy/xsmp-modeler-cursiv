@@ -45,9 +45,9 @@ std::string spelled(const cursiv::Document& document, cursiv::TextOffset begin,
                     cursiv::TextOffset end) {
   const auto& cst = document.parseResult.cst();
   std::string text;
-  for (auto id = cst.leaf_after(begin); id < cst.size();
-       id = cst.next_leaf(id)) {
-    const auto leaf = cst.as_leaf(id);
+  for (auto id = cst.leafAfter(begin); id < cst.size();
+       id = cst.nextLeaf(id)) {
+    const auto leaf = cst.asLeaf(id);
     if (leaf.begin >= end) break;
     if (leaf.begin >= begin && !leaf.hidden) text += cst.text(leaf.id);
   }
@@ -60,7 +60,7 @@ std::optional<::lsp::Range> XsmpRenameProvider::prepareRename(
     const cursiv::Document& document, ::lsp::Position position,
     const cursiv::CancellationToken& token) const {
   if (isReadOnlyDocumentUri(document.uri)) return std::nullopt;
-  const auto found = core().references->findDeclaration(
+  const auto found = services.references->findDeclarations(
       document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
       token);
   // An unresolved reference is not renamed, unlike in the default provider:
@@ -82,7 +82,7 @@ std::optional<::lsp::WorkspaceEdit> XsmpRenameProvider::rename(
       cursiv::DefaultRenameProvider::rename(document, position, newName, token);
   if (!edit) return edit;
 
-  const auto declaration = core().references->findDeclaration(
+  const auto declaration = services.references->findDeclarations(
       document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
       token);
   if (!declaration || declaration.targets.empty()) return edit;
@@ -104,9 +104,9 @@ std::optional<::lsp::WorkspaceEdit> XsmpRenameProvider::rename(
       const auto original =
           qualifiedAfterRename(*node, *target, targetName->name);
       for (const auto& reference :
-           core().references->findReferences(*node, {}, token)) {
+           services.references->findReferences(*node, {}, token)) {
         const auto source =
-            core().shared().documents->getDocument(reference.sourceDocumentId);
+            services.shared().documents->getDocument(reference.sourceDocumentId);
         if (!source) continue;
         const auto& text = source->textDocument();
         if (reference.sourceEnd > text.getText().size()) continue;

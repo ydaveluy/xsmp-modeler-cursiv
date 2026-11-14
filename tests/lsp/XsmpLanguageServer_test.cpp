@@ -44,7 +44,7 @@ TEST(XsmpLanguageServer, GeneratesNothingForADocumentOutsideAnyProject) {
   xsmp::XsmpLanguageServer server(ws.shared<xsmp::XsmpSharedServices>());
   auto document =
       xsmp::parse(ws, "xsmpcat", "catalogue demo\n", "file:///test.xsmpcat");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   expectEmptyReport(xsmp::customRequest(server, "xsmp/generateProject",
                                         std::string("file:///test.xsmpcat")));
 }

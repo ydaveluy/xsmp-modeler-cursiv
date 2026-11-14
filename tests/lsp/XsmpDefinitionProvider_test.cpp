@@ -155,7 +155,7 @@ TEST(XsmpDefinitionProvider, PlaceholdersAreReferencesOfTheirParameter) {
       xsmp::parse(world, "xsmpasb", text, "file:///r/a.xsmpasb");
   const auto& language = world.language("xsmpasb");
   const auto at = static_cast<cursiv::TextOffset>(text.find("Variant"));
-  const auto found = language.references->findDeclaration(*document, at);
+  const auto found = language.references->findDeclarations(*document, at);
   ASSERT_EQ(found.targets.size(), 1u);
   const auto first = text.find("{Variant}") + 1;
   const std::vector<std::size_t> expected{at, first,

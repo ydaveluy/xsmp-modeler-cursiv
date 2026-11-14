@@ -283,7 +283,7 @@ class SolverExpressions : public ::testing::Test {
         xsmp::parse(ws, "xsmpcat",
                     "catalogue test namespace demo { public interface I { "
                         + std::string(body) + " } }");
-    ASSERT_TRUE(document->parseSucceeded());
+    ASSERT_TRUE(document->parseResult.accepted);
   }
 
   const xsmp::Expression* expression(std::string_view name) const {
@@ -639,7 +639,7 @@ TEST(Solver, NumericTypesExtendingEachOtherStayUnlinked) {
     float A extends B integer B extends A
     struct K { constant Self x = 1 constant A y = 1.0 }
   })");
-  ASSERT_TRUE(result.document->parseSucceeded());
+  ASSERT_TRUE(result.document->parseResult.accepted);
   std::size_t numericTypes = 0;
   for (const auto* node :
        xsmp::descendantsOf(*result.document->parseResult.value))
@@ -730,7 +730,7 @@ TEST(Solver,
       constant Text accentedTooLong = "éàx"
     }
   })");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto* catalogue =
       cursiv::ast_cast<xsmp::Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);

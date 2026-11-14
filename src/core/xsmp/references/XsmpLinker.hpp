@@ -10,8 +10,8 @@ class XsmpLinker final : public cursiv::DefaultLinker {
   using DefaultLinker::DefaultLinker;
 
   [[nodiscard]] cursiv::LinkingError createLinkingError(
-      const cursiv::ReferenceInfo& reference, cursiv::RefState why,
-      const cursiv::AstNodeDescription* description) const override;
+      const cursiv::ReferenceInfo& reference, cursiv::LinkingFailure why,
+      const cursiv::AstNodeDescription* targetDescription) const override;
 };
 
 }  // namespace xsmp

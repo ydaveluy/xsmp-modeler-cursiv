@@ -75,12 +75,7 @@ class Scopes {
 
 bool XsmpcatScopeProvider::acceptEntry(const ReferenceInfo& context,
                                        const AstNodeDescription& entry) const {
-  const auto& reflection = *_xsmpServices.astReflection;
-  return reflection.acceptsTag(reflection.referenceAccepts(context.reference),
-                               entry.type)
-         && reflection.isSubtype(
-             entry.type, reflection.referenceNarrowTarget(context.reference,
-                                                          context.narrow));
+  return _xsmpServices.astReflection->accepts(context, entry.type);
 }
 
 bool XsmpcatScopeProvider::visitLocal(
@@ -108,7 +103,7 @@ bool XsmpcatScopeProvider::visitLocal(
     }
   }
 
-  const auto nameHash = cursiv::LocalSymbols::hash_name(name);
+  const auto nameHash = cursiv::LocalSymbols::hashName(name);
   for (const auto* scope : scopes.list()) {
     const auto* document = scope->getDocument();
     if (!document) continue;
@@ -131,9 +126,9 @@ bool XsmpcatScopeProvider::visitLocal(
       const AstNodeDescription* last = nullptr;
       const auto lookupHash = lookup.size() == name.size()
                                   ? nameHash
-                                  : cursiv::LocalSymbols::hash_name(lookup);
+                                  : cursiv::LocalSymbols::hashName(lookup);
       (void)symbols.find(scope, lookup, lookupHash)
-          .for_each([&](const AstNodeDescription& entry) {
+          .forEach([&](const AstNodeDescription& entry) {
             if (entry.name == lookup && acceptEntry(context, entry))
               last = &entry;
             return true;
@@ -166,7 +161,7 @@ const AstNodeDescription* XsmpcatScopeProvider::getScopeEntry(
   // Looked for past this document: a later export may change the answer.
   if (const auto* document = home(context))
     if (auto* references = document->parseResult.references.get())
-      references->importedNames.record(cursiv::LocalSymbols::hash_name(name));
+      references->importedNames.record(cursiv::LocalSymbols::hashName(name));
   const auto& reflection = *_xsmpServices.astReflection;
   return getGlobalScopeEntry(context, name,
                              reflection.referenceAccepts(context.reference),
@@ -192,7 +187,7 @@ bool XsmpcatScopeProvider::visitScopeEntries(
   if (designated(context)) return true;
   if (const auto* document = home(context))
     if (auto* references = document->parseResult.references.get())
-      references->importedNames.record(cursiv::LocalSymbols::hash_name(name));
+      references->importedNames.record(cursiv::LocalSymbols::hashName(name));
   const auto& reflection = *_xsmpServices.astReflection;
   return visitGlobalScopeEntries(context, name,
                                  reflection.referenceAccepts(context.reference),

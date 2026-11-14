@@ -34,7 +34,7 @@ TEST(XsmpDocumentValidator, DiagnosticDataOfMissingUuidAndLinkingError) {
       ws.language("xsmpcat"),
       "catalogue Metadata namespace n { /** é😀 */ public "
       "struct Root { field Missing absent } }");
-  ASSERT_TRUE(result.document->parseSucceeded());
+  ASSERT_TRUE(result.document->parseResult.accepted);
   auto missing = false, linking = false;
   for (const auto& issue : result.diagnostics) {
     if (issue.message == "Missing Type UUID.") {

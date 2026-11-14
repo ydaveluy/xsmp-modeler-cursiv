@@ -72,8 +72,8 @@ inline cursiv::TextRange rangeForFeature(const cursiv::AstNode& node,
   const cursiv::CstNodeView view{.cst = &document->parseResult.cst(),
                                  .id = node.cstNodeId};
   if (const auto field =
-          cursiv::find_node_for_feature(node, feature, index, document))
-    return {.begin = field->begin(), .end = field->end()};
+          cursiv::find_node_for_property(node, feature, index, document))
+    return {.begin = field.begin(), .end = field.end()};
   return {.begin = view.begin(), .end = view.end()};
 }
 
@@ -92,10 +92,10 @@ inline bool holdsReportedLiteral(const cursiv::AstNode& node,
   auto end = view.end();
   if (!feature.empty()) {
     const auto written =
-        cursiv::find_node_for_feature(node, feature, 0, document);
+        cursiv::find_node_for_property(node, feature, 0, document);
     if (!written) return false;
-    begin = written->begin();
-    end = written->end();
+    begin = written.begin();
+    end = written.end();
   }
   return std::ranges::any_of(
       document->parseResult.diagnostics, [&](const auto& diagnostic) {

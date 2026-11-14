@@ -338,7 +338,7 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
         closed.push_back(document->uri);
 
     _folders.assign(folders.begin(), folders.end());
-    // A failure anywhere must still release whoever waits on `ready()`.
+    // A failure anywhere must still release whoever waits until it is ready.
     try {
       std::vector<std::string> newlyRead;
       for (const auto& folder : folders)
@@ -356,11 +356,8 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
       // After the read, as `prepare` finds the projects among the documents.
       auto result = prepare({}, token);
       result.deleted.insert(result.deleted.end(), closed.begin(), closed.end());
-      // As in the default manager, `ready()` resolves before the build.
-      if (!_resolved) {
-        _resolved = true;
-        _readyPromise.set_value();
-      }
+      // As in the default manager, the workspace is ready before the build.
+      markReady();
 
       std::set<std::string> moved(newlyRead.begin(), newlyRead.end());
       moved.insert(result.changed.begin(), result.changed.end());
@@ -380,10 +377,7 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
       shared.documentBuilder->updateBuildOptions() = previous;
     } catch (...) {
       _initializing = false;
-      if (!_resolved) {
-        _resolved = true;
-        _readyPromise.set_value();
-      }
+      markReady();
       throw;
     }
     _initializing = false;
@@ -393,8 +387,6 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
       const noexcept override {
     return _folders;
   }
-
-  std::shared_future<void> ready() const override { return _ready; }
 
   // False during a scan, which refreshes the mirrors itself.
   bool canRefresh() const { return !_initializing; }
@@ -637,9 +629,6 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
   std::map<std::string, bool> _pending;
   bool _initializing = false;
   std::vector<cursiv::WorkspaceFolder> _folders;
-  std::promise<void> _readyPromise;
-  std::shared_future<void> _ready = _readyPromise.get_future().share();
-  bool _resolved = false;
 };
 
 // Forwards everything to the wrapped builder, and refreshes the mirrors before
@@ -677,13 +666,13 @@ class SmpDocumentBuilder final : public cursiv::DocumentBuilder {
 
   void build(std::span<cursiv::Document* const> documents,
              const cursiv::BuildOptions& options = {},
-             const cursiv::CancellationToken& token = {}) const override {
+             const cursiv::CancellationToken& token = {}) override {
     _underlying->build(documents, options, token);
   }
 
   void update(std::span<const std::string_view> changed,
               std::span<const std::string_view> deleted,
-              const cursiv::CancellationToken& token = {}) const override {
+              const cursiv::CancellationToken& token = {}) override {
     auto* manager =
         dynamic_cast<SmpWorkspaceManager*>(_shared.workspaceManager.get());
     const auto relevant = [&](auto uris) {
@@ -724,7 +713,7 @@ class SmpDocumentBuilder final : public cursiv::DocumentBuilder {
   }
 
   void resetToState(cursiv::Document& document,
-                    cursiv::DocumentState state) const override {
+                    cursiv::DocumentState state) override {
     _underlying->resetToState(document, state);
   }
 

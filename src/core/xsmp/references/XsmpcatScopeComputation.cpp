@@ -67,7 +67,7 @@ void XsmpcatScopeComputation::exportType(
   each_named_value(type, [&](cursiv::AstNode& member, std::string_view leaf) {
     if (auto description =
             services.astNodeDescriptionProvider->createDescription(
-                member, document.keep_text(name, ".", leaf), &document))
+                member, document.keepText(name, ".", leaf), &document))
       exported.push_back(*std::move(description));
   });
 }
@@ -84,7 +84,7 @@ void XsmpcatScopeComputation::exportNamespace(
   for (NamedElement* const element : ns.elements) {
     if (element == nullptr || element->name.empty()) continue;
     cursiv::throw_if_cancelled(cancelToken);
-    const auto dotted = document.keep_text(name, ".", element->name);
+    const auto dotted = document.keepText(name, ".", element->name);
     if (auto* const nested = as<Namespace>(element))
       exportNamespace(*nested, dotted, exported, document, cancelToken);
     else
@@ -125,7 +125,7 @@ std::vector<cursiv::AstNodeDescription> XsmpcatScopeComputation::qualifyInto(
       for (const auto& inner :
            qualifyInto(*nested, symbols, document, cancelToken)) {
         auto dotted = inner;
-        dotted.name = document.keep_text(nested->name, ".", inner.name);
+        dotted.name = document.keepText(nested->name, ".", inner.name);
         // A sibling of the nested namespace names it dotted from here.
         symbols.add(&ns, dotted);
         contributed.push_back(std::move(dotted));
@@ -138,7 +138,7 @@ std::vector<cursiv::AstNodeDescription> XsmpcatScopeComputation::qualifyInto(
           [&](cursiv::AstNode& member, std::string_view leaf) {
             auto description =
                 services.astNodeDescriptionProvider->createDescription(
-                    member, document.keep_text(element->name, ".", leaf), &document);
+                    member, document.keepText(element->name, ".", leaf), &document);
             if (!description) return;
             symbols.add(&ns, *description);
             contributed.push_back(*std::move(description));
@@ -170,12 +170,12 @@ cursiv::LocalSymbols XsmpcatScopeComputation::collectLocalSymbols(
     for (Namespace* const ns : catalogue->elements) {
       if (ns == nullptr || ns->name.empty()) continue;
       for (auto inner : qualifyInto(*ns, symbols, document, cancelToken)) {
-        inner.name = document.keep_text(ns->name, ".", inner.name);
+        inner.name = document.keepText(ns->name, ".", inner.name);
         symbols.add(catalogue, std::move(inner));
       }
     }
   }
-  symbols.build_index();
+  symbols.buildIndex();
   return symbols;
 }
 

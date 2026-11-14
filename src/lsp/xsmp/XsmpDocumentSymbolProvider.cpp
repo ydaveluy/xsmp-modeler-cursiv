@@ -255,7 +255,7 @@ std::vector<const Node*> children(const Node& node,
   } else if (auto* sub = cursiv::ast_cast<SubInstance>(&node)) {
     if (sub->instance) result.push_back(sub->instance);
   } else
-    services.astReflection->visitMembers(
+    services.astReflection->visitProperties(
         node, [&](std::string_view property, std::uint32_t, Node& child) {
           if (property == "elements" || property == "literal")
             result.push_back(&child);
@@ -304,7 +304,7 @@ std::vector<::lsp::DocumentSymbol> XsmpDocumentSymbolProvider::getSymbols(
     const auto nameNode = services.nameProvider->getNameNode(node, &document);
     symbol.selectionRange =
         nameNode ? cursiv::to_lsp(document.textDocument().rangeAt(
-                       nameNode->begin(), nameNode->end()))
+                       nameNode.begin(), nameNode.end()))
                  : symbol.range;
     symbol.children = std::move(nested);
     symbol.detail = details(node);

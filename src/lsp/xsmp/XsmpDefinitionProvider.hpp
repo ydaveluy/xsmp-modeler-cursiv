@@ -14,7 +14,7 @@ namespace xsmp {
 class XsmpDeploymentReferences final : public cursiv::DefaultReferences {
  public:
   using DefaultReferences::DefaultReferences;
-  cursiv::Declaration findDeclaration(
+  cursiv::Declaration findDeclarations(
       const cursiv::Document&, cursiv::TextOffset,
       const cursiv::CancellationToken& = {}) const override;
 

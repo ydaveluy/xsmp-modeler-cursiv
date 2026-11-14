@@ -60,7 +60,7 @@ struct ToolFixture {
                                                       std::move(text));
     auto* raw = document.get();
     shared->documentBuilder->build(std::span(&raw, 1), {.validation = false});
-    EXPECT_TRUE(document->parseSucceeded());
+    EXPECT_TRUE(document->parseResult.accepted);
     return *cursiv::ast_cast<const Catalogue>(document->parseResult.value);
   }
 

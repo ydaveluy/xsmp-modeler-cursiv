@@ -16,8 +16,8 @@ const AstNodeDescription* descriptionOf(const AstNode* node) {
   const auto& symbols = document->localSymbols;
   const auto name = nameOf(node);
   const AstNodeDescription* found = nullptr;
-  (void)symbols.find(node->parent, name, cursiv::LocalSymbols::hash_name(name))
-      .for_each([&](const AstNodeDescription& d) {
+  (void)symbols.find(node->parent, name, cursiv::LocalSymbols::hashName(name))
+      .forEach([&](const AstNodeDescription& d) {
         if (d.node != node) return true;
         found = &d;
         return false;
@@ -450,7 +450,7 @@ std::optional<std::string> concreteName(const NamedElement& node,
   return expanded(node.name, bindings);
 }
 
-bool visitMembers(const AstNode* node,
+bool visitProperties(const AstNode* node,
                   cursiv::function_ref<bool(const NamedElement&)> visitor) {
   return members(node, [&](const AstNode* member) {
     const auto* named = cursiv::ast_cast<NamedElement>(member);

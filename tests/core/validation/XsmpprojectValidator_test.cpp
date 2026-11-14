@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <cursiv/services/Diagnostic.hpp>
+#include <cursiv/validation/Diagnostic.hpp>
 #include <cursiv/utils/UriUtils.hpp>
 #include <cursiv/workspace/Document.hpp>
 #include <cursiv/workspace/Documents.hpp>

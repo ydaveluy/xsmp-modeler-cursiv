@@ -74,7 +74,7 @@ namespace demo {
     std::vector<cursiv::Document*> raw;
     for (auto& item : documents) raw.push_back(item.get());
     shared->documentBuilder->build(raw);
-    EXPECT_TRUE(document->parseSucceeded());
+    EXPECT_TRUE(document->parseResult.accepted);
     return document;
   }
 

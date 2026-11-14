@@ -96,7 +96,7 @@ TEST_P(DeploymentValidatorDiagnostics, MatchesTheFullDiagnosticContract) {
       "file:///cases/src/target." + scenario.lang, scenario.text);
   documents.push_back(target.get());
   shared->documentBuilder->build(documents);
-  ASSERT_TRUE(target->parseSucceeded());
+  ASSERT_TRUE(target->parseResult.accepted);
   auto expected = golden.get("diagnostics").array();
   JsonArray actual;
   for (const auto& issue : target->diagnostics)
@@ -162,7 +162,7 @@ TEST_P(DeploymentValidatorCases, MeetsItsExpectations) {
   documents.push_back(target);
   std::vector<cursiv::Document*> raw;
   for (const auto& document : documents) {
-    ASSERT_TRUE(document->parseSucceeded()) << document->uri;
+    ASSERT_TRUE(document->parseResult.accepted) << document->uri;
     raw.push_back(document.get());
   }
   shared->documentBuilder->build(raw);

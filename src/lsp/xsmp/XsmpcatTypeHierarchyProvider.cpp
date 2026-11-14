@@ -82,7 +82,7 @@ std::optional<::lsp::TypeHierarchyItem> makeItem(
   item.range = cursiv::to_lsp(
       document->textDocument().rangeAt(record.begin, record.end));
   item.selectionRange = cursiv::to_lsp(
-      document->textDocument().rangeAt(name->begin(), name->end()));
+      document->textDocument().rangeAt(name.begin(), name.end()));
   return item;
 }
 

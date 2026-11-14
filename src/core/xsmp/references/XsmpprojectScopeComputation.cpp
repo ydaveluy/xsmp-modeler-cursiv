@@ -23,7 +23,7 @@ XsmpprojectScopeComputation::collectExportedSymbols(
       if (canonical != named->name) continue;
       if (auto description =
               services.astNodeDescriptionProvider->createDescription(
-                  *document.parseResult.value, document.keep_text(alias),
+                  *document.parseResult.value, document.keepText(alias),
                   &document))
         exported.push_back(*description);
     }

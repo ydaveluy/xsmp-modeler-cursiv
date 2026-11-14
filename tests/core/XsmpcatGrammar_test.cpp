@@ -56,7 +56,7 @@ TEST(XsmpcatGrammar, SampleParsesWithoutSyntaxErrors) {
   auto shared = xsmp::createXsmpSharedServices();
   auto document = parseSample(*shared);
 
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
 
   auto* catalogue =
       cursiv::ast_cast<xsmp::Catalogue>(document->parseResult.value);
@@ -73,7 +73,7 @@ TEST(XsmpcatGrammar, ExpressionPrecedence) {
   using namespace xsmp;
   auto shared = xsmp::createXsmpSharedServices();
   auto document = parseSample(*shared);
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
 
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);
@@ -117,7 +117,7 @@ TEST(XsmpcatGrammar, StringLiteralConverterWired) {
   using namespace xsmp;
   auto shared = xsmp::createXsmpSharedServices();
   auto document = parseSample(*shared);
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
 
   auto* catalogue = cursiv::ast_cast<Catalogue>(document->parseResult.value);
   ASSERT_NE(catalogue, nullptr);

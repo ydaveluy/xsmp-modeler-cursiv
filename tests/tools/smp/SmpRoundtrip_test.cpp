@@ -105,7 +105,7 @@ TEST(SmpRoundtrip, EveryEscapeOfAConfigurationComesBack) {
   source += "}\n";
   xsmp::SmpWorld world;
   const auto document = world.parse(".xsmpcfg", source);
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto exported = xsmp::exportDocument(*document);
   pugi::xml_document xml;
   ASSERT_TRUE(xml.load_string(exported.c_str()));
@@ -178,7 +178,7 @@ TEST(SmpRoundtrip, EveryEscapeOfACatalogueComesBack) {
     xsmp::SmpProject project(standard);
     const auto document = project.add("n.xsmpcat", source);
     project.build();
-    ASSERT_TRUE(document->parseSucceeded());
+    ASSERT_TRUE(document->parseResult.accepted);
     const auto exported = xsmp::exportDocument(*document);
     pugi::xml_document xml;
     ASSERT_TRUE(xml.load_string(exported.c_str()));

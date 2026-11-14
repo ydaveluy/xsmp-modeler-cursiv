@@ -31,7 +31,7 @@ TEST(CommonGrammar, AnyBlankSeparatesTokensInEveryLanguage) {
         text);
     cursiv::Document* input[]{document.get()};
     shared->documentBuilder->build(input, {.validation = false});
-    return document->parseSucceeded()
+    return document->parseResult.accepted
            && document->parseResult.diagnostics.empty();
   };
   for (const auto& [file, source] : sources) {
@@ -60,7 +60,7 @@ TEST(CommonGrammar, CarriageReturnLineFeedIsABlankInEveryLanguage) {
         "file:///crlf/" + std::to_string(sequence++) + "/" + file, source);
     cursiv::Document* input[]{document.get()};
     shared->documentBuilder->build(input, {.validation = false});
-    EXPECT_TRUE(document->parseSucceeded()
+    EXPECT_TRUE(document->parseResult.accepted
                 && document->parseResult.diagnostics.empty())
         << file;
   }

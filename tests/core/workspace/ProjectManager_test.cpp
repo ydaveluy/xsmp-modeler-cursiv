@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
-#include <cursiv/services/Diagnostic.hpp>
+#include <cursiv/validation/Diagnostic.hpp>
 #include <cursiv/workspace/Document.hpp>
 #include <cursiv/workspace/DocumentBuilder.hpp>
 #include <cursiv/workspace/Documents.hpp>

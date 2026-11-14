@@ -14,7 +14,7 @@ TEST(ExampleWorkspace, ParsesLinksAndValidatesCleanly) {
   for (const auto& document : shared->documents->all()) {
     if (!xsmp::sourceDocumentUri(document->uri).starts_with(prefix)) continue;
     ++count;
-    EXPECT_TRUE(document->parseSucceeded()) << document->uri;
+    EXPECT_TRUE(document->parseResult.accepted) << document->uri;
     for (const auto& diagnostic : document->diagnostics)
       EXPECT_NE(diagnostic.severity, cursiv::DiagnosticSeverity::Error)
           << document->uri << ": " << diagnostic.message;

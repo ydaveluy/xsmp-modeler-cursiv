@@ -138,7 +138,7 @@ std::optional<::lsp::LocationLink> location(const Node& target,
   link.targetRange =
       cursiv::to_lsp(home->textDocument().rangeAt(node.begin, node.end));
   link.targetSelectionRange =
-      cursiv::to_lsp(home->textDocument().rangeAt(name->begin(), name->end()));
+      cursiv::to_lsp(home->textDocument().rangeAt(name.begin(), name.end()));
   link.originSelectionRange =
       cursiv::to_lsp(source.textDocument().rangeAt(begin, end));
   return link;
@@ -146,17 +146,17 @@ std::optional<::lsp::LocationLink> location(const Node& target,
 
 }  // namespace
 
-cursiv::Declaration XsmpDeploymentReferences::findDeclaration(
+cursiv::Declaration XsmpDeploymentReferences::findDeclarations(
     const cursiv::Document& document, cursiv::TextOffset offset,
     const cursiv::CancellationToken& token) const {
-  auto found = DefaultReferences::findDeclaration(document, offset, token);
+  auto found = DefaultReferences::findDeclarations(document, offset, token);
   if (found) return found;
 
   const auto& cst = document.parseResult.cst();
   // From the first leaf that ends at or after the caret.
-  for (auto id = offset ? cst.leaf_after(offset - 1) : 0; id < cst.size();
-       id = cst.next_leaf(id)) {
-    const auto leaf = cst.as_leaf(id);
+  for (auto id = offset ? cst.leafAfter(offset - 1) : 0; id < cst.size();
+       id = cst.nextLeaf(id)) {
+    const auto leaf = cst.asLeaf(id);
     if (leaf.begin > offset) break;
     if (leaf.hidden || leaf.recovered) continue;
     const auto* owner = cursiv::owner_of_leaf(cst, leaf.id);
@@ -208,8 +208,8 @@ XsmpDeploymentReferences::findReferences(
         || cursiv::ast_cast<Catalogue>(document->parseResult.value))
       continue;
     const auto& cst = document->parseResult.cst();
-    for (cursiv::NodeId id = 0; id < cst.size(); id = cst.next_leaf(id)) {
-      const auto leaf = cst.as_leaf(id);
+    for (cursiv::NodeId id = 0; id < cst.size(); id = cst.nextLeaf(id)) {
+      const auto leaf = cst.asLeaf(id);
       if (leaf.hidden || leaf.recovered) continue;
       (void)visitPlaceholders(
           cst.text(leaf.id), leaf.begin,
@@ -245,9 +245,9 @@ XsmpDefinitionProvider::getDefinition(
   const auto& cst = document.parseResult.cst();
   const Node* cursorOwner = nullptr;
   // From the first leaf that ends at or after the caret.
-  for (auto id = offset ? cst.leaf_after(offset - 1) : 0; id < cst.size();
-       id = cst.next_leaf(id)) {
-    const auto leaf = cst.as_leaf(id);
+  for (auto id = offset ? cst.leafAfter(offset - 1) : 0; id < cst.size();
+       id = cst.nextLeaf(id)) {
+    const auto leaf = cst.asLeaf(id);
     if (leaf.begin > offset) break;
     if (leaf.hidden || leaf.recovered) continue;
     cursorOwner = cursiv::owner_of_leaf(cst, leaf.id);
@@ -302,7 +302,7 @@ std::optional<std::vector<::lsp::LocationLink>>
 XsmpcatTypeDefinitionProvider::getTypeDefinition(
     const cursiv::Document& document, ::lsp::Position position,
     const cursiv::CancellationToken& token) const {
-  const auto found = services.references->findDeclaration(
+  const auto found = services.references->findDeclarations(
       document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
       token);
 

@@ -18,7 +18,7 @@ XsmpsedScopeComputation::collectExportedSymbols(
     for (auto* node : schedule->elements) {
       auto* task = const_cast<Task*>(cursiv::ast_cast<Task>(node));
       if (!task) continue;
-      const auto name = document.keep_text(schedule->name, ".", task->name);
+      const auto name = document.keepText(schedule->name, ".", task->name);
       if (auto d = services.astNodeDescriptionProvider->createDescription(
               *task, name, &document))
         result.push_back(*d);

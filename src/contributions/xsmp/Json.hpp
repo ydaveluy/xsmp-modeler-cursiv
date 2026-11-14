@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include <cctype>
-#include <cursiv/services/JsonValue.hpp>
+#include <cursiv/utils/JsonValue.hpp>
 #include <filesystem>
 #include <fstream>
 #include <sstream>

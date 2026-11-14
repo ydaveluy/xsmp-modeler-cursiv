@@ -52,7 +52,7 @@ TEST(XsmpCodeActionProvider, MissingUuidFixPreservesExistingDescription) {
   EXPECT_NE(changed.find("@uuid "), std::string::npos);
   const auto fixed =
       cursiv::test::validationHelper(world.language("xsmpcat"), changed);
-  EXPECT_TRUE(fixed.document->parseSucceeded());
+  EXPECT_TRUE(fixed.document->parseResult.accepted);
   EXPECT_FALSE(
       std::ranges::any_of(fixed.diagnostics, [](const auto& diagnostic) {
         return cursiv::data_code(diagnostic) == xsmp::MissingUuid;

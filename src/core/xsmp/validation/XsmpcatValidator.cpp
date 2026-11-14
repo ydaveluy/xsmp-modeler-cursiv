@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <cstddef>
-#include <cursiv/services/Diagnostic.hpp>
+#include <cursiv/validation/Diagnostic.hpp>
 #include <cursiv/syntax-tree/AstNode.hpp>
 #include <cursiv/workspace/Document.hpp>
 #include <cursiv/workspace/Documents.hpp>

@@ -296,7 +296,7 @@ TEST_F(DeploymentValueValidatorTest,
   auto invalid = build("xsmpcfg", R"(configuration NumericOverflow
 /root: numbers.Root { maximum = 18446744073709551616 minimum = -9223372036854775809 }
 )");
-  EXPECT_TRUE(invalid->parseSucceeded());
+  EXPECT_TRUE(invalid->parseResult.accepted);
   EXPECT_TRUE(has(*invalid, "Conversion overflow for type UInt64"));
   EXPECT_TRUE(has(*invalid, "Conversion overflow for type Int64"));
 }

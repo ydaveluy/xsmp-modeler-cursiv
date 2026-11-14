@@ -251,7 +251,7 @@ Json Registry::registerManifestEntries(XsmpSharedCoreServices& shared,
           documentUri(extension, descriptorPath.lexically_relative(root));
       auto descriptor =
           shared.documentFactory->fromString(readText(descriptorPath), uri);
-      if (!descriptor->parseSucceeded())
+      if (!descriptor->parseResult.accepted)
         throw std::invalid_argument("Invalid contribution descriptor: "
                                     + descriptorPath.string());
 

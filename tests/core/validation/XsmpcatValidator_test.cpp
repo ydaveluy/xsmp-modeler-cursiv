@@ -2610,7 +2610,7 @@ TEST(XsmpcatValidator, AttributeUsageAcceptsReflectedTypeAncestors) {
         ws, "catalogue c namespace n { public primitive Flag /** @usage "
                 + std::string(usage) + " */ public attribute Flag Foo = true "
                 + "@Foo public " + declaration + " }");
-    ASSERT_TRUE(result.document->parseSucceeded());
+    ASSERT_TRUE(result.document->parseResult.accepted);
     for (const auto& diagnostic : result.diagnostics)
       EXPECT_EQ(diagnostic.message.find("disallowed"), std::string::npos);
   }
@@ -2899,7 +2899,7 @@ TEST(XsmpcatValidator, FixtureDiagnosticsMatchTheExpectedMessagesAndRanges) {
   std::ostringstream source;
   source << input.rdbuf();
   auto result = validate(ws, source.str());
-  ASSERT_TRUE(result.document->parseSucceeded());
+  ASSERT_TRUE(result.document->parseResult.accepted);
   std::vector<std::string> actual;
   for (const auto& diagnostic : result.document->diagnostics) {
     const auto begin =

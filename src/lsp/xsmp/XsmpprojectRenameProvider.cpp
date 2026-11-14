@@ -9,7 +9,7 @@ std::optional<::lsp::Range> XsmpprojectRenameProvider::prepareRename(
     const cursiv::Document& document, ::lsp::Position position,
     const cursiv::CancellationToken& token) const {
   if (isReadOnlyDocumentUri(document.uri)) return std::nullopt;
-  const auto found = core().references->findDeclaration(
+  const auto found = services.references->findDeclarations(
       document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
       token);
   for (const auto* target : found.targets)

@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <cursiv/services/Diagnostic.hpp>
+#include <cursiv/validation/Diagnostic.hpp>
 #include <cursiv/services/SharedCoreServices.hpp>
 #include <cursiv/syntax-tree/AstNode.hpp>
 #include <cursiv/utils/UriUtils.hpp>

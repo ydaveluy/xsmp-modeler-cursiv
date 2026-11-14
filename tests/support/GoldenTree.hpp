@@ -232,7 +232,7 @@ struct GoldenWorkspace {
     std::vector<const cursiv::AstNode*> result;
     if (!project) return result;
     for (const auto* document : projectDocuments(*shared, *project, false)) {
-      EXPECT_TRUE(document->parseSucceeded()) << document->uri;
+      EXPECT_TRUE(document->parseResult.accepted) << document->uri;
       if (cursiv::ast_cast<const Document>(document->parseResult.value))
         result.push_back(document->parseResult.value);
     }

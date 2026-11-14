@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cursiv/services/JsonValue.hpp>
+#include <cursiv/utils/JsonValue.hpp>
 #include <string_view>
 
 namespace xsmp {

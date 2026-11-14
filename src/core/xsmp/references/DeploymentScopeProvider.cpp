@@ -127,14 +127,14 @@ bool DeploymentScopeProvider::visitCandidates(
   const auto give = [&](const AstNodeDescription& d) {
     return !accepts(context, d) || visitor(d);
   };
-  const auto hash = cursiv::LocalSymbols::hash_name(name);
+  const auto hash = cursiv::LocalSymbols::hashName(name);
   for (const auto* scope = context.container; scope && doc && scope != doc;
        scope = scope->parent) {
     if (name.empty()) {
       for (const auto& d : doc->localSymbols.forContainer(scope))
         if (!give(d)) return false;
     } else if (!doc->localSymbols.find(scope, name, hash)
-                    .for_each([&](const AstNodeDescription& d) {
+                    .forEach([&](const AstNodeDescription& d) {
                       return d.name != name || give(d);
                     })) {
       return false;

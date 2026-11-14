@@ -33,7 +33,7 @@ std::shared_ptr<cursiv::Document> parseFixture(
 TEST(XsmpprojectGrammar, ProjectFileParses) {
   auto shared = xsmp::createXsmpSharedServices();
   auto document = parseFixture(*shared, "xsmp.project");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
 
   const auto* project =
       cursiv::ast_cast<const xsmp::Project>(document->parseResult.value);
@@ -56,7 +56,7 @@ TEST(XsmpprojectGrammar, ProjectFileParses) {
 TEST(XsmpprojectGrammar, ProfileFileParses) {
   auto shared = xsmp::createXsmpSharedServices();
   auto document = parseFixture(*shared, "sample.xsmpprofile");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto* profile =
       cursiv::ast_cast<const xsmp::Profile>(document->parseResult.value);
   ASSERT_NE(profile, nullptr);
@@ -67,7 +67,7 @@ TEST(XsmpprojectGrammar, ProfileFileParses) {
 TEST(XsmpprojectGrammar, ToolFileParses) {
   auto shared = xsmp::createXsmpSharedServices();
   auto document = parseFixture(*shared, "sample.xsmptool");
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto* tool =
       cursiv::ast_cast<const xsmp::Tool>(document->parseResult.value);
   ASSERT_NE(tool, nullptr);
@@ -94,7 +94,7 @@ TEST(XsmpprojectGrammar, StringsAreTheTextBetweenTheirQuotes) {
       R"(project "A\u0041\a\0" source "src\\dir" tool "fake\x41")");
   auto* raw = document.get();
   shared->documentBuilder->build({&raw, 1}, {.validation = false});
-  ASSERT_TRUE(document->parseSucceeded());
+  ASSERT_TRUE(document->parseResult.accepted);
   const auto* project =
       cursiv::ast_cast<xsmp::Project>(document->parseResult.value);
   ASSERT_NE(project, nullptr);

@@ -26,8 +26,8 @@ namespace {
 // with its text as written.
 void forEachLiteral(const cursiv::Document& document, const auto& visit) {
   const auto& cst = document.parseResult.cst();
-  for (cursiv::NodeId id = 0; id < cst.size(); id = cst.next_leaf(id)) {
-    const auto leaf = cst.as_leaf(id);
+  for (cursiv::NodeId id = 0; id < cst.size(); id = cst.nextLeaf(id)) {
+    const auto leaf = cst.asLeaf(id);
     if (leaf.hidden) continue;
     const auto text = cst.text(leaf.id);
     if (text.starts_with('"') || text.starts_with('\'')) visit(leaf, text);
@@ -144,12 +144,12 @@ void XsmpDocumentValidator::processLinkingErrors(
         cursiv::throw_if_cancelled(token);
         auto& diagnostic = diagnostics.at(at++);
         // A name that exists but is not of the kind this site accepts.
-        const auto* wanted = core().astReflection->referenceNarrowTarget(
+        const auto* wanted = services.astReflection->referenceNarrowTarget(
             site.reference, site.narrow);
         if (wanted && why == cursiv::RefState::ErrorNotFound) {
           auto broad = site;
           broad.narrow = cursiv::kNoNarrow;
-          if (const auto* found = core().scopeProvider->getScopeEntry(
+          if (const auto* found = services.scopeProvider->getScopeEntry(
                   broad, site.referenceText)) {
             diagnostic.message = "'" + std::string(site.referenceText) + "' ("
                                  + std::string(found->type->name)
@@ -162,12 +162,12 @@ void XsmpDocumentValidator::processLinkingErrors(
 
         // A name that only misses a dependency of the project.
         if (const auto* shared =
-                dynamic_cast<const XsmpSharedCoreServices*>(&core().shared());
+                dynamic_cast<const XsmpSharedCoreServices*>(&services.shared());
             shared && shared->projectManager
             && why == cursiv::RefState::ErrorNotFound) {
           const Project* project = nullptr;
           (void)shared->indexManager->visitByName(
-              site.referenceText, true, {}, *core().astReflection,
+              site.referenceText, true, {}, *services.astReflection,
               [&](const cursiv::AstNodeDescription& candidate) {
                 if (candidate.node)
                   if (const auto* home = candidate.node->getDocument())

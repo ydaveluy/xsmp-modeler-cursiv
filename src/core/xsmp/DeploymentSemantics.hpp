@@ -124,8 +124,8 @@ bool elementsNamed(const AstNode& type, const List& list, std::string_view name,
   if (document && !name.empty()
       && document->state.load() >= cursiv::DocumentState::ComputedScopes)
     return document->localSymbols
-        .find(&type, name, cursiv::LocalSymbols::hash_name(name))
-        .for_each([&](const AstNodeDescription& d) {
+        .find(&type, name, cursiv::LocalSymbols::hashName(name))
+        .forEach([&](const AstNodeDescription& d) {
           return d.name != name || yield(static_cast<const AstNode*>(d.node));
         });
   for (auto* element : list)
@@ -319,7 +319,7 @@ std::optional<std::string> concreteName(const NamedElement& node,
                                         const AstNode* context = nullptr);
 
 // `members`, without the template, for the named elements only.
-bool visitMembers(const AstNode* node,
+bool visitProperties(const AstNode* node,
                   cursiv::function_ref<bool(const NamedElement&)> visitor);
 
 }  // namespace xsmp

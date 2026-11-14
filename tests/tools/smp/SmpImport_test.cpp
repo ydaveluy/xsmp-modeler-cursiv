@@ -235,7 +235,7 @@ void expectValidDocuments(const ImportedProject& project,
       continue;
     const auto name = std::string(label) + "/" + std::string(folder)
                       + project.relative(*document);
-    EXPECT_TRUE(document->parseSucceeded()) << name;
+    EXPECT_TRUE(document->parseResult.accepted) << name;
     const auto errors = errorsOf(*document);
     if (documentsWithErrors().contains(name))
       EXPECT_FALSE(errors.empty()) << name
