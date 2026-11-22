@@ -57,7 +57,7 @@ jobs:
       - name: Build
         run: cmake --build --preset wasi-release --parallel 4
       - name: Test
-        run: ctest --preset wasi-release --parallel 4
+        run: ctest --preset wasi-release --parallel 4 --output-on-failure
       - name: Validate the example workspace with WASI
         run: node --no-warnings vscode/server/wasi-run.mjs --host-module vscode/server/wasi-host.mjs build-wasi/src/xsmp_cli validate example/06-mission-system -w example
       - name: Test and audit the editor extension
