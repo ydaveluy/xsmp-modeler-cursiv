@@ -33,7 +33,7 @@ std::unique_ptr<Services> createServices(XsmpSharedServices& sharedServices,
                                          InstallCore installCore) {
   auto services = std::make_unique<Services>(sharedServices);
   services->languageMetaData.languageId = std::move(languageId);
-  cursiv::install_default_lsp_services(*services);
+  cursiv::installDefaultLspServices(*services);
   installCore(*services);
   services->references = std::make_unique<XsmpDeploymentReferences>(*services);
   services->documentSymbolProvider =

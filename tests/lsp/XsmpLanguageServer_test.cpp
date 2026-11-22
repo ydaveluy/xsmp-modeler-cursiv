@@ -68,14 +68,14 @@ TEST(XsmpLanguageServer, GeneratesSelectedProjectWithItsProfile) {
   xsmp::ScratchDirectory project;
   std::filesystem::create_directories(project.path / "smdl");
   const auto uri =
-      cursiv::path_to_file_uri((project.path / "xsmp.project").string());
+      cursiv::pathToFileUri((project.path / "xsmp.project").string());
   (void)xsmp::parse(world, "xsmpproject",
                     "project 'Demo'\nsource 'smdl'\nprofile 'esa-cdk'\n", uri);
   (void)xsmp::parse(
       world, "xsmpcat",
       "catalogue Demo\nnamespace n { /** @uuid "
       "11111111-2222-4333-8444-555555555555 */ string Label[8] }\n",
-      cursiv::path_to_file_uri((project.path / "smdl/Demo.xsmpcat").string()));
+      cursiv::pathToFileUri((project.path / "smdl/Demo.xsmpcat").string()));
   xsmp::XsmpLanguageServer server(world.shared());
   const auto report =
       xsmp::customRequest(server, "xsmp/generateProject", ::lsp::LSPAny(uri));
@@ -100,8 +100,8 @@ TEST(XsmpLanguageServer, WatchedFilesKeepAnSmpMirrorInStep) {
   };
   const auto source = dir.write("model.smpcfg", xml("First"));
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
-  cursiv::initialize_root(dir.path.string(), shared);
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
+  cursiv::initializeRoot(dir.path.string(), shared);
   ASSERT_TRUE(shared.documents->hasDocument(mirror));
 
   xsmp::XsmpLanguageServer server(shared);
@@ -109,7 +109,7 @@ TEST(XsmpLanguageServer, WatchedFilesKeepAnSmpMirrorInStep) {
                            ::lsp::FileChangeType type) {
     ::lsp::DidChangeWatchedFilesParams params;
     params.changes.push_back(
-        {.uri = ::lsp::Uri::parse(cursiv::path_to_file_uri(file.string())),
+        {.uri = ::lsp::Uri::parse(cursiv::pathToFileUri(file.string())),
          .type = type});
     server.didChangeWatchedFiles(params);
     // Served behind the write the notification queued.
@@ -165,8 +165,8 @@ TEST(XsmpLanguageServer, IssuesKeepTheirCodeInTheirDataAlone) {
       "catalogue c\nnamespace n { struct S {} field Missing x }\n");
   auto missingUuid = false;
   for (const auto& diagnostic : result.diagnostics) {
-    if (cursiv::data_code(diagnostic).empty()) continue;
-    missingUuid |= cursiv::data_code(diagnostic) == xsmp::MissingUuid;
+    if (cursiv::dataCode(diagnostic).empty()) continue;
+    missingUuid |= cursiv::dataCode(diagnostic) == xsmp::MissingUuid;
     EXPECT_FALSE(diagnostic.code) << diagnostic.message;
   }
   EXPECT_TRUE(missingUuid);

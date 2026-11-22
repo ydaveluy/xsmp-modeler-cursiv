@@ -138,7 +138,7 @@ TEST(SourceUri,
   auto source = native;
   source.replace_extension(".smpcat");
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
   EXPECT_FALSE(std::filesystem::exists(source));
   EXPECT_TRUE(xsmp::hasNativeSidecar(mirror, *shared));
   std::error_code error;
@@ -171,5 +171,5 @@ TEST(SourceUri, VirtualUrisHaveOneSpelling) {
   for (const auto* file :
        {"file:///work/model.smpcat", "file://localhost/work/model.smpcat"})
     EXPECT_EQ(xsmp::sourceDocumentUri(xsmp::smpMirrorUri(file)),
-              cursiv::normalize_uri(file));
+              cursiv::normalizeUri(file));
 }

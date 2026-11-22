@@ -1,6 +1,5 @@
 #pragma once
 
-#include <concepts>
 #include <xsmp/DeploymentGrammarCommon.hpp>
 
 namespace xsmp {
@@ -8,19 +7,15 @@ namespace xsmp {
 // The link base language (`.xsmplnk`): connections between component instances,
 // written apart from the assembly.
 struct Xsmplnk : cursiv::extends<DeploymentRules> {
-  template <class>
-  struct override;
-
-  // A path may be the root alone, so what follows it can start the next
-  // statement: these words are read as a name only when a name goes on.
-  template <class T>
-    requires std::same_as<T, DeploymentRules::ValidID>
-
-  struct override<T>
-      : rule<ref<ID> | kw<"event"> | kw<"field"> | kw<"interface">> {};
+  // At the start of a block, a link kind can also be the first name of its path.
+  struct StatementWord
+      : rule<assign<&xsmp::ConcretePathNamedSegment::reference>(
+                 kw<"event"> | kw<"field"> | kw<"interface">)
+             + &(path_dot | lit<"/"> | lit<"["> | lit<"{">)> {};
 
   struct ComponentLinkBase
-      : rule<assign<&xsmp::ComponentLinkBase::name>(ref<Path>) + lit<"{">
+      : rule<assign<&xsmp::ComponentLinkBase::name>(word_path<StatementWord> | ref<Path>)
+             + lit<"{">
              + many(append<&xsmp::ComponentLinkBase::elements>(
                  ref<Link> | ref<ComponentLinkBase>))
              + lit<"}">> {};

@@ -18,16 +18,16 @@ class DeploymentScopeProvider : public cursiv::DefaultScopeProvider {
 
   bool visitScopeEntries(
       const cursiv::ReferenceInfo& context,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)> visitor)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)> visitor)
       const override;
 
   bool visitScopeEntries(
       const cursiv::ReferenceInfo& context, std::string_view name,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)> visitor)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)> visitor)
       const override;
 
  protected:
-  using NodeVisitor = cursiv::function_ref<bool(const cursiv::AstNode*)>;
+  using NodeVisitor = cursiv::FunctionRef<bool(const cursiv::AstNode*)>;
 
   // Whether `segment` of `path` may name `target`.
   [[nodiscard]] virtual bool allowsPathTarget(const Path* path,
@@ -53,7 +53,7 @@ class DeploymentScopeProvider : public cursiv::DefaultScopeProvider {
   // not empty.
   bool visitCandidates(
       const cursiv::ReferenceInfo& context, std::string_view name,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)> visitor)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)> visitor)
       const;
 };
 

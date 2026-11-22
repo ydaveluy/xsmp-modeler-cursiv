@@ -120,7 +120,7 @@ TEST(XsmpDocumentSymbolProvider, SelectionRangeIsTheName) {
                 ASSERT_TRUE(document);
                 const auto offset = [&](::lsp::Position position) {
                   return document->textDocument().offsetAt(
-                      cursiv::from_lsp(position));
+                      cursiv::fromLsp(position));
                 };
                 EXPECT_EQ(offset(point.range.start), text.find("public"));
                 EXPECT_EQ(offset(point.selectionRange.start),

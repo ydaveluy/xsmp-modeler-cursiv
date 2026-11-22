@@ -83,7 +83,7 @@ void XsmpcatScopeComputation::exportNamespace(
 
   for (NamedElement* const element : ns.elements) {
     if (element == nullptr || element->name.empty()) continue;
-    cursiv::throw_if_cancelled(cancelToken);
+    cursiv::throwIfCancelled(cancelToken);
     const auto dotted = document.keepText(name, ".", element->name);
     if (auto* const nested = as<Namespace>(element))
       exportNamespace(*nested, dotted, exported, document, cancelToken);
@@ -107,7 +107,7 @@ XsmpcatScopeComputation::collectExportedSymbols(
 
   for (Namespace* const ns : catalogue->elements) {
     if (ns == nullptr || ns->name.empty()) continue;
-    cursiv::throw_if_cancelled(cancelToken);
+    cursiv::throwIfCancelled(cancelToken);
     exportNamespace(*ns, ns->name, exported, document, cancelToken);
   }
   return exported;
@@ -120,7 +120,7 @@ std::vector<cursiv::AstNodeDescription> XsmpcatScopeComputation::qualifyInto(
   std::vector<cursiv::AstNodeDescription> contributed;
   for (NamedElement* const element : ns.elements) {
     if (element == nullptr || element->name.empty()) continue;
-    cursiv::throw_if_cancelled(cancelToken);
+    cursiv::throwIfCancelled(cancelToken);
     if (auto* const nested = as<Namespace>(element)) {
       for (const auto& inner :
            qualifyInto(*nested, symbols, document, cancelToken)) {
@@ -162,7 +162,7 @@ cursiv::LocalSymbols XsmpcatScopeComputation::collectLocalSymbols(
   // Every named node in its own container, which is the default's answer and
   // stays true here: the dotted spellings are ADDED to it, never instead of it.
   for (cursiv::AstNode* const node : document.parseResult.nodes()) {
-    cursiv::throw_if_cancelled(cancelToken);
+    cursiv::throwIfCancelled(cancelToken);
     addLocalSymbol(*node, document, symbols);
   }
 

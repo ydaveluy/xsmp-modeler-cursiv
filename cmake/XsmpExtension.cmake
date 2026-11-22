@@ -19,7 +19,7 @@ function(xsmp_add_extension name)
     target_link_libraries(${name}_objects PRIVATE $<COMPILE_ONLY:xsmpContributions>)
     add_dependencies(${name}_objects xsmpContributions)
     # Hidden is the default of WASI. A library must see the data of the server, as
-    # `ast_type_tag`, through the table a load fills.
+    # `kAstTypeTag`, through the table a load fills.
     target_compile_options(${name}_objects PRIVATE -fPIC -fvisibility=default
       "SHELL:-include ${_support}/wasi-errno.h")
     set(_shared_memory)

@@ -26,7 +26,7 @@ void XsmpcfgValidator::checkComponentConfiguration(
 void XsmpcfgValidator::checkConfigurationUsage(
     const ConfigurationUsage& node, cursiv::ValidationAcceptor& accept) const {
   if (!node.path || !node.path->unsafe) return;
-  if (auto* owner = cursiv::container_of_type<ComponentConfiguration>(&node);
+  if (auto* owner = cursiv::containerOfType<ComponentConfiguration>(&node);
       owner && !assemblyBacked(owner))
     accept
         .warning(*node.path,

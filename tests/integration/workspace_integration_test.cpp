@@ -13,8 +13,8 @@ TEST(WorkspaceIntegration,
   const auto root =
       std::filesystem::path(XSMP_FIXTURES_DIR) / "workspace" / "examples";
   ASSERT_TRUE(std::filesystem::is_directory(root));
-  cursiv::initialize_root(root.string(), *shared);
-  const auto prefix = cursiv::path_to_file_uri(root.string()) + "/";
+  cursiv::initializeRoot(root.string(), *shared);
+  const auto prefix = cursiv::pathToFileUri(root.string()) + "/";
   std::size_t documents = 0;
   std::size_t mirrors = 0;
   for (const auto& document : shared->documents->all()) {

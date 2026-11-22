@@ -6,7 +6,7 @@
 namespace xsmp {
 
 bool XsmpsedCompletionProvider::atStatement(const Context& context) const {
-  return writes(context, &cursiv::ast_type_tag<Task>, "elements");
+  return writes(context, &cursiv::kAstTypeTag<Task>, "elements");
 }
 
 void XsmpsedCompletionProvider::completeStatement(const Context& context,
@@ -16,7 +16,7 @@ void XsmpsedCompletionProvider::completeStatement(const Context& context,
   if (!task) return;
   const auto* component = componentOf(block);
   offerInvocations(context, accept, component, false);
-  if (const auto* schedule = cursiv::container_of_type<Schedule>(task->parent))
+  if (const auto* schedule = cursiv::containerOfType<Schedule>(task->parent))
     for (const auto* node : schedule->elements)
       if (const auto* other = cursiv::ast_cast<Task>(node);
           other && other != task
@@ -43,7 +43,7 @@ void XsmpsedCompletionProvider::completeKeyword(const Context& context,
           "Task Definition");
   if (keyword == "event") {
     const auto tasks = choice(
-        1, names(context, &cursiv::ast_type_tag<ExecuteTask>, "task"), "Task");
+        1, names(context, &cursiv::kAstTypeTag<ExecuteTask>, "task"), "Task");
     // A label such as `Event Epoch` gives the detail `Epoch Event`.
     for (const auto& [label, key, value] : std::array<
              std::tuple<std::string_view, std::string_view, std::string_view>,

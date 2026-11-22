@@ -299,8 +299,8 @@ Visibility getRealVisibility(const NamedElement& node) {
   // visibility semantics and does NOT get this "always public" treatment,
   // even though Class derives from Structure in the AST hierarchy.
   if (const auto* container = node.parent; container != nullptr) {
-    if (container->type == &cursiv::ast_type_tag<Structure>
-        || container->type == &cursiv::ast_type_tag<Interface>) {
+    if (container->type == &cursiv::kAstTypeTag<Structure>
+        || container->type == &cursiv::kAstTypeTag<Interface>) {
       return Visibility::Public;
     }
   }

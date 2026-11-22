@@ -12,7 +12,7 @@
 namespace xsmp {
 
 void installXsmpprojectCoreModule(XsmpprojectCoreServices& services) {
-  generated::Xsmpproject::install_generated_module(services);
+  generated::Xsmpproject::installGeneratedModule(services);
   services.linker = std::make_unique<XsmpLinker>(services);
   services.languageMetaData.fileNames = {"xsmp.project"};
   services.languageMetaData.fileExtensions = {".xsmpprofile", ".xsmptool"};
@@ -26,7 +26,7 @@ void installXsmpprojectCoreModule(XsmpprojectCoreServices& services) {
 
 std::unique_ptr<XsmpprojectCoreServices> createXsmpprojectServices(
     XsmpSharedCoreServices& sharedServices, std::string languageId) {
-  auto services = cursiv::make_default_core_services<XsmpprojectCoreServices>(
+  auto services = cursiv::makeDefaultCoreServices<XsmpprojectCoreServices>(
       sharedServices, std::move(languageId));
   installXsmpprojectCoreModule(*services);
   return services;

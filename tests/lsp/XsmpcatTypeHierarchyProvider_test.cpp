@@ -34,7 +34,7 @@ TEST(XsmpcatTypeHierarchyProvider, SupertypesAndSubtypes) {
   ASSERT_NE(result.document, nullptr);
   const auto uri = ::lsp::DocumentUri(::lsp::Uri::parse(result.document->uri));
   const auto positionOf = [&](std::string_view needle) {
-    return cursiv::to_lsp(result.document->textDocument().positionAt(
+    return cursiv::toLsp(result.document->textDocument().positionAt(
         static_cast<cursiv::TextOffset>(text.find(needle))));
   };
 
@@ -81,7 +81,7 @@ TEST(XsmpcatTypeHierarchyProvider, NumericBasesKindsDetailsAndDeprecatedTags) {
   const auto prepare = [&](std::string_view needle) {
     return ws.language("xsmpcat").typeHierarchyProvider->prepareTypeHierarchy(
         *result.document,
-        cursiv::to_lsp(result.document->textDocument().positionAt(
+        cursiv::toLsp(result.document->textDocument().positionAt(
             static_cast<cursiv::TextOffset>(text.find(needle)))));
   };
   const auto count = prepare("Count");
@@ -124,7 +124,7 @@ TEST(XsmpcatTypeHierarchyProvider, SubtypesIncludeArrayAndValueReferenceUses) {
   ASSERT_TRUE(document->parseResult.accepted);
   const auto item =
       ws.language("xsmpcat").typeHierarchyProvider->prepareTypeHierarchy(
-          *document, cursiv::to_lsp(document->textDocument().positionAt(
+          *document, cursiv::toLsp(document->textDocument().positionAt(
                          static_cast<cursiv::TextOffset>(text.find("Int32")))));
   ASSERT_EQ(item.size(), 1U);
   const auto children =
@@ -146,7 +146,7 @@ TEST(XsmpcatTypeHierarchyProvider, ArrayAndValueReferenceGoUpToWhatTheyUse) {
   const auto& provider = *ws.language("xsmpcat").typeHierarchyProvider;
   for (const std::string_view name : {"Ar", "Rf"}) {
     const auto items = provider.prepareTypeHierarchy(
-        *document, cursiv::to_lsp(document->textDocument().positionAt(
+        *document, cursiv::toLsp(document->textDocument().positionAt(
                        static_cast<cursiv::TextOffset>(text.find(name)))));
     ASSERT_EQ(items.size(), 1u);
     const auto supers = provider.supertypes(items.front());

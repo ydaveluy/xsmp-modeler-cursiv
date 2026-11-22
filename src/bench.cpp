@@ -6,6 +6,6 @@
 #include <xsmp/SharedLspServices.hpp>
 
 int main(int argc, char** argv) {
-  return cursiv::bench::run_language<xsmp::XsmpSharedServices,
+  return cursiv::bench::runLanguage<xsmp::XsmpSharedServices,
                                      xsmp::registerLanguageServer>(argc, argv);
 }

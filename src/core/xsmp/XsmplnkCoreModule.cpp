@@ -11,7 +11,7 @@
 namespace xsmp {
 
 void installXsmplnkCoreModule(XsmplnkCoreServices& services) {
-  generated::Xsmplnk::install_generated_module(services);
+  generated::Xsmplnk::installGeneratedModule(services);
   services.linker = std::make_unique<XsmpLinker>(services);
   services.scopeComputation =
       std::make_unique<XsmplnkScopeComputation>(services);
@@ -24,7 +24,7 @@ void installXsmplnkCoreModule(XsmplnkCoreServices& services) {
 
 std::unique_ptr<XsmplnkCoreServices> createXsmplnkServices(
     XsmpSharedCoreServices& sharedServices, std::string languageId) {
-  auto services = cursiv::make_default_core_services<XsmplnkCoreServices>(
+  auto services = cursiv::makeDefaultCoreServices<XsmplnkCoreServices>(
       sharedServices, std::move(languageId));
   installXsmplnkCoreModule(*services);
   return services;

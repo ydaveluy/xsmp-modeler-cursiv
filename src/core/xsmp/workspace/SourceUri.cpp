@@ -57,7 +57,7 @@ std::string resolveSourceUri(std::string_view projectDirectoryUri,
     addSegment(relativePath.substr(start, i - start));
     start = i + 1;
   }
-  return cursiv::normalize_uri(uri);
+  return cursiv::normalizeUri(uri);
 }
 
 bool isSmpMirrorUri(std::string_view uri) noexcept {
@@ -78,16 +78,16 @@ std::string withExtension(std::string uri, std::string_view from,
 
 std::string_view smpMirrorNativeExtension(std::string_view uri) {
   if (!isSmpMirrorUri(uri)) return {};
-  const auto extension = cursiv::uri_extension(uri);
+  const auto extension = cursiv::uriExtension(uri);
   for (const auto& [source, native] : smpExtensions)
     if (extension == source) return native;
   return {};
 }
 
 std::string nativeFileName(std::string_view uri) {
-  auto name = std::string(cursiv::uri_file_name(uri));
+  auto name = std::string(cursiv::uriFileName(uri));
   if (const auto native = smpMirrorNativeExtension(uri); !native.empty())
-    name.replace(name.size() - cursiv::uri_extension(uri).size(),
+    name.replace(name.size() - cursiv::uriExtension(uri).size(),
                  std::string::npos, native);
   return name;
 }
@@ -96,9 +96,9 @@ bool hasNativeSidecar(std::string_view uri,
                       const cursiv::SharedCoreServices& shared) {
   const auto native = smpMirrorNativeExtension(uri);
   if (native.empty()) return false;
-  const auto nativeUri = cursiv::normalize_uri(
+  const auto nativeUri = cursiv::normalizeUri(
       withExtension("file" + std::string(uri.substr(uri.find(':'))),
-                    cursiv::uri_extension(uri), native));
+                    cursiv::uriExtension(uri), native));
   if (shared.documents && shared.documents->hasDocument(nativeUri)) return true;
   return shared.fileSystemProvider
          && shared.fileSystemProvider->exists(nativeUri);
@@ -163,21 +163,21 @@ std::string canonicalVirtualUri(std::string_view uri) {
 }
 
 std::string sourceDocumentUri(std::string_view uri) {
-  if (!isSmpMirrorUri(uri)) return cursiv::normalize_uri(uri);
+  if (!isSmpMirrorUri(uri)) return cursiv::normalizeUri(uri);
   auto original = "file" + std::string(uri.substr(uri.find(':')));
   // A mirror URI of an earlier version ends with the native extension.
-  const auto extension = cursiv::uri_extension(uri);
+  const auto extension = cursiv::uriExtension(uri);
   for (const auto& [source, native] : smpExtensions)
     if (extension == native) {
       original = withExtension(std::move(original), native, source);
       break;
     }
-  return cursiv::normalize_uri(original);
+  return cursiv::normalizeUri(original);
 }
 
 std::string smpMirrorUri(std::string_view sourceUri) {
-  const auto uri = cursiv::normalize_uri(sourceUri);
-  const auto extension = cursiv::uri_extension(uri);
+  const auto uri = cursiv::normalizeUri(sourceUri);
+  const auto extension = cursiv::uriExtension(uri);
   for (const auto& [source, native] : smpExtensions)
     if (extension == source)
       return canonicalVirtualUri("xsmp-smp" + uri.substr(uri.find(':')));

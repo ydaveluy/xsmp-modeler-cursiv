@@ -1,23 +1,16 @@
 #pragma once
 
-#include <concepts>
 #include <xsmp/DeploymentGrammarCommon.hpp>
 
 namespace xsmp {
 
 // The schedule language (`.xsmpsed`): tasks, and the events that start them.
 struct Xsmpsed : cursiv::extends<DeploymentRules> {
-  template <class>
-  struct override;
-
   // A path may be the root alone, so what follows it can start the next
   // statement: these words are read as a name only when a name goes on.
-  template <class T>
-    requires std::same_as<T, DeploymentRules::ValidID>
-
-  struct override<T>
-      : rule<ref<ID> | kw<"async"> | kw<"call"> | kw<"emit"> | kw<"execute">
-             | kw<"property"> | kw<"transfer"> | kw<"trig">> {};
+  using overrides = list<
+      replace<ValidID, rule<super | kw<"async"> | kw<"call"> | kw<"emit"> | kw<"execute">
+                            | kw<"property"> | kw<"transfer"> | kw<"trig">>>>;
 
   // A task name may hold template placeholders.
   struct Name : rule<ref<ValidID> | ref<PATTERN>> {};

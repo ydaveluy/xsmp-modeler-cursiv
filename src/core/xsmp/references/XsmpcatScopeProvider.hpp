@@ -18,12 +18,12 @@ class XsmpcatScopeProvider final : public cursiv::DefaultScopeProvider {
 
   bool visitScopeEntries(
       const cursiv::ReferenceInfo&,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>)
       const override;
 
   bool visitScopeEntries(
       const cursiv::ReferenceInfo&, std::string_view name,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>)
       const override;
 
  protected:
@@ -34,13 +34,13 @@ class XsmpcatScopeProvider final : public cursiv::DefaultScopeProvider {
   bool visitGlobalScopeEntries(
       const cursiv::ReferenceInfo&, cursiv::AcceptSet,
       const cursiv::AstReflection&,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>)
       const override;
 
   bool visitGlobalScopeEntries(
       const cursiv::ReferenceInfo&, std::string_view, cursiv::AcceptSet,
       const cursiv::AstReflection&, bool,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>)
       const override;
 
  private:
@@ -49,7 +49,7 @@ class XsmpcatScopeProvider final : public cursiv::DefaultScopeProvider {
   // of a designated initializer looks in the structure it initializes instead.
   bool visitLocal(
       const cursiv::ReferenceInfo&, std::string_view,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>) const;
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>) const;
 
   // Whether the reference at this site can hold the entry.
   bool acceptEntry(const cursiv::ReferenceInfo&,

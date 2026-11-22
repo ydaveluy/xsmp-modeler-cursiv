@@ -320,6 +320,6 @@ std::optional<std::string> concreteName(const NamedElement& node,
 
 // `members`, without the template, for the named elements only.
 bool visitProperties(const AstNode* node,
-                  cursiv::function_ref<bool(const NamedElement&)> visitor);
+                  cursiv::FunctionRef<bool(const NamedElement&)> visitor);
 
 }  // namespace xsmp

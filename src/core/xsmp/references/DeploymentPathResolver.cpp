@@ -145,12 +145,12 @@ PathResolution pathContextResolution(const Path* path) {
 
   // An absolute path starts at the root of what its document is anchored on.
   if (path->absolute) {
-    if (const auto* assembly = cursiv::container_of_type<Assembly>(path))
+    if (const auto* assembly = cursiv::containerOfType<Assembly>(path))
       return at(assembly->model);
-    if (const auto* links = cursiv::container_of_type<LinkBase>(path);
+    if (const auto* links = cursiv::containerOfType<LinkBase>(path);
         links && links->assembly.get())
       return at(links->assembly.get()->model);
-    if (const auto* task = cursiv::container_of_type<Task>(path)) {
+    if (const auto* task = cursiv::containerOfType<Task>(path)) {
       if (auto* assembly = task->context.get<Assembly>())
         return at(assembly->model);
       if (auto* component = task->context.get<Component>())
@@ -223,7 +223,7 @@ PathResolution segmentResolution(const PathSegment* segment,
     // `..` climbs from a sub-instance to the model that holds it.
     if (auto* instance = cursiv::ast_cast<NamedElement>(owner.node))
       if (auto* sub = cursiv::ast_cast<SubInstance>(instance->parent))
-        target = cursiv::container_of_type<ModelInstance>(sub->parent);
+        target = cursiv::containerOfType<ModelInstance>(sub->parent);
   } else if (auto* pattern =
                  cursiv::ast_cast<PatternPathNamedSegment>(segment)) {
     const auto concrete = expanded(pattern->text, bindingsFor(pattern));
@@ -260,7 +260,7 @@ const AstNode* pathTarget(const Path* path) {
 }
 
 PathResolution ownerOfSegment(const PathSegment* wanted) {
-  auto* path = cursiv::container_of_type<Path>(wanted);
+  auto* path = cursiv::containerOfType<Path>(wanted);
   if (!path) return {};
   auto current = pathContextResolution(path);
   if (path->head == wanted || !path->head) return current;
@@ -429,7 +429,7 @@ bool roleAccepts(PathRole role, const AstNode* node) {
 namespace xsmp {
 
 const AstNode* resolveSegment(const PathSegment* segment) {
-  const auto* path = cursiv::container_of_type<Path>(segment);
+  const auto* path = cursiv::containerOfType<Path>(segment);
   return path ? segmentResolution(segment, ownerOfSegment(segment),
                                   path->head == segment)
                     .node
@@ -451,7 +451,7 @@ std::optional<std::string> concreteName(const NamedElement& node,
 }
 
 bool visitProperties(const AstNode* node,
-                  cursiv::function_ref<bool(const NamedElement&)> visitor) {
+                  cursiv::FunctionRef<bool(const NamedElement&)> visitor) {
   return members(node, [&](const AstNode* member) {
     const auto* named = cursiv::ast_cast<NamedElement>(member);
     return !named || visitor(*named);

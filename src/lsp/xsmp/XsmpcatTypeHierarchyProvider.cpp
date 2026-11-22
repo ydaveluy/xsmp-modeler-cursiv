@@ -79,9 +79,9 @@ std::optional<::lsp::TypeHierarchyItem> makeItem(
   }
 
   item.uri = ::lsp::DocumentUri::parse(document->uri);
-  item.range = cursiv::to_lsp(
+  item.range = cursiv::toLsp(
       document->textDocument().rangeAt(record.begin, record.end));
-  item.selectionRange = cursiv::to_lsp(
+  item.selectionRange = cursiv::toLsp(
       document->textDocument().rangeAt(name.begin(), name.end()));
   return item;
 }
@@ -94,7 +94,7 @@ XsmpcatTypeHierarchyProvider::prepareTypeHierarchy(
     const cursiv::CancellationToken& token) const {
   std::vector<::lsp::TypeHierarchyItem> result;
   for (const auto* node :
-       cursiv::hierarchy_nodes_at(*_core.references, document, position, token))
+       cursiv::hierarchyNodesAt(*_core.references, document, position, token))
     if (const auto* type = cursiv::ast_cast<Type>(node))
       if (auto item = makeItem(_core, *type))
         result.push_back(std::move(*item));
@@ -104,14 +104,14 @@ XsmpcatTypeHierarchyProvider::prepareTypeHierarchy(
 std::vector<::lsp::TypeHierarchyItem> XsmpcatTypeHierarchyProvider::supertypes(
     const ::lsp::TypeHierarchyItem& item,
     const cursiv::CancellationToken& token) const {
-  const auto* node = cursiv::hierarchy_node_of_item(
+  const auto* node = cursiv::hierarchyNodeOfItem(
       *_core.shared().documents, *_core.references, item.uri,
       item.selectionRange.start, token);
   const auto* type = cursiv::ast_cast<Type>(node);
   std::vector<::lsp::TypeHierarchyItem> result;
   if (!type) return result;
   for (const auto* super : directSupertypes(*type)) {
-    cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
     if (auto row = makeItem(_core, *super)) result.push_back(std::move(*row));
   }
   return result;
@@ -120,7 +120,7 @@ std::vector<::lsp::TypeHierarchyItem> XsmpcatTypeHierarchyProvider::supertypes(
 std::vector<::lsp::TypeHierarchyItem> XsmpcatTypeHierarchyProvider::subtypes(
     const ::lsp::TypeHierarchyItem& item,
     const cursiv::CancellationToken& token) const {
-  const auto* node = cursiv::hierarchy_node_of_item(
+  const auto* node = cursiv::hierarchyNodeOfItem(
       *_core.shared().documents, *_core.references, item.uri,
       item.selectionRange.start, token);
   const auto* type = cursiv::ast_cast<Type>(node);
@@ -129,13 +129,13 @@ std::vector<::lsp::TypeHierarchyItem> XsmpcatTypeHierarchyProvider::subtypes(
   // Any LanguageType that names this type is a subtype, arrays and value
   // references included, in reference-index order.
   for (const auto& reference :
-       _core.references->findReferences(*type, {}, token)) {
-    cursiv::throw_if_cancelled(token);
+       _core.references->findReferences({&node, 1}, {}, token)) {
+    cursiv::throwIfCancelled(token);
     const auto document =
         _core.shared().documents->getDocument(reference.sourceDocumentId);
     if (!document) continue;
     const auto* candidate = cursiv::ast_cast<LanguageType>(
-        cursiv::owner_at(document->parseResult.cst(), reference.sourceBegin));
+        cursiv::ownerAt(document->parseResult.cst(), reference.sourceBegin));
     if (candidate)
       if (auto row = makeItem(_core, *candidate))
         result.push_back(std::move(*row));

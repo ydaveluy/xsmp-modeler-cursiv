@@ -132,9 +132,9 @@ void XsmpprojectCompletionProvider::completionFor(
     const auto* project =
         cursiv::ast_cast<Project>(context.document.parseResult.value);
     if (project && !project->name.empty()
-        && writes(context, &cursiv::ast_type_tag<Project>, "elements"))
+        && writes(context, &cursiv::kAstTypeTag<Project>, "elements"))
       completeStatement(context, *project, accept);
-    if (writes(context, &cursiv::ast_type_tag<Project>, "standard"))
+    if (writes(context, &cursiv::kAstTypeTag<Project>, "standard"))
       offerStandards(context, accept);
   }
   DefaultCompletionProvider::completionFor(context, next, accept);
@@ -299,7 +299,7 @@ void XsmpprojectCompletionProvider::completionForKeyword(
 
 void XsmpprojectCompletionProvider::visitReferenceCandidates(
     const cursiv::ReferenceInfo& reference, const Context& context,
-    cursiv::function_ref<bool(const cursiv::AstNodeDescription&)> visitor)
+    cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)> visitor)
     const {
   const auto* project =
       cursiv::ast_cast<Project>(context.document.parseResult.value);

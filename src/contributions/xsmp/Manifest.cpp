@@ -67,7 +67,7 @@ std::filesystem::path packagePath(const std::filesystem::path& root,
 // `xsmp:/extensions/<extension>/<relative>`.
 std::string documentUri(std::string_view extension,
                         const std::filesystem::path& relative) {
-  const auto file = cursiv::path_to_file_uri(
+  const auto file = cursiv::pathToFileUri(
       (std::filesystem::path("/") / "extensions" / extension / relative)
           .generic_string());
   return "xsmp:" + file.substr(std::string_view("file://").size());

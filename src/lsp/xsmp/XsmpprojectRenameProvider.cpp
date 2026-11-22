@@ -10,7 +10,7 @@ std::optional<::lsp::Range> XsmpprojectRenameProvider::prepareRename(
     const cursiv::CancellationToken& token) const {
   if (isReadOnlyDocumentUri(document.uri)) return std::nullopt;
   const auto found = services.references->findDeclarations(
-      document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
+      document, document.textDocument().offsetAt(cursiv::fromLsp(position)),
       token);
   for (const auto* target : found.targets)
     if (const auto* home = target->getDocument();
@@ -22,7 +22,7 @@ std::optional<::lsp::Range> XsmpprojectRenameProvider::prepareRename(
   if (range && found.span.end > found.span.begin + 1) {
     const auto text = document.textDocument().getText();
     if (text[found.span.begin] == '\'' || text[found.span.begin] == '"')
-      range = cursiv::to_lsp(document.textDocument().rangeAt(
+      range = cursiv::toLsp(document.textDocument().rangeAt(
           found.span.begin + 1, found.span.end - 1));
   }
   return range;

@@ -13,7 +13,7 @@ TEST(XsmpprojectRenameProvider, PreservesQuotedDeclarationAndReferences) {
   const auto project = xsmp::parse(ws, "xsmpproject",
                                    "project 'Demo'\nprofile 'custom-profile'\n",
                                    "file:///p/xsmp.project");
-  const auto position = cursiv::to_lsp(profile->textDocument().positionAt(11));
+  const auto position = cursiv::toLsp(profile->textDocument().positionAt(11));
   const auto& provider = *ws.language("xsmpproject").renameProvider;
   const auto edits = provider.rename(*profile, position, "new-profile");
   ASSERT_TRUE(edits && edits->changes);

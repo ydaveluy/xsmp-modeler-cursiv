@@ -56,9 +56,9 @@ cursiv::NodeId commentNode(const cursiv::Document& document,
     --id;
     const auto& record = cst[id];
     if (record.begin == record.end) continue;
-    if (record.hidden == 0) return cursiv::kNoNode;
+    if (!record.isHidden()) return cursiv::kNoNode;
     if (cst.grammar()->recordRule(record) == "ML_COMMENT"
-        && cursiv::is_doc_comment(cst.text(id)))
+        && cursiv::isDocComment(cst.text(id)))
       return id;
   }
   return cursiv::kNoNode;
@@ -109,13 +109,13 @@ std::optional<cursiv::DocComment> parseComment(const cursiv::AstNode& node,
     if (tag == std::string_view::npos) return std::nullopt;
     from = parseFrom(text, tag);
   }
-  if (!cursiv::is_doc_comment(text)) return std::nullopt;
+  if (!cursiv::isDocComment(text)) return std::nullopt;
   // Only offsets are read below, so the line of the comment is not asked for.
   const cursiv::DocCommentPosition start{
       .offset = cst[comment].begin + static_cast<std::uint32_t>(from)};
   static const cursiv::DocCommentParseOptions rest{.start = ""};
-  return from == 0 ? cursiv::parse_doc_comment(text, start)
-                   : cursiv::parse_doc_comment(text.substr(from), start, rest);
+  return from == 0 ? cursiv::parseDocComment(text, start)
+                   : cursiv::parseDocComment(text.substr(from), start, rest);
 }
 
 // A tag with no content gets an empty range at its end.

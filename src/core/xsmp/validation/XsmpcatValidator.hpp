@@ -159,7 +159,7 @@ class XsmpcatValidator final {
   // among the documents it sees.
   void visitSameName(
       const NamedElement& element,
-      cursiv::function_ref<void(const cursiv::AstNode&,
+      cursiv::FunctionRef<void(const cursiv::AstNode&,
                                 const cursiv::AstNodeDescription&)>
           visitor) const;
 

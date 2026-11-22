@@ -512,7 +512,7 @@ std::vector<cursiv::WorkspaceFolder> discoverFolders(
           && manager.shouldIncludeEntry(
               {.isFile = false,
                .isDirectory = true,
-               .uri = cursiv::path_to_file_uri(entry.path().string())}))
+               .uri = cursiv::pathToFileUri(entry.path().string())}))
         self(self, entry.path());
       error.clear();
     }
@@ -524,7 +524,7 @@ std::vector<cursiv::WorkspaceFolder> discoverFolders(
 
   std::vector<cursiv::WorkspaceFolder> result;
   for (const auto& directory : directories)
-    result.push_back({.uri = cursiv::path_to_file_uri(directory.string()),
+    result.push_back({.uri = cursiv::pathToFileUri(directory.string()),
                       .name = directory.filename().string()});
   return result;
 }
@@ -541,7 +541,7 @@ std::optional<Descriptor> readDescriptor(
     const xsmp::XsmpSharedCoreServices& shared,
     const cursiv::WorkspaceFolder& folder) {
   const auto uri = folder.uri + "/xsmp.project";
-  const auto path = cursiv::file_uri_to_path(uri);
+  const auto path = cursiv::fileUriToPath(uri);
   if (!path) return std::nullopt;
   std::string text;
   try {
@@ -945,7 +945,7 @@ int run(const Options& options) {
   auto folders = [&]() -> std::vector<cursiv::WorkspaceFolder> {
     if (hasProject && !standaloneXml) {
       const cursiv::WorkspaceFolder own{
-          .uri = cursiv::path_to_file_uri(projectDirectory.string()),
+          .uri = cursiv::pathToFileUri(projectDirectory.string()),
           .name = projectDirectory.filename().string()};
       if (const auto descriptor = readDescriptor(*shared, own);
           descriptor && descriptor->dependencies.empty())
@@ -957,7 +957,7 @@ int run(const Options& options) {
   // Only the closure of a project is reported, so only that is loaded. A path
   // that names no project, such as a file out of any project, needs them all.
   if (hasProject && !standaloneXml) {
-    const auto target = cursiv::path_to_file_uri(projectDirectory.string());
+    const auto target = cursiv::pathToFileUri(projectDirectory.string());
     folders = closureFolders(*shared, folders, [&](const auto& folder, auto&&) {
       return folder.uri == target;
     });
@@ -970,7 +970,7 @@ int run(const Options& options) {
   // The documents the path selects: a folder, a file, or a project name.
   std::vector<cursiv::Document*> documents;
   if (directory) {
-    const auto prefix = cursiv::path_to_file_uri(input.string()) + "/";
+    const auto prefix = cursiv::pathToFileUri(input.string()) + "/";
     for (const auto& document : shared->documents->all())
       if (xsmp::sourceDocumentUri(document->uri).starts_with(prefix))
         documents.push_back(document.get());
@@ -988,16 +988,16 @@ int run(const Options& options) {
         sidecar.replace_extension(".x" + extension.substr(1));
         if (fs::is_regular_file(sidecar))
           document =
-              &cursiv::build_document_from_path(sidecar.string(), *shared);
+              &cursiv::buildDocumentFromPath(sidecar.string(), *shared);
         else {
           const auto mirror =
-              xsmp::smpMirrorUri(cursiv::path_to_file_uri(input.string()));
+              xsmp::smpMirrorUri(cursiv::pathToFileUri(input.string()));
           auto native = shared->documents->getOrCreateDocument(mirror);
           document = native.get();
           shared->documentBuilder->build(std::span(&document, 1), {});
         }
       } else
-        document = &cursiv::build_document_from_path(input.string(), *shared);
+        document = &cursiv::buildDocumentFromPath(input.string(), *shared);
       project =
           cursiv::ast_cast<const xsmp::Project>(document->parseResult.value);
       if (!project) documents.push_back(document);
@@ -1017,7 +1017,7 @@ int run(const Options& options) {
   const xsmp::Project* directoryProject = nullptr;
   if (directory) {
     const auto descriptorUri =
-        cursiv::path_to_file_uri((input / "xsmp.project").string());
+        cursiv::pathToFileUri((input / "xsmp.project").string());
     if (const auto descriptor = shared->documents->getDocument(descriptorUri))
       directoryProject =
           cursiv::ast_cast<xsmp::Project>(descriptor->parseResult.value);
@@ -1033,7 +1033,7 @@ int run(const Options& options) {
           xsmp::utf8Length(text) != text.size())
         throw cursiv::UsageError(
             "File '"
-            + cursiv::file_uri_to_path(document->uri).value_or(document->uri)
+            + cursiv::fileUriToPath(document->uri).value_or(document->uri)
             + "' is not valid UTF-8. Save it as UTF-8 before running the CLI.");
 
   std::set<const xsmp::Project*> projects;
@@ -1067,7 +1067,7 @@ int run(const Options& options) {
                                  unsigned column, int severity,
                                  std::string message) {
     const auto source = xsmp::sourceDocumentUri(uri);
-    const auto path = cursiv::file_uri_to_path(source);
+    const auto path = cursiv::fileUriToPath(source);
     diagnostics.emplace(
         path ? fs::path(*path).lexically_relative(root).generic_string()
              : source,
@@ -1179,7 +1179,7 @@ int run(const Options& options) {
       }
       if (options.output.empty())
         if (const auto projectPath =
-                cursiv::file_uri_to_path(project->getDocument()->uri))
+                cursiv::fileUriToPath(project->getDocument()->uri))
           output = fs::path(*projectPath).parent_path();
     }
     identifiers.insert(identifiers.end(), options.tools.begin(),

@@ -30,10 +30,10 @@ TEST(XsmpCodeActionProvider, MissingUuidFixPreservesExistingDescription) {
   ::lsp::CodeActionParams params;
   params.textDocument.uri = ::lsp::DocumentUri::parse(result.document->uri);
   for (const auto& diagnostic : result.diagnostics)
-    if (cursiv::data_code(diagnostic) == xsmp::MissingUuid) {
+    if (cursiv::dataCode(diagnostic) == xsmp::MissingUuid) {
       ::lsp::Diagnostic wire;
       wire.code = std::string(xsmp::MissingUuid);
-      wire.range = cursiv::to_lsp(result.document->textDocument().rangeAt(
+      wire.range = cursiv::toLsp(result.document->textDocument().rangeAt(
           diagnostic.range.begin, diagnostic.range.end));
       wire.message = diagnostic.message;
       params.context.diagnostics.push_back(std::move(wire));
@@ -55,7 +55,7 @@ TEST(XsmpCodeActionProvider, MissingUuidFixPreservesExistingDescription) {
   EXPECT_TRUE(fixed.document->parseResult.accepted);
   EXPECT_FALSE(
       std::ranges::any_of(fixed.diagnostics, [](const auto& diagnostic) {
-        return cursiv::data_code(diagnostic) == xsmp::MissingUuid;
+        return cursiv::dataCode(diagnostic) == xsmp::MissingUuid;
       }));
 }
 
@@ -69,10 +69,10 @@ std::string withMissingUuid(xsmp::TestWorkspace& world,
   ::lsp::CodeActionParams params;
   params.textDocument.uri = ::lsp::DocumentUri::parse(result.document->uri);
   for (const auto& diagnostic : result.diagnostics)
-    if (cursiv::data_code(diagnostic) == xsmp::MissingUuid) {
+    if (cursiv::dataCode(diagnostic) == xsmp::MissingUuid) {
       ::lsp::Diagnostic wire;
       wire.code = std::string(xsmp::MissingUuid);
-      wire.range = cursiv::to_lsp(result.document->textDocument().rangeAt(
+      wire.range = cursiv::toLsp(result.document->textDocument().rangeAt(
           diagnostic.range.begin, diagnostic.range.end));
       params.context.diagnostics.push_back(std::move(wire));
     }
@@ -121,7 +121,7 @@ TEST(XsmpCodeActionProvider, SyntaxErrorInAPathOffersNoUnsafe) {
     ::lsp::Diagnostic wire;
     wire.message = "Unexpected token";
     wire.data = ::lsp::LSPObject{{"code", std::string(code)}};
-    wire.range = cursiv::to_lsp(document->textDocument().rangeAt(
+    wire.range = cursiv::toLsp(document->textDocument().rangeAt(
         static_cast<cursiv::TextOffset>(text.find("Root")),
         static_cast<cursiv::TextOffset>(text.find("Root") + 4)));
     params.context.diagnostics.push_back(std::move(wire));
@@ -139,7 +139,7 @@ TEST(XsmpCodeActionProvider, InvalidDeploymentPathCanBeMarkedUnsafe) {
   params.textDocument.uri = ::lsp::DocumentUri::parse(document->uri);
   ::lsp::Diagnostic wire;
   wire.message = "Unknown root";
-  wire.range = cursiv::to_lsp(document->textDocument().rangeAt(
+  wire.range = cursiv::toLsp(document->textDocument().rangeAt(
       static_cast<cursiv::TextOffset>(text.find("Root")),
       static_cast<cursiv::TextOffset>(text.find("Root") + 4)));
   params.context.diagnostics.push_back(std::move(wire));

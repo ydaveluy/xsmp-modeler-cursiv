@@ -141,7 +141,7 @@ const Node* openBlock(const cursiv::CompletionContext& context) {
   for (auto id = cst.leafAfter(context.offset); id > 0 && !last;) {
     const auto leaf = cst.asLeaf(id = cst.leafBefore(id));
     if (!leaf.hidden && !leaf.recovered)
-      last = cursiv::owner_of_leaf(cst, leaf.id);
+      last = cursiv::ownerOfLeaf(cst, leaf.id);
   }
 
   for (const auto* at = last; at; at = at->parent) {
@@ -231,9 +231,9 @@ void DeploymentCompletionProvider::completionFor(
     const Context& context, const cursiv::NextFeature& next,
     Accept accept) const {
   // Any value may start where the grammar can read `true`.
-  const auto value = writes(context, &cursiv::ast_type_tag<BoolValue>, "value");
+  const auto value = writes(context, &cursiv::kAstTypeTag<BoolValue>, "value");
   const auto structure =
-      writes(context, &cursiv::ast_type_tag<StructureValue>, "elements");
+      writes(context, &cursiv::kAstTypeTag<StructureValue>, "elements");
   const auto statement = !value && !structure && atStatement(context);
 
   // Once for this reading of the caret.
@@ -258,7 +258,7 @@ void DeploymentCompletionProvider::completionFor(
   // A keyword the grammar lets a name spell here says nothing more of the name.
   if (name && !spelled.empty()) return;
   // At the start of a statement, the statement itself says what its names mean.
-  if (statement && next.type == &cursiv::ast_type_tag<ConcretePathNamedSegment>)
+  if (statement && next.type == &cursiv::kAstTypeTag<ConcretePathNamedSegment>)
     return;
 
   DefaultCompletionProvider::completionFor(context, next, accept);
@@ -266,7 +266,7 @@ void DeploymentCompletionProvider::completionFor(
 
 void DeploymentCompletionProvider::visitReferenceCandidates(
     const cursiv::ReferenceInfo& reference, const Context& context,
-    cursiv::function_ref<bool(const cursiv::AstNodeDescription&)> visitor)
+    cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)> visitor)
     const {
   const auto* segment =
       cursiv::ast_cast<ConcretePathNamedSegment>(reference.container);
@@ -289,9 +289,9 @@ void DeploymentCompletionProvider::visitReferenceCandidates(
   const auto* wanted = typed ? typed : segment;
   // A path not written yet: a throwaway one says where it would start.
   Path start;
-  start.type = &cursiv::ast_type_tag<Path>;
+  start.type = &cursiv::kAstTypeTag<Path>;
   start.parent = segment->parent;
-  const auto* path = cursiv::container_of_type<Path>(wanted);
+  const auto* path = cursiv::containerOfType<Path>(wanted);
   const auto* owner =
       path ? ownerOfSegment(wanted).node : pathContextResolution(&start).node;
 
@@ -383,7 +383,7 @@ DeploymentCompletionProvider::createReferenceCompletionItem(
              || cursiv::ast_cast<AssemblyInstance>(node)) {
     write(name, "Child instance of the current assembly.");
   } else if (const auto* field = cursiv::ast_cast<Field>(node);
-             field && cursiv::container_of_type<FieldValue>(site)) {
+             field && cursiv::containerOfType<FieldValue>(site)) {
     write(name + " = " + placeholder(1, assignmentValue(field->type.get())),
           "Field of " + ownerName(*node) + ".");
   }
@@ -432,7 +432,7 @@ bool DeploymentCompletionProvider::offerValue(const Context& context,
                                               std::string content,
                                               std::string detail,
                                               const Node* node) const {
-  cursiv::throw_if_cancelled(context.cancelToken);
+  cursiv::throwIfCancelled(context.cancelToken);
   const auto& matcher = *services.lspShared.fuzzyMatcher;
   if (!matcher.match(context.identifier, label)
       && !matcher.match(context.identifier, content))
@@ -799,7 +799,7 @@ std::string DeploymentCompletionProvider::choice(
 }
 
 std::string DeploymentCompletionProvider::executeText(const Task& task) {
-  const auto* schedule = cursiv::container_of_type<Schedule>(task.parent);
+  const auto* schedule = cursiv::containerOfType<Schedule>(task.parent);
   std::string out(task.name);
   if (!schedule || schedule->parameters.empty()) return out;
   out += '<';

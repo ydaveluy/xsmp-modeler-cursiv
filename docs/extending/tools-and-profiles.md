@@ -165,7 +165,7 @@ tool.validations.push_back(
       auto& language = const_cast<cursiv::CoreServices&>(
           shared.serviceRegistry->getServices({}, "xsmpcat"));
       language.validationRegistry->registerCheck(
-          {&cursiv::ast_type_tag<xsmp::Catalogue>, false,
+          {&cursiv::kAstTypeTag<xsmp::Catalogue>, false,
            [](const cursiv::AstNode& node, cursiv::ValidationAcceptor& accept,
               const cursiv::CancellationToken&) {
              accept.warning(node, "Demo check.").keyword("catalogue");

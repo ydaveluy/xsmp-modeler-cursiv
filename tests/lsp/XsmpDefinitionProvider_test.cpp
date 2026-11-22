@@ -69,9 +69,9 @@ TEST(XsmpDefinitionProvider, PathAndTemplateDefinitionContracts) {
       ASSERT_TRUE(target);
       const auto range = actual.targetSelectionRange;
       const auto begin = target->textDocument().offsetAt(
-                     cursiv::from_lsp(range.start)),
+                     cursiv::fromLsp(range.start)),
                  end = target->textDocument().offsetAt(
-                     cursiv::from_lsp(range.end));
+                     cursiv::fromLsp(range.end));
       EXPECT_EQ(target->textDocument().getText().substr(begin, end - begin),
                 stringAt(expected, "name"));
     }
@@ -127,14 +127,14 @@ TEST(XsmpDefinitionProvider, GoToTypeDefinitionOnAMemberReachesItsType) {
     SCOPED_TRACE(word);
     const auto at = static_cast<cursiv::TextOffset>(text.find(word));
     const auto position =
-        cursiv::to_lsp(document->textDocument().positionAt(at));
+        cursiv::toLsp(document->textDocument().positionAt(at));
     const auto links =
         world.language("xsmpcat").typeDefinitionProvider->getTypeDefinition(
             *document, position);
     ASSERT_TRUE(links);
     ASSERT_EQ(links->size(), 1u);
     const auto start = document->textDocument().offsetAt(
-        cursiv::from_lsp(links->front().targetSelectionRange.start));
+        cursiv::fromLsp(links->front().targetSelectionRange.start));
     EXPECT_EQ(start, text.find(declared));
   };
   check("f constant", "E {");
@@ -163,7 +163,7 @@ TEST(XsmpDefinitionProvider, PlaceholdersAreReferencesOfTheirParameter) {
 
   std::vector<std::size_t> rows;
   for (const auto& row : language.references->findReferences(
-           *found.targets.front(), {.includeDeclaration = true})) {
+           found.targets, {.includeDeclaration = true})) {
     EXPECT_EQ(row.sourceEnd - row.sourceBegin, 7u);
     rows.push_back(row.sourceBegin);
   }
@@ -171,6 +171,6 @@ TEST(XsmpDefinitionProvider, PlaceholdersAreReferencesOfTheirParameter) {
 
   const auto highlights =
       language.documentHighlightProvider->getDocumentHighlight(
-          *document, cursiv::to_lsp(document->textDocument().positionAt(at)));
+          *document, cursiv::toLsp(document->textDocument().positionAt(at)));
   EXPECT_EQ(highlights.size(), 3u);
 }

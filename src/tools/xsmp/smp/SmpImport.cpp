@@ -236,8 +236,8 @@ const std::unordered_map<std::string, std::string>& builtinNames(
       }
       if (!shared) {
         shared = createXsmpSharedServices();
-        auto language = cursiv::make_default_core_services(*shared, "xsmpcat");
-        generated::Xsmpcat::install_generated_module(*language);
+        auto language = cursiv::makeDefaultCoreServices(*shared, "xsmpcat");
+        generated::Xsmpcat::installGeneratedModule(*language);
         shared->serviceRegistry->registerServices(std::move(language));
       }
       read(*shared->documentFactory->fromString(std::string(source.text),
@@ -316,7 +316,7 @@ struct Reader {
     if (auto hash = href.find('#'); hash != href.npos) href.resize(hash);
     if (href.empty()) return {};
     if (href.starts_with("file:")) {
-      const auto path = cursiv::file_uri_to_path(href);
+      const auto path = cursiv::fileUriToPath(href);
       if (!path) return {};
       href = *path;
     } else if (href.find("://") != href.npos)
@@ -1013,7 +1013,7 @@ struct Reader {
            at = expression.find("::", at))
         expression.replace(at, 2, ".");
     }
-    const auto parser = generated::Xsmpcat::create_parser();
+    const auto parser = generated::Xsmpcat::createParser();
     const auto probe =
         "catalogue c namespace n { interface i { def void f(in t p = "
         + expression + ") } }";
@@ -1344,27 +1344,27 @@ ImportResult renderImportedDocument(const std::filesystem::path& input,
   if (rootName == "Catalogue") {
     result.kind = "catalogue";
     extension = ".xsmpcat";
-    parser = generated::Xsmpcat::create_parser();
+    parser = generated::Xsmpcat::createParser();
     body = comment(root) + reader.applied(root) + "catalogue " + name + "\n\n";
     for (auto c : root.children())
       if (local(c.name()) == "Namespace") body += reader.catalogueNamespace(c);
   } else if (rootName == "Configuration") {
     result.kind = "configuration";
     extension = ".xsmpcfg";
-    parser = generated::Xsmpcfg::create_parser();
+    parser = generated::Xsmpcfg::createParser();
     body = comment(root) + "configuration " + name + '\n'
            + reader.configBody(root, false);
   } else if (rootName == "LinkBase") {
     result.kind = "linkbase";
     extension = ".xsmplnk";
-    parser = generated::Xsmplnk::create_parser();
+    parser = generated::Xsmplnk::createParser();
     body = comment(root) + "link " + name + '\n';
     for (auto c : root.children())
       if (local(c.name()) == "Component") body += reader.componentLinks(c);
   } else if (rootName == "Assembly") {
     result.kind = "assembly";
     extension = ".xsmpasb";
-    parser = generated::Xsmpasb::create_parser();
+    parser = generated::Xsmpasb::createParser();
     body = comment(root) + withParameters("assembly") + '\n';
     for (auto c : root.children())
       if (local(c.name()) == "ComponentConfiguration")
@@ -1376,7 +1376,7 @@ ImportResult renderImportedDocument(const std::filesystem::path& input,
   } else if (rootName == "Schedule") {
     result.kind = "schedule";
     extension = ".xsmpsed";
-    parser = generated::Xsmpsed::create_parser();
+    parser = generated::Xsmpsed::createParser();
     body = comment(root) + withParameters("schedule");
     for (const auto* key : {"EpochTime", "MissionStart"})
       if (auto value = field(root, key); !value.empty())

@@ -14,8 +14,8 @@ std::vector<const cursiv::ValidationCategory*>
 XsmpDocumentBuilder::findMissingValidationCategories(
     const cursiv::Document& document, const cursiv::CoreServices& language,
     std::span<const cursiv::ValidationCategory* const>) const {
-  std::vector<const cursiv::ValidationCategory*> categories{&cursiv::fast,
-                                                            &cursiv::built_in};
+  std::vector<const cursiv::ValidationCategory*> categories{&cursiv::kFast,
+                                                            &cursiv::kBuiltIn};
   const auto* project =
       _shared.contributionCategories.empty() || !_shared.projectManager
           ? nullptr

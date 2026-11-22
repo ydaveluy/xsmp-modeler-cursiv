@@ -57,12 +57,12 @@ void XsmpCodeActionProvider::appendCodeActions(
   // The `unsafe` action of each node: diagnostics on one path share it.
   std::unordered_map<cursiv::NodeId, std::size_t> unsafeNodes;
   for (const auto& diagnostic : params.context.diagnostics) {
-    cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
     const auto code = diagnosticCode(diagnostic);
     const auto begin = document.textDocument().offsetAt(
-        cursiv::from_lsp(diagnostic.range.start));
+        cursiv::fromLsp(diagnostic.range.start));
     const auto end = document.textDocument().offsetAt(
-        cursiv::from_lsp(diagnostic.range.end));
+        cursiv::fromLsp(diagnostic.range.end));
 
     if (code == InvalidUuid || code == DuplicatedUuid) {
       add("Generate new UUID.", diagnostic, diagnostic.range, newUuid());
@@ -124,7 +124,7 @@ void XsmpCodeActionProvider::appendCodeActions(
           continue;
         }
         unsafeNodes.emplace(selected->cstNodeId, actions.size());
-        const auto at = cursiv::to_lsp(
+        const auto at = cursiv::toLsp(
             document.textDocument().positionAt(cst[selected->cstNodeId].begin));
         add("Declare as `unsafe`.", diagnostic, {.start = at, .end = at},
             "unsafe ");

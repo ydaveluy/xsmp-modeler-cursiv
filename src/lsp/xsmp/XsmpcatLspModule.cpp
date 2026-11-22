@@ -17,7 +17,7 @@
 namespace xsmp {
 
 // Installs the xsmpcat providers over the defaults that
-// `install_default_lsp_services` wires in, and fills the slots those leave
+// `installDefaultLspServices` wires in, and fills the slots those leave
 // empty, such as the type-hierarchy provider.
 void installXsmpcatLspModule(XsmpcatServices& services) {
   services.completionProvider =
@@ -39,7 +39,7 @@ std::unique_ptr<XsmpcatServices> createXsmpcatServices(
     XsmpSharedServices& sharedServices, std::string languageId) {
   auto services = std::make_unique<XsmpcatServices>(sharedServices);
   services->languageMetaData.languageId = std::move(languageId);
-  cursiv::install_default_lsp_services(*services);
+  cursiv::installDefaultLspServices(*services);
   installXsmpcatCoreModule(*services);
   installXsmpcatLspModule(*services);
   return services;

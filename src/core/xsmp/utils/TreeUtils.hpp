@@ -25,7 +25,7 @@ inline std::vector<const cursiv::AstNode*> descendantsOf(
     const cursiv::AstNode& node) {
   std::vector<const cursiv::AstNode*> result;
   if (const auto* document = node.getDocument())
-    cursiv::visit_all_contents(
+    cursiv::visitAllContents(
         *document->language->astReflection, node,
         [&](const cursiv::AstNode& child) { result.push_back(&child); });
   return result;
@@ -72,7 +72,7 @@ inline cursiv::TextRange rangeForFeature(const cursiv::AstNode& node,
   const cursiv::CstNodeView view{.cst = &document->parseResult.cst(),
                                  .id = node.cstNodeId};
   if (const auto field =
-          cursiv::find_node_for_property(node, feature, index, document))
+          cursiv::findNodeForProperty(node, feature, index, document))
     return {.begin = field.begin(), .end = field.end()};
   return {.begin = view.begin(), .end = view.end()};
 }
@@ -92,7 +92,7 @@ inline bool holdsReportedLiteral(const cursiv::AstNode& node,
   auto end = view.end();
   if (!feature.empty()) {
     const auto written =
-        cursiv::find_node_for_property(node, feature, 0, document);
+        cursiv::findNodeForProperty(node, feature, 0, document);
     if (!written) return false;
     begin = written.begin();
     end = written.end();

@@ -37,24 +37,24 @@ std::vector<std::pair<std::string, std::string>> inProjectSources(
   for (const auto* candidate : closure) {
     const auto* document = candidate->getDocument();
     if (!document) continue;
-    const auto home = cursiv::file_uri_to_path(document->uri);
+    const auto home = cursiv::fileUriToPath(document->uri);
     if (!home) continue;
     const auto directory = std::filesystem::path(*home).parent_path();
-    const auto projectUri = cursiv::path_to_file_uri(directory.string());
+    const auto projectUri = cursiv::pathToFileUri(directory.string());
     for (const auto* element : candidate->elements)
       if (const auto* source = cursiv::ast_cast<Source>(element);
           source && !source->path.empty()) {
         const auto folder = resolveSourceUri(projectUri, source->path);
-        if (cursiv::contains_uri(projectUri, folder))
+        if (cursiv::containsUri(projectUri, folder))
           sourceFolders.insert(folder);
       }
   }
 
   std::vector<std::pair<std::string, std::string>> result;
   for (const auto& item : found) {
-    if (!cursiv::is_file_uri(item.first)) continue;
+    if (!cursiv::isFileUri(item.first)) continue;
     for (const auto& folder : sourceFolders) {
-      if (cursiv::contains_uri(folder, item.first)) {
+      if (cursiv::containsUri(folder, item.first)) {
         result.push_back(item);
         break;
       }
@@ -100,7 +100,7 @@ Json generateProject(XsmpSharedCoreServices& shared, const Project& project,
 
   auto directory = output;
   if (directory.empty()) {
-    const auto path = cursiv::file_uri_to_path(project.getDocument()->uri);
+    const auto path = cursiv::fileUriToPath(project.getDocument()->uri);
     if (!path)
       return JsonObject{
           {"generatedProjects", JsonArray{}},
@@ -140,7 +140,7 @@ Json generateProject(XsmpSharedCoreServices& shared, const Project& project,
         .directory = directory,
         .identifiers = {identifiers.begin(), identifiers.end()}};
     for (const auto* document : projectDocuments(shared, project, false)) {
-      cursiv::throw_if_cancelled(token);
+      cursiv::throwIfCancelled(token);
       const auto* node = document->parseResult.value;
       if (!node || !cursiv::ast_cast<Document>(node)) continue;
       group.nodes.push_back(node);
@@ -148,7 +148,7 @@ Json generateProject(XsmpSharedCoreServices& shared, const Project& project,
     // The last point to stop: past it the generation goes to its end, as generated
     // files left half done would match neither the old model nor the new one. An
     // edit waits for it, since this runs in a write of the workspace lock.
-    cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
     contributions.generate(std::span(&group, 1));
   } catch (const cursiv::OperationCancelled&) {
     throw;

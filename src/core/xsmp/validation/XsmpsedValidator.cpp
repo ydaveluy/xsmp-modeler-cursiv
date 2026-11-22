@@ -28,8 +28,8 @@ void checkEvent(const Event& node, bool simulationTime,
     accept.error(node, "A cyclic Event shall have a positive CycleTime.")
         .range(rangeForFeature(node, "cycleTime"));
   if (node.task.get()
-      && cursiv::container_of_type<Schedule>(&node)
-             != cursiv::container_of_type<Schedule>(node.task.get()))
+      && cursiv::containerOfType<Schedule>(&node)
+             != cursiv::containerOfType<Schedule>(node.task.get()))
     accept.error(node,
                  "An Event shall be associated with a Task defined in the "
                  "same Schedule.");

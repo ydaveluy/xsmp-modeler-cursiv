@@ -141,7 +141,7 @@ void XsmpDocumentValidator::processLinkingErrors(
       document.parseResult.cst(),
       [&](cursiv::RefState why, cursiv::TextOffset, cursiv::TextOffset,
           const cursiv::ReferenceInfo& site) {
-        cursiv::throw_if_cancelled(token);
+        cursiv::throwIfCancelled(token);
         auto& diagnostic = diagnostics.at(at++);
         // A name that exists but is not of the kind this site accepts.
         const auto* wanted = services.astReflection->referenceNarrowTarget(

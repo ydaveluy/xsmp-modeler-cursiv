@@ -60,7 +60,7 @@ void registerTest(xsmp::Contribution& plugin, xsmp::XsmpSharedCoreServices&) {
     auto& language = const_cast<cursiv::CoreServices&>(
         shared.serviceRegistry->getServices({}, "xsmpcat"));
     language.validationRegistry->registerCheck(
-        {.target = &cursiv::ast_type_tag<xsmp::Catalogue>,
+        {.target = &cursiv::kAstTypeTag<xsmp::Catalogue>,
          .exactTypeOnly = false,
          .check = [](const cursiv::AstNode& node,
                      cursiv::ValidationAcceptor& accept,

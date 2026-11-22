@@ -11,7 +11,7 @@ bool XsmplnkScopeProvider::allowsPathTarget(const Path* path,
   if (path)
     if (const auto* link = cursiv::ast_cast<InterfaceLink>(path->parent);
         link && link->sourcePath == path)
-      if (const auto* base = cursiv::container_of_type<LinkBase>(path);
+      if (const auto* base = cursiv::containerOfType<LinkBase>(path);
           base && !base->assembly.refText.empty())
         return false;
   return DeploymentScopeProvider::allowsPathTarget(path, target, segment);

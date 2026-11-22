@@ -25,8 +25,8 @@ namespace {
 // document set through `dependency` and `source`, even though a catalogue never
 // holds a direct AST reference to any of them.
 bool isProjectGraphUri(std::string_view uri) {
-  const auto extension = cursiv::uri_extension(uri);
-  return cursiv::uri_file_name(uri) == "xsmp.project"
+  const auto extension = cursiv::uriExtension(uri);
+  return cursiv::uriFileName(uri) == "xsmp.project"
          || extension == ".xsmpprofile" || extension == ".xsmptool";
 }
 
@@ -142,9 +142,9 @@ class XsmpIndexManager final : public cursiv::DefaultIndexManager {
         nullptr, documents, [&](const cursiv::AstNodeDescription& element) {
           const auto unique =
               element.type
-              && (element.type->derivesFrom(&cursiv::ast_type_tag<Document>)
-                  || element.type->derivesFrom(&cursiv::ast_type_tag<Service>)
-                  || element.type->derivesFrom(&cursiv::ast_type_tag<Project>));
+              && (element.type->derivesFrom(&cursiv::kAstTypeTag<Document>)
+                  || element.type->derivesFrom(&cursiv::kAstTypeTag<Service>)
+                  || element.type->derivesFrom(&cursiv::kAstTypeTag<Project>));
           auto& published = result[element.documentId];
           auto& hash = unique ? published.unique : published.names;
           add(hash, std::hash<std::string_view>{}(element.name));
@@ -330,7 +330,7 @@ const Project* ProjectManager::doGetProject(
     // Both are normal URIs, so that a folder holding a document is its prefix.
     const auto projectDirUri = dirnameOfUri(documentOf(*project).uri);
     if (!sourceUri.starts_with(projectDirUri)
-        || !cursiv::contains_uri(projectDirUri, sourceUri)) {
+        || !cursiv::containsUri(projectDirUri, sourceUri)) {
       continue;
     }
     for (const auto& element : project->elements) {
@@ -339,7 +339,7 @@ const Project* ProjectManager::doGetProject(
         continue;
       }
       const auto folderUri = resolveSourceUri(projectDirUri, source->path);
-      if (cursiv::contains_uri(folderUri, sourceUri)) {
+      if (cursiv::containsUri(folderUri, sourceUri)) {
         // The deepest directory wins: a nested project owns its own sources.
         if (!bestProject || projectDirUri.size() > bestDirectoryLength) {
           bestProject = project;

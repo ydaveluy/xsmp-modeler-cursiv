@@ -179,8 +179,8 @@ void checkInterface(const InterfaceLink& link,
                     cursiv::ValidationAcceptor& accept) {
   // The tree comes from the assembly around the link or, in a link base, from
   // the assembly it is anchored on.
-  const auto* assembly = cursiv::container_of_type<Assembly>(&link);
-  const auto* links = cursiv::container_of_type<LinkBase>(&link);
+  const auto* assembly = cursiv::containerOfType<Assembly>(&link);
+  const auto* links = cursiv::containerOfType<LinkBase>(&link);
   auto root = createOccurrence(assembly ? assembly
                                : links  ? links->assembly.get()
                                         : nullptr);
@@ -189,9 +189,9 @@ void checkInterface(const InterfaceLink& link,
   const auto* context =
       assembly
           ? occurrenceForModel(root.get(),
-                               cursiv::container_of_type<ModelInstance>(&link))
+                               cursiv::containerOfType<ModelInstance>(&link))
           : occurrenceForBlock(
-                cursiv::container_of_type<ComponentLinkBase>(&link),
+                cursiv::containerOfType<ComponentLinkBase>(&link),
                 root.get());
 
   if (!context) {
@@ -306,9 +306,9 @@ void checkReferenceBounds(const Assembly* assembly, const LinkBase* links,
     // A link base counts only its own links, not those of its assembly.
     for (auto* node : links->getDocument()->parseResult.nodes())
       if (auto* link = cursiv::ast_cast<InterfaceLink>(node);
-          link && cursiv::container_of_type<LinkBase>(link) == links)
+          link && cursiv::containerOfType<LinkBase>(link) == links)
         record(*link, occurrenceForBlock(
-                          cursiv::container_of_type<ComponentLinkBase>(link),
+                          cursiv::containerOfType<ComponentLinkBase>(link),
                           root.get()));
   }
 

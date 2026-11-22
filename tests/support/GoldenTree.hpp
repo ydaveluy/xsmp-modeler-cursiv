@@ -215,9 +215,9 @@ struct GoldenWorkspace {
   explicit GoldenWorkspace(const std::filesystem::path& root) {
     registerLanguages(*shared);
     registerTasMdk(*shared);
-    cursiv::initialize_root(root.string(), *shared);
+    cursiv::initializeRoot(root.string(), *shared);
     const auto descriptor = shared->documents->getDocument(
-        cursiv::path_to_file_uri((root / "xsmp.project").string()));
+        cursiv::pathToFileUri((root / "xsmp.project").string()));
     if (descriptor)
       project = cursiv::ast_cast<const Project>(descriptor->parseResult.value);
   }

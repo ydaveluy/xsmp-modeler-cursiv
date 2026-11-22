@@ -66,7 +66,7 @@ TEST(XsmpDocumentValidator, LinkingErrorDataNamesTheDeclaringTypeAndTheMember) {
       "Nada { reference Vanished r } }");
   std::map<std::string, std::string> data;
   for (const auto& issue : result.diagnostics)
-    if (issue.data && cursiv::data_code(issue) == "linking-error")
+    if (issue.data && cursiv::dataCode(issue) == "linking-error")
       data[issue.data->object().at("refText").string()] =
           issue.data->toJsonString({.pretty = false});
   EXPECT_EQ(data["Nope"],

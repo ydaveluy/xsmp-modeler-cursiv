@@ -61,7 +61,7 @@ std::optional<::lsp::Range> XsmpRenameProvider::prepareRename(
     const cursiv::CancellationToken& token) const {
   if (isReadOnlyDocumentUri(document.uri)) return std::nullopt;
   const auto found = services.references->findDeclarations(
-      document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
+      document, document.textDocument().offsetAt(cursiv::fromLsp(position)),
       token);
   // An unresolved reference is not renamed, unlike in the default provider:
   // unchecked deployment paths would become rename targets.
@@ -70,7 +70,7 @@ std::optional<::lsp::Range> XsmpRenameProvider::prepareRename(
     if (const auto* home = target->getDocument();
         home && isReadOnlyDocumentUri(home->uri))
       return std::nullopt;
-  return cursiv::to_lsp(
+  return cursiv::toLsp(
       document.textDocument().rangeAt(found.span.begin, found.span.end));
 }
 
@@ -83,7 +83,7 @@ std::optional<::lsp::WorkspaceEdit> XsmpRenameProvider::rename(
   if (!edit) return edit;
 
   const auto declaration = services.references->findDeclarations(
-      document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
+      document, document.textDocument().offsetAt(cursiv::fromLsp(position)),
       token);
   if (!declaration || declaration.targets.empty()) return edit;
 
@@ -96,7 +96,7 @@ std::optional<::lsp::WorkspaceEdit> XsmpRenameProvider::rename(
     const auto* home = target->getDocument();
     if (!home) continue;
     for (const auto* node : home->parseResult.nodes()) {
-      cursiv::throw_if_cancelled(token);
+      cursiv::throwIfCancelled(token);
       if (!below(*node, *target)) continue;
       const auto* named = cursiv::ast_cast<NamedElement>(node);
       if (!named) continue;
@@ -104,7 +104,7 @@ std::optional<::lsp::WorkspaceEdit> XsmpRenameProvider::rename(
       const auto original =
           qualifiedAfterRename(*node, *target, targetName->name);
       for (const auto& reference :
-           services.references->findReferences(*node, {}, token)) {
+           services.references->findReferences({&node, 1}, {}, token)) {
         const auto source =
             services.shared().documents->getDocument(reference.sourceDocumentId);
         if (!source) continue;
@@ -125,7 +125,7 @@ std::optional<::lsp::WorkspaceEdit> XsmpRenameProvider::rename(
         if (oldName == replacement || oldName != normalized) continue;
 
         ::lsp::TextEdit rewrite;
-        rewrite.range = cursiv::to_lsp(
+        rewrite.range = cursiv::toLsp(
             text.rangeAt(reference.sourceBegin, reference.sourceEnd));
         rewrite.newText = std::move(replacement);
         auto& changes =

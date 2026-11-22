@@ -31,15 +31,15 @@ auto generationLock(std::timed_mutex& mutex,
                     const cursiv::CancellationToken& token) {
   std::unique_lock lock(mutex, std::defer_lock);
   while (!lock.try_lock_for(std::chrono::milliseconds(10)))
-    cursiv::throw_if_cancelled(token);
-  cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
+  cursiv::throwIfCancelled(token);
   return lock;
 }
 
 // A local path from a `file:` URI or a plain path. Throws on a URI of another
 // scheme; a single letter before the colon is a Windows drive, not a scheme.
 fs::path pathOf(std::string_view uri) {
-  if (auto path = cursiv::file_uri_to_path(uri)) return *path;
+  if (auto path = cursiv::fileUriToPath(uri)) return *path;
   const auto colon = uri.find(':');
   const auto schemeCharacter = [](unsigned char c) {
     return std::isalnum(c) || c == '+' || c == '-' || c == '.';
@@ -52,7 +52,7 @@ fs::path pathOf(std::string_view uri) {
 }
 
 bool isSmpFile(std::string_view uri) {
-  const auto extension = cursiv::uri_extension(uri);
+  const auto extension = cursiv::uriExtension(uri);
   return extension == ".smpcat" || extension == ".smpcfg"
          || extension == ".smpasb" || extension == ".smplnk"
          || extension == ".smpsed";
@@ -93,14 +93,14 @@ Json generateProjects(XsmpSharedServices& shared, std::string_view uri,
       },
       token);
 
-  cursiv::throw_if_cancelled(token);
+  cursiv::throwIfCancelled(token);
   for (const auto& [projectUri, projectName] : targets) {
     // A build allows immediate reads, and nothing is reset after that in the
     // same write: each project gets a protected write of its own, even for
     // Generate All.
     shared.workspaceLock->write(
         [&](const cursiv::CancellationToken&) {
-          cursiv::throw_if_cancelled(token);
+          cursiv::throwIfCancelled(token);
           const auto current = shared.documents->getDocument(projectUri);
           const auto* project =
               current ? cursiv::ast_cast<Project>(current->parseResult.value)
@@ -141,7 +141,7 @@ Json importSmp(const XsmpSharedServices& shared, const Json& param) {
   ImportOptions options;
   (void)shared.workspaceLock->read([&] {
     for (const auto& folder : shared.workspaceManager->workspaceFolders())
-      if (const auto path = cursiv::file_uri_to_path(folder.uri))
+      if (const auto path = cursiv::fileUriToPath(folder.uri))
         options.searchRoots.emplace_back(*path);
   });
 
@@ -188,9 +188,9 @@ void XsmpLanguageServer::registerRequests() {
         std::move(method),
         [operation = std::move(operation)](
             const Json& param, const cursiv::CancellationToken& token) -> Json {
-          cursiv::throw_if_cancelled(token);
+          cursiv::throwIfCancelled(token);
           auto result = operation(param, token);
-          cursiv::throw_if_cancelled(token);
+          cursiv::throwIfCancelled(token);
           return result;
         });
   };

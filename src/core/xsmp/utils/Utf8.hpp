@@ -17,7 +17,7 @@ namespace xsmp {
   if (text.empty()) return 0;
   const auto lead = static_cast<unsigned char>(text[0]);
   if (lead < 0x80) return 1;
-  const auto width = cursiv::utf8_width(text[0]);
+  const auto width = cursiv::utf8Width(text[0]);
   if (lead < 0xC2 || lead > 0xF4 || width > text.size()) return 0;
   const auto second = static_cast<unsigned char>(text[1]);
   if (second < (lead == 0xE0   ? 0xA0

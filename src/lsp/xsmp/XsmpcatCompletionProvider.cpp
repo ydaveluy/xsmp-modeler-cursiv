@@ -28,7 +28,7 @@ bool afterClosedBlock(const cursiv::CompletionContext& context) {
   for (auto id = cst.leafAfter(context.offset); id > 0;) {
     const auto leaf = cst.asLeaf(id = cst.leafBefore(id));
     if (leaf.hidden || leaf.recovered) continue;
-    const auto* owner = cursiv::owner_of_leaf(cst, leaf.id);
+    const auto* owner = cursiv::ownerOfLeaf(cst, leaf.id);
     return cst.text(leaf.id) == "}"
            && (cursiv::ast_cast<Type>(owner)
                || cursiv::ast_cast<Namespace>(owner));
@@ -53,9 +53,9 @@ cursiv::TextOffset declarationStart(const cursiv::CompletionContext& context) {
   for (auto id = cst.leafAfter(start); id > 0;) {
     const auto leaf = cst.asLeaf(id = cst.leafBefore(id));
     if (leaf.hidden || leaf.recovered) continue;
-    if (cst.grammar()->recordFeature(cst[leaf.id]) != "modifiers"
-        && !cursiv::container_of_type<Attribute>(
-            cursiv::owner_of_leaf(cst, leaf.id)))
+    if (cst.grammar()->recordProperty(cst[leaf.id]) != "modifiers"
+        && !cursiv::containerOfType<Attribute>(
+            cursiv::ownerOfLeaf(cst, leaf.id)))
       break;
     start = leaf.begin;
   }
@@ -378,7 +378,7 @@ bool XsmpcatCompletionProvider::acceptCandidate(
 
 void XsmpcatCompletionProvider::visitReferenceCandidates(
     const cursiv::ReferenceInfo& reference, const cursiv::CompletionContext&,
-    cursiv::function_ref<bool(const cursiv::AstNodeDescription&)> visitor)
+    cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)> visitor)
     const {
   // The node the member belongs to, where the caret stands inside one.
   const auto* owner = reference.container;
@@ -416,7 +416,7 @@ XsmpcatCompletionProvider::createReferenceCompletionItem(
   std::ostringstream depth;
   depth << std::setw(4) << std::setfill('0')
         << (std::ranges::count(name, '.') + 1);
-  const auto primitive = candidate.type == &cursiv::ast_type_tag<PrimitiveType>;
+  const auto primitive = candidate.type == &cursiv::kAstTypeTag<PrimitiveType>;
   item.sortText =
       std::string(primitive ? "0000_" : "1000_") + depth.str() + "_" + name;
 
@@ -428,7 +428,7 @@ XsmpcatCompletionProvider::createReferenceCompletionItem(
   // Inside a definition the item finishes what the type starts.
   const auto is = [&]<class T>(std::string_view property) {
     return reference.reference
-           == core.astReflection->referenceIndexOf(&cursiv::ast_type_tag<T>,
+           == core.astReflection->referenceIndexOf(&cursiv::kAstTypeTag<T>,
                                                    property);
   };
 
@@ -471,7 +471,7 @@ XsmpcatCompletionProvider::createReferenceCompletionItem(
     item.insertTextFormat = ::lsp::InsertTextFormat::Snippet;
   // A type replaces the name it stands on, also when the caret is before it.
   item.textEdit =
-      ::lsp::TextEdit{.range = cursiv::to_lsp(context.textDocument.rangeAt(
+      ::lsp::TextEdit{.range = cursiv::toLsp(context.textDocument.rangeAt(
                           context.tokenOffset, context.tokenEndOffset)),
                       .newText = insertion};
   return item;
@@ -555,7 +555,7 @@ void XsmpcatCompletionProvider::completionFor(
 
   DefaultCompletionProvider::completionFor(context, next, accept);
   if (next.entered && next.property == "name"
-      && cursiv::container_of_type<Enumeration>(context.node()))
+      && cursiv::containerOfType<Enumeration>(context.node()))
     (void)accept(context,
                  createSnippet("Enumeration Literal", "${1:Literal} = ${2:0}",
                                "Enumeration Literal"));
@@ -590,26 +590,26 @@ void XsmpcatCompletionProvider::completionForKeyword(
   std::string body(spec->body);
   if (keyword == "array" || keyword == "using") {
     body = std::string(keyword) + " ${1:Name} = "
-           + typeChoice(context, &cursiv::ast_type_tag<ValueType>,
+           + typeChoice(context, &cursiv::kAstTypeTag<ValueType>,
                         "Smp.Float64", 2)
            + (keyword == "array" ? "[${3:1}]" : "*");
   } else if (body.empty()) {
-    const auto* tag = &cursiv::ast_type_tag<LanguageType>;
+    const auto* tag = &cursiv::kAstTypeTag<LanguageType>;
     std::string_view fallback = "Smp.Int32";
-    if (keyword == "constant") tag = &cursiv::ast_type_tag<SimpleType>;
+    if (keyword == "constant") tag = &cursiv::kAstTypeTag<SimpleType>;
     if (keyword == "attribute") {
-      tag = &cursiv::ast_type_tag<ValueType>;
+      tag = &cursiv::kAstTypeTag<ValueType>;
       fallback = "Smp.Bool";
     }
     // A field of a model or a service holds a value type.
     if (keyword == "field")
       for (const auto* at = context.node(); at; at = at->parent)
         if (cursiv::ast_cast<Component>(at))
-          tag = &cursiv::ast_type_tag<ValueType>;
+          tag = &cursiv::kAstTypeTag<ValueType>;
     if (keyword == "container" || keyword == "reference")
       fallback = keyword == "container" ? "Component" : "Interface";
     if (keyword == "eventsink" || keyword == "eventsource") {
-      tag = &cursiv::ast_type_tag<EventType>;
+      tag = &cursiv::kAstTypeTag<EventType>;
       fallback = "EventType";
     }
     body =
@@ -669,7 +669,7 @@ std::vector<::lsp::CompletionItem> XsmpcatCompletionProvider::deduplicateItems(
   });
 
   const auto offset = std::min(
-      document.textDocument().offsetAt(cursiv::from_lsp(params.position)),
+      document.textDocument().offsetAt(cursiv::fromLsp(params.position)),
       static_cast<cursiv::TextOffset>(
           document.textDocument().getText().size()));
 
@@ -685,7 +685,7 @@ std::vector<::lsp::CompletionItem> XsmpcatCompletionProvider::deduplicateItems(
     const auto leaf = cst.asLeaf(id = cst.leafBefore(id));
     if (leaf.hidden || leaf.recovered) continue;
     if (cst.text(leaf.id) == "=") {
-      valueOwner = cursiv::owner_of_leaf(cst, leaf.id);
+      valueOwner = cursiv::ownerOfLeaf(cst, leaf.id);
       equalsEnd = leaf.end;
     }
     break;
@@ -699,7 +699,7 @@ std::vector<::lsp::CompletionItem> XsmpcatCompletionProvider::deduplicateItems(
   if (!expected) return list;
 
   const auto range =
-      cursiv::to_lsp(document.textDocument().rangeAt(offset, offset));
+      cursiv::toLsp(document.textDocument().rangeAt(offset, offset));
   const auto makeItem = [&](std::string label, std::string detail) {
     ::lsp::CompletionItem item;
     item.filterText = label;
@@ -738,13 +738,13 @@ std::vector<::lsp::CompletionItem> XsmpcatCompletionProvider::deduplicateItems(
 
   // A throwaway expression here asks the scope for the constants it can read.
   NamedElementReference expression;
-  expression.type = &cursiv::ast_type_tag<NamedElementReference>;
+  expression.type = &cursiv::kAstTypeTag<NamedElementReference>;
   expression.parent = const_cast<cursiv::AstNode*>(valueOwner);
   cursiv::ReferenceInfo valueScope{
       .container = &expression, .document = &document, .property = "value"};
   (void)core.scopeProvider->visitScopeEntries(
       valueScope, [&](const cursiv::AstNodeDescription& description) {
-        cursiv::throw_if_cancelled(token);
+        cursiv::throwIfCancelled(token);
         if (const auto* constant = cursiv::ast_cast<Constant>(description.node);
             constant && constant->type.get() == expected
             && (constant->parent == valueOwner->parent

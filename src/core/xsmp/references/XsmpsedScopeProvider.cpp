@@ -10,7 +10,7 @@ std::optional<bool> XsmpsedScopeProvider::visitOwnCandidates(
   if (!argument) return std::nullopt;
   if (auto* execute = cursiv::ast_cast<ExecuteTask>(argument->parent))
     if (const auto* schedule =
-            cursiv::container_of_type<Schedule>(execute->task.get()))
+            cursiv::containerOfType<Schedule>(execute->task.get()))
       for (auto* parameter : schedule->parameters)
         if (!give(parameter)) return false;
   return true;

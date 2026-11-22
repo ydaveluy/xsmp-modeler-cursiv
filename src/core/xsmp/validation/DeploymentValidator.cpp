@@ -77,7 +77,7 @@ void DeploymentValidator::checkDocument(const Document& node,
   const auto& language = *node.getDocument()->language;
   (void)language.shared().indexManager->visitByName(
       name, true, {}, *language.astReflection, [&](const auto& d) {
-        if (d.type && d.type->derivesFrom(&cursiv::ast_type_tag<Document>)
+        if (d.type && d.type->derivesFrom(&cursiv::kAstTypeTag<Document>)
             && d.node != &node && d.node)
           related.push_back({.uri = d.node->getDocument()->uri,
                              .message = std::string(d.name),
@@ -120,9 +120,9 @@ bool typesNothing(const Path* path) {
   if (!path || path->unsafe) return true;
   if (pathContext(path)) return false;
   if (const auto* configuration =
-          cursiv::container_of_type<ComponentConfiguration>(path))
+          cursiv::containerOfType<ComponentConfiguration>(path))
     return configuration->context.refText.empty();
-  if (const auto* task = cursiv::container_of_type<Task>(path))
+  if (const auto* task = cursiv::containerOfType<Task>(path))
     return task->context.refText.empty();
   return true;
 }
@@ -232,7 +232,7 @@ void DeploymentValidator::checkArrayValue(
   };
   if (!inStandard2025(node))
     refuse("StartIndex is only available in ECSS_SMP_2025.");
-  if (!cursiv::container_of_type<Configuration>(&node))
+  if (!cursiv::containerOfType<Configuration>(&node))
     refuse("StartIndex is only available in a Configuration.");
   else if (!canHaveStartIndex(node))
     refuse("StartIndex is only allowed for SimpleArray values.");

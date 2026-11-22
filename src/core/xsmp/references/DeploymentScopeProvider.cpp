@@ -22,13 +22,13 @@ const AstNodeDescription* DeploymentScopeProvider::getScopeEntry(
   // plays no part.
   if (auto* segment =
           cursiv::ast_cast<ConcretePathNamedSegment>(context.container);
-      segment && cursiv::container_of_type<Path>(segment)) {
+      segment && cursiv::containerOfType<Path>(segment)) {
     const auto owner = ownerOfSegment(segment);
     const auto selected = segmentResolution(
         segment, owner,
-        cursiv::container_of_type<Path>(segment)
-            && cursiv::container_of_type<Path>(segment)->head == segment);
-    if (!allowsPathTarget(cursiv::container_of_type<Path>(segment),
+        cursiv::containerOfType<Path>(segment)
+            && cursiv::containerOfType<Path>(segment)->head == segment);
+    if (!allowsPathTarget(cursiv::containerOfType<Path>(segment),
                           selected.node, segment))
       return nullptr;
     const auto* entry = descriptionOf(selected.node);
@@ -46,13 +46,13 @@ const AstNodeDescription* DeploymentScopeProvider::getScopeEntry(
 
 bool DeploymentScopeProvider::visitScopeEntries(
     const ReferenceInfo& context,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   return visitCandidates(context, {}, visitor);
 }
 
 bool DeploymentScopeProvider::visitScopeEntries(
     const ReferenceInfo& context, std::string_view name,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   return name.empty() || visitCandidates(context, name, visitor);
 }
 
@@ -86,13 +86,13 @@ bool DeploymentScopeProvider::accepts(const ReferenceInfo& context,
 
 bool DeploymentScopeProvider::visitCandidates(
     const ReferenceInfo& context, std::string_view name,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   const auto giveNode = [&](const AstNode* node) {
     if (!name.empty() && nameOf(node) != name) return true;
     if (const auto* segment =
             cursiv::ast_cast<ConcretePathNamedSegment>(context.container);
-        segment && cursiv::container_of_type<Path>(segment)
-        && !allowsPathTarget(cursiv::container_of_type<Path>(segment), node,
+        segment && cursiv::containerOfType<Path>(segment)
+        && !allowsPathTarget(cursiv::containerOfType<Path>(segment), node,
                              segment))
       return true;
     auto* d = descriptionOf(node);
@@ -109,7 +109,7 @@ bool DeploymentScopeProvider::visitCandidates(
   if (auto* segment =
           cursiv::ast_cast<ConcretePathNamedSegment>(context.container)) {
     if (segment->unsafe) return true;
-    auto* path = cursiv::container_of_type<Path>(segment);
+    auto* path = cursiv::containerOfType<Path>(segment);
     const auto owner = ownerOfSegment(segment);
     if (path && path->head == segment && owner.node && !giveNode(owner.node))
       return false;

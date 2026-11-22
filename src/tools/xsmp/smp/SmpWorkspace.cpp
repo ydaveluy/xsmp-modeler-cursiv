@@ -38,7 +38,7 @@ bool outsideIgnoredDirectories(std::string_view root, std::string_view uri) {
   auto relative = uri.substr(std::min(root.size() + 1, uri.size()));
   for (auto slash = relative.find('/'); slash != relative.npos;
        slash = relative.find('/')) {
-    if (ignoredDirectory(cursiv::uri_file_name(relative.substr(0, slash))))
+    if (ignoredDirectory(cursiv::uriFileName(relative.substr(0, slash))))
       return false;
     relative.remove_prefix(slash + 1);
   }
@@ -59,8 +59,8 @@ struct ImportErrors {
   // directory. Everything is before the first scan.
   bool inRoots(std::string_view uri) const {
     return !initialized || std::ranges::any_of(roots, [&](const auto& root) {
-      return cursiv::contains_uri(root, uri)
-             && !cursiv::uri_file_name(uri).starts_with('.')
+      return cursiv::containsUri(root, uri)
+             && !cursiv::uriFileName(uri).starts_with('.')
              && outsideIgnoredDirectories(root, uri);
     });
   }
@@ -120,7 +120,7 @@ std::string shadowedWarning(const std::filesystem::path& source) {
 // The XML file behind a mirror, `std::nullopt` for any other URI.
 std::optional<std::filesystem::path> mirrorSourcePath(std::string_view uri) {
   if (!isSmpMirrorUri(uri)) return std::nullopt;
-  const auto file = cursiv::file_uri_to_path(sourceDocumentUri(uri));
+  const auto file = cursiv::fileUriToPath(sourceDocumentUri(uri));
   return file ? std::optional<std::filesystem::path>(*file) : std::nullopt;
 }
 
@@ -166,7 +166,7 @@ struct MirrorDocument {
 MirrorDocument renderMirror(const std::filesystem::path& source,
                             const ImportOptions& options) {
   auto imported = renderImportedDocument(source, options);
-  const auto sourceUri = cursiv::path_to_file_uri(source.string());
+  const auto sourceUri = cursiv::pathToFileUri(source.string());
   return {.sourcePath = source,
           .sourceUri = sourceUri,
           .mirrorUri = smpMirrorUri(sourceUri),
@@ -200,7 +200,7 @@ class SmpFileSystemProvider final : public cursiv::FileSystemProvider {
     std::scoped_lock lock(_errors->mutex);
     std::vector<std::pair<std::string, std::string>> result;
     for (auto it = _errors->messages.begin(); it != _errors->messages.end();) {
-      const auto path = cursiv::file_uri_to_path(it->first);
+      const auto path = cursiv::fileUriToPath(it->first);
       if (!path || !_errors->inRoots(it->first) || !mirrorExists(*path))
         it = _errors->messages.erase(it);
       else {
@@ -216,7 +216,7 @@ class SmpFileSystemProvider final : public cursiv::FileSystemProvider {
     std::scoped_lock lock(_errors->mutex);
     std::vector<std::pair<std::string, std::string>> result;
     for (auto it = _errors->warnings.begin(); it != _errors->warnings.end();) {
-      const auto path = cursiv::file_uri_to_path(it->first);
+      const auto path = cursiv::fileUriToPath(it->first);
       std::error_code error;
       if (!path || !_errors->inRoots(it->first)
           || !std::filesystem::is_regular_file(*path, error)) {
@@ -289,7 +289,7 @@ class SmpFileSystemProvider final : public cursiv::FileSystemProvider {
   // A mirror that is gone also loses its recorded error.
   bool available(const std::filesystem::path& source) const {
     if (mirrorExists(source)) return true;
-    record(cursiv::path_to_file_uri(source.string()), {});
+    record(cursiv::pathToFileUri(source.string()), {});
     return false;
   }
 
@@ -329,11 +329,11 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
       if (!document->isOpen && document->uri.starts_with("file:")
           && std::ranges::any_of(_folders,
                                  [&](const auto& folder) {
-                                   return cursiv::contains_uri(folder.uri,
+                                   return cursiv::containsUri(folder.uri,
                                                                document->uri);
                                  })
           && !std::ranges::any_of(folders, [&](const auto& folder) {
-               return cursiv::contains_uri(folder.uri, document->uri);
+               return cursiv::containsUri(folder.uri, document->uri);
              }))
         closed.push_back(document->uri);
 
@@ -396,12 +396,12 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
   // or stops shadowing its XML file. Anything else, an edit of a native file or
   // an XML file that generation writes, costs no walk of the source roots.
   bool movesMirrors(std::string_view uri) const {
-    if (cursiv::uri_file_name(uri) == "xsmp.project" || isSmpMirrorUri(uri))
+    if (cursiv::uriFileName(uri) == "xsmp.project" || isSmpMirrorUri(uri))
       return true;
-    const auto extension = cursiv::uri_extension(uri);
+    const auto extension = cursiv::uriExtension(uri);
     for (const auto& [xml, native] : smpExtensions) {
       if (extension == xml) {
-        if (const auto path = cursiv::file_uri_to_path(uri);
+        if (const auto path = cursiv::fileUriToPath(uri);
             path
             && _references.contains(
                 std::filesystem::path(*path).filename().string()))
@@ -410,7 +410,7 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
         return _errors->inRoots(uri);
       }
       if (extension != native) continue;
-      const auto path = cursiv::file_uri_to_path(uri);
+      const auto path = cursiv::fileUriToPath(uri);
       if (!path) return false;
       auto source = std::filesystem::path(*path);
       source.replace_extension(xml);
@@ -418,7 +418,7 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
       return std::filesystem::is_regular_file(source, error)
              && std::filesystem::exists(*path, error)
                     == _active.contains(smpMirrorUri(
-                        cursiv::path_to_file_uri(source.string())));
+                        cursiv::pathToFileUri(source.string())));
     }
     return false;
   }
@@ -429,12 +429,12 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
     if (!isSmpMirrorUri(entry.uri)) {
       auto held = false;
       for (const auto& folder : _folders) {
-        const auto root = cursiv::normalize_uri(folder.uri);
-        if (!cursiv::contains_uri(root, entry.uri)) continue;
+        const auto root = cursiv::normalizeUri(folder.uri);
+        if (!cursiv::containsUri(root, entry.uri)) continue;
         held = true;
         auto step = entry;
         auto included = true;
-        while (!step.uri.empty() && !cursiv::contains_uri(step.uri, root)) {
+        while (!step.uri.empty() && !cursiv::containsUri(step.uri, root)) {
           if (!shouldIncludeEntry(step)) {
             included = false;
             break;
@@ -455,7 +455,7 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
     std::scoped_lock lock(_errors->mutex);
     if (!_errors->initialized) return false;
     return std::ranges::any_of(_errors->roots, [&](const auto& root) {
-      return cursiv::contains_uri(root, source)
+      return cursiv::containsUri(root, source)
              && outsideIgnoredDirectories(root, source);
     });
   }
@@ -479,10 +479,10 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
                                     std::span<const std::string_view> deleted) {
     ProjectOverrides overrides;
     for (auto uri : deleted)
-      if (cursiv::uri_file_name(uri) == "xsmp.project")
+      if (cursiv::uriFileName(uri) == "xsmp.project")
         overrides.emplace(uri, nullptr);
     for (auto uri : changed)
-      if (cursiv::uri_file_name(uri) == "xsmp.project") {
+      if (cursiv::uriFileName(uri) == "xsmp.project") {
         const auto previous = shared.documents->getDocument(uri);
         auto text =
             previous ? std::string(previous->textDocument().getText()) : "";
@@ -510,12 +510,12 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
     // where a link can find another document.
     std::set<std::filesystem::path> roots, searchRoots, sources;
     for (const auto& folder : workspaceFolders())
-      if (const auto path = cursiv::file_uri_to_path(folder.uri))
+      if (const auto path = cursiv::fileUriToPath(folder.uri))
         searchRoots.emplace(*path);
 
     std::vector<std::shared_ptr<cursiv::Document>> projects;
     for (const auto& document : shared.documents->all())
-      if (cursiv::uri_file_name(document->uri) == "xsmp.project"
+      if (cursiv::uriFileName(document->uri) == "xsmp.project"
           && !overrides.contains(document->uri))
         projects.push_back(document);
     for (const auto& [uri, document] : overrides)
@@ -526,13 +526,13 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
           cursiv::ast_cast<Project>(document->parseResult.value);
       if (!project
           || !std::ranges::any_of(workspaceFolders(), [&](const auto& folder) {
-               return cursiv::contains_uri(folder.uri, document->uri);
+               return cursiv::containsUri(folder.uri, document->uri);
              }))
         continue;
-      const auto file = cursiv::file_uri_to_path(document->uri);
+      const auto file = cursiv::fileUriToPath(document->uri);
       if (!file) continue;
       const auto directory = std::filesystem::path(*file).parent_path();
-      const auto directoryUri = cursiv::path_to_file_uri(directory.string());
+      const auto directoryUri = cursiv::pathToFileUri(directory.string());
       for (const auto* element : project->elements)
         if (const auto* source = cursiv::ast_cast<Source>(element);
             source && !source->path.empty()) {
@@ -540,15 +540,15 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
           std::ranges::replace(path, '\\', '/');
           const auto root = (directory / path).lexically_normal();
           // A source outside the folder of its project is ignored.
-          if (cursiv::contains_uri(directoryUri,
-                                   cursiv::path_to_file_uri(root.string())))
+          if (cursiv::containsUri(directoryUri,
+                                   cursiv::pathToFileUri(root.string())))
             roots.insert(root);
         }
     }
 
     std::vector<std::string> rootUris;
     for (const auto& root : roots) {
-      auto uri = cursiv::normalize_uri(cursiv::path_to_file_uri(root.string()));
+      auto uri = cursiv::normalizeUri(cursiv::pathToFileUri(root.string()));
       while (uri.ends_with('/') && !uri.ends_with(":///")) uri.pop_back();
       rootUris.push_back(std::move(uri));
       searchRoots.insert(root);
@@ -565,10 +565,10 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
     std::vector<MirrorDocument> mirrors;
 
     for (const auto& source : sources) {
-      cursiv::throw_if_cancelled(token);
+      cursiv::throwIfCancelled(token);
       std::error_code error;
       if (std::filesystem::exists(nativeSidecar(source), error)) {
-        nextWarnings.emplace(cursiv::path_to_file_uri(source.string()),
+        nextWarnings.emplace(cursiv::pathToFileUri(source.string()),
                              std::vector<std::string>{shadowedWarning(source)});
         continue;
       }
@@ -580,13 +580,13 @@ class SmpWorkspaceManager final : public cursiv::DefaultWorkspaceManager {
       } catch (const cursiv::OperationCancelled&) {
         throw;
       } catch (const std::exception& error) {
-        nextErrors.emplace(cursiv::path_to_file_uri(source.string()),
+        nextErrors.emplace(cursiv::pathToFileUri(source.string()),
                            error.what());
       }
     }
 
     // Nothing is published until every source is rendered.
-    cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
     nextOptions.references = nullptr;
     _references = std::move(nextReferences);
     _errors->replace(std::move(rootUris), std::move(nextErrors),

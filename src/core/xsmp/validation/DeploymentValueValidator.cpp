@@ -121,7 +121,7 @@ void checkValue(const Value* value, const Type* type,
                                     + limit + " item(s)."
                               : "The array value shall not exceed " + limit
                                     + " item(s) when StartIndex is applied.");
-      if (!cursiv::container_of_type<Assembly>(values))
+      if (!cursiv::containerOfType<Assembly>(values))
         diagnostic.code("xsmpcfg.array.size")
             .data(diagnosticData("xsmpcfg.array.size"));
     }
@@ -353,8 +353,8 @@ bool equivalentTypes(const Type* a, const Type* b, TypePairs& seen) {
   }
 
   // Exactly a structure: a class is only equivalent to itself.
-  if (a->type == &cursiv::ast_type_tag<Structure>
-      && b->type == &cursiv::ast_type_tag<Structure>) {
+  if (a->type == &cursiv::kAstTypeTag<Structure>
+      && b->type == &cursiv::kAstTypeTag<Structure>) {
     const auto left = valueFields(a), right = valueFields(b);
     return std::ranges::equal(left, right, [&](const auto* f, const auto* g) {
       return equivalentTypes(f->type.get(), g->type.get(), seen);

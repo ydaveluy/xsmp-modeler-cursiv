@@ -57,7 +57,7 @@ class TestWorkspace {
     world._shared = std::make_unique<Shared>();
     world._shared->fileSystemProvider =
         std::make_unique<cursiv::LocalFileSystemProvider>();
-    cursiv::install_default_shared_lsp_services(*world._shared);
+    cursiv::installDefaultSharedLspServices(*world._shared);
     world._shared->nodeKindProvider = std::make_unique<XsmpNodeKindProvider>();
     return world;
   }
@@ -128,9 +128,9 @@ inline std::string applyTextEdits(const cursiv::Document& document,
   std::vector<Edit> sorted;
   for (const auto& edit : edits)
     sorted.push_back({.begin = document.textDocument().offsetAt(
-                          cursiv::from_lsp(edit.range.start)),
+                          cursiv::fromLsp(edit.range.start)),
                       .end = document.textDocument().offsetAt(
-                          cursiv::from_lsp(edit.range.end)),
+                          cursiv::fromLsp(edit.range.end)),
                       .text = edit.newText});
   std::ranges::sort(
       sorted, [](const auto& a, const auto& b) { return a.begin > b.begin; });
@@ -174,7 +174,7 @@ inline MarkedDocument marked(TestWorkspace& world, std::string_view id,
                       ? static_cast<cursiv::TextOffset>(markers.output.size())
                       : markers.indices.front();
   auto document = parse(world, id, std::move(markers.output), std::move(uri));
-  const auto position = cursiv::to_lsp(document->textDocument().positionAt(at));
+  const auto position = cursiv::toLsp(document->textDocument().positionAt(at));
   return {.document = std::move(document), .position = position};
 }
 

@@ -5,7 +5,8 @@
 #include <cursiv/syntax-tree/CstUtils.hpp>
 #include <cursiv/text/LspPosition.hpp>
 #include <cursiv/workspace/Documents.hpp>
-#include <utility>
+#include <span>
+#include <tuple>
 #include <xsmp/DeploymentSemantics.hpp>
 #include <xsmp/XsmpDefinitionProvider.hpp>
 #include <xsmp/ast.hpp>
@@ -29,45 +30,45 @@ const TemplateParameter* parameter(const Assembly* assembly,
 // schedule or link base the file declares.
 const TemplateParameter* findParameter(const Node* node,
                                        std::string_view name) {
-  if (auto* task = cursiv::container_of_type<Task>(node))
+  if (auto* task = cursiv::containerOfType<Task>(node))
     if (auto* found = parameter(task->context.get<Assembly>(), name))
       return found;
   if (auto* configuration =
-          cursiv::container_of_type<ComponentConfiguration>(node)) {
-    const auto* referencePath = cursiv::container_of_type<Path>(node);
+          cursiv::containerOfType<ComponentConfiguration>(node)) {
+    const auto* referencePath = cursiv::containerOfType<Path>(node);
     const auto inDeclarationPath =
         referencePath && referencePath->parent == configuration;
     // The path that declares a configuration is read from the one around it.
     if (inDeclarationPath) {
       if (auto* found = parameter(configuration->context.get<Assembly>(), name))
         return found;
-      configuration = cursiv::container_of_type<ComponentConfiguration>(
+      configuration = cursiv::containerOfType<ComponentConfiguration>(
           configuration->parent);
     }
     for (auto* current = configuration; current;
-         current = cursiv::container_of_type<ComponentConfiguration>(
+         current = cursiv::containerOfType<ComponentConfiguration>(
              current->parent)) {
       if (auto* found = parameter(current->context.get<Assembly>(), name))
         return found;
       if (auto* target = pathTarget(current->name)) {
         if (auto* instance =
-                cursiv::container_of_type<AssemblyInstance>(target))
+                cursiv::containerOfType<AssemblyInstance>(target))
           if (auto* found = parameter(instance->assembly.get(), name))
             return found;
         if (auto* found =
-                parameter(cursiv::container_of_type<Assembly>(target), name))
+                parameter(cursiv::containerOfType<Assembly>(target), name))
           return found;
       }
     }
   }
-  if (auto* assembly = cursiv::container_of_type<Assembly>(node))
+  if (auto* assembly = cursiv::containerOfType<Assembly>(node))
     return parameter(assembly, name);
-  if (auto* schedule = cursiv::container_of_type<Schedule>(node)) {
+  if (auto* schedule = cursiv::containerOfType<Schedule>(node)) {
     for (auto* p : schedule->parameters)
       if (p->name == name) return p;
     return nullptr;
   }
-  if (auto* links = cursiv::container_of_type<LinkBase>(node))
+  if (auto* links = cursiv::containerOfType<LinkBase>(node))
     return parameter(links->assembly.get(), name);
   return nullptr;
 }
@@ -136,11 +137,11 @@ std::optional<::lsp::LocationLink> location(const Node& target,
   ::lsp::LocationLink link;
   link.targetUri = ::lsp::Uri::parse(home->uri);
   link.targetRange =
-      cursiv::to_lsp(home->textDocument().rangeAt(node.begin, node.end));
+      cursiv::toLsp(home->textDocument().rangeAt(node.begin, node.end));
   link.targetSelectionRange =
-      cursiv::to_lsp(home->textDocument().rangeAt(name.begin(), name.end()));
+      cursiv::toLsp(home->textDocument().rangeAt(name.begin(), name.end()));
   link.originSelectionRange =
-      cursiv::to_lsp(source.textDocument().rangeAt(begin, end));
+      cursiv::toLsp(source.textDocument().rangeAt(begin, end));
   return link;
 }
 
@@ -159,7 +160,7 @@ cursiv::Declaration XsmpDeploymentReferences::findDeclarations(
     const auto leaf = cst.asLeaf(id);
     if (leaf.begin > offset) break;
     if (leaf.hidden || leaf.recovered) continue;
-    const auto* owner = cursiv::owner_of_leaf(cst, leaf.id);
+    const auto* owner = cursiv::ownerOfLeaf(cst, leaf.id);
     const auto text = cst.text(leaf.id);
     // A token made only of a placeholder denotes its parameter; a token such as
     // Child{Lane} denotes the child.
@@ -172,7 +173,7 @@ cursiv::Declaration XsmpDeploymentReferences::findDeclarations(
 
     const auto* segment = cursiv::ast_cast<PatternPathNamedSegment>(owner);
     if (!segment) continue;
-    const auto* path = cursiv::container_of_type<Path>(segment);
+    const auto* path = cursiv::containerOfType<Path>(segment);
     if (!path) continue;
     const auto* target = resolveSegment(segment);
     if (!target) continue;
@@ -191,47 +192,54 @@ cursiv::Declaration XsmpDeploymentReferences::findDeclarations(
 
 std::vector<cursiv::ReferenceDescription>
 XsmpDeploymentReferences::findReferences(
-    const cursiv::AstNode& target, const cursiv::FindReferencesOptions& options,
+    std::span<const cursiv::AstNode* const> targets,
+    const cursiv::FindReferencesOptions& options,
     const cursiv::CancellationToken& token) const {
-  auto rows = DefaultReferences::findReferences(target, options, token);
-  const auto* parameter = cursiv::ast_cast<TemplateParameter>(&target);
-  const auto* home = target.getDocument();
-  if (!parameter || !home) return rows;
+  auto rows = DefaultReferences::findReferences(targets, options, token);
+  for (const auto* target : targets) {
+    const auto* parameter = cursiv::ast_cast<TemplateParameter>(target);
+    const auto* home = target->getDocument();
+    if (!parameter || !home) continue;
 
-  // A placeholder lies inside a token, where no reference is written: each
-  // document that may read the parameter is searched for it.
-  for (const auto& document : shared.documents->all()) {
-    cursiv::throw_if_cancelled(token);
-    if ((options.documentId != cursiv::kNoDocument
-         && options.documentId != document->id)
-        || !document->hasAst()
-        || cursiv::ast_cast<Catalogue>(document->parseResult.value))
-      continue;
-    const auto& cst = document->parseResult.cst();
-    for (cursiv::NodeId id = 0; id < cst.size(); id = cst.nextLeaf(id)) {
-      const auto leaf = cst.asLeaf(id);
-      if (leaf.hidden || leaf.recovered) continue;
-      (void)visitPlaceholders(
-          cst.text(leaf.id), leaf.begin,
-          [&](std::string_view name, cursiv::TextOffset begin,
-              cursiv::TextOffset end) {
-            if (name == parameter->name
-                && findParameter(cursiv::owner_of_leaf(cst, leaf.id), name)
-                       == parameter)
-              rows.push_back({.sourceDocumentId = document->id,
-                              .sourceBegin = begin,
-                              .sourceEnd = end,
-                              .targetDocumentId = home->id,
-                              .targetSymbolId = target.cstNodeId,
-                              .local = document->id == home->id});
-            return false;
-          });
+    // A placeholder lies inside a token, where no reference is written: each
+    // document that may read the parameter is searched for it.
+    for (const auto& document : shared.documents->all()) {
+      cursiv::throwIfCancelled(token);
+      if ((options.documentId != cursiv::kNoDocument
+           && options.documentId != document->id)
+          || !document->hasAst()
+          || cursiv::ast_cast<Catalogue>(document->parseResult.value))
+        continue;
+      const auto& cst = document->parseResult.cst();
+      for (cursiv::NodeId id = 0; id < cst.size(); id = cst.nextLeaf(id)) {
+        const auto leaf = cst.asLeaf(id);
+        if (leaf.hidden || leaf.recovered) continue;
+        (void)visitPlaceholders(
+            cst.text(leaf.id), leaf.begin,
+            [&](std::string_view name, cursiv::TextOffset begin,
+                cursiv::TextOffset end) {
+              if (name == parameter->name
+                  && findParameter(cursiv::ownerOfLeaf(cst, leaf.id), name)
+                         == parameter)
+                rows.push_back({.sourceDocumentId = document->id,
+                                .sourceBegin = begin,
+                                .sourceEnd = end,
+                                .targetDocumentId = home->id,
+                                .targetSymbolId = target->cstNodeId,
+                                .local = document->id == home->id});
+              return false;
+            });
+      }
     }
   }
 
-  std::ranges::sort(rows, {}, [](const auto& row) {
-    return std::pair{row.sourceDocumentId, row.sourceBegin};
-  });
+  // As the base answers: each site once, the first row kept, in reading order.
+  const auto site = [](const auto& row) {
+    return std::tuple{row.sourceDocumentId, row.sourceBegin, row.sourceEnd};
+  };
+  std::ranges::stable_sort(rows, {}, site);
+  const auto repeats = std::ranges::unique(rows, {}, site);
+  rows.erase(repeats.begin(), repeats.end());
   return rows;
 }
 
@@ -239,9 +247,9 @@ std::optional<std::vector<::lsp::LocationLink>>
 XsmpDefinitionProvider::getDefinition(
     const cursiv::Document& document, ::lsp::Position position,
     const cursiv::CancellationToken& token) const {
-  cursiv::throw_if_cancelled(token);
+  cursiv::throwIfCancelled(token);
   const auto offset =
-      document.textDocument().offsetAt(cursiv::from_lsp(position));
+      document.textDocument().offsetAt(cursiv::fromLsp(position));
   const auto& cst = document.parseResult.cst();
   const Node* cursorOwner = nullptr;
   // From the first leaf that ends at or after the caret.
@@ -250,7 +258,7 @@ XsmpDefinitionProvider::getDefinition(
     const auto leaf = cst.asLeaf(id);
     if (leaf.begin > offset) break;
     if (leaf.hidden || leaf.recovered) continue;
-    cursorOwner = cursiv::owner_of_leaf(cst, leaf.id);
+    cursorOwner = cursiv::ownerOfLeaf(cst, leaf.id);
     // The `{name}` placeholder at the caret, if it leads somewhere.
     std::optional<::lsp::LocationLink> link;
     if (visitPlaceholders(
@@ -266,7 +274,7 @@ XsmpDefinitionProvider::getDefinition(
       return std::vector<::lsp::LocationLink>{*link};
   }
 
-  const auto* owner = cursorOwner ? cursorOwner : cursiv::owner_at(cst, offset);
+  const auto* owner = cursorOwner ? cursorOwner : cursiv::ownerAt(cst, offset);
 
   // An `unsafe` name is not checked, so it leads nowhere.
   if (const auto* segment = cursiv::ast_cast<ConcretePathNamedSegment>(owner);
@@ -277,7 +285,7 @@ XsmpDefinitionProvider::getDefinition(
     return std::nullopt;
 
   // Neither does a container crossed by a configuration or an include path.
-  if (const auto* path = cursiv::container_of_type<Path>(owner)) {
+  if (const auto* path = cursiv::containerOfType<Path>(owner)) {
     const auto* configuration =
         cursiv::ast_cast<ComponentConfiguration>(path->parent);
     const auto* usage = cursiv::ast_cast<ConfigurationUsage>(path->parent);
@@ -303,12 +311,12 @@ XsmpcatTypeDefinitionProvider::getTypeDefinition(
     const cursiv::Document& document, ::lsp::Position position,
     const cursiv::CancellationToken& token) const {
   const auto found = services.references->findDeclarations(
-      document, document.textDocument().offsetAt(cursiv::from_lsp(position)),
+      document, document.textDocument().offsetAt(cursiv::fromLsp(position)),
       token);
 
   std::vector<::lsp::LocationLink> result;
   for (const auto* target : found.targets) {
-    cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
     const auto* type = typeOf(target);
     if (!type) continue;
     if (auto link = location(*type, document, found.span.begin, found.span.end))

@@ -20,10 +20,10 @@
 TEST(XsmpNodeKindProvider, NodeKinds) {
   xsmp::XsmpNodeKindProvider provider;
   xsmp::Task task;
-  task.type = &cursiv::ast_type_tag<xsmp::Task>;
+  task.type = &cursiv::kAstTypeTag<xsmp::Task>;
   EXPECT_EQ(provider.getSymbolKind(task), ::lsp::SymbolKind::Method);
   xsmp::Assembly assembly;
-  assembly.type = &cursiv::ast_type_tag<xsmp::Assembly>;
+  assembly.type = &cursiv::kAstTypeTag<xsmp::Assembly>;
   EXPECT_EQ(provider.getCompletionItemKind(assembly),
             ::lsp::CompletionItemKind::File);
 }

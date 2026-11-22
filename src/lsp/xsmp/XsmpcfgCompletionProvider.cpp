@@ -4,13 +4,13 @@ namespace xsmp {
 
 namespace {
 
-const auto* const kNested = &cursiv::ast_type_tag<ComponentConfiguration>;
+const auto* const kNested = &cursiv::kAstTypeTag<ComponentConfiguration>;
 
 }  // namespace
 
 bool XsmpcfgCompletionProvider::atStatement(const Context& context) const {
   return writes(context, kNested, "elements")
-         || writes(context, &cursiv::ast_type_tag<Configuration>, "elements");
+         || writes(context, &cursiv::kAstTypeTag<Configuration>, "elements");
 }
 
 void XsmpcfgCompletionProvider::completeStatement(const Context& context,
@@ -42,7 +42,7 @@ void XsmpcfgCompletionProvider::completeKeyword(const Context& context,
         context, accept, "Include Configuration",
         "include "
             + choice(1,
-                     names(context, &cursiv::ast_type_tag<ConfigurationUsage>,
+                     names(context, &cursiv::kAstTypeTag<ConfigurationUsage>,
                            "configuration"),
                      "Configuration")
             + (cursiv::ast_cast<ComponentConfiguration>(block)

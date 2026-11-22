@@ -41,9 +41,9 @@ bool assemblyBacked(const ComponentConfiguration* configuration) {
 // Who declares the placeholders of a schedule's path: its task may inherit an
 // Assembly's. Null outside a schedule.
 const char* schedulePlaceholderContext(const Path* path) {
-  const auto* schedule = cursiv::container_of_type<Schedule>(path);
+  const auto* schedule = cursiv::containerOfType<Schedule>(path);
   if (!schedule) return nullptr;
-  const auto* task = cursiv::container_of_type<Task>(path);
+  const auto* task = cursiv::containerOfType<Task>(path);
   if (!task || !task->context.get<Assembly>()) return "enclosing Schedule";
   return schedule->parameters.empty()
              ? "inherited Assembly context"
@@ -60,7 +60,7 @@ bool checkPath(const Path* path, cursiv::ValidationAcceptor& accept) {
   // A usage inside a Component-backed configuration is taken as written.
   if (cursiv::ast_cast<ConfigurationUsage>(path->parent))
     if (const auto* owner =
-            cursiv::container_of_type<ComponentConfiguration>(path);
+            cursiv::containerOfType<ComponentConfiguration>(path);
         owner && !assemblyBacked(owner))
       return true;
 
@@ -111,18 +111,18 @@ bool checkPath(const Path* path, cursiv::ValidationAcceptor& accept) {
   // What declares this path's placeholders, as the diagnostics call it.
   const std::string_view patternContext =
       schedulePlaceholderContext(path) ? schedulePlaceholderContext(path)
-      : cursiv::container_of_type<LinkBase>(path) ? "anchored Assembly"
-      : cursiv::container_of_type<Assembly>(path)
+      : cursiv::containerOfType<LinkBase>(path) ? "anchored Assembly"
+      : cursiv::containerOfType<Assembly>(path)
           ? "enclosing Assembly"
           : "enclosing Assembly context";
 
   for (const auto* segment : segments) {
     if (cursiv::ast_cast<PathParentSegment>(segment)) {
       const auto elementsRange =
-          (cursiv::container_of_type<LinkBase>(path)
+          (cursiv::containerOfType<LinkBase>(path)
            && !cursiv::ast_cast<ComponentLinkBase>(path->parent)
            && !cursiv::ast_cast<InterfaceLink>(path->parent))
-          || (cursiv::container_of_type<Schedule>(path)
+          || (cursiv::containerOfType<Schedule>(path)
               && !cursiv::ast_cast<ExecuteTask>(path->parent));
       accept.error(*path, "Paths shall not contain '..'.")
           .range(rangeForFeature(*path, elementsRange ? "elements" : ""));
@@ -130,7 +130,7 @@ bool checkPath(const Path* path, cursiv::ValidationAcceptor& accept) {
     }
 
     // A link base with no Assembly anchor is reported once, by `checkLinkBase`.
-    const auto* linkBase = cursiv::container_of_type<LinkBase>(path);
+    const auto* linkBase = cursiv::containerOfType<LinkBase>(path);
     if (!linkBase || !linkBase->assembly.refText.empty())
       patternsValid =
           checkPattern(segmentText(segment), *segment, patternContext, accept)
@@ -145,7 +145,7 @@ bool checkPath(const Path* path, cursiv::ValidationAcceptor& accept) {
     accept.error(*path, "InstancePath shall be relative.");
     return false;
   }
-  if (path->absolute && cursiv::container_of_type<Assembly>(path)
+  if (path->absolute && cursiv::containerOfType<Assembly>(path)
       && cursiv::ast_cast<FieldValue>(path->parent)) {
     accept.error(*path,
                  "Field paths in an Assembly shall be relative to the current "
@@ -167,9 +167,9 @@ bool checkPath(const Path* path, cursiv::ValidationAcceptor& accept) {
           *segment,
           "The path segment '" + std::string(text) + "' shall resolve to "
               + (wanted == PathRole::Field && !structure
-                         && (cursiv::container_of_type<
+                         && (cursiv::containerOfType<
                                  AssemblyComponentConfiguration>(path)
-                             || cursiv::container_of_type<
+                             || cursiv::containerOfType<
                                  ComponentConfiguration>(path))
                      ? std::string("a Field of the configured Component")
                      : roleLabel(wanted, structure))

@@ -28,7 +28,7 @@ inline std::shared_ptr<cursiv::Document> parsePath(
     throw std::runtime_error("Cannot read test fixture " + std::string(path));
   std::ostringstream text;
   text << file.rdbuf();
-  const auto uri = cursiv::path_to_file_uri(std::string(path));
+  const auto uri = cursiv::pathToFileUri(std::string(path));
   auto document = language.shared().documents->createDocument(uri, text.str());
   auto* raw = document.get();
   language.shared().documentBuilder->build(std::span(&raw, 1),

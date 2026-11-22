@@ -19,7 +19,8 @@ class XsmpDeploymentReferences final : public cursiv::DefaultReferences {
       const cursiv::CancellationToken& = {}) const override;
 
   std::vector<cursiv::ReferenceDescription> findReferences(
-      const cursiv::AstNode&, const cursiv::FindReferencesOptions& = {},
+      std::span<const cursiv::AstNode* const>,
+      const cursiv::FindReferencesOptions&,
       const cursiv::CancellationToken& = {}) const override;
 };
 

@@ -8,17 +8,17 @@ namespace xsmp {
 
 namespace {
 
-const auto* const kModel = &cursiv::ast_type_tag<ModelInstance>;
-const auto* const kInstance = &cursiv::ast_type_tag<AssemblyInstance>;
+const auto* const kModel = &cursiv::kAstTypeTag<ModelInstance>;
+const auto* const kInstance = &cursiv::kAstTypeTag<AssemblyInstance>;
 
 }  // namespace
 
 bool XsmpasbCompletionProvider::atStatement(const Context& context) const {
   return writes(context, kModel, "elements")
          || writes(context,
-                   &cursiv::ast_type_tag<AssemblyComponentConfiguration>,
+                   &cursiv::kAstTypeTag<AssemblyComponentConfiguration>,
                    "elements")
-         || writes(context, &cursiv::ast_type_tag<Assembly>, "configurations");
+         || writes(context, &cursiv::kAstTypeTag<Assembly>, "configurations");
 }
 
 void XsmpasbCompletionProvider::completeStatement(const Context& context,

@@ -5,6 +5,6 @@
 
 int main(int argc, char** argv) {
   xsmp::loadExtensionLibraries();
-  return cursiv::run_language_server_main<xsmp::XsmpSharedServices>(
+  return cursiv::runLanguageServerMain<xsmp::XsmpSharedServices>(
       argc, argv, "xsmp-lsp", xsmp::registerLanguageServer);
 }

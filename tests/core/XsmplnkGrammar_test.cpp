@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <string>
+#include <xsmp/DeploymentSemantics.hpp>
 #include <xsmp/ast.hpp>
 
 #include "support/DeploymentWorld.hpp"
@@ -40,4 +41,29 @@ TEST(XsmplnkGrammar, UnsafeIsANameWhereANameGoesOn) {
 unsafe { field link unsafe -> unsafe.input }
 unsafe other { interface link unsafe logger -> child:back }
 )"));
+}
+
+TEST(XsmplnkGrammar, LinkKindsCanNameBlocksAndEndpoints) {
+  xsmp::DeploymentWorld world;
+  const auto result = world.parse("xsmplnk", R"(link L for A
+/ {
+  field.child { field link event -> interface }
+  event/child { field link field -> / event link field -> event }
+  interface {}
+}
+)");
+  xsmp::expectClean(result);
+  const auto* root = result.valueAs<xsmp::LinkBase>();
+  ASSERT_NE(root, nullptr);
+  ASSERT_EQ(root->elements.size(), 1u);
+  const auto& nested = root->elements[0]->elements;
+  ASSERT_EQ(nested.size(), 3u);
+  const auto* first = cursiv::ast_cast<xsmp::ComponentLinkBase>(nested[0]);
+  ASSERT_NE(first, nullptr);
+  EXPECT_EQ(xsmp::pathText(first->name), "field.child");
+  ASSERT_EQ(first->elements.size(), 1u);
+  const auto* link = cursiv::ast_cast<xsmp::FieldLink>(first->elements[0]);
+  ASSERT_NE(link, nullptr);
+  EXPECT_EQ(xsmp::pathText(link->ownerPath), "event");
+  EXPECT_EQ(xsmp::pathText(link->clientPath), "interface");
 }

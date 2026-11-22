@@ -29,11 +29,11 @@ std::optional<std::string> serverFileContent(
 
   // A mirror not in the workspace is rendered from its XML file.
   if (!mirror) return std::nullopt;
-  const auto source = cursiv::file_uri_to_path(sourceDocumentUri(uri));
+  const auto source = cursiv::fileUriToPath(sourceDocumentUri(uri));
   if (!source) return std::nullopt;
   ImportOptions options;
   for (const auto& folder : shared.workspaceManager->workspaceFolders())
-    if (const auto root = cursiv::file_uri_to_path(folder.uri))
+    if (const auto root = cursiv::fileUriToPath(folder.uri))
       options.searchRoots.emplace_back(*root);
 
   try {

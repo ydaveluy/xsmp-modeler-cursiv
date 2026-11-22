@@ -85,7 +85,8 @@ TEST_F(XsmpsedValidatorTest, RepeatingEventsNeedACycleTime) {
   const auto cyclic = "A cyclic Event shall have a positive CycleTime.";
   EXPECT_TRUE(
       has(*schedule(R"(mission "PT1S" cycle "PT0S" repeat 5)"), cyclic));
-  EXPECT_TRUE(has(*schedule(R"(mission "PT1S" repeat -1)"), cyclic));
+  EXPECT_TRUE(
+      has(*schedule(R"(mission "PT1S" cycle "PT0S" repeat -1)"), cyclic));
   EXPECT_TRUE(
       has(*schedule(R"(simulation "PT1S" cycle "PT0S" repeat 1)"), cyclic));
   EXPECT_TRUE(has(

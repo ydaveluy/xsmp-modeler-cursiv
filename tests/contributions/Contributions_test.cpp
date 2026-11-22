@@ -160,9 +160,9 @@ struct GeneratingProject {
                           "'test-tool'\n");
     (void)directory.write("src/model.xsmpcat", "catalogue Model\n");
     (void)directory.write("descriptor.xsmptool", "tool 'test-tool'\n");
-    cursiv::initialize_root(directory.path.string(), *shared);
+    cursiv::initializeRoot(directory.path.string(), *shared);
     const auto document = shared->documents->getDocument(
-        cursiv::path_to_file_uri((directory.path / "xsmp.project").string()));
+        cursiv::pathToFileUri((directory.path / "xsmp.project").string()));
     project = cursiv::ast_cast<xsmp::Project>(document->parseResult.value);
   }
 
@@ -345,9 +345,9 @@ TEST(Contributions,
                            "project 'Inner' source 'smdl'\n");
   xsmp::writeFileIfChanged(directory.path / "nested" / "smdl" / "broken.smpcat",
                            "<Catalogue>");
-  cursiv::initialize_root(directory.path.string(), *shared);
+  cursiv::initializeRoot(directory.path.string(), *shared);
   const auto document = shared->documents->getDocument(
-      cursiv::path_to_file_uri((directory.path / "xsmp.project").string()));
+      cursiv::pathToFileUri((directory.path / "xsmp.project").string()));
   ASSERT_NE(document, nullptr);
   const auto* project =
       cursiv::ast_cast<xsmp::Project>(document->parseResult.value);
@@ -356,7 +356,7 @@ TEST(Contributions,
   ASSERT_EQ(errors.size(), 1);
   EXPECT_EQ(
       errors.front().first,
-      cursiv::path_to_file_uri(
+      cursiv::pathToFileUri(
           (directory.path / "nested" / "smdl" / "broken.smpcat").string()));
   const auto report = xsmp::generateProject(*shared, *project);
   EXPECT_TRUE(report.object().get("generatedProjects").array().empty());
@@ -374,10 +374,10 @@ TEST(Contributions, ReportsSmpWarningsOfVisibleSourcesOnly) {
   xsmp::writeFileIfChanged(
       directory.path / "Other/smdl/plan.smpsed",
       R"(<Schedule xmlns="http://www.ecss.nl/smp/2025/Smdl/Schedule" Name="Plan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><Task Name="Main"><Activity xsi:type="Schedule:Unknown"/></Task></Schedule>)");
-  cursiv::initialize_root(directory.path.string(), *shared);
+  cursiv::initializeRoot(directory.path.string(), *shared);
   const auto project = [&](const char* name) {
     const auto document =
-        shared->documents->getDocument(cursiv::path_to_file_uri(
+        shared->documents->getDocument(cursiv::pathToFileUri(
             (directory.path / name / "xsmp.project").string()));
     return cursiv::ast_cast<xsmp::Project>(document->parseResult.value);
   };

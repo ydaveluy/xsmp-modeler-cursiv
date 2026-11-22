@@ -1754,12 +1754,12 @@ XsmpcatValidator::readWorkspaceFacts() const {
   (void)services.shared.indexManager->visitElements(
       nullptr, {}, [&](const cursiv::AstNodeDescription& description) {
         if (!description.type) return true;
-        if (description.type->derivesFrom(&cursiv::ast_type_tag<Service>)) {
+        if (description.type->derivesFrom(&cursiv::kAstTypeTag<Service>)) {
           const auto& node = resolveNode(documents, description);
           facts->servicesByName[cursiv::ast_cast<const Service>(&node)->name]
               .push_back(description);
         } else if (description.type->derivesFrom(
-                       &cursiv::ast_type_tag<Catalogue>)) {
+                       &cursiv::kAstTypeTag<Catalogue>)) {
           // A built-in reads only built-ins, so it is in no cycle of the user.
           if (const auto document =
                   documents.getDocument(description.documentId);
@@ -1774,7 +1774,7 @@ XsmpcatValidator::readWorkspaceFacts() const {
     std::unordered_map<std::string, std::vector<cursiv::AstNodeDescription>>
         typesByUuid;
     (void)services.shared.indexManager->visitElements(
-        &cursiv::ast_type_tag<Type>, suspects,
+        &cursiv::kAstTypeTag<Type>, suspects,
         [&](const cursiv::AstNodeDescription& description) {
           // A tag that is no UUID cannot have the UUID of another type.
           if (const auto tag =
@@ -1816,7 +1816,7 @@ void XsmpcatValidator::checkDuplicatedTypeName(const Type& type,
 
 void XsmpcatValidator::visitSameName(
     const NamedElement& element,
-    cursiv::function_ref<void(const cursiv::AstNode&,
+    cursiv::FunctionRef<void(const cursiv::AstNode&,
                               const cursiv::AstNodeDescription&)>
         visitor) const {
   // The workspace index exports an element under its fully qualified name
@@ -1871,7 +1871,7 @@ void XsmpcatValidator::checkCatalogue(const Catalogue& catalogue,
         [&](const cursiv::AstNodeDescription& description) {
           if (!description.type
               || !description.type->derivesFrom(
-                  &cursiv::ast_type_tag<Document>))
+                  &cursiv::kAstTypeTag<Document>))
             return true;
           const auto& candidate = resolveNode(documents, description);
           if (&candidate == &catalogue) return true;

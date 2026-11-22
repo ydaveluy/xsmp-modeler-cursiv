@@ -80,7 +80,7 @@ bool XsmpcatScopeProvider::acceptEntry(const ReferenceInfo& context,
 
 bool XsmpcatScopeProvider::visitLocal(
     const ReferenceInfo& context, std::string_view name,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   if (!home(context)) return true;
 
   Scopes scopes;
@@ -170,7 +170,7 @@ const AstNodeDescription* XsmpcatScopeProvider::getScopeEntry(
 
 bool XsmpcatScopeProvider::visitScopeEntries(
     const ReferenceInfo& context,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   if (!visitLocal(context, {}, visitor)) return false;
   if (designated(context)) return true;
   const auto& reflection = *_xsmpServices.astReflection;
@@ -181,7 +181,7 @@ bool XsmpcatScopeProvider::visitScopeEntries(
 
 bool XsmpcatScopeProvider::visitScopeEntries(
     const ReferenceInfo& context, std::string_view name,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   if (name.empty()) return true;
   if (!visitLocal(context, name, visitor)) return false;
   if (designated(context)) return true;
@@ -223,7 +223,7 @@ const AstNodeDescription* XsmpcatScopeProvider::getGlobalScopeEntry(
 bool XsmpcatScopeProvider::visitGlobalScopeEntries(
     const ReferenceInfo& context, cursiv::AcceptSet,
     const cursiv::AstReflection&,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   const auto* document = home(context);
   if (!document) return true;
   const auto visible =
@@ -239,7 +239,7 @@ bool XsmpcatScopeProvider::visitGlobalScopeEntries(
     const ReferenceInfo& context, std::string_view name,
     cursiv::AcceptSet accepts, const cursiv::AstReflection& reflection,
     bool caseSensitive,
-    cursiv::function_ref<bool(const AstNodeDescription&)> visitor) const {
+    cursiv::FunctionRef<bool(const AstNodeDescription&)> visitor) const {
   const auto* document = home(context);
   if (!document || name.empty()) return true;
   const auto visible =

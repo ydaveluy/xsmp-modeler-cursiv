@@ -415,7 +415,7 @@ std::string value(const Value* node) {
     if (node->cstNodeId != cursiv::kNoNode) {
       const auto& document = *node->getDocument();
       const auto ranges =
-          cursiv::find_nodes_for_property(*node, "value", &document);
+          cursiv::findNodesForProperty(*node, "value", &document);
       if (const auto first = ranges.begin(); first != ranges.end())
         return std::string(document.textDocument().getText().substr(
             first->begin(), first->end() - first->begin()));

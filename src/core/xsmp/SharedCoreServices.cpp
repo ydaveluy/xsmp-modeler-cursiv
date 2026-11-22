@@ -14,7 +14,7 @@ std::unique_ptr<XsmpSharedCoreServices> createXsmpSharedServices() {
   auto shared = std::make_unique<XsmpSharedCoreServices>();
   shared->fileSystemProvider =
       std::make_unique<cursiv::LocalFileSystemProvider>();
-  cursiv::install_default_shared_core_services(*shared);
+  cursiv::installDefaultSharedCoreServices(*shared);
   // After the defaults: it replaces their index manager and listens to their
   // document builder.
   shared->projectManager = std::make_unique<ProjectManager>(*shared);

@@ -8,8 +8,8 @@
 TEST(ExampleWorkspace, ParsesLinksAndValidatesCleanly) {
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(XSMP_EXAMPLE_DIR, *shared);
-  const auto prefix = cursiv::path_to_file_uri(XSMP_EXAMPLE_DIR) + "/";
+  cursiv::initializeRoot(XSMP_EXAMPLE_DIR, *shared);
+  const auto prefix = cursiv::pathToFileUri(XSMP_EXAMPLE_DIR) + "/";
   std::size_t count = 0;
   for (const auto& document : shared->documents->all()) {
     if (!xsmp::sourceDocumentUri(document->uri).starts_with(prefix)) continue;

@@ -152,7 +152,7 @@ std::optional<std::string> getCopyrightNotice(
   } else {
     // Without a document, the node's own comment is all there is.
     const auto comment = commentProvider.getComment(catalogueNode);
-    if (!comment || cursiv::is_doc_comment(*comment)) return std::nullopt;
+    if (!comment || cursiv::isDocComment(*comment)) return std::nullopt;
     notice = std::string(trim(stripBlockComment(*comment)));
   }
 

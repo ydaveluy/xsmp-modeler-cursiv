@@ -36,11 +36,11 @@ TEST(SmpWorkspace, PreloadsXmlMirrorsAndRereadsThemThroughVirtualFilesystem) {
       "native.smpcfg",
       R"(<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" Name="HiddenBySidecar"/>)");
   dir.write("native.xsmpcfg", "configuration Native\n");
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
   const auto hidden = xsmp::smpMirrorUri(
-      cursiv::path_to_file_uri((dir.path / "native.smpcfg").string()));
+      cursiv::pathToFileUri((dir.path / "native.smpcfg").string()));
   EXPECT_TRUE(mirror.starts_with("xsmp-smp:"));
   EXPECT_TRUE(mirror.ends_with("model.smpcfg"));
   EXPECT_TRUE(shared->documents->hasDocument(mirror));
@@ -67,7 +67,7 @@ TEST(SmpWorkspace, XmlEditsRelinkAndHealReferencesToMirroredDocuments) {
       R"(<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" Name="Shared"/>)");
   auto native = shared->documentFactory->fromString(
       "configuration Native include Shared\n",
-      cursiv::path_to_file_uri((dir.path / "native.xsmpcfg").string()));
+      cursiv::pathToFileUri((dir.path / "native.xsmpcfg").string()));
   shared->documents->addDocument(native);
   auto* nativePtr = native.get();
   shared->documentBuilder->build(std::span(&nativePtr, 1),
@@ -79,11 +79,11 @@ TEST(SmpWorkspace, XmlEditsRelinkAndHealReferencesToMirroredDocuments) {
       cursiv::ast_cast<xsmp::ConfigurationUsage>(configuration->elements[0]);
   ASSERT_NE(usage, nullptr);
   EXPECT_EQ(usage->configuration.get(), nullptr);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   ASSERT_NE(usage->configuration.get(), nullptr);
   EXPECT_EQ(usage->configuration.get()->name, "Shared");
   const auto mirror = xsmp::smpMirrorUri(
-      cursiv::path_to_file_uri((dir.path / "shared.smpcfg").string()));
+      cursiv::pathToFileUri((dir.path / "shared.smpcfg").string()));
   const std::string_view changed = mirror;
   dir.write(
       "shared.smpcfg",
@@ -109,8 +109,8 @@ TEST(SmpWorkspace, NativeSidecarBlocksMirroredWatchedFileReloads) {
       "model.smpcfg",
       R"(<Configuration xmlns="http://www.ecss.nl/smp/2025/Smdl/Configuration" Name="Xml"/>)");
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
-  cursiv::initialize_root(dir.path.string(), *shared);
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
+  cursiv::initializeRoot(dir.path.string(), *shared);
   EXPECT_TRUE(shared->documents->hasDocument(mirror));
   EXPECT_TRUE(shared->fileSystemProvider->exists(mirror));
   EXPECT_TRUE(shared->fileSystemProvider->stat(mirror).isFile);
@@ -139,7 +139,7 @@ TEST(SmpWorkspace, FailedXmlImportsRemainVisibleUntilSuccessDeletionOrSidecar) {
                 "xmlns=\"http://www.ecss.nl/smp/2025/Smdl/Configuration\">");
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   auto errors = xsmp::sourceErrors(*shared);
   ASSERT_EQ(errors.size(), 1);
   EXPECT_TRUE(errors[0].first.ends_with("/broken.smpcfg"));
@@ -173,10 +173,10 @@ TEST(SmpWorkspace, MirroredWatchEventsRespectWorkspaceAncestorExclusions) {
   dir.write("xsmp.project", "project 'Mirror' source '.'\n");
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   const auto included = [&](std::string_view relative) {
     const auto source =
-        cursiv::path_to_file_uri((dir.path / relative).string());
+        cursiv::pathToFileUri((dir.path / relative).string());
     return shared->workspaceManager->isIncluded(
         {.isFile = true,
          .isDirectory = false,
@@ -195,7 +195,7 @@ TEST(SmpWorkspace, MirroredWatchEventsRespectWorkspaceAncestorExclusions) {
   EXPECT_TRUE(shared->workspaceManager->isIncluded(
       {.isFile = true,
        .isDirectory = false,
-       .uri = cursiv::path_to_file_uri(
+       .uri = cursiv::pathToFileUri(
            (dir.path / "lib/model.xsmpcat").string())}));
 }
 
@@ -208,10 +208,10 @@ TEST(SmpWorkspace, ClosingWorkspaceFoldersDropsSourceErrorsStillPresentOnDisk) {
                 "xmlns=\"http://www.ecss.nl/smp/2025/Smdl/Configuration\">");
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   ASSERT_EQ(xsmp::sourceErrors(*shared).size(), 1u);
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
   shared->workspaceManager->initializeWorkspace({});
   EXPECT_TRUE(std::filesystem::exists(source));
   EXPECT_TRUE(xsmp::sourceErrors(*shared).empty());
@@ -230,10 +230,10 @@ TEST(SmpWorkspace, ImportWarningsRemainOnXmlSourcesAndClearWithLifecycle) {
   const auto source = dir.write("plan.smpsed", unsupported);
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   auto warnings = xsmp::sourceWarnings(*shared);
   ASSERT_EQ(warnings.size(), 1u);
-  EXPECT_EQ(warnings[0].first, cursiv::path_to_file_uri(source.string()));
+  EXPECT_EQ(warnings[0].first, cursiv::pathToFileUri(source.string()));
   EXPECT_EQ(warnings[0].second,
             "Unsupported schedule activity type 'Schedule:Unknown'.");
   EXPECT_TRUE(xsmp::sourceErrors(*shared).empty());
@@ -278,7 +278,7 @@ TEST(SmpWorkspace,
   const auto second = dir.write("other/second.smpcat", catalogue("Second"));
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   const auto hasSymbol = [&](std::string_view name) {
     auto found = false;
     (void)shared->indexManager->visitElements(
@@ -289,9 +289,9 @@ TEST(SmpWorkspace,
     return found;
   };
   const auto firstMirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(first.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(first.string()));
   const auto secondMirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(second.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(second.string()));
   const auto update = [&](const std::string& uri) {
     const std::string_view view(uri);
     shared->documentBuilder->update(std::span(&view, 1), {});
@@ -304,7 +304,7 @@ TEST(SmpWorkspace,
   EXPECT_FALSE(shared->documents->hasDocument(secondMirror));
   EXPECT_FALSE(hasSymbol("n.Second"));
   dir.write("xsmp.project", "project 'Sources' source 'other'\n");
-  update(cursiv::path_to_file_uri(project.string()));
+  update(cursiv::pathToFileUri(project.string()));
   EXPECT_FALSE(hasSymbol("n.First"));
   EXPECT_TRUE(hasSymbol("n.Second"));
   EXPECT_FALSE(shared->documents->hasDocument(firstMirror));
@@ -319,7 +319,7 @@ TEST(SmpWorkspace,
   EXPECT_TRUE(hasSymbol("n.Second"));
   EXPECT_TRUE(xsmp::sourceErrors(*shared).empty());
   dir.write("xsmp.project", "project 'Sources' source 'src' source 'other'\n");
-  update(cursiv::path_to_file_uri(project.string()));
+  update(cursiv::pathToFileUri(project.string()));
   EXPECT_TRUE(hasSymbol("n.First"));
   EXPECT_TRUE(hasSymbol("n.Second"));
 }
@@ -342,12 +342,12 @@ TEST(SmpWorkspace, OnlyTheXmlFilesThatCanMoveAMirrorRefreshThem) {
       dir.write("smdl/model.smpcfg", xml("First", "lib.smpcfg"));
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
   (void)xsmp::takeMirrorChanges(*shared);
   const auto updated = [&](const std::filesystem::path& file) {
-    const auto uri = cursiv::path_to_file_uri(file.string());
+    const auto uri = cursiv::pathToFileUri(file.string());
     const std::string_view view(uri);
     shared->documentBuilder->update(std::span(&view, 1), {});
     return xsmp::takeMirrorChanges(*shared).changed;
@@ -377,12 +377,12 @@ TEST(SmpWorkspace, EditingNativeDocumentsLeavesTheMirrorsAlone) {
   const auto beside = dir.path / "model.xsmpcfg";
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   const auto mirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(source.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(source.string()));
   (void)xsmp::takeMirrorChanges(*shared);
   const auto updated = [&](const std::filesystem::path& file) {
-    const auto uri = cursiv::path_to_file_uri(file.string());
+    const auto uri = cursiv::pathToFileUri(file.string());
     const std::string_view view(uri);
     shared->documentBuilder->update(std::span(&view, 1), {});
     return xsmp::takeMirrorChanges(*shared);
@@ -407,7 +407,7 @@ TEST(SmpWorkspace, EditingNativeDocumentsLeavesTheMirrorsAlone) {
   // Deleting it brings the mirror back.
   dir.write("model.smpcfg", xml("Third"));
   std::filesystem::remove(beside);
-  const auto uri = cursiv::path_to_file_uri(beside.string());
+  const auto uri = cursiv::pathToFileUri(beside.string());
   const std::string_view view(uri);
   shared->documentBuilder->update({}, std::span(&view, 1));
   EXPECT_EQ(xsmp::takeMirrorChanges(*shared).changed,
@@ -429,11 +429,11 @@ TEST(SmpWorkspace, ACancelledUpdateStillAppliesItsChanges) {
   const auto second = dir.write("second/model.smpcfg", xml("Second"));
   auto shared = xsmp::createXsmpSharedServices();
   xsmp::registerLanguages(*shared);
-  cursiv::initialize_root(dir.path.string(), *shared);
+  cursiv::initializeRoot(dir.path.string(), *shared);
   const auto firstMirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(first.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(first.string()));
   const auto secondMirror =
-      xsmp::smpMirrorUri(cursiv::path_to_file_uri(second.string()));
+      xsmp::smpMirrorUri(cursiv::pathToFileUri(second.string()));
   const auto text = [&](const std::string& uri) {
     const auto document = shared->documents->getDocument(uri);
     return document ? std::string(document->textDocument().getText())
@@ -442,7 +442,7 @@ TEST(SmpWorkspace, ACancelledUpdateStillAppliesItsChanges) {
   cursiv::CancellationTokenSource superseded;
   superseded.request_stop();
   const auto cut = [&](const std::filesystem::path& file) {
-    const auto uri = cursiv::path_to_file_uri(file.string());
+    const auto uri = cursiv::pathToFileUri(file.string());
     const std::string_view view(uri);
     EXPECT_THROW(shared->documentBuilder->update(std::span(&view, 1), {},
                                                  superseded.get_token()),
@@ -466,7 +466,7 @@ TEST(SmpWorkspace, ACancelledUpdateStillAppliesItsChanges) {
 
   // An open project edited in place: nobody keeps its dropped tree.
   const auto held = shared->documents->getDocument(
-      cursiv::path_to_file_uri(project.string()));
+      cursiv::pathToFileUri(project.string()));
   ASSERT_EQ(shared->projectManager->getProjects().size(), 1u);
   held->isOpen = true;
   shared->documentFactory->attachTextDocument(

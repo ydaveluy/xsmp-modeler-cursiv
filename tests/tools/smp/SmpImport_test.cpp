@@ -222,8 +222,8 @@ struct ImportedProject {
   // The path of `document` in the imported tree. URIs are compared, where a
   // drive letter has one case.
   std::string relative(const cursiv::Document& document) const {
-    return cursiv::relative_uri(
-        cursiv::path_to_file_uri((root / "smdl").string()), document.uri);
+    return cursiv::relativeUri(
+        cursiv::pathToFileUri((root / "smdl").string()), document.uri);
   }
 };
 

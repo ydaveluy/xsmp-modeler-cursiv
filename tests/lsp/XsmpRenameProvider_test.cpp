@@ -18,7 +18,7 @@ std::string renameFirst(xsmp::TestWorkspace& ws, const std::string& text,
     return "<no document>";
   }
   const auto position =
-      cursiv::to_lsp(result.document->textDocument().positionAt(
+      cursiv::toLsp(result.document->textDocument().positionAt(
           static_cast<cursiv::TextOffset>(text.find(symbol))));
   const auto edit = ws.language("xsmpcat").renameProvider->rename(
       *result.document, position, newName);
@@ -99,7 +99,7 @@ TEST(XsmpRenameProvider, TemplateParameterWithPlaceholdersIsNotRenamedHalfway) {
       "    kids += System{Variant}: n.M\n}\n";
   const auto document =
       xsmp::parse(world, "xsmpasb", text, "file:///r/a.xsmpasb");
-  const auto position = cursiv::to_lsp(document->textDocument().positionAt(
+  const auto position = cursiv::toLsp(document->textDocument().positionAt(
       static_cast<cursiv::TextOffset>(text.find("Variant"))));
   EXPECT_FALSE(world.language("xsmpasb").renameProvider->rename(
       *document, position, "Flavor"));

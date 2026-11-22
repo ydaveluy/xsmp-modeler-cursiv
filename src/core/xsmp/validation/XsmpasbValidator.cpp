@@ -151,7 +151,7 @@ void XsmpasbValidator::checkAssemblyInstance(
   checkObjectName(node, accept);
   checkInstantiatedChildNames(node, accept);
   checkTemplateArguments(node.arguments, accept);
-  const auto* containing = cursiv::container_of_type<Assembly>(&node);
+  const auto* containing = cursiv::containerOfType<Assembly>(&node);
 
   // Follows the assemblies this one instantiates, however deep, looking for the
   // one it sits in.
@@ -168,7 +168,7 @@ void XsmpasbValidator::checkAssemblyInstance(
     if (!seen.insert(assembly).second || !assembly->getDocument()) continue;
     for (auto* child : assembly->getDocument()->parseResult.nodes())
       if (auto* nested = cursiv::ast_cast<AssemblyInstance>(child);
-          nested && cursiv::container_of_type<Assembly>(nested) == assembly
+          nested && cursiv::containerOfType<Assembly>(nested) == assembly
           && nested->assembly.get())
         queue.push_back(nested->assembly.get());
   }

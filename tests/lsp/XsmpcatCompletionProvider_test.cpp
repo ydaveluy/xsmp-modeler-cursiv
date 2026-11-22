@@ -521,7 +521,7 @@ TEST(XsmpcatCompletionProvider, UuidGoesBeforeWhatTheDeclarationStartsWith) {
         cursiv::test::validationHelper(world.language("xsmpcat"), out);
     EXPECT_FALSE(std::ranges::any_of(result.diagnostics,
                                      [](const auto& diagnostic) {
-                                       return cursiv::data_code(diagnostic)
+                                       return cursiv::dataCode(diagnostic)
                                               == xsmp::MissingUuid;
                                      }))
         << out;

@@ -8,7 +8,7 @@ TEST(TasMdkValidator, TasValidationChecksFieldDirectionAndNaming) {
   auto& shared = world.shared();
   shared.projectManager = std::make_unique<xsmp::ProjectManager>(shared);
   auto language = xsmp::createXsmpcatServices(shared);
-  xsmp::registerTasMdkValidationChecks(*language, cursiv::fast);
+  xsmp::registerTasMdkValidationChecks(*language, cursiv::kFast);
   world.registerLanguage(std::move(language));
   const auto result = cursiv::test::validationHelper(
       world.language("xsmpcat"),
@@ -27,7 +27,7 @@ TEST(TasMdkValidator, TasValidationChecksBaseModelAndOperationParameters) {
   auto& shared = world.shared();
   shared.projectManager = std::make_unique<xsmp::ProjectManager>(shared);
   auto language = xsmp::createXsmpcatServices(shared);
-  xsmp::registerTasMdkValidationChecks(*language, cursiv::fast);
+  xsmp::registerTasMdkValidationChecks(*language, cursiv::kFast);
   world.registerLanguage(std::move(language));
   const auto result = cursiv::test::validationHelper(
       world.language("xsmpcat"),
@@ -57,7 +57,7 @@ TEST(TasMdkValidator, AnEventSinkTakesNoPayload) {
   auto& shared = world.shared();
   shared.projectManager = std::make_unique<xsmp::ProjectManager>(shared);
   auto language = xsmp::createXsmpcatServices(shared);
-  xsmp::registerTasMdkValidationChecks(*language, cursiv::fast);
+  xsmp::registerTasMdkValidationChecks(*language, cursiv::kFast);
   world.registerLanguage(std::move(language));
   // The event type may come from a project without the profile, where nothing
   // reports its payload: the sink itself does.

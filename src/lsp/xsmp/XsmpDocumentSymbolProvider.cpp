@@ -284,7 +284,7 @@ std::vector<::lsp::DocumentSymbol> XsmpDocumentSymbolProvider::getSymbols(
   if (!document.hasAst()) return {};
   const auto collect =
       [&](auto&& self, const Node& node) -> std::vector<::lsp::DocumentSymbol> {
-    cursiv::throw_if_cancelled(token);
+    cursiv::throwIfCancelled(token);
     std::vector<::lsp::DocumentSymbol> nested;
     for (auto* child : children(node, services)) {
       auto values = self(self, *child);
@@ -300,10 +300,10 @@ std::vector<::lsp::DocumentSymbol> XsmpDocumentSymbolProvider::getSymbols(
     symbol.name = name;
     symbol.kind = services.lspShared.nodeKindProvider->getSymbolKind(node);
     symbol.range =
-        cursiv::to_lsp(document.textDocument().rangeAt(span.begin, span.end));
+        cursiv::toLsp(document.textDocument().rangeAt(span.begin, span.end));
     const auto nameNode = services.nameProvider->getNameNode(node, &document);
     symbol.selectionRange =
-        nameNode ? cursiv::to_lsp(document.textDocument().rangeAt(
+        nameNode ? cursiv::toLsp(document.textDocument().rangeAt(
                        nameNode.begin(), nameNode.end()))
                  : symbol.range;
     symbol.children = std::move(nested);

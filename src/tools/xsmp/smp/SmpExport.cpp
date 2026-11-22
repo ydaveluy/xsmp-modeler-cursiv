@@ -197,7 +197,7 @@ const Document* rootOf(const AstNode* node) {
 // The name of the XML file of a document: `.xsmpcat` gives `.smpcat`, and so
 // on.
 std::string xmlFileName(const cursiv::Document& document) {
-  std::filesystem::path file(cursiv::uri_file_name(document.uri));
+  std::filesystem::path file(cursiv::uriFileName(document.uri));
   auto extension = file.extension().string();
   if (extension.starts_with(".xsmp")) extension.erase(1, 1);
   file.replace_extension(extension);
@@ -334,7 +334,7 @@ struct Writer {
     const auto* targetRoot = rootOf(target);
     if (targetRoot && targetRoot->getDocument() != &document) {
       const auto& uri = targetRoot->getDocument()->uri;
-      const auto filename = cursiv::uri_file_name(uri);
+      const auto filename = cursiv::uriFileName(uri);
       // The 2025 level-1 library keeps the namespace of the 2019 standard.
       if (isBuiltinUri(uri)
           && (filename == "ecss.smp@ECSS_SMP_2020.xsmpcat"
@@ -1489,7 +1489,7 @@ static std::string packageDocument(const cursiv::Document& document,
   attribute(root, "xmlns:xlink", "http://www.w3.org/1999/xlink");
   writer.metadata(root, *catalogue);
 
-  std::filesystem::path catalogueFile(cursiv::uri_file_name(document.uri));
+  std::filesystem::path catalogueFile(cursiv::uriFileName(document.uri));
   catalogueFile.replace_extension(".smpcat");
   for (const auto* node : document.parseResult.nodes())
     if (const auto* type = as<Type>(node); type && !as<Interface>(type)) {
@@ -1503,7 +1503,7 @@ static std::string packageDocument(const cursiv::Document& document,
     auto item = root.append_child("Dependency");
     attribute(item, "xlink:title", dependency->name);
     std::filesystem::path file(
-        cursiv::uri_file_name(dependency->getDocument()->uri));
+        cursiv::uriFileName(dependency->getDocument()->uri));
     file.replace_extension(".smppkg");
     attribute(item, "xlink:href", file.string() + "#" + writer.id(*dependency));
   }
@@ -1521,7 +1521,7 @@ std::filesystem::path generateDocument(const cursiv::Document& document,
   const auto [kind, extension] = rootKind(document.parseResult.value);
   const auto generatedDirectory = directory / "smdl-gen";
   auto output = generatedDirectory
-                / std::filesystem::path(cursiv::uri_file_name(document.uri));
+                / std::filesystem::path(cursiv::uriFileName(document.uri));
   output.replace_extension(extension);
 
   const auto content = exportDocument(document, standard);

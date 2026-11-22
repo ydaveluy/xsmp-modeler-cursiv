@@ -27,7 +27,7 @@ class XsmpcatCompletionProvider final
  protected:
   void visitReferenceCandidates(
       const cursiv::ReferenceInfo&, const cursiv::CompletionContext&,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>)
       const override;
 
   [[nodiscard]] cursiv::CompletionValueItem createReferenceCompletionItem(

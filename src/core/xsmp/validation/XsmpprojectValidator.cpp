@@ -78,7 +78,7 @@ void XsmpprojectValidator::checkTool(const Tool& tool, Acceptor& accept) const {
 
 void XsmpprojectValidator::checkProject(const Project& project,
                                         Acceptor& accept) const {
-  if (cursiv::uri_file_name(documentOf(project).uri) != "xsmp.project") {
+  if (cursiv::uriFileName(documentOf(project).uri) != "xsmp.project") {
     accept.error(project, "A project file name shall be 'xsmp.project'.")
         .keyword("project");
   }
@@ -100,7 +100,7 @@ void XsmpprojectValidator::checkProject(const Project& project,
         project.name, true, {}, *_services.astReflection,
         [&](const cursiv::AstNodeDescription& description) {
           if (!description.type
-              || !description.type->derivesFrom(&cursiv::ast_type_tag<Project>))
+              || !description.type->derivesFrom(&cursiv::kAstTypeTag<Project>))
             return true;
           const auto& node = resolveNode(documents, description);
           // The project being validated is itself indexed.

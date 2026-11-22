@@ -1,6 +1,5 @@
 #pragma once
 
-#include <concepts>
 #include <xsmp/DeploymentGrammarCommon.hpp>
 
 namespace xsmp {
@@ -8,19 +7,11 @@ namespace xsmp {
 // The configuration language (`.xsmpcfg`): field values to apply to component
 // instances.
 struct Xsmpcfg : cursiv::extends<DeploymentRules> {
-  template <class>
-  struct override;
-
   // A field may be named like a word that starts a statement of a
   // configuration.
   struct StatementWord
       : rule<assign<&xsmp::ConcretePathNamedSegment::reference>(kw<"include">)
              + name_goes_on> {};
-
-  template <class T>
-    requires std::same_as<T, DeploymentRules::StatementPath>
-
-  struct override<T> : rule<word_path<StatementWord> | ref<Path>> {};
 
   // A structure value designates its fields by one name, not by a path.
   struct CfgConcretePathNamedSegment
@@ -34,15 +25,12 @@ struct Xsmpcfg : cursiv::extends<DeploymentRules> {
              + lit<"=">
              + assign<&xsmp::CfgStructureFieldValue::value>(ref<Value>)> {};
 
-  template <class T>
-    requires std::same_as<T, DeploymentRules::StructureValue>
-
-  struct override<T>
-      : rule<create<xsmp::StructureValue> + lit<"{">
-             + many(append<&xsmp::StructureValue::elements>(
-                        ref<CfgStructureFieldValue> | ref<Value>),
-                    lit<",">)
-             + lit<"}">> {};
+  using overrides = list<
+      replace<StatementPath, rule<word_path<StatementWord> | super>>,
+      replace<StructureValue, rule<create<xsmp::StructureValue> + lit<"{">
+          + many(append<&xsmp::StructureValue::elements>(ref<CfgStructureFieldValue> | ref<Value>),
+                 lit<",">)
+          + lit<"}">>>>;
 
   struct ComponentConfiguration;
 

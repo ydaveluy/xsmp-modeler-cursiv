@@ -1,6 +1,5 @@
 #pragma once
 
-#include <concepts>
 #include <xsmp/DeploymentGrammarCommon.hpp>
 
 namespace xsmp {
@@ -8,9 +7,6 @@ namespace xsmp {
 // The assembly language (`.xsmpasb`): a tree of model instances, with their
 // field values, links and calls.
 struct Xsmpasb : cursiv::extends<DeploymentRules> {
-  template <class>
-  struct override;
-
   // A field may be named like a word that starts a statement of a model.
   static constexpr auto statement_words = kw<"event"> | kw<"field">
                                           | kw<"interface"> | kw<"call">
@@ -20,18 +16,10 @@ struct Xsmpasb : cursiv::extends<DeploymentRules> {
       : rule<assign<&xsmp::ConcretePathNamedSegment::reference>(statement_words)
              + name_goes_on> {};
 
-  template <class T>
-    requires std::same_as<T, DeploymentRules::StatementPath>
-
-  struct override<T> : rule<word_path<StatementWord> | ref<Path>> {};
-
-  // The dot tells a component name from the bare name of an assembly.
-  static constexpr auto dotted_names = some(lit<"."> + ref<ValidID>);
-
-  template <class T>
-    requires std::same_as<T, DeploymentRules::QualifiedName>
-
-  struct override<T> : rule<ref<ValidID> + dotted_names> {};
+  // A component name has at least one dot. A bare name refers to an assembly.
+  using overrides = list<
+      replace<StatementPath, rule<word_path<StatementWord> | super>>,
+      replace<QualifiedName, rule<ref<ValidID> + some(lit<"."> + ref<ValidID>)>>>;
 
   // An instance name may hold template placeholders.
   struct InstanceName : rule<ref<PATTERN> | ref<ID>> {};

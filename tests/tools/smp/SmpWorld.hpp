@@ -24,8 +24,8 @@ struct SmpWorld {
   XsmpSharedCoreServices& shared = *services;
 
   SmpWorld() {
-    auto catalogue = cursiv::make_default_core_services(shared, "xsmpcat");
-    generated::Xsmpcat::install_generated_module(*catalogue);
+    auto catalogue = cursiv::makeDefaultCoreServices(shared, "xsmpcat");
+    generated::Xsmpcat::installGeneratedModule(*catalogue);
     shared.serviceRegistry->registerServices(std::move(catalogue));
     registerXsmpasbServices(shared);
     registerXsmpcfgServices(shared);

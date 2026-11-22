@@ -6,9 +6,9 @@ namespace xsmp {
 // A statement stands where the grammar reads an element of a component link
 // base, and at the root where it reads a path outside a link.
 bool XsmplnkCompletionProvider::atStatement(const Context& context) const {
-  return writes(context, &cursiv::ast_type_tag<ComponentLinkBase>, "elements")
-         || (writes(context, &cursiv::ast_type_tag<Path>, "absolute")
-             && !cursiv::container_of_type<Link>(context.node()));
+  return writes(context, &cursiv::kAstTypeTag<ComponentLinkBase>, "elements")
+         || (writes(context, &cursiv::kAstTypeTag<Path>, "absolute")
+             && !cursiv::containerOfType<Link>(context.node()));
 }
 
 void XsmplnkCompletionProvider::completeStatement(const Context& context,
@@ -40,7 +40,7 @@ void XsmplnkCompletionProvider::completeKeyword(const Context& context,
   };
   if (keyword == "link" && !context.node()) {
     const auto assemblies =
-        names(context, &cursiv::ast_type_tag<LinkBase>, "assembly");
+        names(context, &cursiv::kAstTypeTag<LinkBase>, "assembly");
     offerSnippet(
         context, accept, "Link Base",
         "link ${1:Name}"

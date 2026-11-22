@@ -25,7 +25,7 @@ std::unique_ptr<XsmpprojectServices> createXsmpprojectServices(
     XsmpSharedServices& sharedServices, std::string languageId) {
   auto services = std::make_unique<XsmpprojectServices>(sharedServices);
   services->languageMetaData.languageId = std::move(languageId);
-  cursiv::install_default_lsp_services(*services);
+  cursiv::installDefaultLspServices(*services);
   installXsmpprojectCoreModule(*services);
   installXsmpprojectLspModule(*services);
   return services;

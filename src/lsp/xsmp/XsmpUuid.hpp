@@ -63,7 +63,7 @@ inline ::lsp::TextEdit uuidEdit(const cursiv::Document& document,
     if (c != '\t') c = ' ';
 
   if (!comment) {
-    const auto position = cursiv::to_lsp(lines.positionAt(start));
+    const auto position = cursiv::toLsp(lines.positionAt(start));
     return {.range = {.start = position, .end = position},
             .newText = "/** @uuid " + newUuid() + " */\n" + indentation};
   }
@@ -75,7 +75,7 @@ inline ::lsp::TextEdit uuidEdit(const cursiv::Document& document,
   text.replace(last + 1, close - last - 1,
                (text[last] == '\n' ? "" : "\n") + indentation + " * @uuid "
                    + newUuid() + "\n" + indentation + " ");
-  return {.range = cursiv::to_lsp(lines.rangeAt(comment->begin, comment->end)),
+  return {.range = cursiv::toLsp(lines.rangeAt(comment->begin, comment->end)),
           .newText = std::move(text)};
 }
 

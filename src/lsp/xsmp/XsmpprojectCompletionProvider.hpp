@@ -32,7 +32,7 @@ class XsmpprojectCompletionProvider final
 
   void visitReferenceCandidates(
       const cursiv::ReferenceInfo&, const Context&,
-      cursiv::function_ref<bool(const cursiv::AstNodeDescription&)>)
+      cursiv::FunctionRef<bool(const cursiv::AstNodeDescription&)>)
       const override;
 
   [[nodiscard]] cursiv::CompletionValueItem createReferenceCompletionItem(

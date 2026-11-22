@@ -12,7 +12,7 @@ bool XsmpcfgScopeProvider::allowsPathTarget(const Path* path,
   // and no assembly around it.
   if (const auto* field = cursiv::ast_cast<FieldValue>(path->parent)) {
     const auto* configuration =
-        cursiv::container_of_type<ComponentConfiguration>(field);
+        cursiv::containerOfType<ComponentConfiguration>(field);
     if (configuration && !configuration->context.get<Component>()
         && !configuration->context.get<Assembly>()
         && !assemblyBacked(configuration))

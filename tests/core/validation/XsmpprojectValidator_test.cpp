@@ -268,7 +268,7 @@ TEST(XsmpprojectValidator, SourcePathDoesNotExist) {
 TEST(XsmpprojectValidator, SourcePathExists) {
   Fixture fx;
   auto doc =
-      fx.add(cursiv::path_to_file_uri(std::string(XSMP_FIXTURES_DIR)
+      fx.add(cursiv::pathToFileUri(std::string(XSMP_FIXTURES_DIR)
                                       + "/core/xsmpproject/xsmp.project"),
              "project 'P'\nsource 'smdl'\n");
   fx.build({doc});
